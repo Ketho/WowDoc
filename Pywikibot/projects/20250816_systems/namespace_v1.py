@@ -1,11 +1,15 @@
 from lupa import LuaRuntime
 import pywikibot
-
-site = pywikibot.Site("en", "warcraftwiki")
+import requests
 
 lua = LuaRuntime(unpack_returned_tuples=True)
+site = pywikibot.Site("en", "warcraftwiki")
 
-import requests
+def main():
+	lua_table = read_lua("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/refs/heads/mainline/Resources/GlobalAPI.lua")
+	namespaces = get_namespaces(lua_table)
+	for name in namespaces:
+		save_page(name, f"#REDIRECT [[Category:API_namespaces/{name}]]", "Redirect to namespace category")
 
 def read_lua(path):
 	if path.startswith('https://'):
@@ -41,12 +45,6 @@ def save_page(title, text, summary):
 	page = pywikibot.Page(site, title)
 	page.text = text
 	page.save(summary=summary)
-
-def main():
-	lua_table = read_lua("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/refs/heads/mainline/Resources/GlobalAPI.lua")
-	namespaces = get_namespaces(lua_table)
-	for name in namespaces:
-		save_page(name, f"#REDIRECT [[Category:API_namespaces/{name}]]", "Redirect to namespace category")
 
 if __name__ == "__main__":
 	main()
