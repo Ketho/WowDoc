@@ -27,14 +27,14 @@
 		{
 			"label": "Python",
 			"type": "shell",
-			"command": "python '${file}'",
+			"command": "source .venv/bin/activate && python '${file}'",
 			"presentation": {"showReuseMessage": false, "clear": true},
 			"problemMatcher": []
 		},
 		{
 			"label": "Pywikibot login",
 			"type": "shell",
-			"command": "pwb login",
+			"command": "source .venv/bin/activate && pwb login",
 			"presentation": {"showReuseMessage": false, "clear": true},
 			"problemMatcher": []
 		},
