@@ -6,9 +6,9 @@ site = pywikibot.Site("en", "warcraftwiki")
 def main():
 	systems = read_csv('Pywikibot/projects/20250816_systems/systems.csv')
 	for row in systems:
-		file, system, namespace = row
+		file, system, namespace, *_ = row
 		text = get_system_page(file, system, namespace)
-		save_page(f"Category:API_systems/{system}", text, "system page")
+		save_page(f"Category:API_systems/{system}", text, "update module link")
 
 def read_csv(file_path):
 	with open(file_path, newline='', encoding='utf-8') as csvfile:
@@ -26,7 +26,7 @@ def get_system_page(file, system, namespace):
     if namespace:
         args.append(f"namespace={namespace}")
     args_str = "|".join(args)
-    return f"{{{{#invoke:API systems|main|{args_str}}}}}\n[[Category:API systems|{system}]]"
+    return f"{{{{#invoke:API info/systems|main|{args_str}}}}}"
 
 if __name__ == "__main__":
 	main()

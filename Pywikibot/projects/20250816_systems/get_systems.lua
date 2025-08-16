@@ -19,6 +19,7 @@ function m:main(product)
 	self:LoadBlizzardDocs()
 	local systems = self:GetSystems()
 	self:WriteCsv(systems)
+	self:WriteModuleData(systems)
 	print("Done")
 end
 
@@ -84,23 +85,51 @@ function m:GetSystems()
 	local t = {}
 	for _, v in pairs(docTables) do
 		if v.system.Name then
+			local numFunctions = v.system.Functions and #v.system.Functions
+			local numEvents = v.system.Events and #v.system.Events
 			if v.system.Type == "System" then
-				local line = BuildCsvLine(v.file, v.system.Name, v.system.Namespace)
-				table.insert(t, line)
+				local line = BuildCsvLine(v.file, v.system.Name, v.system.Namespace, numFunctions, numEvents)
+				local data = {
+					file = v.file,
+					system = v.system.Name,
+					namespace = v.system.Namespace,
+					numFunctions = numFunctions,
+					numEvents = numEvents,
+				}
+				table.insert(t, {
+					line = line,
+					data = data,
+				})
 			end
 		end
 	end
-	table.sort(t)
+	table.sort(t, function(a, b)
+		return a.line < b.line
+	end)
 	return t
 end
 
 function m:WriteCsv(tbl)
 	local filePath = pathlib.join(WORK_DIR, "systems.csv")
 	local file = io.open(filePath, "w")
-	file:write("File,Name,Namespace\n")
-	for _, line in pairs(tbl) do
-		file:write(line.."\n")
+	file:write("File,Name,Namespace,NumFunctions,NumEvents\n")
+	for _, v in pairs(tbl) do
+		file:write(v.line.."\n")
 	end
+	file:close()
+end
+
+function m:WriteModuleData(tbl)
+	local filePath = pathlib.join(WORK_DIR, "systems_data.lua")
+	local file = io.open(filePath, "w")
+	file:write("local data = {\n")
+	local fs = '\t%s = {"%s", %s, %d, %d},\n'
+	for _, v in pairs(tbl) do
+		local data = v.data
+		local namespace = data.namespace and string.format('"%s"', data.namespace)
+		file:write(fs:format(data.system, data.file, namespace, data.numFunctions, data.numEvents))
+	end
+	file:write("}\n\nreturn data")
 	file:close()
 end
 
