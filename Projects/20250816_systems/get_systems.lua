@@ -8,6 +8,8 @@ local git = require("wowdoc.git")
 local m = {}
 local DocGenerated = pathlib.join("wow-ui-source", "Interface", "AddOns", "Blizzard_APIDocumentationGenerated")
 local WORK_DIR = pathlib.join("Pywikibot", "projects", "20250816_systems")
+local OUT_DIR = pathlib.join("out", "scribuntu")
+pathlib.mkdir(OUT_DIR)
 
 local docTables = {}
 local currentFile
@@ -110,7 +112,7 @@ function m:GetSystems()
 end
 
 function m:WriteCsv(tbl)
-	local filePath = pathlib.join(WORK_DIR, "systems.csv")
+	local filePath = pathlib.join(OUT_DIR, "systems.csv")
 	local file = io.open(filePath, "w")
 	file:write("File,Name,Namespace,NumFunctions,NumEvents\n")
 	for _, v in pairs(tbl) do
@@ -120,7 +122,7 @@ function m:WriteCsv(tbl)
 end
 
 function m:WriteModuleData(tbl)
-	local filePath = pathlib.join(WORK_DIR, "systems_data.lua")
+	local filePath = pathlib.join(OUT_DIR, "systems_data.lua")
 	local file = io.open(filePath, "w")
 	file:write("local data = {\n")
 	local fs = '\t%s = {"%s", %s, %d, %d},\n'
