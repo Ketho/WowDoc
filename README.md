@@ -43,6 +43,7 @@ luarocks install luasec
 luarocks install xml2lua
 luarocks install lua-cjson
 luarocks install gumbo
+luarocks install serpent
 ```
 
 Alternatively, installs Lua 5.4 and [LuaRocks](https://github.com/luarocks/luarocks/blob/main/docs/installation_instructions_for_unix.md) 3.12.2 (in `~/.local`) manually.
