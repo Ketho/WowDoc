@@ -76,6 +76,7 @@ luarocks install luasec
 luarocks install xml2lua
 luarocks install lua-cjson
 luarocks install gumbo
+luarocks install serpent
 
 # wherever you want to clone the repo
 cd ~

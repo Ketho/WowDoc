@@ -1,7 +1,8 @@
+---@diagnostic disable: need-check-nil
 local pathlib = require("path")
 local loader = require("wowdoc.loader")
 local wowdoc = require("wowdoc")
-local util = require("util")
+local serpent = require("serpent")
 
 local m = {}
 local OUT_DIR = pathlib.join("out", "scribuntu", "systems")
@@ -14,51 +15,46 @@ function m:main(product)
 	print("Done")
 end
 
+local function WriteScribuntoData(path, tbl)
+	local options = {
+		comment = false,
+		indent = "\t",
+	}
+	local file = io.open(path, "w")
+	file:write("local t = ", serpent.block(tbl, options), "\n\n")
+	file:write([[
+local r = {}
+
+for system, v in pairs(t) do
+	for _, name in pairs(v) do
+		r[name] = system
+	end
+end
+
+return r
+]])
+	file:close()
+end
+
 function m:GetFunctionList()
 	local t = {}
 	for _, v in pairs(APIDocumentation.functions) do
 		local name = wowdoc:GetFullName(v)
-		table.insert(t, {
-			name = name,
-			system = v.System.Name,
-			apiTable = v,
-		})
+		t[v.System.Name] = t[v.System.Name] or {}
+		table.insert(t[v.System.Name], name)
 	end
-	table.sort(t, function(a, b)
-		if a.system ~= b.system then
-			return a.system < b.system
-		else
-			return a.name < b.name
-		end
-	end)
-	util:WriteScribuntoData(OUT_DIR, "functions_systems.lua", function(file)
-		for _, v in pairs(t) do
-			file:write(string.format('\t["%s"] = "%s",\n', v.name, v.apiTable.System.Name))
-		end
-	end)
+	local path = pathlib.join(OUT_DIR, "functions_systems.lua")
+	WriteScribuntoData(path, t)
 end
 
 function m:GetEventList()
 	local t = {}
 	for _, v in pairs(APIDocumentation.events) do
-		table.insert(t, {
-			name = v.LiteralName,
-			system = v.System.Name,
-			apiTable = v,
-		})
+		t[v.System.Name] = t[v.System.Name] or {}
+		table.insert(t[v.System.Name], v.LiteralName)
 	end
-	table.sort(t, function(a, b)
-		if a.system ~= b.system then
-			return a.system < b.system
-		else
-			return a.name < b.name
-		end
-	end)
-	util:WriteScribuntoData(OUT_DIR, "events_systems.lua", function(file)
-		for _, v in pairs(t) do
-			file:write(string.format('\t%s = "%s",\n', v.name, v.apiTable.System.Name))
-		end
-	end)
+	local path = pathlib.join(OUT_DIR, "events_systems.lua")
+	WriteScribuntoData(path, t)
 end
 
 m:main("wow") ---@type TactProduct
