@@ -4,6 +4,7 @@
     ],
     "Lua.diagnostics.globals": [
         "Enum",
-        "mw"
+        "mw",
+        "OUT_PATH"
     ]
 }
