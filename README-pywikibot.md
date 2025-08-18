@@ -27,7 +27,7 @@ pip install pywikibot
 ```
 
 ## Configuration
-I put `user-config.py` and `user-password.py` in the root of the repository and gitignored them but there probably is a more proper way to do this.
+I put `user-config.py` and `user-password.py` in the root of the repository and gitignored them but there probably is a more proper way to do this. The `put_throttle` needs to be at least 3 to avoid hitting the API rate limits.
 
 ### `user-config.py`
 ```py
@@ -35,6 +35,8 @@ family = 'warcraftwiki'
 mylang = 'en'
 usernames['warcraftwiki']['en'] = 'KethoBot'
 password_file = "user-password.py"
+
+put_throttle = 3
 ```
 
 ### `user-password.py`
