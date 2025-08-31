@@ -10,7 +10,7 @@ local iter = csv.open("Pages/UIOBJECT_Font/fonts.csv", {separator = ";"})
 local t = {}
 for line in iter:lines() do
 	local name, file, height, outline, color, shadow_hex, shadow_x, shadow_y, parent, justifyH, justifyV = table.unpack(line)
-	name = string.format("[https://www.townlong-yak.com/framexml/go/%s {{apiname|%s}}]", name, name)
+	local name_str = string.format("[https://www.townlong-yak.com/framexml/go/%s {{apiname|%s}}]", name, name)
 	color = string.format("<code><font color=\"#%s\">%s</font></code>", color, color)
 	file = file:gsub([[Fonts\\]], "")
 	if #outline > 0 then
@@ -35,7 +35,7 @@ for line in iter:lines() do
 		parent = string.format("{{apiname|%s}}", parent)
 	end
 	local fs = "|-\n| %s || {{apiname|%s}} || %d || %s || %s || %s || %s || %s || %s"
-	table.insert(t, fs:format(name, file, height, outline, color, shadow_str, justifyH, justifyV, parent))
+	table.insert(t, fs:format(name_str, file, height, outline, color, shadow_str, justifyH, justifyV, parent))
 end
 
 local f = io.open("Pages/UIOBJECT_Font/UIOBJECT_Font.txt", "w")
