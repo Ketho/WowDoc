@@ -2,7 +2,6 @@
 *.xml
 *.html
 *.diff
-*.csv
 /Projects/CursePoints/*.csv
 
 # python
