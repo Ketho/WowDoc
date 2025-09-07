@@ -25,6 +25,13 @@
 			"problemMatcher": []
 		},
 		{
+			"label": "Pywikibot login",
+			"type": "shell",
+			"command": "source .venv/bin/activate && pwb login",
+			"presentation": {"showReuseMessage": false, "clear": true},
+			"problemMatcher": []
+		},
+		{
 			"label": "Python",
 			"type": "shell",
 			"command": "source .venv/bin/activate && python '${file}'",
@@ -32,9 +39,9 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Pywikibot login",
+			"label": "Python parse_html",
 			"type": "shell",
-			"command": "source .venv/bin/activate && pwb login",
+			"command": "source .venv/bin/activate && python Pywikibot/export/parse_html.py",
 			"presentation": {"showReuseMessage": false, "clear": true},
 			"problemMatcher": []
 		},
