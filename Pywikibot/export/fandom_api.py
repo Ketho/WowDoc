@@ -2,6 +2,7 @@
 import datetime as dt
 from pathlib import Path
 import requests
+import time
 
 url = 'https://warcraft.wiki.gg/'
 
@@ -27,10 +28,18 @@ def category_members(catname):
 	while True:
 		resp = requests.post(f'{url}/api.php', params)
 		data = resp.json()
+
+		if 'error' in data:
+			if data['error']['code'] == 'ratelimited':
+				print(f"Rate limited, waiting 60 seconds...")
+				time.sleep(60)
+				continue
+
 		for page in data['query']['categorymembers']:
 			yield page
 		if data.get('continue'):
 			params.update(data['continue'])
+			time.sleep(1)  # delay between requests
 		else:
 			break
 
@@ -61,4 +70,5 @@ def main(catname):
 if __name__ == '__main__':
 	for v in categories:
 		main(v)
+		time.sleep(5)
 	print("done.")

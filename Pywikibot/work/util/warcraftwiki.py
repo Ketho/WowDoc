@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 from math import floor
 from pathlib import Path
 from time import time, sleep
+import glob
 
 xmlns = "{http://www.mediawiki.org/xml/export-0.11/}"
 categories = [
@@ -20,14 +21,38 @@ def main(func, category=None, summary=None, test=None):
 	save_pages(changes, summary, test)
 
 def get_updates(func, category):
-	folder = Path("Pywikibot", "export", "parse_html")
+	folder = Path("Pywikibot", "export", "fandom_api")
 	li = []
 	if category:
-		read_xml(li, func, Path(folder, category+".xml"))
+		# Find the most recent file matching the category name
+		xml_file = find_latest_xml_file(folder, category)
+		if xml_file:
+			read_xml(li, func, xml_file)
+		else:
+			print(f"No XML file found for category: {category}")
 	else:
 		for cat in categories:
-			read_xml(li, func, Path(folder, cat+".xml"))
+			xml_file = find_latest_xml_file(folder, cat)
+			if xml_file:
+				read_xml(li, func, xml_file)
+			else:
+				print(f"No XML file found for category: {cat}")
 	return li
+
+def find_latest_xml_file(folder, category):
+	"""Find the most recent XML file for a given category"""
+	pattern = str(folder / f"{category}-*.xml")
+	files = glob.glob(pattern)
+	if files:
+		# Return the most recent file (assuming timestamp format makes them sortable)
+		return Path(max(files))
+	
+	# Fallback: try the exact filename without timestamp
+	exact_file = folder / f"{category}.xml"
+	if exact_file.exists():
+		return exact_file
+	
+	return None
 
 def read_xml(li, func, path):
 	tree = ET.parse(path)
