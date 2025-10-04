@@ -11,7 +11,9 @@ local t = {}
 for line in iter:lines() do
 	local name, file, height, outline, color, shadow_hex, shadow_x, shadow_y, parent, justifyH, justifyV = table.unpack(line)
 	local name_str = string.format("[https://www.townlong-yak.com/framexml/go/%s {{apiname|%s}}]", name, name)
-	color = string.format("<code><font color=\"#%s\">%s</font></code>", color, color)
+	if #color > 0 then
+		color = string.format("<code><font color=\"#%s\">%s</font></code>", color, color)
+	end
 	file = file:gsub([[Fonts\\]], "")
 	if #outline > 0 then
 		outline = string.format("<small>%s</small>", outline)
