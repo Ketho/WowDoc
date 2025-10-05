@@ -17,7 +17,9 @@ local Predicates = {
 	RequiresCommentator = 50,
 	RequiresActiveCommentator = 51,
 	SecretWhenInCombat = 60,
-	RequiresValidTimelineEvent = 61,
+	SecretReturns = 61,
+	SecretNonPlayerUnitOrMinionWhileInCombat = 62,
+	RequiresValidTimelineEvent = 71,
 }
 
 local PRODUCT = "wow_beta" ---@type TactProduct
@@ -117,10 +119,57 @@ local function WriteSecretArguments()
 	file:close()
 end
 
+local RevEnum_SecretAspect = {
+	[0x1] = "ObjectType",
+	[0x2] = "ID",
+	[0x4] = "Toplevel",
+	[0x8] = "Text",
+	[0x10] = "SecureText",
+	[0x20] = "Shown",
+	[0x40] = "Scale",
+	[0x80] = "Alpha",
+	[0x100] = "FrameLevel",
+	[0x200] = "ScrollRange",
+	[0x400] = "Cursor",
+	[0x800] = "VertexColor",
+	[0x1000] = "Hierarchy",
+	[0x2000] = "Desaturation",
+	[0x4000] = "TexCoords",
+	[0x8000] = "BarValue",
+}
+
+local function WriteSecretReturnsForAspect()
+	local output = pathlib.join("out", "lua", "API_info.SecretReturnsForAspect.lua")
+	local file = io.open(output, "w")
+	file:write("local m = {}\n\n")
+	file:write("m.data = {\n")
+	local line = '\t["%s"] = {%s},\n'
+	local t = {}
+	for _, v in pairs(APIDocumentation.functions) do
+		if v.SecretReturnsForAspect then
+			local name = GetFullName(v)
+			local t2 = {}
+			for _, v2 in pairs(v.SecretReturnsForAspect) do
+				local fs = '"Enum.SecretAspect.%s"'
+				table.insert(t2, fs:format(RevEnum_SecretAspect[v2]))
+			end
+			table.insert(t, line:format(name, table.concat(t2, ", ")))
+		end
+	end
+	table.sort(t)
+	for _, v in pairs(t) do
+		file:write(v)
+	end
+	file:write("}\n\n")
+	file:write("return m\n")
+	file:close()
+end
+
 local function main()
 	pathlib.mkdir(pathlib.join("out", "lua"))
 	WritePredicates()
 	WriteSecretArguments()
+	WriteSecretReturnsForAspect()
 	log:success("Done")
 end
 
