@@ -2,7 +2,11 @@
 *.xml
 *.html
 *.diff
+
+# csv
 /Projects/CursePoints/*.csv
+wago/community-listfile.csv
+wago/*/*.csv
 
 # python
 /.venv
