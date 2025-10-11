@@ -1,7 +1,7 @@
 local util = require("wowdoc")
 local pathlib = require("path")
 local blizzres_url = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/WidgetAPI.lua"
-local WIDGET_PATH = pathlib.join(CACHE_LUA, "WidgetAPI_%s.lua")
+local WIDGET_PATH = pathlib.join(PATHS.CACHE, "WidgetAPI_%s.lua")
 
 local m = {}
 local pos_tbl = {}

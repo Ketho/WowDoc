@@ -6,8 +6,14 @@ local function CreatePath(path)
 	end
 end
 
-local folder = "wowdoc"
-OUT_PATH = pathlib.join(folder, ".out"); CreatePath(OUT_PATH)
-WAGO_CACHE = pathlib.join(folder, ".cache", "wago"); CreatePath(WAGO_CACHE)
-CACHE_LUA = pathlib.join(folder, ".cache", "lua"); CreatePath(CACHE_LUA)
-CACHE_DIFF = pathlib.join(folder, ".cache", "diff"); CreatePath(CACHE_DIFF)
+local root = ".wow"
+PATHS = {}
+PATHS.OUT = pathlib.join(root, "out")
+PATHS.EXPORT = pathlib.join(root, "export")
+PATHS.WAGO = pathlib.join(root, "wago")
+PATHS.CACHE = pathlib.join(root, "lua")
+PATHS.DIFF = pathlib.join(root, "diff")
+
+for _, v in pairs(PATHS) do
+	CreatePath(v)
+end

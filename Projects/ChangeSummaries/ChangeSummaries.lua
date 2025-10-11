@@ -12,11 +12,11 @@ local CVAR1, CVAR2 = BRANCH1, BRANCH2
 -- local DIFF = {"commit", "mainline"}
 local DIFF = {"compare", BRANCH1..".."..BRANCH2}
 
-PATH_CHANGES = util:mkdir(OUT_PATH, "changes")
+PATH_CHANGES = util:mkdir(PATHS.OUT, "changes")
 local OUT_FILE = pathlib.join(PATH_CHANGES, "ChangeSummaries.txt")
 
-PATH_COMMIT = util:mkdir(CACHE_DIFF, "commit")
-PATH_COMPARE = util:mkdir(CACHE_DIFF, "compare")
+PATH_COMMIT = util:mkdir(PATHS.DIFF, "commit")
+PATH_COMPARE = util:mkdir(PATHS.DIFF, "compare")
 
 local function GetDiff()
 	local path, url

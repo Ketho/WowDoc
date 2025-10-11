@@ -1,6 +1,5 @@
 -- compares framexml versions
 local log = require("wowdoc.log")
-require("Documenter.config")
 local products = require("wowdoc.products")
 local enum = require("wowdoc.enum")
 

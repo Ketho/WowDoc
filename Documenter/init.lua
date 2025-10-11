@@ -1,5 +1,3 @@
-local pathlib = require("path")
-
 local wowdocloader = require("wowdoc.loader")
 
 -- use the TACT product as starting point
@@ -9,4 +7,4 @@ require("Documenter.Wowpedia")
 --require("Documenter.Tests.Tests")
 
 local Exporter = require("Documenter.Exporter")
-Exporter:ExportSystems(pathlib.join("out", "export"))
+Exporter:ExportSystems(PATHS.EXPORT)

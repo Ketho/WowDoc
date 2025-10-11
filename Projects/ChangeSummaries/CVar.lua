@@ -21,7 +21,7 @@ local ConsoleCategory = {
 local function GetData(flavor)
 	local tbl = util:DownloadAndRun(
 		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/CVars.lua", flavor),
-		string.format(pathlib.join(CACHE_LUA, "CVars_%s.lua"), flavor)
+		string.format(pathlib.join(PATHS.CACHE, "CVars_%s.lua"), flavor)
 	)
 	return tbl[1]
 end

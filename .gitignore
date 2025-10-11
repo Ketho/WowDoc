@@ -27,6 +27,5 @@ user-password.py
 /FrameXML
 /wow-ui-source
 
-# output
-/wowdoc/.cache
-/wowdoc/.out
+# output folder
+.wow
