@@ -3,8 +3,6 @@ local util = require("wowdoc")
 local log = require("wowdoc.log")
 local Widgets = require("wowdoc.loader.doc_widgets")
 
-util:mkdir("out")
-util:mkdir(pathlib.join("out", "export"))
 local m = {}
 
 local function WriteFile(path, text)

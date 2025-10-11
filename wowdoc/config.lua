@@ -9,7 +9,7 @@ end
 local root = ".wow"
 PATHS = {}
 PATHS.OUT = pathlib.join(root, "out")
-PATHS.EXPORT = pathlib.join(root, "export")
+PATHS.WIKI = pathlib.join(root, "wiki")
 PATHS.WAGO = pathlib.join(root, "wago")
 PATHS.CACHE = pathlib.join(root, "lua")
 PATHS.DIFF = pathlib.join(root, "diff")

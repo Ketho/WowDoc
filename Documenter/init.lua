@@ -7,4 +7,4 @@ require("Documenter.Wowpedia")
 --require("Documenter.Tests.Tests")
 
 local Exporter = require("Documenter.Exporter")
-Exporter:ExportSystems(PATHS.EXPORT)
+Exporter:ExportSystems(PATHS.WIKI)
