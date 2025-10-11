@@ -28,5 +28,5 @@ user-password.py
 /wow-ui-source
 
 # output
-/out
-/cache_*
+/wowdoc/.cache
+/wowdoc/.out

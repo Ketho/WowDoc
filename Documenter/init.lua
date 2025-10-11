@@ -1,6 +1,5 @@
 local pathlib = require("path")
 
-require("Documenter.config")
 local wowdocloader = require("wowdoc.loader")
 
 -- use the TACT product as starting point
