@@ -1,3 +1,11 @@
+--[[
+sudo apt update
+sudo apt install gh
+gh auth login
+- set and read the token in `GITHUB_TOKEN`
+	- or just assign a variable with the token in `gho_*` format
+]]
+
 local pathlib = require("path")
 local https = require("ssl.https")
 local cjson = require("cjson")
