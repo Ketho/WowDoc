@@ -4,7 +4,7 @@ local cjson = require "cjson"
 local cjsonutil = require "cjson.util"
 local util = require("wowdoc")
 
-util:MakeDir("cache_wut")
+util:mkdir("cache_wut")
 local wut_url = "https://www.townlong-yak.com/globe/api/wut-symbol?q=%s"
 local github_url = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/mainline/Resources/%s.lua"
 
@@ -92,7 +92,7 @@ local sources = {
 
 local function WriteResource(apiType)
 	local start = os.time()
-	util:MakeDir("cache_wut/"..apiType)
+	util:mkdir("cache_wut/"..apiType)
 	local t = {}
 	local resource = sources[apiType](apiType)
 	for _, name in pairs(resource) do

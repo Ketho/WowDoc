@@ -1,6 +1,6 @@
 -- similar codebase as https://wowpedia.fandom.com/wiki/Module:API_info/cvar
 local util = require("wowdoc")
-
+local pathlib = require("path")
 local m = {}
 local data = {}
 
@@ -21,7 +21,7 @@ local ConsoleCategory = {
 local function GetData(flavor)
 	local tbl = util:DownloadAndRun(
 		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/CVars.lua", flavor),
-		string.format("cache_lua/CVars_%s.lua", flavor)
+		string.format(pathlib.join(CACHE_LUA, "CVars_%s.lua"), flavor)
 	)
 	return tbl[1]
 end

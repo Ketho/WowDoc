@@ -1,7 +1,7 @@
 local xml2lua = require "xml2lua"
 local handler = require "xmlhandler.tree"
 local util = require("wowdoc")
-util:MakeDir("cache_lua")
+util:mkdir("cache_lua")
 
 local OUTPUT = "cache_lua/World_of_Warcraft_API.xml"
 local m = {}

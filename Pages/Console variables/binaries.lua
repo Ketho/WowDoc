@@ -3,7 +3,7 @@ local lfs = require("lfs")
 local util = require("wowdoc")
 
 local PATH = [[/mnt/d/Prog/World of Warcraft/Binaries]]
-util:MakeDir("cache_strings")
+util:mkdir("cache_strings")
 
 local function SortPatchReverse(a, b)
 	local major_a, minor_a, patch_a, build_a = a:match("(%d+)%.(%d+)%.(%d+)%.(%d+)")

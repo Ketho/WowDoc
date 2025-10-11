@@ -2,7 +2,7 @@ local lfs = require("lfs")
 local util = require("wowdoc")
 local PATH = [[D:\Prog\World of Warcraft\Binaries]]
 local BRANCH = "mainline"
-util:MakeDir("cache_txt")
+util:mkdir("cache_txt")
 
 local function GetBuilds(path)
 	local t = {}

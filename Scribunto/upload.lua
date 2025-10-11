@@ -6,7 +6,7 @@ local products = require("wowdoc.products")
 local PRODUCT = "wowxptr" ---@type TactProduct
 local _, blizzres_branch = products:GetBranch(PRODUCT)
 
-util:MakeDir("out")
+util:mkdir("out")
 
 local function WriteFiles()
     local scribunto = Path.join("Scribunto", "API_info")

@@ -5,7 +5,7 @@ local dbc_patch = require("Projects/DBC/DBC_patch")
 local OUTPUT_DBC = "KethoWowpedia/dbc/%s.lua"
 local OUTPUT_PATCH = "KethoWowpedia/patch/%s.lua"
 
-util:MakeDir("KethoWowpedia/dbc")
+util:mkdir("KethoWowpedia/dbc")
 
 local handlers = {
 	creaturemodeldata = {

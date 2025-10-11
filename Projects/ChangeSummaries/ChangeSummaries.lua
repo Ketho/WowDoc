@@ -1,5 +1,6 @@
 -- https://wowpedia.fandom.com/wiki/API_change_summaries
 local util = require("wowdoc")
+local pathlib = require("path")
 local log = require("wowdoc.log")
 local cvar_module = require("Projects/ChangeSummaries/CVar")
 local widget_module = require("Projects/ChangeSummaries/Widget")
@@ -11,20 +12,20 @@ local CVAR1, CVAR2 = BRANCH1, BRANCH2
 -- local DIFF = {"commit", "mainline"}
 local DIFF = {"compare", BRANCH1..".."..BRANCH2}
 
-local OUT_FILE = "out/page/ChangeSummaries.txt"
-util:MakeDir("out/page")
-util:MakeDir("cache_diff")
-util:MakeDir("cache_diff/commit")
-util:MakeDir("cache_diff/compare")
+PATH_CHANGES = util:mkdir(OUT_PATH, "changes")
+local OUT_FILE = pathlib.join(PATH_CHANGES, "ChangeSummaries.txt")
+
+PATH_COMMIT = util:mkdir(CACHE_DIFF, "commit")
+PATH_COMPARE = util:mkdir(CACHE_DIFF, "compare")
 
 local function GetDiff()
 	local path, url
 	if DIFF[1] == "commit" then
-		path = string.format("cache_diff/commit/%s.diff", DIFF[2])
+		path = pathlib.join(PATH_COMMIT, string.format("%s.diff", DIFF[2]))
 		url = string.format("https://github.com/Ketho/BlizzardInterfaceResources/commit/%s.diff", DIFF[2])
 	elseif DIFF[1] == "compare" then
 		local fpath = DIFF[2]:gsub("%.%.", "__")
-		path = string.format("cache_diff/compare/%s.diff", fpath)
+		path = pathlib.join(PATH_COMPARE, string.format("%s.diff", fpath))
 		url = string.format("https://github.com/Ketho/BlizzardInterfaceResources/compare/%s.diff", DIFF[2])
 	end
 	util:DownloadFile(url, path, true)

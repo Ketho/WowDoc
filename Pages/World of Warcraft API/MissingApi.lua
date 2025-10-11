@@ -1,7 +1,7 @@
 local util = require("wowdoc")
 local products = require("wowdoc.products")
 local WikiText = require("Pages/World of Warcraft API/WikiText")
-util:MakeDir("cache_lua")
+util:mkdir("cache_lua")
 
 local PRODUCT = "wowxptr" ---@type TactProduct
 util:LoadDocumentation(PRODUCT)

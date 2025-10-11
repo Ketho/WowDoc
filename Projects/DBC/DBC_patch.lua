@@ -3,7 +3,7 @@ local Path = require("path")
 local wago_csv = require("wowdoc.wago")
 local output = "KethoWowpedia/patch/%s.lua"
 
-util:MakeDir("KethoWowpedia/patch")
+util:mkdir("KethoWowpedia/patch")
 
 local m = {}
 
