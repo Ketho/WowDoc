@@ -103,10 +103,18 @@ def category_members(catname):
 	while True:
 		resp = requests.post(f'{url}/api.php', params)
 		data = resp.json()
+
+		if 'error' in data:
+			if data['error']['code'] == 'ratelimited':
+				print(f"Rate limited, waiting 60 seconds...")
+				time.sleep(60)
+				continue
+
 		for page in data['query']['categorymembers']:
 			yield page
 		if data.get('continue'):
 			params.update(data['continue'])
+			time.sleep(1)  # delay between requests
 		else:
 			break
 
@@ -126,7 +134,7 @@ def recursiveFiles(path, l):
 			l.update({name: getFileText(newPath)})
 
 def get_documented_api():
-	fullpath = Path("out", "export")
+	fullpath = Path(".wow", "wiki")
 	l = {}
 	recursiveFiles(fullpath, l)
 	return l
@@ -152,7 +160,7 @@ def main():
 			page = pywikibot.Page(site, v)
 			if not page.exists():
 				page.text = docApi[v]
-				page.save(summary="11.2.0 (62049)")
+				page.save(summary="11.2.5 (63796)")
 				time.sleep(5)
 	print("done")
 
