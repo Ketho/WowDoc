@@ -57,4 +57,4 @@ function m:GetEventList()
 	WriteScribuntoData(path, t)
 end
 
-m:main("wow") ---@type TactProduct
+m:main("wow_beta") ---@type TactProduct

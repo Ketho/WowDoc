@@ -65,7 +65,7 @@ end
 -- apparently this goes through all patches of both classic and retail
 function m:GetPatchData(tbl)
 	local added, removed = {}, {}
-	for _, build in pairs(util:SortTable(tbl)) do
+	for _, build in pairs(util:SortTable(tbl)) do -- todo: sorting here goes wrong
 		local v = tbl[build]
 		local version, data = table.unpack(v)
 		for name in pairs(data) do

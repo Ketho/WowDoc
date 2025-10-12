@@ -127,14 +127,14 @@ def recursiveFiles(path, l):
 	for base in os.listdir(path):
 		newPath = Path(path, base)
 		if os.path.isdir(newPath):
-			if base != "widget":
+			if base != "widget" or ('Housing' in str(newPath)):
 				recursiveFiles(newPath, l)
 		else:
 			name = base[:-4].replace("_", " ")
 			l.update({name: getFileText(newPath)})
 
 def get_documented_api():
-	fullpath = Path(".wow", "wiki")
+	fullpath = Path(".wow", "documenter")
 	l = {}
 	recursiveFiles(fullpath, l)
 	return l
@@ -160,8 +160,8 @@ def main():
 			page = pywikibot.Page(site, v)
 			if not page.exists():
 				page.text = docApi[v]
-				page.save(summary="11.2.5 (63796)")
-				time.sleep(5)
+				page.save(summary="12.0.0 (63728)")
+				time.sleep(4)
 	print("done")
 
 if __name__ == "__main__":
