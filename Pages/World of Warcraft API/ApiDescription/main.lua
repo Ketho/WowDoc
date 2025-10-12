@@ -13,7 +13,7 @@ local filter_different = {
 }
 
 local function isValid(s)
-	if s == "Needs summary." then
+	if s == "&nbsp;" then
 		return false
 	else
 		for _, v in pairs(invalid) do

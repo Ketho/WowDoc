@@ -27,7 +27,7 @@ function m:main()
 		if name then
 			name = name:gsub("^C ", "C_")
 			local desc = GetDescription(page.revision.text[1])
-			if desc ~= "Needs summary." then
+			if desc ~= "&nbsp;" then
 				t[name] = desc
 				-- print(page.title, desc)
 			end

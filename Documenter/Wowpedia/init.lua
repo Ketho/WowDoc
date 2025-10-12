@@ -29,7 +29,7 @@ function Wowpedia:GetDescription(apiTable)
 	if apiTable.Documentation then
 		return table.concat(apiTable.Documentation, "; ")
 	end
-	return "Needs summary."
+	return "&nbsp;"
 end
 
 function Wowpedia:GetTemplateInfo(apiTable, systemType)
