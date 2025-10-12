@@ -1,4 +1,3 @@
-local pathlib = require("path")
 local util = require("wowdoc")
 local log = require("wowdoc.log")
 local Widgets = require("wowdoc.loader.doc_widgets")

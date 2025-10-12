@@ -3,13 +3,13 @@ local log = require("wowdoc.log")
 local products = require("wowdoc.products")
 local enum = require("wowdoc.enum")
 
-local PRODUCT = "wow"
+local PRODUCT = "wow_beta" ---@type TactProduct
 local _, branch = products:GetBranch(PRODUCT)
 enum:LoadLuaEnums(branch)
 local apidoc_nontoc = require("wowdoc.loader.nontoc")
 
-local BUILD1 = "11.2.0 (62748)"
-local BUILD2 = "11.2.5 (63796)"
+local BUILD1 = "11.2.5 (63796)"
+local BUILD2 = "12.0.0 (63728)"
 
 ChangeDiff = {}
 require("Projects.ChangeDiff.Compare")

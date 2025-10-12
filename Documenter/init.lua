@@ -1,10 +1,10 @@
 local wowdocloader = require("wowdoc.loader")
 
 -- use the TACT product as starting point
-local PRODUCT = "wow" ---@type TactProduct
+local PRODUCT = "wow_beta" ---@type TactProduct
 wowdocloader:main(PRODUCT)
 require("Documenter.Wowpedia")
 --require("Documenter.Tests.Tests")
 
 local Exporter = require("Documenter.Exporter")
-Exporter:ExportSystems(PATHS.WIKI)
+Exporter:ExportSystems(PATHS.DOCUMENTER)

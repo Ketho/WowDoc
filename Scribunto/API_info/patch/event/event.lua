@@ -7,7 +7,7 @@ local write_table = require("wowdoc.write_table")
 local util = require("wowdoc")
 local enum = require("wowdoc.enum")
 
-local BRANCH = "mainline" ---@type BlizzResBranch
+local BRANCH = "mainline_beta" ---@type BlizzResBranch
 enum:LoadLuaEnums(BRANCH)
 
 local flavors = {

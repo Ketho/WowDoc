@@ -1,7 +1,7 @@
 -- https://wowpedia.fandom.com/wiki/Module:API_info/elink/event
 local pathlib = require("path")
 local util = require("wowdoc")
-local PRODUCT = "wow" ---@type TactProduct
+local PRODUCT = "wow_beta" ---@type TactProduct
 local OUT = pathlib.join(PATHS.SCRIBUNTO, "API_info.elink.event.lua")
 
 local function main()

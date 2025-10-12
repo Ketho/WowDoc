@@ -3,7 +3,7 @@ local pathlib = require("path")
 local util = require("wowdoc")
 local api_get = require("Scribunto/API_info/elink/api_get")
 
-local PRODUCT = "wow" ---@type TactProduct
+local PRODUCT = "wow_beta" ---@type TactProduct
 local ApiDoc = api_get:main(PRODUCT)
 local OUT = pathlib.join(PATHS.SCRIBUNTO, "API_info.elink.api.lua")
 

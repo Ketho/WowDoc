@@ -3,7 +3,7 @@ local util = require("wowdoc")
 local enum = require("wowdoc.enum")
 local products = require("wowdoc.products")
 
-local PRODUCT = "wow" ---@type TactProduct
+local PRODUCT = "wow_beta" ---@type TactProduct
 local _, blizzres_branch = products:GetBranch(PRODUCT)
 
 local function WriteFiles()

@@ -8,7 +8,7 @@ local flavor = {
 	mainline = 0x1,
 	vanilla = 0x2,
 	mists = 0x4,
-	-- mainline_beta = 0x8,
+	mainline_beta = 0x8,
 }
 
 local m = {}
@@ -61,7 +61,7 @@ local branches = {
 	"mainline",
 	"vanilla",
 	"mists",
-	-- "mainline_beta",
+	"mainline_beta",
 }
 
 function m:GetData(sourceType)
@@ -88,8 +88,8 @@ function m:GetData(sourceType)
 		end
 		local vanilla = parts.vanilla[k] and flavor.vanilla or 0
 		local mists = parts.mists[k] and flavor.mists or 0
-		-- local mainline_beta = parts.mainline_beta[k] and flavor.mainline_beta or 0
-		data[k] = mainline | vanilla | mists
+		local mainline_beta = parts.mainline_beta[k] and flavor.mainline_beta or 0
+		data[k] = mainline | vanilla | mists | mainline_beta
 	end
 	return data
 end
@@ -120,7 +120,7 @@ end
 if IsMainlinePTR then
 	flavor.mainline = nil
 	flavor.mainline_ptr = 0x1
-	branches[1] = "mainline_ptr"
+	branches[1] = "mainline_beta"
 end
 
 main()
