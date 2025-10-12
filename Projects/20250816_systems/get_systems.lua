@@ -4,11 +4,12 @@ local pathlib = require("path")
 
 local products = require("wowdoc.products")
 local git = require("wowdoc.git")
+local enum = require("wowdoc.enum")
 
 local m = {}
 local DocGenerated = pathlib.join("wow-ui-source", "Interface", "AddOns", "Blizzard_APIDocumentationGenerated")
 local WORK_DIR = pathlib.join("Pywikibot", "projects", "20250816_systems")
-local OUT_DIR = pathlib.join("out", "scribuntu")
+local OUT_DIR = pathlib.join(".wow", "api_systems")
 pathlib.mkdir(OUT_DIR)
 
 local docTables = {}
@@ -17,7 +18,8 @@ local currentFile
 function m:main(product)
 	local framexml_branch, blizzres_branch = products:GetBranch(product)
 	git:checkout("https://github.com/Gethe/wow-ui-source", framexml_branch)
-	self:SimpleCompat()
+	self:HookDocTable()
+	enum:LoadLuaEnums(blizzres_branch)
 	self:LoadBlizzardDocs()
 	local systems = self:GetSystems()
 	self:WriteCsv(systems)
@@ -25,7 +27,7 @@ function m:main(product)
 	print("Done")
 end
 
-function m:SimpleCompat()
+function m:HookDocTable()
 	APIDocumentation = {}
 
 	---@diagnostic disable-next-line: duplicate-set-field
@@ -35,35 +37,6 @@ function m:SimpleCompat()
 			system = info,
 		})
 	end
-
-	Enum = {
-		CalendarGetEventType = {},
-		PlayerCurrencyFlagsDbFlags = {
-			InBackpack = 0,
-			UnusedInUI = 0,
-		},
-		LFGRoleMeta = {},
-	}
-
-	Constants = {
-		PetConsts = {},
-		PetConsts_PreWrath = {
-			MAX_STABLE_SLOTS = 0,
-			NUM_PET_SLOTS_THAT_NEED_LEARNED_SPELL = 0,
-		},
-		PetConsts_Wrath = {
-			MAX_STABLE_SLOTS = 0,
-			NUM_PET_SLOTS_THAT_NEED_LEARNED_SPELL = 0,
-		},
-		PetConsts_PostCata = {
-			MAX_STABLE_SLOTS = 0,
-			NUM_PET_SLOTS_THAT_NEED_LEARNED_SPELL = 0,
-		},
-		CharCustomizationConstants = {
-			CHAR_CUSTOMIZE_CUSTOM_DISPLAY_OPTION_LAST = 0,
-			CHAR_CUSTOMIZE_CUSTOM_DISPLAY_OPTION_FIRST = 0,
-		},
-	}
 end
 
 function m:LoadBlizzardDocs()
@@ -135,4 +108,4 @@ function m:WriteModuleData(tbl)
 	file:close()
 end
 
-m:main("wow") ---@type TactProduct
+m:main("wow_beta") ---@type TactProduct

@@ -5,7 +5,7 @@ local wowdoc = require("wowdoc")
 local serpent = require("serpent")
 
 local m = {}
-local OUT_DIR = pathlib.join("out", "scribuntu", "systems")
+local OUT_DIR = pathlib.join(".wow", "api_systems", "systems")
 pathlib.mkdir(OUT_DIR)
 
 function m:main(product)
@@ -39,7 +39,7 @@ end
 function m:GetFunctionList()
 	local t = {}
 	for _, v in pairs(APIDocumentation.functions) do
-		local name = wowdoc:GetFullName(v)
+		local name = wowdoc:api_func_GetFullName(v)
 		t[v.System.Name] = t[v.System.Name] or {}
 		table.insert(t[v.System.Name], name)
 	end

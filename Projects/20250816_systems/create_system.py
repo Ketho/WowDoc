@@ -1,14 +1,15 @@
 import csv
 import pywikibot
+import time
 
 site = pywikibot.Site("en", "warcraftwiki")
 
 def main():
-	systems = read_csv('Pywikibot/projects/20250816_systems/systems.csv')
+	systems = read_csv('.wow/api_systems/systems.csv')
 	for row in systems:
 		file, system, namespace, *_ = row
 		text = get_system_page(file, system, namespace)
-		save_page(f"Category:API_systems/{system}", text, "update module link")
+		save_page(f"Category:API_systems/{system}", text, "12.0.0 (63728) systems")
 
 def read_csv(file_path):
 	with open(file_path, newline='', encoding='utf-8') as csvfile:
@@ -18,8 +19,12 @@ def read_csv(file_path):
 
 def save_page(title, text, summary):
 	page = pywikibot.Page(site, title)
-	page.text = text
-	page.save(summary=summary)
+	time.sleep(4)
+	if not page.exists():
+		page.text = text
+		page.save(summary=summary)
+	else:
+		print(f"Skipping {title}")
 
 def get_system_page(file, system, namespace):
     args = [f"file={file}", f"system={system}"]
