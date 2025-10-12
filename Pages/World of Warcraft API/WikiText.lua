@@ -1,9 +1,8 @@
 local xml2lua = require "xml2lua"
 local handler = require "xmlhandler.tree"
 local util = require("wowdoc")
-util:mkdir("cache_lua")
 
-local OUTPUT = "cache_lua/World_of_Warcraft_API.xml"
+local OUTPUT = pathlib.join(PATHS.WIKI_PAGE, "World_of_Warcraft_API.xml")
 local m = {}
 
 function m:SaveExport()

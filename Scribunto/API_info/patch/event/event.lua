@@ -1,6 +1,8 @@
 -- https://wowpedia.fandom.com/wiki/Module:API_info/patch/event_retail
 -- https://wowpedia.fandom.com/wiki/Module:API_info/patch/event_classic
 local lfs = require("lfs")
+local pathlib = require("path")
+
 local write_table = require("wowdoc.write_table")
 local util = require("wowdoc")
 local enum = require("wowdoc.enum")
@@ -11,13 +13,13 @@ enum:LoadLuaEnums(BRANCH)
 local flavors = {
 	mainline = {
 		id = "mainline",
-		input = "FrameXML/mainline",
-		out = "out/lua/API_info.patch.event_retail.lua",
+		input = "FrameXML/live",
+		out = pathlib.join(PATHS.SCRIBUNTO, "API_info.patch.event_retail.lua"),
 	},
 	classic = {
 		id = "classic",
-		input = "FrameXML/vanilla",
-		out = "out/lua/API_info.patch.event_classic.lua",
+		input = "FrameXML/classic",
+		out = pathlib.join(PATHS.SCRIBUNTO, "API_info.patch.event_classic.lua"),
 	},
 }
 

@@ -1,7 +1,7 @@
 local util = require("wowdoc")
 
 local products = require("wowdoc.products")
-PRODUCT = "wowxptr" ---@type TactProduct
+PRODUCT = "wow" ---@type TactProduct
 local _, blizres_branch = products:GetBranch(PRODUCT)
 BRANCH = blizres_branch -- hack
 util:LoadDocumentation(PRODUCT)
@@ -14,7 +14,7 @@ local wiki_signatures = require("Pages/World of Warcraft API/ParseAnnotations/Bu
 package.path = package.path..";../?.lua"
 -- local updated_desc = require("wow-api-descriptions/updated")
 
-local OUTPUT = "cache_lua/World_of_Warcraft_API.txt"
+local OUTPUT = pathlib.join(PATHS.WIKI_PAGE, "World_of_Warcraft_API.txt")
 local m = {}
 
 local function MatchLine(s)

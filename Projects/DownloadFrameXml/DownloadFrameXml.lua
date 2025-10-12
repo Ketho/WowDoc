@@ -4,6 +4,10 @@ sudo apt install gh
 gh auth login
 - set and read the token in `GITHUB_TOKEN`
 	- or just assign a variable with the token in `gho_*` format
+
+remember to
+- delete `(int)MAX_SUMMONABLE_HUNTER_PETS` from uhh some patch
+- delete 9.2.7 apidocs as those dont contain anything
 ]]
 
 local pathlib = require("path")
@@ -18,6 +22,13 @@ local tags = require("wowdoc.git.framexml_tags")
 
 -- os.getenv("GITHUB_TOKEN") did not return the token on WSL even if the env var was set
 local GITHUB_TOKEN = util:run_command("gh auth token")
+
+---@type GetheBranch[]
+local branches = {
+	"live",
+	"classic",
+	"classic_era",
+}
 
 local m = {}
 
@@ -113,12 +124,13 @@ function m:UnpackZip(branch, fileBaseName, zipFile)
 end
 
 local function main()
-	local BRANCH = "live" ---@type GetheBranch
 	pathlib.mkdir(pathlib.join("FrameXML", "zips"))
-	pathlib.mkdir(pathlib.join("FrameXML", BRANCH))
-	for _, v in pairs(tags[BRANCH]) do
-		local fileBaseName, zipFile = m:DownloadZip(v)
-		m:UnpackZip(BRANCH, fileBaseName, zipFile)
+	for _, branch in pairs(branches) do
+		pathlib.mkdir(pathlib.join("FrameXML", branch))
+		for _, tag in pairs(tags[branch]) do
+			local fileBaseName, zipFile = m:DownloadZip(tag)
+			m:UnpackZip(branch, fileBaseName, zipFile)
+		end
 	end
 	log:success("Done")
 end

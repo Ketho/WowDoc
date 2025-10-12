@@ -1,3 +1,4 @@
+local pathlib = require("path")
 local util = require("wowdoc")
 local products = require("wowdoc.products")
 
@@ -8,12 +9,12 @@ function m:main(product)
 	local _, branch = products:GetBranch(product)
 	local globalApi = util:DownloadAndRun(
 		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/GlobalAPI.lua", branch),
-		string.format("cache_lua/GlobalAPI_%s.lua", branch)
+		pathlib.join(PATHS.BLIZZRES, string.format("GlobalAPI_%s.lua", branch))
 	)
 
 	local blizzDoc = {}
 	for _, func in ipairs(APIDocumentation.functions) do
-		local name = util:GetFullName(func)
+		local name = util:api_func_GetFullName(func)
 		blizzDoc[name] = func.System:GetName()
 	end
 

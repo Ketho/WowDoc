@@ -1,7 +1,7 @@
 local lfs = require("lfs")
 local PATH = require("path")
 local util = require("wowdoc")
-local apidoc_nontoc = require("wowdoc.apidoc_nontoc")
+local apidoc_nontoc = require("wowdoc.loader.nontoc.old")
 
 local function GetEventMap(data)
 	local t = {}
@@ -23,13 +23,20 @@ local function GetSubfolder(parent, name)
 end
 
 -- folder structure can vary
+-- changed to read unzipped gethe tags
 local function FindApiDocFolder(path)
-	path = GetSubfolder(path, "Interface") or path
-	path = GetSubfolder(path, "AddOns") or path
-	path = GetSubfolder(path, "Blizzard_APIDocumentationGenerated") or path
-	path = GetSubfolder(path, "Blizzard_APIDocumentation") or path
-	if path:find("Blizzard_APIDocumentation") then
-		return path
+	local major = path:match("(%d+%.%d+%.%w+)")
+	local name_tag = string.format("wow-ui-source-%s", major)
+	local new_path = pathlib.join(path, name_tag)
+	new_path = GetSubfolder(new_path, "Interface") or new_path
+	new_path = GetSubfolder(new_path, "AddOns") or new_path
+	new_path = GetSubfolder(new_path, "Blizzard_APIDocumentationGenerated") or new_path
+	if new_path:find("Blizzard_APIDocumentationGenerated") then
+		return new_path
+	end
+	new_path = GetSubfolder(new_path, "Blizzard_APIDocumentation") or new_path
+	if new_path:find("Blizzard_APIDocumentation") then
+		return new_path
 	end
 end
 

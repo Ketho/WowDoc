@@ -84,7 +84,7 @@ local function ProcessDocs()
 end
 
 local function WritePredicates()
-	local output = pathlib.join("out", "lua", "API_info.predicates.lua")
+	local output = pathlib.join(PATHS.SCRIBUNTO, "API_info.predicates.lua")
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
 	file:write("m.data = {\n")
@@ -98,7 +98,7 @@ local function WritePredicates()
 end
 
 local function WriteSecretArguments()
-	local output = pathlib.join("out", "lua", "API_info.SecretArguments.lua")
+	local output = pathlib.join(PATHS.SCRIBUNTO, "API_info.SecretArguments.lua")
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
 	file:write("m.data = {\n")
@@ -139,7 +139,7 @@ local RevEnum_SecretAspect = {
 }
 
 local function WriteSecretReturnsForAspect()
-	local output = pathlib.join("out", "lua", "API_info.SecretReturnsForAspect.lua")
+	local output = pathlib.join(PATHS.SCRIBUNTO, "API_info.SecretReturnsForAspect.lua")
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
 	file:write("m.data = {\n")

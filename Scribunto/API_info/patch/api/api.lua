@@ -1,21 +1,22 @@
 -- https://wowpedia.fandom.com/wiki/Module:API_info/patch/api_retail
 -- https://wowpedia.fandom.com/wiki/Module:API_info/patch/api_classic
+local pathlib = require("path")
 local util = require("wowdoc")
 
-local PATH = "Scribunto/API_info/patch/api"
+local PATH = pathlib.join("Scribunto", "API_info", "patch/api")
 
 local flavors = {
 	mainline = {
 		data = require(PATH.."/LoadFiles")(PATH.."/mainline"),
-		out = "out/lua/API_info.patch.api_retail.lua",
+		out = pathlib.join(PATHS.SCRIBUNTO, "API_info.patch.api_retail.lua"),
 	},
 	classic = {
 		data = require(PATH.."/LoadFiles")(PATH.."/classic"),
-		out = "out/lua/API_info.patch.api_classic.lua",
+		out = pathlib.join(PATHS.SCRIBUNTO, "API_info.patch.api_classic.lua"),
 	},
 	classic_era = {
 		data = require(PATH.."/LoadFiles")(PATH.."/classic_era"),
-		out = "out/lua/API_info.patch.api_classic_era.lua",
+		out = pathlib.join(PATHS.SCRIBUNTO, "API_info.patch.api_classic_era.lua"),
 	},
 }
 

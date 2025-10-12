@@ -4,6 +4,8 @@
     ],
     "Lua.diagnostics.globals": [
         "Enum",
-        "mw"
+        "mw",
+        "lfs",
+        "pathlib"
     ]
 }

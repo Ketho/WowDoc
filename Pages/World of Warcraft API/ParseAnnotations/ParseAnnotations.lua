@@ -4,7 +4,7 @@ local api_get = require("Scribunto/API_info/elink/api_get")
 local undoc = api_get:main(PRODUCT)[2]
 
 local URL_ANNOTATIONS = "https://raw.githubusercontent.com/Ketho/vscode-wow-api/refs/heads/master/Annotations/Data/Wiki.lua"
-local CACHE_ANNOTATIONS = "cache_lua/Wiki.lua"
+local CACHE_ANNOTATIONS = pathlib.join(PATHS.CACHE, "Wiki.lua")
 
 local m = {}
 

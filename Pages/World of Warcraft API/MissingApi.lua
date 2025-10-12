@@ -1,9 +1,8 @@
 local util = require("wowdoc")
 local products = require("wowdoc.products")
 local WikiText = require("Pages/World of Warcraft API/WikiText")
-util:mkdir("cache_lua")
 
-local PRODUCT = "wowxptr" ---@type TactProduct
+local PRODUCT = "wow" ---@type TactProduct
 util:LoadDocumentation(PRODUCT)
 local _, blizres_branch = products:GetBranch(PRODUCT)
 
@@ -34,7 +33,7 @@ end
 function m:GetGlobalApi()
 	local global_api = util:DownloadAndRun(
 		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/GlobalAPI.lua", blizres_branch),
-		string.format("cache_lua/GlobalAPI_%s.lua", blizres_branch)
+		pathlib.join(PATHS.BLIZZRES, string.format("GlobalAPI_%s.lua", blizres_branch))
 	)
 	return util:ToMap(global_api[1])
 end

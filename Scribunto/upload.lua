@@ -3,10 +3,8 @@ local util = require("wowdoc")
 local enum = require("wowdoc.enum")
 local products = require("wowdoc.products")
 
-local PRODUCT = "wowxptr" ---@type TactProduct
+local PRODUCT = "wow" ---@type TactProduct
 local _, blizzres_branch = products:GetBranch(PRODUCT)
-
-util:mkdir("out")
 
 local function WriteFiles()
     local scribunto = Path.join("Scribunto", "API_info")

@@ -1,10 +1,11 @@
 -- https://wowpedia.fandom.com/wiki/Module:API_info/elink/api
+local pathlib = require("path")
 local util = require("wowdoc")
 local api_get = require("Scribunto/API_info/elink/api_get")
 
-local PRODUCT = "wowxptr" ---@type TactProduct
+local PRODUCT = "wow" ---@type TactProduct
 local ApiDoc = api_get:main(PRODUCT)
-local OUT = "out/lua/API_info.elink.api.lua"
+local OUT = pathlib.join(PATHS.SCRIBUNTO, "API_info.elink.api.lua")
 
 local function main()
 	local doc, non_doc = table.unpack(ApiDoc)

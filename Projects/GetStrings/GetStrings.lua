@@ -48,7 +48,7 @@ end
 local function GetCVars(branch)
 	return util:DownloadAndRun(
 		string.format("https://github.com/Ketho/BlizzardInterfaceResources/blob/%s/Resources/CVars.lua", branch),
-		string.format("cache_lua/CVars_%s", branch)
+		pathlib.join(PATHS.BLIZZRES, string.format("CVars_%s", branch))
 	)
 end
 

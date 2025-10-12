@@ -1,5 +1,6 @@
 local patch_retail = loadfile("out/lua/API_info.patch.api_retail.lua")()
-local flavor = loadfile("out/lua/API_info.flavor.api.lua")()
+local pathlib = require("path")
+local flavor = loadfile(pathlib.join(PATHS.SCRIBUNTO, "API_info.flavor.api.lua"))()
 local util = require("wowdoc")
 
 local function GetNotExist()

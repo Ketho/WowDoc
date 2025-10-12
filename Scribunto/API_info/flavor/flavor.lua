@@ -1,10 +1,8 @@
 -- https://wowpedia.fandom.com/wiki/Module:API_info/flavor/api
 -- https://wowpedia.fandom.com/wiki/Module:API_info/flavor/event
 local util = require("wowdoc")
-util:mkdir("cache_lua")
-util:mkdir("out/lua")
 
-local IsMainlinePTR = true
+local IsMainlinePTR = false
 
 local flavor = {
 	mainline = 0x1,
@@ -18,8 +16,8 @@ local m = {}
 local sources = {
 	api = {
 		url = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/GlobalAPI.lua",
-		cache = "cache_lua/GlobalAPI_%s.lua",
-		out = "out/lua/API_info.flavor.api.lua",
+		cache = pathlib.join(PATHS.BLIZZRES, "GlobalAPI_%s.lua"),
+		out = pathlib.join(PATHS.SCRIBUNTO, "API_info.flavor.api.lua"),
 		location = function(tbl)
 			return tbl[1]
 		end,
@@ -41,8 +39,8 @@ local sources = {
 	},
 	event = {
 		url = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/Events.lua",
-		cache = "cache_lua/Events_%s.lua",
-		out = "out/lua/API_info.flavor.event.lua",
+		cache = pathlib.join(PATHS.BLIZZRES, "Events_%s.lua"),
+		out = pathlib.join(PATHS.SCRIBUNTO, "API_info.flavor.event.lua"),
 		location = function(tbl)
 			return tbl
 		end,
@@ -60,7 +58,7 @@ local sources = {
 
 -- https://github.com/Ketho/BlizzardInterfaceResources/branches
 local branches = {
-	"mainline_ptr",
+	"mainline",
 	"vanilla",
 	"mists",
 	-- "mainline_beta",

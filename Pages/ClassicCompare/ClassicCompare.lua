@@ -12,8 +12,8 @@ local sources = {
 	api = {
 		label = "API Name",
 		url = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/GlobalAPI.lua",
-		cache = "cache_lua/GlobalAPI_%s.lua",
-		out = "out/page/CompareApi.txt",
+		cache = pathlib.join(PATHS.BLIZZRES, "GlobalAPI_%s.lua"),
+		out = pathlib.join(PATHS.WIKI_CLASSIC_COMPARE, "CompareApi.txt"),
 		location = function(tbl)
 			return tbl[1]
 		end,
@@ -25,8 +25,8 @@ local sources = {
 	event = {
 		label = "Event Name",
 		url = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/Events.lua",
-		cache = "cache_lua/Events_%s.lua",
-		out = "out/page/CompareEvent.txt",
+		cache = pathlib.join(PATHS.BLIZZRES, "Events_%s.lua"),
+		out = pathlib.join(PATHS.WIKI_CLASSIC_COMPARE, "CompareEvent.txt"),
 		location = function(tbl)
 			return tbl
 		end,
@@ -44,8 +44,8 @@ local sources = {
 	cvar = {
 		label = "CVar Name",
 		url = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/CVars.lua",
-		cache = "cache_lua/CVars_%s.lua",
-		out = "out/page/CompareCVars.txt",
+		cache = pathlib.join(PATHS.BLIZZRES, "CVars_%s.lua"),
+		out = pathlib.join(PATHS.WIKI_CLASSIC_COMPARE, "CompareCVars.txt"),
 		location = function(tbl)
 			return tbl[1].var
 		end,
