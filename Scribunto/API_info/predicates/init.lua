@@ -1,7 +1,10 @@
 ---@diagnostic disable: need-check-nil
 local pathlib = require("path")
+
+require("wowdoc.config")
 local widget_docs = require("wowdoc.loader.doc_widgets")
 local log = require("wowdoc.log")
+local PATH_PREDICATES = pathlib.join(".wow", "predicates")
 
 local Predicates = {
 	MayReturnNothing = 0,
@@ -84,7 +87,7 @@ local function ProcessDocs()
 end
 
 local function WritePredicates()
-	local output = pathlib.join(PATHS.SCRIBUNTO, "API_info.predicates.lua")
+	local output = pathlib.join(PATH_PREDICATES, "API_info.predicates.lua")
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
 	file:write("m.data = {\n")
@@ -98,7 +101,7 @@ local function WritePredicates()
 end
 
 local function WriteSecretArguments()
-	local output = pathlib.join(PATHS.SCRIBUNTO, "API_info.SecretArguments.lua")
+	local output = pathlib.join(PATH_PREDICATES, "API_info.SecretArguments.lua")
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
 	file:write("m.data = {\n")
@@ -136,10 +139,11 @@ local RevEnum_SecretAspect = {
 	[0x2000] = "Desaturation",
 	[0x4000] = "TexCoords",
 	[0x8000] = "BarValue",
+	[0x10000] = "Cooldown",
 }
 
 local function WriteSecretReturnsForAspect()
-	local output = pathlib.join(PATHS.SCRIBUNTO, "API_info.SecretReturnsForAspect.lua")
+	local output = pathlib.join(PATH_PREDICATES, "API_info.SecretReturnsForAspect.lua")
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
 	file:write("m.data = {\n")
@@ -166,7 +170,7 @@ local function WriteSecretReturnsForAspect()
 end
 
 local function main()
-	pathlib.mkdir(pathlib.join("out", "lua"))
+	pathlib.mkdir(PATH_PREDICATES)
 	WritePredicates()
 	WriteSecretArguments()
 	WriteSecretReturnsForAspect()
