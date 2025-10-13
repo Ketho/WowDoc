@@ -80,7 +80,7 @@ Returns the level of the unit.
 :;level:{{apitype|number}} - The unit level. Returns <code>-1</code> for boss units or hostile units 10 levels above the player (Level ??).
 ```
 
-Login and try editing a page, for example https://warcraft.wiki.gg/wiki/Warcraft_Wiki:Sandbox/6
+Login and try editing a page, for example https://warcraft.wiki.gg/wiki/User:Ketho/Sandbox
 ```sh
 pwb login
 python 'Pywikibot/hello-save.py'
