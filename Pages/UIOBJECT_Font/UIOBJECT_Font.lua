@@ -44,3 +44,4 @@ local f = io.open("Pages/UIOBJECT_Font/UIOBJECT_Font.txt", "w")
 for _, v in ipairs(t) do
 	f:write(v, "\n")
 end
+f:close()
