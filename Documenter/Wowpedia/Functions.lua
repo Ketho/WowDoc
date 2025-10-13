@@ -37,13 +37,13 @@ function Wowpedia:GetFunctionSignature(func, systemType)
 		else
 			str = func.Name
 		end
-		if func.Arguments then
+		if func.Arguments and #func.Arguments > 0 then
 			local argumentString = self:GetSignature(func.Arguments)
 			str = format("%s(%s)", str, argumentString)
 		else
 			str = str.."()"
 		end
-		if func.Returns then
+		if func.Returns and #func.Returns > 0 then
 			local returnString = func:GetReturnString(false, false)
 			str = format("%s = %s", returnString, str)
 		end
