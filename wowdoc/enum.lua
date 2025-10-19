@@ -8,16 +8,21 @@ local REPO = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources
 local PATH = PATHS.BLIZZRES
 
 local function ApplyFixes()
-	-- Meta fields are not written to LuaEnum.lua
-	Enum.LFGRoleMeta = {NumValue = 0} -- 10.2.5 LFGConstantsDocumentation.lua
-	Constants.PetConsts_PreWrath = { -- 12.0.0 PetConstantsDocumentation.lua
-		MAX_STABLE_SLOTS = 0,
-		NUM_PET_SLOTS_THAT_NEED_LEARNED_SPELL = 0,
-	}
-	Constants.PetConsts_Wrath = {
-		MAX_STABLE_SLOTS = 0,
-		NUM_PET_SLOTS_THAT_NEED_LEARNED_SPELL = 0,
-	}
+	if not Enum.LFGRoleMeta then -- Meta fields are not written to LuaEnum.lua
+		Enum.LFGRoleMeta = {NumValue = 0} -- 10.2.5 LFGConstantsDocumentation.lua
+	end
+	if not Constants.PetConsts_PreWrath then
+		Constants.PetConsts_PreWrath = { -- 12.0.0 PetConstantsDocumentation.lua
+			MAX_STABLE_SLOTS = 0,
+			NUM_PET_SLOTS_THAT_NEED_LEARNED_SPELL = 0,
+		}
+	end
+	if not Constants.PetConsts_Wrath then
+		Constants.PetConsts_Wrath = {
+			MAX_STABLE_SLOTS = 0,
+			NUM_PET_SLOTS_THAT_NEED_LEARNED_SPELL = 0,
+		}
+	end
 end
 
 function m:LoadLuaEnums(branch)
