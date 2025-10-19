@@ -22,7 +22,8 @@ local Predicates = {
 	SecretWhenInCombat = 60,
 	SecretReturns = 61,
 	SecretNonPlayerUnitOrMinionWhileInCombat = 62,
-	RequiresValidTimelineEvent = 71,
+	ConstSecretAccessor = 63,
+	RequiresValidTimelineEvent = 70,
 }
 
 local PRODUCT = "wow_beta" ---@type TactProduct
@@ -122,25 +123,34 @@ local function WriteSecretArguments()
 	file:close()
 end
 
-local RevEnum_SecretAspect = {
-	[0x1] = "ObjectType",
-	[0x2] = "ID",
-	[0x4] = "Toplevel",
-	[0x8] = "Text",
-	[0x10] = "SecureText",
-	[0x20] = "Shown",
-	[0x40] = "Scale",
-	[0x80] = "Alpha",
-	[0x100] = "FrameLevel",
-	[0x200] = "ScrollRange",
-	[0x400] = "Cursor",
-	[0x800] = "VertexColor",
-	[0x1000] = "Hierarchy",
-	[0x2000] = "Desaturation",
-	[0x4000] = "TexCoords",
-	[0x8000] = "BarValue",
-	[0x10000] = "Cooldown",
+local SecretAspect = {
+	Hierarchy = 0x1,
+	ObjectDebug = 0x1,
+	ObjectName = 0x1,
+	ObjectSecrets = 0x1,
+	ObjectSecurity = 0x1,
+	ObjectType = 0x1,
+	ID = 0x2,
+	Toplevel = 0x4,
+	Text = 0x8,
+	SecureText = 0x10,
+	Shown = 0x20,
+	Scale = 0x40,
+	Alpha = 0x80,
+	FrameLevel = 0x100,
+	ScrollRange = 0x200,
+	Cursor = 0x400,
+	VertexColor = 0x800,
+	Desaturation = 0x1000,
+	TexCoords = 0x2000,
+	BarValue = 0x4000,
+	Cooldown = 0x8000,
 }
+
+local RevEnum_SecretAspect = {}
+for k, v in pairs(SecretAspect) do
+	RevEnum_SecretAspect[v] = k
+end
 
 local function WriteSecretReturnsForAspect()
 	local output = pathlib.join(PATH_PREDICATES, "API_info.SecretReturnsForAspect.lua")
