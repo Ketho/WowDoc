@@ -2,7 +2,7 @@
 -- https://wowpedia.fandom.com/wiki/Module:API_info/flavor/event
 local util = require("wowdoc")
 
-local IsMainlinePTR = false
+local IsMainlinePTR = true
 
 local flavor = {
 	mainline = 0x1,
@@ -120,7 +120,7 @@ end
 if IsMainlinePTR then
 	flavor.mainline = nil
 	flavor.mainline_ptr = 0x1
-	branches[1] = "mainline_beta"
+	branches[1] = "mainline_ptr"
 end
 
 main()
