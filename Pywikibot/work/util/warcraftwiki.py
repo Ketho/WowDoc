@@ -21,7 +21,7 @@ def main(func, category=None, summary=None, test=None):
 	save_pages(changes, summary, test)
 
 def get_updates(func, category):
-	folder = Path("Pywikibot", "export", "fandom_api")
+	folder = Path(".wow", "wiki_export")
 	li = []
 	if category:
 		# Find the most recent file matching the category name
