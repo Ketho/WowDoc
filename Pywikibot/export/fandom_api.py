@@ -3,6 +3,7 @@ import datetime as dt
 from pathlib import Path
 import requests
 import time
+from pathlib import Path
 
 url = 'https://warcraft.wiki.gg/'
 
@@ -59,10 +60,13 @@ def export(catname):
 	return data
 
 def main(catname):
+	dir_path = Path(".wow", "wiki_export")
+	dir_path.mkdir(parents=True, exist_ok=True)
+
 	xml = export(catname)
 	now = dt.datetime.utcnow().strftime('%Y%m%d%H%M%S')
 	filename = f'{catname}-{now}.xml'
-	fullpath = Path("Pywikibot", "export", "fandom_api", filename).absolute()
+	fullpath = Path(dir_path, filename).absolute()
 	print(f'Dumping to "{fullpath}"')
 	with open(fullpath, 'wb') as f:
 		f.write(xml)
