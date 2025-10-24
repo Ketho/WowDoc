@@ -9,13 +9,13 @@ local WowDocLoader = require("wowdoc.loader")
 ---@type table<TactProduct, table>
 local signatures = {
     wowxptr = {},
-    wow_classic = {},
+    wow_classic_ptr = {},
     wow_classic_era = {},
 }
 
 for flavor in pairs(signatures) do
     APIDocumentation = nil
-    WowDocLoader:main(flavor)
+    WowDocLoader:main(flavor, nil, true)
     for k, v in pairs(APIDocumentation.functions) do
         local fullName = util:api_func_GetFullName(v)
         -- print(k, util:api_func_GetFullName(v), util:template_apilink("a", v))

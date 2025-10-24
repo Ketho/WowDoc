@@ -25,10 +25,12 @@ local function ApplyFixes()
 	end
 end
 
-function m:LoadLuaEnums(branch)
+function m:LoadLuaEnums(branch, force)
 	if Enum then
 		log:warn("WowDocLoader: Enum table already loaded")
-		return
+		if not force then
+			return
+		end
 	end
 	local path = pathlib.join(PATH, string.format("LuaEnum_%s.lua", branch))
 	local url = string.format("%s/%s/Resources/LuaEnum.lua", REPO, branch)
