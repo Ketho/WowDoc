@@ -223,7 +223,7 @@ local function main()
 					local expansionTemplate = GetExpansionIconTemplate(expansions)
 					local nameLink
 					if source == "api" then
-						nameLink = Signatures.wow_classic_era[name] or Signatures.wow_classic[name] or Signatures.wowxptr[name] or string.format("{{apilink|t=a|%s|noparens=1}}", name)
+						nameLink = Signatures.wow_classic_era[name] or Signatures.wow_classic_ptr[name] or Signatures.wowxptr[name] or string.format("{{apilink|t=a|%s|noparens=1}}", name)
 					else
 						nameLink = info.name_fs:format(name, name)
 					end
