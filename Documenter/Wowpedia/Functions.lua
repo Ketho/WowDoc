@@ -21,7 +21,7 @@ function Wowpedia:GetWidgetSignature(func)
 		table.insert(t, string.format("%s = ", self:GetSignature(func.Returns)))
 	end
 	local widget = widgets[func.System.Name]
-	table.insert(t, string.format("[[UIOBJECT %s|%s]]", widget, widget))
+	table.insert(t, string.format("[[ScriptObject %s|%s]]", widget, widget))
 	table.insert(t, ":"..func.Name)
 	table.insert(t, string.format("(%s)", self:GetSignature(func.Arguments)))
 	return " "..table.concat(t)
