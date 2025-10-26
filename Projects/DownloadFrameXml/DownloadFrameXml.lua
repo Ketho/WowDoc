@@ -123,16 +123,25 @@ function m:UnpackZip(branch, fileBaseName, zipFile)
 	end
 end
 
-local function main()
+local function DownLoadUnpack(tag, branch)
+	local fileBaseName, zipFile = m:DownloadZip(tag)
+	m:UnpackZip(branch, fileBaseName, zipFile)
+end
+
+local function main(_tag, _branch)
 	pathlib.mkdir(pathlib.join("FrameXML", "zips"))
-	for _, branch in pairs(branches) do
-		pathlib.mkdir(pathlib.join("FrameXML", branch))
-		for _, tag in pairs(tags[branch]) do
-			local fileBaseName, zipFile = m:DownloadZip(tag)
-			m:UnpackZip(branch, fileBaseName, zipFile)
+	if _tag then
+		DownLoadUnpack(_tag, _branch)
+	else
+		for _, branch in pairs(branches) do
+			pathlib.mkdir(pathlib.join("FrameXML", branch))
+			for _, tag in pairs(tags[branch]) do
+				DownLoadUnpack(tag, branch)
+			end
 		end
 	end
 	log:success("Done")
 end
 
-main()
+main("12.0.0", "live")
+-- main()
