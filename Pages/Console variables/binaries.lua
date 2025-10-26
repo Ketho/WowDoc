@@ -3,7 +3,6 @@ local lfs = require("lfs")
 local util = require("wowdoc")
 
 local PATH = [[/mnt/d/Prog/World of Warcraft/Binaries]]
-util:mkdir("cache_strings")
 
 local function SortPatchReverse(a, b)
 	local major_a, minor_a, patch_a, build_a = a:match("(%d+)%.(%d+)%.(%d+)%.(%d+)")
@@ -73,7 +72,7 @@ local function main(blizzres_cvars)
 		print("reading", build)
 		local exe_path = PATH.."/%s.exe"
 		local path = exe_path:format(build)
-		local lua_cache = string.format("cache_strings/%s.lua", build)
+		local lua_cache = pathlib.join(PATHS.STRINGS, string.format("%s.lua", build))
 		local stringsTbl, lcstrings_tbl
 		if lfs.attributes(lua_cache) then
 			stringsTbl = loadfile(lua_cache)()

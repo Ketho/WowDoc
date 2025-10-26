@@ -79,9 +79,9 @@ function m:run_command(cmd)
 end
 
 --- Looks through the FrameXML folder and returns
---- the copy of the FrameXML with the highest build number number
+--- the copy of the FrameXML with the highest build number
 --- it does not look at the semantic version (major,minor,patch) but only at the build number
----@param flavor string
+---@param flavor "live"|"classic"|"classic_era"
 ---@return string path
 function m:GetLatestBuild(flavor)
 	local folder = pathlib.join("FrameXML", flavor)

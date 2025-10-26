@@ -1,11 +1,10 @@
--- https://wow.gamepedia.com/Events
-local Path = require("path")
-local util = require("wowdoc")
-local wowdoc = require("WowDocLoader")
+-- https://warcraft.wiki.gg/wiki/Events
+local pathlib = require("path")
+local wowdoc = require("wowdoc.loader")
 
 local PRODUCT = "wowxptr" ---@type TactProduct
 wowdoc:main(PRODUCT)
-local OUTPUT = "out/page/Events.txt"
+local OUTPUT = pathlib.join(PATHS.WIKI_PAGE, "Events.txt")
 
 table.sort(APIDocumentation.systems, function(a, b)
 	return a.Name < b.Name

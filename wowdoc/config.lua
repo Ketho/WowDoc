@@ -15,6 +15,7 @@ PATHS.CACHE = pathlib.join(root, "cache")
 PATHS.DIFF = pathlib.join(root, "diff")
 PATHS.BLIZZRES = pathlib.join(root, "blizzres")
 PATHS.SCRIBUNTO = pathlib.join(root, "scribunto")
+PATHS.STRINGS = pathlib.join(root, "strings")
 PATHS.WIKI_PAGE = pathlib.join(root, "wiki_page")
 PATHS.WIKI_CLASSIC_COMPARE = pathlib.join(root, "wiki_page", "classic_compare")
 

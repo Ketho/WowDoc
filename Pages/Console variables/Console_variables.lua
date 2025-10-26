@@ -1,17 +1,20 @@
--- https://wow.gamepedia.com/Console_variables/Complete_list
-local Path = require("path")
+-- https://warcraft.wiki.gg/wiki/Console_variables/Complete_list
+local pathlib = require("path")
 local util = require("wowdoc")
+local products = require("wowdoc.products")
 
-BRANCH = "mainline"
-OUTPUT_CVAR = "out/page/Console_variables_cvar.txt"
-OUTPUT_COMMAND = "out/page/Console_variables_command.txt"
+PRODUCT = "wowxptr" ---@type TactProduct
+GETHE_BRANCH, BLIZZRES_BRANCH = products:GetBranch(PRODUCT)
+OUTPUT_CVAR = pathlib.join(PATHS.WIKI_PAGE, "Console_variables_cvar.txt")
+OUTPUT_COMMAND = pathlib.join(PATHS.WIKI_PAGE, "Console_variables_command.txt")
+
 local m = {}
 
 function m:main()
-	local base_folder = Path.join("Pages", "Console variables")
-	local blizzres_cvars = require(Path.join(base_folder, "blizzres"))()
-	local framexml_strings = require(Path.join(base_folder, "framexml"))(blizzres_cvars)
-	local binary_strings = require(Path.join(base_folder, "binaries"))(blizzres_cvars)
+	local base_folder = pathlib.join("Pages", "Console variables")
+	local blizzres_cvars = require(pathlib.join(base_folder, "blizzres"))()
+	local framexml_strings = require(pathlib.join(base_folder, "framexml"))(blizzres_cvars)
+	local binary_strings = require(pathlib.join(base_folder, "binaries"))(blizzres_cvars)
 	self:WriteCVarList(blizzres_cvars[1].var, framexml_strings, binary_strings)
 	self:WriteCommandList(blizzres_cvars[1].command)
 end

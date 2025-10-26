@@ -160,7 +160,7 @@ def main():
 			page = pywikibot.Page(site, v)
 			if not page.exists():
 				page.text = docApi[v]
-				page.save(summary="12.0.0 (63854)")
+				page.save(summary="12.0.0 (63967)")
 				time.sleep(4)
 	print("done")
 

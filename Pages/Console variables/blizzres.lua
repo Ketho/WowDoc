@@ -1,10 +1,9 @@
 local util = require("wowdoc")
-local flavor = "mainline_ptr"
 
 local function main()
 	local data = util:DownloadAndRun(
-		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/CVars.lua", flavor),
-		pathlib.join(PATHS.BLIZZRES, string.format()"CVars_%s.lua", flavor)
+		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/CVars.lua", BLIZZRES_BRANCH),
+		pathlib.join(PATHS.BLIZZRES, string.format("CVars_%s.lua", BLIZZRES_BRANCH))
 	)
 	return data
 end

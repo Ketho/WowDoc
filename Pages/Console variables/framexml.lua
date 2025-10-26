@@ -18,10 +18,10 @@ local function GetStrings(path)
 end
 
 local function main(blizzres)
-	local frameXML = util:GetLatestBuild(BRANCH)
+	local frameXML = util:GetLatestBuild("live")
 	util:IterateFiles(frameXML, GetStrings)
 	local framexml_cvars = {}
-	for k, v in pairs(blizzres[1].var) do
+	for k in pairs(blizzres[1].var) do
 		if framexml_strings[k:lower()] then
 			framexml_cvars[k] = true
 		end
