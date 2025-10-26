@@ -61,8 +61,8 @@ local doc_widgets = {
 	FrameAPITooltip = "GameTooltip",
 	-- 12.0.0
 	HousingCatalogSearcherAPI = "HousingCatalogSearcher",
-	HousingFixturePointFrameAPI = "HousingFixturePoint",
-	HousingLayoutPinFrameAPI = "HousingLayoutPin",
+	HousingFixturePointFrameAPI = "HousingFixturePointFrame",
+	HousingLayoutPinFrameAPI = "HousingLayoutPinFrame",
 	LuaColorCurveObjectAPI = "ColorCurve",
 	LuaCurveObjectAPI = "Curve",
 
