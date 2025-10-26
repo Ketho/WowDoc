@@ -145,6 +145,11 @@ local Types =
 		{ Name = "SimpleMaskTexture", Type = "MaskTexture", Replace = true },
 		{ Name = "SimplePathAnim", Type = "Path", Replace = true },
 		{ Name = "SimpleTexture", Type = "Texture", Replace = true },
+		-- 12.0.0
+		{ Name = "SimpleCheckbox", Type = "CheckButton", Replace = true },
+		{ Name = "CooldownFrame", Type = "Cooldown", Replace = true },
+		{ Name = "LuaColorCurveObject", Type = "ColorCurve", Replace = true },
+		{ Name = "LuaCurveObject", Type = "Curve", Replace = true },
 		-- frame widgets
 		{ Name = "ChatBubbleFrame", Type = "Frame" },
 		{ Name = "NamePlateFrame", Type = "Frame", Mixin = "NamePlateBaseMixin" },

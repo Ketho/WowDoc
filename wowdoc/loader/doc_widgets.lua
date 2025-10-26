@@ -59,9 +59,12 @@ local doc_widgets = {
 	FrameAPIQuestPOI = "QuestPOIFrame",
 	FrameAPIScenarioPOI = "ScenarioPOIFrame",
 	FrameAPITooltip = "GameTooltip",
+	-- 12.0.0
 	HousingCatalogSearcherAPI = "HousingCatalogSearcher",
 	HousingFixturePointFrameAPI = "HousingFixturePoint",
 	HousingLayoutPinFrameAPI = "HousingLayoutPin",
+	LuaColorCurveObjectAPI = "ColorCurve",
+	LuaCurveObjectAPI = "Curve",
 
 	-- special cases
 	FrameAPISimpleCheckout = "SimpleCheckout",
