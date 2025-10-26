@@ -31,7 +31,7 @@ function m:GetSignatures()
 	local fs_args = '<span class="apiarg">%s</span>'
 	local fs_returns = ' : <span class="apiret">%s</span>'
 	for _, func in ipairs(APIDocumentation.functions) do
-		local name = util:GetFullName(func)
+		local name = util:api_func_GetFullName(func)
 		local args, returns = "", ""
 		if func.Arguments then
 			args = fs_args:format(Wowpedia:GetSignature(func.Arguments))
