@@ -1,8 +1,8 @@
-local Path = require("path")
-local OUT = Path.join("out", "page", "Widget_API.txt")
+local pathlib = require("path")
 local util = require("wowdoc")
+local OUT = pathlib.join(PATHS.WIKI_PAGE, "Widget_API.txt")
 
-local PRODUCT = "wow"
+local PRODUCT = "wowxptr" ---@type TactProduct
 util:LoadDocumentation(PRODUCT)
 
 local widget_systems = {
