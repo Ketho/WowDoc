@@ -1,71 +1,10 @@
 local pathlib = require("path")
 local util = require("wowdoc")
 local OUT = pathlib.join(PATHS.WIKI_PAGE, "Widget_API.txt")
+local doc_widgets = require("wowdoc/loader/doc_widgets")
 
-local PRODUCT = "wowxptr" ---@type TactProduct
+local PRODUCT = "wow_beta" ---@type TactProduct
 util:LoadDocumentation(PRODUCT)
-
-local widget_systems = {
-	FrameAPICooldown = "Cooldown",
-	-- CooldownFrameAPI = "Cooldown", -- wtf
-	MinimapFrameAPI = "Minimap",
-	SimpleAnimAPI = "Animation",
-	SimpleAnimAlphaAPI = "Alpha",
-	SimpleAnimFlipBookAPI = "FlipBook",
-	SimpleAnimGroupAPI = "AnimationGroup",
-	SimpleAnimPathAPI = "Path",
-	SimpleAnimRotationAPI = "Rotation",
-	SimpleAnimScaleAPI = "Scale",
-	SimpleAnimScaleLineAPI = "LineScale", -- empty
-	SimpleAnimTextureCoordTranslationAPI = "TextureCoordTranslation",
-	SimpleAnimTranslationAPI = "Translation",
-	SimpleAnimTranslationLineAPI = "LineTranslation", -- empty
-	SimpleAnimatableObjectAPI = "AnimatableObject",
-	SimpleAnimVertexColorAPI = "VertexColor",
-	-- SimpleBrowserAPI = "Browser",
-	SimpleButtonAPI = "Button",
-	SimpleCheckboxAPI = "CheckButton",
-	SimpleColorSelectAPI = "ColorSelect",
-	SimpleControlPointAPI = "ControlPoint",
-	SimpleEditBoxAPI = "EditBox",
-	SimpleFontAPI = "Font",
-	SimpleFontStringAPI = "FontString",
-	SimpleFrameAPI = "Frame",
-	SimpleFrameScriptObjectAPI = "FrameScriptObject",
-	SimpleHTMLAPI = "SimpleHTML",
-	SimpleLineAPI = "Line",
-	SimpleMaskTextureAPI = "MaskTexture", -- empty
-	SimpleMessageFrameAPI = "MessageFrame",
-	SimpleModelAPI = "Model",
-	-- SimpleModelFFXAPI = "ModelFFX", -- unavailable to addons
-	SimpleMovieAPI = "MovieFrame",
-	SimpleObjectAPI = "Object",
-	-- SimpleOffScreenFrameAPI = "OffScreenFrame",
-	SimpleRegionAPI = "Region",
-	SimpleScriptRegionAPI = "ScriptRegion",
-	SimpleScriptRegionResizingAPI = "ScriptRegionResizing",
-	SimpleScrollFrameAPI = "ScrollFrame",
-	SimpleSliderAPI = "Slider",
-	SimpleStatusBarAPI = "StatusBar",
-	SimpleTextureAPI = "Texture",
-	SimpleTextureBaseAPI = "TextureBase",
-	FrameAPICharacterModelBase = "CharacterModelBase",
-	FrameAPIDressUpModel = "DressUpModel",
-	-- ScriptRegionSharedDocumentation
-	-- SharedScriptObjectModelLightDocumentation
-	FrameAPICinematicModel = "CinematicModel",
-	FrameAPITabardModelBase = "TabardModelBase",
-	FrameAPITabardModel = "TabardModel",
-	FrameAPIModelSceneFrame = "ModelScene",
-	FrameAPIModelSceneFrameActorBase = "ModelSceneActorBase",
-	FrameAPIModelSceneFrameActor = "ModelSceneActor",
-	FrameAPIFogOfWarFrame = "FogOfWarFrame",
-	FrameAPIUnitPositionFrame = "UnitPositionFrame",
-	FrameAPIBlob = "Blob",
-	-- FrameAPIArchaeologyDigsite = "ArchaeologyDigSiteFrame",
-	FrameAPIQuestPOI = "QuestPOIFrame",
-	FrameAPIScenarioPOI = "ScenarioPOIFrame",
-}
 
 local widget_order = {
 	"Object",
@@ -114,6 +53,11 @@ local widget_order = {
 	-- Checkout
 	-- "OffScreenFrame",
 	-- WorldFrame
+	"Curve",
+	"ColorCurve",
+	"HousingCatalogSearcher",
+	"HousingFixturePoint",
+	"HousingLayoutPin",
 }
 
 local widget_desc = {
@@ -158,7 +102,7 @@ local widget_desc = {
 local function GetSystems()
 	local t = {}
 	for _, system in pairs(APIDocumentation.systems) do
-		local widget_name = widget_systems[system.Name]
+		local widget_name = doc_widgets[system.Name]
 		if widget_name then
 			t[widget_name] = {}
 			for _, func in pairs(system.Functions) do

@@ -41,7 +41,7 @@ local doc_widgets = {
 	SimpleStatusBarAPI = "StatusBar",
 	SimpleTextureAPI = "Texture",
 	SimpleTextureBaseAPI = "TextureBase",
-	FrameAPICharacterModelBase = "PlayerModel", -- CharacterModelBase
+	FrameAPICharacterModelBase = "CharacterModelBase", -- PlayerModel
 	FrameAPIDressUpModel = "DressUpModel",
 	-- ScriptRegionSharedDocumentation
 	-- SharedScriptObjectModelLightDocumentation
