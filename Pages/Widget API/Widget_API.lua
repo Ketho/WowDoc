@@ -56,8 +56,8 @@ local widget_order = {
 	"Curve",
 	"ColorCurve",
 	"HousingCatalogSearcher",
-	"HousingFixturePoint",
-	"HousingLayoutPin",
+	"HousingFixturePointFrame",
+	"HousingLayoutPinFrame",
 }
 
 local widget_desc = {
