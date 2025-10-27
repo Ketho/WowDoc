@@ -145,6 +145,7 @@ local SecretAspect = {
 	TexCoords = 0x2000,
 	BarValue = 0x4000,
 	Cooldown = 0x8000,
+	Rotation = 0x10000,
 }
 
 local RevEnum_SecretAspect = {}
