@@ -24,8 +24,10 @@ local Predicates = {
 	SecretNonPlayerUnitOrMinionWhileInCombat = 62,
 	ConstSecretAccessor = 63,
 	RequiresValidTimelineEvent = 70,
-	SynchronousEvent = 100,
-	UniqueEvent = 101,
+	SecretPayloads = 100,
+	SynchronousEvent = 111,
+	UniqueEvent = 112,
+	CallbackEvent = 113,
 }
 
 local PRODUCT = "wow_beta" ---@type TactProduct
