@@ -53,8 +53,13 @@ function m:GetDocEvents(info)
 				-- Blizzard_APIDocumentation did not have events until patch 8.0
 				if not version:find("^7%.") then
 					local apiDocs = apidoc_nontoc:LoadBlizzardDocs(path)
-					-- sort this by build later
-					t[build] = {version, GetEventMap(apiDocs)}
+					-- sort this by version/build later
+					t[build] = {
+						folder = folder,
+						version = version,
+						build = build,
+						events = GetEventMap(apiDocs),
+					}
 				end
 			end
 		end
@@ -62,12 +67,31 @@ function m:GetDocEvents(info)
 	return t
 end
 
+local function SortMajor(a, b)
+	local _a = a.value.folder
+	local _b = b.value.folder
+	local major_a, minor_a, patch_a, build_a = _a:match("(%d+)%.(%d+)%.(%d+)%s%((%d+)%)")
+	local major_b, minor_b, patch_b, build_b = _b:match("(%d+)%.(%d+)%.(%d+)%s%((%d+)%)")
+	major_a = tonumber(major_a); major_b = tonumber(major_b)
+	minor_a = tonumber(minor_a); minor_b = tonumber(minor_b)
+	patch_a = tonumber(patch_a); patch_b = tonumber(patch_b)
+	build_a = tonumber(build_a); build_b = tonumber(build_b)
+	if major_a ~= major_b then
+		return major_a < major_b
+	elseif minor_a ~= minor_b then
+		return minor_a < minor_b
+	elseif patch_a ~= patch_b then
+		return patch_a < patch_b
+	elseif build_a ~= build_b then
+		return build_a < build_b
+	end
+end
+
 -- apparently this goes through all patches of both classic and retail
 function m:GetPatchData(tbl)
 	local added, removed = {}, {}
-	for _, build in pairs(util:SortTable(tbl)) do -- todo: sorting here goes wrong
-		local v = tbl[build]
-		local version, data = table.unpack(v)
+	for _, v in pairs(util:SortTableCustom(tbl, SortMajor)) do -- todo: sorting here goes wrong
+		local version, data = v.value.version, v.value.events
 		for name in pairs(data) do
 			if not added[name] then
 				added[name] = version
@@ -102,12 +126,8 @@ function m:GetData(info)
 	return patchData
 end
 
-function m:main(flavors)
-	local data = {
-		classic = self:GetData(flavors.classic),
-		mainline = self:GetData(flavors.mainline),
-	}
-	return data
+function m:main(flavor)
+	return self:GetData(flavor)
 end
 
 return m
