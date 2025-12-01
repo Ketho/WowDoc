@@ -80,6 +80,7 @@ local filterMixinArgs = {
 	["self"] = true,
 	["subSystemMixin"] = true,
 	["pinFrameLevel"] = true,
+	["orientationData"] = true,
 }
 
 local filterTemplates = {
