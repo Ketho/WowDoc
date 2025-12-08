@@ -2,6 +2,7 @@ local lfs = require("lfs")
 local PATH = require("path")
 local util = require("wowdoc")
 local apidoc_nontoc = require("wowdoc.loader.nontoc.old")
+local log = require("wowdoc.log")
 
 local function GetEventMap(data)
 	local t = {}
@@ -25,6 +26,7 @@ end
 -- folder structure can vary
 -- changed to read unzipped gethe tags
 local function FindApiDocFolder(path)
+	-- log:debug(string.format("FindApiDocFolder: %s", path))
 	local major = path:match("(%d+%.%d+%.%w+)")
 	local name_tag = string.format("wow-ui-source-%s", major)
 	local new_path = pathlib.join(path, name_tag)

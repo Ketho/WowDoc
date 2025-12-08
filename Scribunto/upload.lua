@@ -2,8 +2,9 @@ local Path = require("path")
 local util = require("wowdoc")
 local enum = require("wowdoc.enum")
 local products = require("wowdoc.products")
+local log = require("wowdoc.log")
 
-local PRODUCT = "wow_beta" ---@type TactProduct
+local PRODUCT = CONFIG.TACT_PRODUCT ---@type TactProduct
 local _, blizzres_branch = products:GetBranch(PRODUCT)
 
 local function WriteFiles()
@@ -14,15 +15,19 @@ local function WriteFiles()
         Path.join(scribunto, "elink", "event"),
         Path.join(scribunto, "patch", "api", "api"),
         Path.join(scribunto, "patch", "event", "event"),
+        Path.join(scribunto, "systems", "get_full_list"),
+        Path.join(scribunto, "systems", "get_systems"),
+        Path.join(scribunto, "predicates"),
     }
     for _, v in pairs(files) do
+        log:important(string.format("require: %s", v))
         require(v)
     end
 end
 
 local function UploadFiles()
-    os.execute("pwb login")
-    os.execute("pwb Scribunto/upload.py")
+    os.execute(".venv/bin/pwb login")
+    os.execute(".venv/bin/python Scribunto/upload.py")
 end
 
 local function main()

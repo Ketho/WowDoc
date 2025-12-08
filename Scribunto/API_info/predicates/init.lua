@@ -7,34 +7,40 @@ local log = require("wowdoc.log")
 local PATH_PREDICATES = pathlib.join(".wow", "predicates")
 
 local Predicates = {
-	MayReturnNothing = 0,
-	IsProtectedFunction = 1,
-	HasRestrictions = 2,
-	RequiresValidAndPublicCVar = 10,
-	RequiresNonReadOnlyCVar = 11,
-	RequiresNonSecureCVar = 12,
-	RequiresIndexInRange = 13,
-	RequiresValidInviteTarget = 20,
-	RequiresFriendList = 30,
-	RequiresClubsInitialized = 40,
-	RequiresCommentator = 50,
-	RequiresActiveCommentator = 51,
-	SecretWhenInCombat = 60,
-	SecretReturns = 61,
-	SecretNonPlayerUnitOrMinionWhileInCombat = 62,
-	SecretWhenAnchoringSecret = 63,
-	ConstSecretAccessor = 64,
-	ReturnsNeverSecret = 65,
-	RequiresValidTimelineEvent = 70,
-	SecretPayloads = 100,
-	SynchronousEvent = 111,
-	UniqueEvent = 112,
-	CallbackEvent = 113,
+	MayReturnNothing = true,
+	IsProtectedFunction = true,
+	HasRestrictions = true,
+
+	RequiresValidAndPublicCVar = true,
+	RequiresNonReadOnlyCVar = true,
+	RequiresNonSecureCVar = true,
+	RequiresIndexInRange = true,
+	RequiresValidInviteTarget = true,
+	RequiresFriendList = true,
+	RequiresClubsInitialized = true,
+	RequiresCommentator = true,
+	RequiresActiveCommentator = true,
+
+	SecretWhenInCombat = true,
+	SecretReturns = true,
+	SecretNonPlayerUnitOrMinionWhileInCombat = true,
+	SecretWhenAnchoringSecret = true,
+
+	ConstSecretAccessor = true,
+	ReturnsNeverSecret = true,
+	SecretPayloads = true,
+
+	-- events
+	RequiresValidTimelineEvent = true,
+	SecretInChatMessagingLockdown = true,
+	SynchronousEvent = true,
+	UniqueEvent = true,
+	CallbackEvent = true,
 }
 
 local PRODUCT = "wow_beta" ---@type TactProduct
 local wowdoc = require("wowdoc.loader")
-wowdoc:main(PRODUCT)
+wowdoc:main(PRODUCT, nil, true)
 
 local function GetFullName(apiTable)
 	if apiTable.Type == "Event" then
@@ -55,10 +61,6 @@ local function GetFullName(apiTable)
 	end
 end
 
-local function SortPredicates(a, b)
-	return Predicates[a] < Predicates[b]
-end
-
 local function ProcessDocTable(t0, v)
 	local t1 = {}
 	-- want to preserve the same order as in blizzard docs
@@ -68,7 +70,7 @@ local function ProcessDocTable(t0, v)
 		end
 	end
 	if #t1 > 0 then
-		table.sort(t1, SortPredicates)
+		table.sort(t1)
 		local t2 = {}
 		for k2 in pairs(t1) do
 			local stringified = string.format('"%s"', t1[k2])
@@ -97,6 +99,31 @@ local function WritePredicates()
 	local output = pathlib.join(PATH_PREDICATES, "API_info.predicates.lua")
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
+	file:write([=[
+m.description = {
+	MayReturnNothing = "",
+	IsProtectedFunction = "",
+	HasRestrictions = "",
+	RequiresValidAndPublicCVar = "",
+	RequiresNonReadOnlyCVar = "",
+	RequiresNonSecureCVar = "",
+	RequiresIndexInRange = "",
+	RequiresValidInviteTarget = "",
+	RequiresFriendList = "",
+	RequiresClubsInitialized = "",
+	RequiresCommentator = "",
+	RequiresActiveCommentator = "",
+	SecretWhenInCombat = "",
+	SecretReturns = "",
+	SecretNonPlayerUnitOrMinionWhileInCombat = "",
+	ConstSecretAccessor = "",
+	RequiresValidTimelineEvent = "",
+	SecretPayloads = "",
+	SynchronousEvent = "Dispatch of event is immediate and will complete before the function call returns",
+	UniqueEvent = "Event gets queued and dispatched toward the end of a frame",
+	CallbackEvent = "Can be registered with RegisterEventCallback()",
+}
+]=])
 	file:write("m.data = {\n")
 	local t = ProcessDocs()
 	for _, v in pairs(t) do
@@ -111,6 +138,20 @@ local function WriteSecretArguments()
 	local output = pathlib.join(PATH_PREDICATES, "API_info.SecretArguments.lua")
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
+	file:write([=[function m:GetHeader()
+	return '<div style="font-family:monospace">[[Patch_12.0.0/API_changes#Secret_values|SecretArguments]]</div>'
+end
+
+function m:GetAttributes()
+	return 'class="apitype" title="%s" style="font-family:monospace;"'
+end
+
+m.description = {
+	AllowedWhenUntainted = "Only accepts secret values if execution isn't tainted",
+	AllowedWhenTainted = "Always accepts secret values",
+	NotAllowed = "Never accepts secret values, even from untainted callers",
+}
+]=])
 	file:write("m.data = {\n")
 	local line = '\t["%s"] = "%s",\n'
 	local t = {}
@@ -163,6 +204,14 @@ local function WriteSecretReturnsForAspect()
 	local output = pathlib.join(PATH_PREDICATES, "API_info.SecretReturnsForAspect.lua")
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
+	file:write([=[function m:GetHeader()
+	return '<div style="font-family:monospace">[[Patch_12.0.0/API_changes#Secret_aspects|SecretReturnsForAspect]]</div>'
+end
+
+function m:GetAttributes()
+	return 'style="font-family:monospace;" class="apitype"'
+end
+]=])
 	file:write("m.data = {\n")
 	local line = '\t["%s"] = {%s},\n'
 	local t = {}

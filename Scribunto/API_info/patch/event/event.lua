@@ -6,8 +6,9 @@ local pathlib = require("path")
 local write_table = require("wowdoc.write_table")
 local util = require("wowdoc")
 local enum = require("wowdoc.enum")
+local products = require("wowdoc.products")
 
-local BRANCH = "mainline_beta" ---@type BlizzResBranch
+local _, BRANCH = products:GetBranch(CONFIG.TACT_PRODUCT)
 enum:LoadLuaEnums(BRANCH)
 
 local flavors = {

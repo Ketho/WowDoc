@@ -9,7 +9,7 @@ local OUT_DIR = pathlib.join(".wow", "api_systems", "systems")
 pathlib.mkdir(OUT_DIR)
 
 function m:main(product)
-	loader:main(product)
+	loader:main(product, nil, true)
 	self:GetFunctionList()
 	self:GetEventList()
 	print("Done")
@@ -57,4 +57,4 @@ function m:GetEventList()
 	WriteScribuntoData(path, t)
 end
 
-m:main("wow_beta") ---@type TactProduct
+m:main(CONFIG.TACT_PRODUCT) ---@type TactProduct

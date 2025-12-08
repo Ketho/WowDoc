@@ -14,6 +14,14 @@ files = [
 	[".wow/scribunto/API_info.patch.api_classic_era.lua", "Module:API_info/patch/api_classic_era"],
 	[".wow/scribunto/API_info.patch.event_retail.lua", "Module:API_info/patch/event_retail"],
 	[".wow/scribunto/API_info.patch.event_classic.lua", "Module:API_info/patch/event_classic"],
+
+	[".wow/api_systems/systems_data.lua", "Module:API_info/systems/metadata"],
+	[".wow/api_systems/systems/events_systems.lua", "Module:API_info/systems/events"],
+	[".wow/api_systems/systems/functions_systems.lua", "Module:API_info/systems/functions"],
+
+	[".wow/predicates/API_info.predicates.lua", "Module:API_info/predicates/predicates"],
+	[".wow/predicates/API_info.SecretArguments.lua", "Module:API_info/predicates/secret_arguments"],
+	[".wow/predicates/API_info.SecretReturnsForAspect.lua", "Module:API_info/predicates/secret_aspects"],
 ]
 
 def getFileText(p):
@@ -24,7 +32,7 @@ def getFileText(p):
 def saveFile(text, wikipath):
 	page = pywikibot.Page(site, wikipath)
 	page.text = text
-	page.save(summary = "12.0.0 (64124)")
+	page.save(summary = "12.0.0 (64741)")
 
 def main():
 	for v in files:

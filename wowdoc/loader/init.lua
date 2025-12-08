@@ -92,7 +92,7 @@ local function LoadAnnotationAddon(path, name)
 end
 
 function m:main(product, isAnnotate, force)
-	if APIDocumentation then
+	if APIDocumentation and not force then
 		log:warn("WoWDocLoader: APIDocumentation already loaded")
 		return
 	else

@@ -6,6 +6,8 @@ local products = require("wowdoc.products")
 local git = require("wowdoc.git")
 local enum = require("wowdoc.enum")
 
+local PRODUCT = CONFIG.TACT_PRODUCT ---@type TactProduct
+
 local m = {}
 local DocGenerated = pathlib.join("wow-ui-source", "Interface", "AddOns", "Blizzard_APIDocumentationGenerated")
 local WORK_DIR = pathlib.join("Pywikibot", "projects", "20250816_systems")
@@ -14,6 +16,10 @@ pathlib.mkdir(OUT_DIR)
 
 local docTables = {}
 local currentFile
+
+local filter = {
+	["BarberShopInternalDocumentation.lua"] = true,
+}
 
 function m:main(product)
 	local framexml_branch, blizzres_branch = products:GetBranch(product)
@@ -63,18 +69,20 @@ function m:GetSystems()
 			local numFunctions = v.system.Functions and #v.system.Functions
 			local numEvents = v.system.Events and #v.system.Events
 			if v.system.Type == "System" then
-				local line = BuildCsvLine(v.file, v.system.Name, v.system.Namespace, numFunctions, numEvents)
-				local data = {
-					file = v.file,
-					system = v.system.Name,
-					namespace = v.system.Namespace,
-					numFunctions = numFunctions,
-					numEvents = numEvents,
-				}
-				table.insert(t, {
-					line = line,
-					data = data,
-				})
+				if not filter[v.file] then
+					local line = BuildCsvLine(v.file, v.system.Name, v.system.Namespace, numFunctions, numEvents)
+					local data = {
+						file = v.file,
+						system = v.system.Name,
+						namespace = v.system.Namespace,
+						numFunctions = numFunctions,
+						numEvents = numEvents,
+					}
+					table.insert(t, {
+						line = line,
+						data = data,
+					})
+				end
 			end
 		end
 	end
@@ -108,4 +116,4 @@ function m:WriteModuleData(tbl)
 	file:close()
 end
 
-m:main("wow_beta") ---@type TactProduct
+m:main(PRODUCT)
