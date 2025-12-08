@@ -2,7 +2,7 @@
 local pathlib = require("path")
 local wowdoc = require("wowdoc.loader")
 
-local PRODUCT = "wowxptr" ---@type TactProduct
+local PRODUCT = "wow" ---@type TactProduct
 wowdoc:main(PRODUCT)
 local OUTPUT = pathlib.join(PATHS.WIKI_PAGE, "Events.txt")
 

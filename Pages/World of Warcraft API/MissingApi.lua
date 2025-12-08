@@ -2,7 +2,7 @@ local util = require("wowdoc")
 local products = require("wowdoc.products")
 local WikiText = require("Pages/World of Warcraft API/WikiText")
 
-local PRODUCT = "wowxptr" ---@type TactProduct
+local PRODUCT = "wow" ---@type TactProduct
 util:LoadDocumentation(PRODUCT)
 local _, blizres_branch = products:GetBranch(PRODUCT)
 

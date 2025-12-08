@@ -3,7 +3,7 @@ local pathlib = require("path")
 local util = require("wowdoc")
 local products = require("wowdoc.products")
 
-PRODUCT = "wowxptr" ---@type TactProduct
+PRODUCT = "wow" ---@type TactProduct
 GETHE_BRANCH, BLIZZRES_BRANCH = products:GetBranch(PRODUCT)
 OUTPUT_CVAR = pathlib.join(PATHS.WIKI_PAGE, "Console_variables_cvar.txt")
 OUTPUT_COMMAND = pathlib.join(PATHS.WIKI_PAGE, "Console_variables_command.txt")

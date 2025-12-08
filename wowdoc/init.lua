@@ -83,7 +83,7 @@ end
 --- it does not look at the semantic version (major,minor,patch) but only at the build number
 ---@param flavor "live"|"classic"|"classic_era"
 ---@return string path
-function m:GetLatestBuild(flavor)
+function m:GetLatestLocalBuild(flavor)
 	local folder = pathlib.join("FrameXML", flavor)
 	if not lfs.attributes(folder) then
 		error("path does not exist: "..folder)

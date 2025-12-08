@@ -18,7 +18,7 @@ local function GetStrings(path)
 end
 
 local function main(blizzres)
-	local frameXML = util:GetLatestBuild("live")
+	local frameXML = util:GetLatestLocalBuild("live")
 	util:IterateFiles(frameXML, GetStrings)
 	local framexml_cvars = {}
 	for k in pairs(blizzres[1].var) do
