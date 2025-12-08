@@ -34,7 +34,7 @@ local m = {}
 
 local function SendHttpsRequest(url)
 	local headers = {
-		["Authorization"] = "Bearer "..GITHUB_TOKEN,
+		["Authorization"] = string.format("Bearer %s", GITHUB_TOKEN),
 		["User-Agent"] = "WowpediaDoc"
 	}
 	local body = {}
@@ -43,7 +43,6 @@ local function SendHttpsRequest(url)
 		headers = headers,
 		sink = ltn12.sink.table(body)
 	}
-	-- idk why sometimes I get HTTP 400 and 403, nothing wrong with the user agent
 	if code ~= 200 then
 		error("HTTP "..code)
 	end
@@ -143,5 +142,5 @@ local function main(_tag, _branch)
 	log:success("Done")
 end
 
-main("12.0.0", "live")
+main("11.2.7", "live")
 -- main()

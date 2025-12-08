@@ -6,8 +6,9 @@ local function CreatePath(path)
 	end
 end
 
-local root = ".wow"
 PATHS = {}
+local root = ".wow"
+
 PATHS.OUT = pathlib.join(root, "out")
 PATHS.DOCUMENTER = pathlib.join(root, "documenter")
 PATHS.WAGO = pathlib.join(root, "wago")
@@ -22,3 +23,9 @@ PATHS.WIKI_CLASSIC_COMPARE = pathlib.join(root, "wiki_page", "classic_compare")
 for _, v in pairs(PATHS) do
 	CreatePath(v)
 end
+
+CONFIG = {}
+
+-- fallback to this tact product for all scripts
+-- instead of having to change it all the time everywhere
+CONFIG.TACT_PRODUCT = "wow" ---@type TactProduct

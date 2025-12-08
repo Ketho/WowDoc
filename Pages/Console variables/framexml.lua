@@ -1,5 +1,5 @@
 local util = require("wowdoc")
--- local parser = require("wowdoc.wago")
+local wago = require("wowdoc.wago")
 
 local framexml_strings = {}
 
@@ -18,6 +18,7 @@ local function GetStrings(path)
 end
 
 local function main(blizzres)
+	-- local latestWagoBuild = wago:GetLatestBuild("wow")
 	local frameXML = util:GetLatestLocalBuild("live")
 	util:IterateFiles(frameXML, GetStrings)
 	local framexml_cvars = {}

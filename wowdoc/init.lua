@@ -6,7 +6,7 @@ local https = require("ssl.https")
 local ltn12 = require("ltn12")
 
 require("wowdoc.config")
-local parser = require("wowdoc.wago")
+local wago = require("wowdoc.wago")
 local log = require("wowdoc.log")
 local doc_widgets = require("wowdoc.loader.doc_widgets")
 
@@ -371,7 +371,7 @@ function m:GetFlavorOptions(info)
 		local t = flavorInfo[info]
 		if t.branch then
 			-- need to know what the latest build is when downloading
-			t.build = parser:GetWagoVersions(t.branch)[1] -- latest build for a branch
+			t.build = wago:GetWagoVersions(t.branch)[1] -- latest build for a branch
 		end
 		t.sort = m.SortPatch
 		return t
