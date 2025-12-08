@@ -127,6 +127,7 @@ local Types =
 		{ Name = "UISoundSubType", Type = "string"},
 		{ Name = "SoundHandle", Type = "number"},
 		{ Name = "AuraFilters", Type = "string"},
+		{ Name = "AbbreviateConfig", Type = "AbbreviateConfig"},
 
 		-- widgets
 		-- defined: ScriptObject

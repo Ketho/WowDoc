@@ -28,8 +28,11 @@ function m:ExportSystems(folder)
 			util:mkdir(format("%s/%s/%s", folder, systemFolder, systemName))
 			local prefix
 			if system.Type == "ScriptObject" then
-				if not Widgets[system.Name] then print(system.Name) end
-				prefix = Widgets[system.Name].." "
+				-- if Widgets[system.Name] then
+					prefix = Widgets[system.Name].." "
+				-- else
+				-- 	prefix = system.Name
+				-- end
 			else
 				prefix = system.Namespace and system.Namespace.."." or ""
 			end

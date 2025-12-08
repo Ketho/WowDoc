@@ -1,8 +1,6 @@
 local wowdocloader = require("wowdoc.loader")
 
--- use the TACT product as starting point
-local PRODUCT = "wow" ---@type TactProduct
-wowdocloader:main(PRODUCT)
+wowdocloader:main(CONFIG.TACT_PRODUCT)
 require("Documenter.Wowpedia")
 --require("Documenter.Tests.Tests")
 

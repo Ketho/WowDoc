@@ -65,6 +65,7 @@ local doc_widgets = {
 	HousingLayoutPinFrameAPI = "HousingLayoutPinFrame",
 	LuaColorCurveObjectAPI = "ColorCurve",
 	LuaCurveObjectAPI = "Curve",
+	AbbreviateConfigAPI = "AbbreviateConfig",
 
 	-- special cases
 	FrameAPISimpleCheckout = "SimpleCheckout",

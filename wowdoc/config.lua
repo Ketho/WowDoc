@@ -1,10 +1,8 @@
 local pathlib = require("path")
 
-local function CreatePath(path)
-	if not pathlib.exists(path) then
-		pathlib.mkdir(path)
-	end
-end
+CONFIG = {}
+---@type TactProduct
+CONFIG.TACT_PRODUCT = "wow_beta"
 
 PATHS = {}
 local root = ".wow"
@@ -20,12 +18,12 @@ PATHS.STRINGS = pathlib.join(root, "strings")
 PATHS.WIKI_PAGE = pathlib.join(root, "wiki_page")
 PATHS.WIKI_CLASSIC_COMPARE = pathlib.join(root, "wiki_page", "classic_compare")
 
+local function CreatePath(path)
+	if not pathlib.exists(path) then
+		pathlib.mkdir(path)
+	end
+end
+
 for _, v in pairs(PATHS) do
 	CreatePath(v)
 end
-
-CONFIG = {}
-
--- fallback to this tact product for all scripts
--- instead of having to change it all the time everywhere
-CONFIG.TACT_PRODUCT = "wow" ---@type TactProduct
