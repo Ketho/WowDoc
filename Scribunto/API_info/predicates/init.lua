@@ -102,28 +102,11 @@ local function WritePredicates()
 	file:write("local m = {}\n\n")
 	file:write([=[
 m.description = {
-	MayReturnNothing = "",
-	IsProtectedFunction = "",
-	HasRestrictions = "",
-	RequiresValidAndPublicCVar = "",
-	RequiresNonReadOnlyCVar = "",
-	RequiresNonSecureCVar = "",
-	RequiresIndexInRange = "",
-	RequiresValidInviteTarget = "",
-	RequiresFriendList = "",
-	RequiresClubsInitialized = "",
-	RequiresCommentator = "",
-	RequiresActiveCommentator = "",
-	SecretWhenInCombat = "",
-	SecretReturns = "",
-	SecretNonPlayerUnitOrMinionWhileInCombat = "",
-	ConstSecretAccessor = "",
-	RequiresValidTimelineEvent = "",
-	SecretPayloads = "",
 	SynchronousEvent = "Dispatch of event is immediate and will complete before the function call returns",
 	UniqueEvent = "Event gets queued and dispatched toward the end of a frame",
 	CallbackEvent = "Can be registered with RegisterEventCallback()",
 }
+
 ]=])
 	file:write("m.data = {\n")
 	local t = ProcessDocs()
@@ -140,8 +123,12 @@ local function WriteSecretArguments()
 	log:info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
-	file:write([=[function m:GetHeader()
-	return '<div style="font-family:monospace">[[Patch_12.0.0/API_changes#Secret_values|SecretArguments]]</div>'
+	file:write([=[function m:GetHeaderArguments()
+	return '<div style="font-family:monospace">[[Patch_12.0.0/API_changes#Secret_aspects|SecretArgumentsAddAspect]]</div>'
+end
+
+function m:GetHeaderReturns()
+	return '<div style="font-family:monospace">[[Patch_12.0.0/API_changes#Secret_aspects|SecretReturnsForAspect]]</div>'
 end
 
 function m:GetAttributes()
