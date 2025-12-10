@@ -165,7 +165,7 @@ local function WriteSecretAspects()
 	log:info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
-	file:write([=[function m:GetHeader()
+	file:write([=[function m:GetHeaderArguments()
 	return '<div style="font-family:monospace">[[Patch_12.0.0/API_changes#Secret_aspects|SecretReturnsForAspect]]</div>'
 end
 
