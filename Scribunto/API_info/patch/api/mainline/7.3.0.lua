@@ -1,5 +1,5 @@
 -- https://github.com/Resike/BlizzardInterfaceResources/tree/d2eafbf1b91210176d9f539284f251544b29f77d
-return {
+local GlobalAPI = {
 	"AbandonQuest",
 	"AbandonSkill",
 	"AbbreviateLargeNumbers",
@@ -10292,3 +10292,5 @@ return {
 	"C_WowTokenPublic.UpdateMarketPrice",
 	"C_WowTokenPublic.UpdateTokenCount",
 }
+
+return {GlobalAPI}

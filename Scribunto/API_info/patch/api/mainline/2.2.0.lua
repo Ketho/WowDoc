@@ -1,5 +1,5 @@
 -- compared https://wowpedia.fandom.com/wiki/Global_functions?oldid=995981 to wow.exe v2.2.0 strings dump
-return {
+local GlobalAPI = {
 	"UnitIsCivilian",
 
 	"AbandonQuest",
@@ -1483,3 +1483,5 @@ return {
 	"unpack",
 	"xpcall",
 }
+
+return {GlobalAPI}

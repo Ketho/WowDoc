@@ -1,5 +1,5 @@
 -- https://github.com/Ketho/BlizzardInterfaceResources/blob/10.0.2/Resources/GlobalAPI.lua
-return {
+local GlobalAPI = {
 	"AbandonSkill",
 	"AcceptAreaSpiritHeal",
 	"AcceptBattlefieldPort",
@@ -5169,3 +5169,5 @@ return {
 	"C_TradeSkillUI.RecraftLimitCategoryValid",
 	"UnitPartialPower",
 }
+
+return {GlobalAPI}

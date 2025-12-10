@@ -3436,4 +3436,4 @@ local GlobalAPI = {
 	"seterrorhandler",
 }
 
-return GlobalAPI
+return {GlobalAPI}

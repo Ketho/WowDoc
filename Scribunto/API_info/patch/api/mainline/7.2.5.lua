@@ -1,6 +1,6 @@
 -- https://www.townlong-yak.com/framexml/7.2.5/Helix/GlobalAPI.lua
 -- AUTOMATICALLY GENERATED -- If incomplete, sacrifice additional goats.
-return {
+local GlobalAPI = {
 	"AbandonQuest",
 	"AbandonSkill",
 	"AcceptAreaSpiritHeal",
@@ -3892,3 +3892,5 @@ return {
 	"wipe",
 	"xpcall",
 }
+
+return {GlobalAPI}

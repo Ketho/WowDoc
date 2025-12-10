@@ -1,5 +1,5 @@
 -- https://github.com/Resike/BlizzardInterfaceResources/tree/4381e92989f847ccd37c390be3e7575f181f8acc
-return {
+local GlobalAPI = {
 	"AbandonQuest",
 	"AbandonSkill",
 	"AcceptAreaSpiritHeal",
@@ -4078,3 +4078,5 @@ return {
 	"securecall",
 	"seterrorhandler",
 }
+
+return {GlobalAPI}

@@ -1,4 +1,4 @@
-return {
+local GlobalAPI = {
 	"AbandonQuest",
 	"AbandonSkill",
 	"AcceptAreaSpiritHeal",
@@ -2488,3 +2488,5 @@ return {
 	"securecall",
 	"seterrorhandler",
 }
+
+return {GlobalAPI}

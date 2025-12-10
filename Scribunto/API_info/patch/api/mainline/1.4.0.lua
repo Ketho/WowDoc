@@ -1,6 +1,6 @@
 -- actually 1.4.2 dump
 -- https://wowpedia.fandom.com/wiki/Global_functions?oldid=18771
-return {
+local GlobalAPI = {
 	"AbandonQuest",
 	"AbandonSkill",
 	"AcceptBattlefieldPort",
@@ -901,3 +901,5 @@ return {
 	"UseInventoryItem",
 	"UseSoulstone",
 }
+
+return {GlobalAPI}

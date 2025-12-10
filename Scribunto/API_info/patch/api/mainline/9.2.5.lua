@@ -1,5 +1,5 @@
 -- https://github.com/Ketho/BlizzardInterfaceResources/blob/9.2.5/Resources/GlobalAPI.lua
-return {
+local GlobalAPI = {
 	"AbandonSkill",
 	"AcceptAreaSpiritHeal",
 	"AcceptBattlefieldPort",
@@ -4816,3 +4816,5 @@ return {
 	"C_AuctionHouse.ConfirmPostCommodity",
 	"C_AuctionHouse.ConfirmPostItem",
 }
+
+return {GlobalAPI}

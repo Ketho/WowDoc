@@ -1,6 +1,6 @@
 -- actually 3.1.3 dump
 -- https://wowpedia.fandom.com/wiki/Global_functions?oldid=1976124
-return {
+local GlobalAPI = {
 	"AbandonQuest",
 	"AbandonSkill",
 	"AcceptAreaSpiritHeal",
@@ -1896,3 +1896,5 @@ return {
 	"wipe",
 	"xpcall",
 }
+
+return {GlobalAPI}

@@ -1,6 +1,6 @@
 -- actually 2.4.2 dump
 -- https://wowpedia.fandom.com/wiki/Global_functions?oldid=1365303
-return {
+local GlobalAPI = {
 	"AbandonQuest",
 	"AbandonSkill",
 	"AcceptAreaSpiritHeal",
@@ -1618,3 +1618,5 @@ return {
 	"unpack",
 	"xpcall",
 }
+
+return {GlobalAPI}

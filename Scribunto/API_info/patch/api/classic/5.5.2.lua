@@ -4385,4 +4385,4 @@ local GlobalAPI = {
 	"setsecurehookforbidden",
 }
 
-return GlobalAPI
+return {GlobalAPI}

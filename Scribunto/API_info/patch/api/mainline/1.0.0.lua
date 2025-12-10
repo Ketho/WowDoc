@@ -1,5 +1,5 @@
 -- compared https://wowpedia.fandom.com/wiki/Global_functions?oldid=4864 to wow.exe v1.0.0 strings dump
-return {
+local GlobalAPI = {
 	"AbandonQuest",
 	"AbandonSkill",
 	"AcceptDuel",
@@ -855,3 +855,5 @@ return {
 	"UseInventoryItem",
 	"UseSoulstone",
 }
+
+return {GlobalAPI}

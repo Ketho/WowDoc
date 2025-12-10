@@ -1,5 +1,5 @@
 -- https://github.com/Ketho/BlizzardInterfaceResources/blob/8.2.5/Resources/GlobalAPI.lua
-return {
+local GlobalAPI = {
 	"AbandonQuest",
 	"AbandonSkill",
 	"AcceptAreaSpiritHeal",
@@ -4255,3 +4255,5 @@ return {
 	"securecall",
 	"seterrorhandler",
 }
+
+return {GlobalAPI}

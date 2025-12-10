@@ -1,5 +1,5 @@
 -- https://github.com/Resike/BlizzardInterfaceResources/tree/c2f37affc82f7bb74181f79aafa0117a0f03e446
-return {
+local GlobalAPI = {
 	"C_AccountInfo",
 	"C_AccountInfo.IsGUIDBattleNetAccountType",
 	"C_AccountInfo.IsGUIDRelatedToLocalAccount",
@@ -10700,3 +10700,5 @@ return {
 	"ZoneText_OnLoad",
 	"addframetext",
 }
+
+return {GlobalAPI}

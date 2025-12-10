@@ -1,5 +1,5 @@
 -- https://wowpedia.fandom.com/wiki/Global_functions?oldid=2717093
-return {
+local GlobalAPI = {
 	"AbandonQuest",
 	"AbandonSkill",
 	"AcceptAreaSpiritHeal",
@@ -2367,3 +2367,5 @@ return {
 	"wipe",
 	"xpcall",
 }
+
+return {GlobalAPI}

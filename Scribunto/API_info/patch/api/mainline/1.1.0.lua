@@ -1,6 +1,6 @@
 -- the wiki didnt give a patch number
 -- https://wowpedia.fandom.com/wiki/Global_functions?oldid=4864
-return {
+local GlobalAPI = {
 	"AbandonQuest",
 	"AbandonSkill",
 	"AcceptDuel",
@@ -867,3 +867,5 @@ return {
 	"UseInventoryItem",
 	"UseSoulstone",
 }
+
+return {GlobalAPI}

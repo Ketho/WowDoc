@@ -2572,4 +2572,4 @@ local GlobalAPI = {
 	"strsplittable",
 }
 
-return GlobalAPI
+return {GlobalAPI}
