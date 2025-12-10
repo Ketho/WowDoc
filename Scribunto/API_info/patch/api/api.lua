@@ -116,6 +116,8 @@ local function main()
 			-- framexml
 			t["C_Timer.NewTimer"] = {"6.0.2"}
 			t["C_Timer.NewTicker"] = {"6.0.2"}
+			t["AbbreviateNumbers"] = {"12.0.0"}
+			t["AbbreviateLargeNumbers"] = {"12.0.0"}
 			-- lua
 			t["strsplittable"] = {"9.1.5"}
 		end
