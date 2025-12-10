@@ -5679,10 +5679,4 @@ local GlobalAPI = {
 	"seterrorhandler",
 }
 
-local t = {}
-
-for _, v in pairs(GlobalAPI) do
-	t[v] = true
-end
-
-return t
+return GlobalAPI

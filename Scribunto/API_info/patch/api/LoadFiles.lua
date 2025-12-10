@@ -32,6 +32,7 @@ local function LoadFiles(path)
 			return minor_a < minor_b
 		elseif patch_a ~= patch_b then
 			return patch_a < patch_b
+		---@diagnostic disable-next-line: missing-return
 		end
 	end)
 	return t
