@@ -85,6 +85,9 @@ function m:GetLatestData(flavor)
 end
 
 local function main()
+	-- update to latest commit for tag
+	require("Scribunto.API_info.patch.api.update_patch")
+
 	for flavor, info in pairs(flavors) do
 		local added, removed = m:GetPatchData(info.data)
 		local latest = m:GetLatestData(flavor)

@@ -148,7 +148,7 @@ end
 --- Downloads a file
 ---@param url string URL to download from
 ---@param path string Path to write the file to
----@param isCache? boolean If the file should be redownloaded after `INVALIDATION_TIME`
+---@param isCache? number|boolean If the file should be redownloaded after `INVALIDATION_TIME`
 function m:DownloadFile(url, path, isCache)
 	if self:ShouldDownload(path, isCache) then
 		log:info(string.format('Downloading %s to "%s"', url, path))
