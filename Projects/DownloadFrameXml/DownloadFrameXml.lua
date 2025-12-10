@@ -142,5 +142,5 @@ local function main(_tag, _branch)
 	log:success("Done")
 end
 
-main("11.2.7", "live")
+main("12.0.0", "live")
 -- main()
