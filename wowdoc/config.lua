@@ -17,6 +17,7 @@ PATHS.SCRIBUNTO = pathlib.join(root, "scribunto")
 PATHS.STRINGS = pathlib.join(root, "strings")
 PATHS.WIKI_PAGE = pathlib.join(root, "wiki_page")
 PATHS.WIKI_CLASSIC_COMPARE = pathlib.join(root, "wiki_page", "classic_compare")
+PATHS.WIKI_CATEGORIES = pathlib.join(root, "wiki_categories")
 
 local function CreatePath(path)
 	if not pathlib.exists(path) then

@@ -5,11 +5,11 @@ import time
 site = pywikibot.Site("en", "warcraftwiki")
 
 def main():
-	systems = read_csv('.wow/api_systems/systems.csv')
+	systems = read_csv('.wow/wiki_categories/systems.csv')
 	for row in systems:
 		file, system, namespace, *_ = row
 		text = get_system_page(file, system, namespace)
-		save_page(f"Category:API_systems/{system}", text, "12.0.0 (63854) systems")
+		save_page(f"Category:API_systems/{system}", text, "12.0.0 (64741) systems")
 
 def read_csv(file_path):
 	with open(file_path, newline='', encoding='utf-8') as csvfile:
