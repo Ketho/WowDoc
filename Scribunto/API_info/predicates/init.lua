@@ -8,7 +8,40 @@ local PATH_PREDICATES = pathlib.join(".wow", "predicates")
 
 local PRODUCT = "wow_beta" ---@type TactProduct
 local wowdoc = require("wowdoc.loader")
-wowdoc:main(PRODUCT, nil, true)
+
+local function EditEnum()
+	Enum.SecretAspect = {
+		-- need to do a reverse lookup
+		-- so gonna apply hack and make them unique /shrug
+		Hierarchy = 0x1a,
+		ObjectDebug = 0x1b,
+		ObjectName = 0x1c,
+		ObjectSecrets = 0x1d,
+		ObjectSecurity = 0x1e,
+		ObjectType = 0x1f,
+
+		ID = 0x2,
+		Toplevel = 0x4,
+		Text = 0x8,
+		SecureText = 0x10,
+		Shown = 0x20,
+		Scale = 0x40,
+		Alpha = 0x80,
+		FrameLevel = 0x100,
+		ScrollRange = 0x200,
+		Cursor = 0x400,
+		VertexColor = 0x800,
+		Desaturation = 0x1000,
+		TexCoords = 0x2000,
+		BarValue = 0x4000,
+		Cooldown = 0x8000,
+		Rotation = 0x10000,
+		MinimumWidth = 0x20000,
+		Padding = 0x40000,
+	}
+end
+
+wowdoc:main(PRODUCT, nil, true, EditEnum)
 
 local function GetFullName(apiTable)
 	if apiTable.Type == "Event" then
@@ -139,40 +172,13 @@ m.description = {
 	file:close()
 end
 
-local SecretAspect = {
-	Hierarchy = 0x1,
-	ObjectDebug = 0x1,
-	ObjectName = 0x1,
-	ObjectSecrets = 0x1,
-	ObjectSecurity = 0x1,
-	ObjectType = 0x1,
-	ID = 0x2,
-	Toplevel = 0x4,
-	Text = 0x8,
-	SecureText = 0x10,
-	Shown = 0x20,
-	Scale = 0x40,
-	Alpha = 0x80,
-	FrameLevel = 0x100,
-	ScrollRange = 0x200,
-	Cursor = 0x400,
-	VertexColor = 0x800,
-	Desaturation = 0x1000,
-	TexCoords = 0x2000,
-	BarValue = 0x4000,
-	Cooldown = 0x8000,
-	Rotation = 0x10000,
-	MinimumWidth = 0x20000,
-	Padding = 0x40000,
-}
-
 local RevEnum_SecretAspect = {}
-for k, v in pairs(SecretAspect) do
+for k, v in pairs(Enum.SecretAspect) do
 	RevEnum_SecretAspect[v] = k
 end
 
 local function WriteSecretReturnsForAspect()
-	local output = pathlib.join(PATH_PREDICATES, "API_info.SecretReturnsForAspect.lua")
+	local output = pathlib.join(PATH_PREDICATES, "API_info.SecretAspects.lua")
 	log:info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
