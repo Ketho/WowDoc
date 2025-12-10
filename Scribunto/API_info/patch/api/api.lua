@@ -38,6 +38,11 @@ local underscore = {
 	FrameXML_Debug = true,
 }
 
+local isPreviouslyFrameXML = {
+	AbbreviateLargeNumbers = true,
+	AbbreviateNumbers = true,
+}
+
 -- 7.3.0, 7.3.2, 7.3.5, 8.0.1 dumps include framexml
 -- also try to filter lua api and C_namespace tables
 function m:IsFrameXML(s, added, removed)
@@ -45,6 +50,8 @@ function m:IsFrameXML(s, added, removed)
 		print(s, added, removed)
 	end
 	if underscore[s] then
+		return false
+	elseif isPreviouslyFrameXML[s] then
 		return false
 	elseif self.LuaAPI[s] then
 		return true
