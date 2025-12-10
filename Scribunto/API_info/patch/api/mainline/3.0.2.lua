@@ -1896,6 +1896,12 @@ local api = {
 	"xpcall",
 }
 
+local api_map = {}
+
+for _, v in pairs(api) do
+	api_map[v] = true
+end
+
 local added_313 = {
 	"AddOrRemoveFriend",
 	"AddPreviewTalentPoints",
@@ -1998,8 +2004,8 @@ local added_313 = {
 }
 
 for k in pairs(added_313) do
-	if api[k] then
-		api[k] = nil
+	if api_map[k] then
+		api_map[k] = nil
 	end
 end
 
@@ -2018,8 +2024,15 @@ local removed_310 = {
 	"ExpandAllHeaders",
 }
 
-for k, v in pairs(removed_310) do
-	api[k] = v
+for _, v in pairs(removed_310) do
+	api_map[v] = true
 end
 
-return {api}
+local GlobalAPI = {}
+
+for k in pairs(api_map) do
+	table.insert(GlobalAPI, k)
+end
+table.sort(GlobalAPI)
+
+return {GlobalAPI}
