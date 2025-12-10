@@ -21,7 +21,7 @@ files = [
 
 	[".wow/predicates/API_info.predicates.lua", "Module:API_info/predicates/predicates"],
 	[".wow/predicates/API_info.SecretArguments.lua", "Module:API_info/predicates/secret_arguments"],
-	[".wow/predicates/API_info.SecretReturnsForAspect.lua", "Module:API_info/predicates/secret_aspects"],
+	[".wow/predicates/API_info.SecretAspects.lua", "Module:API_info/predicates/secret_aspects"],
 ]
 
 def getFileText(p):

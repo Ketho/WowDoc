@@ -184,7 +184,27 @@ function m:GetAttributes()
 	return 'style="font-family:monospace;" class="apitype"'
 end
 ]=])
-	file:write("m.data = {\n")
+	file:write("m.SecretArgumentsAddAspect = {\n")
+	local line = '\t["%s"] = {%s},\n'
+	local t = {}
+	for _, v in pairs(APIDocumentation.functions) do
+		if v.SecretArgumentsAddAspect then
+			local name = GetFullName(v)
+			local t2 = {}
+			for _, v2 in pairs(v.SecretArgumentsAddAspect) do
+				local fs = '"Enum.SecretAspect.%s"'
+				table.insert(t2, fs:format(RevEnum_SecretAspect[v2]))
+			end
+			table.insert(t, line:format(name, table.concat(t2, ", ")))
+		end
+	end
+	table.sort(t)
+	for _, v in pairs(t) do
+		file:write(v)
+	end
+	file:write("}\n\n")
+
+	file:write("m.SecretReturnsForAspect = {\n")
 	local line = '\t["%s"] = {%s},\n'
 	local t = {}
 	for _, v in pairs(APIDocumentation.functions) do
@@ -203,6 +223,7 @@ end
 		file:write(v)
 	end
 	file:write("}\n\n")
+
 	file:write("return m\n")
 	file:close()
 end
