@@ -6,14 +6,10 @@ local function LoadFiles(path)
 		local patch = fileName:match("(.+)%.lua")
 		if patch then
 			local data = loadfile(path.."/"..fileName)()
+			local GlobalAPI = data[1]
 			local set = {}
-			-- hack: convert data to a set
-			if #data > 0 then
-				for k, v in pairs(data) do
-					set[v] = true
-				end
-			else
-				set = data
+			for _, v in pairs(GlobalAPI) do
+				set[v] = true
 			end
 			table.insert(t, {
 				version = patch,

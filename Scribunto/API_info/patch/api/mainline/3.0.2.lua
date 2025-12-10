@@ -2022,4 +2022,4 @@ for k, v in pairs(removed_310) do
 	api[k] = v
 end
 
-return api
+return {api}
