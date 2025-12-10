@@ -6,38 +6,6 @@ local widget_docs = require("wowdoc.loader.doc_widgets")
 local log = require("wowdoc.log")
 local PATH_PREDICATES = pathlib.join(".wow", "predicates")
 
-local Predicates = {
-	MayReturnNothing = true,
-	IsProtectedFunction = true,
-	HasRestrictions = true,
-
-	RequiresValidAndPublicCVar = true,
-	RequiresNonReadOnlyCVar = true,
-	RequiresNonSecureCVar = true,
-	RequiresIndexInRange = true,
-	RequiresValidInviteTarget = true,
-	RequiresFriendList = true,
-	RequiresClubsInitialized = true,
-	RequiresCommentator = true,
-	RequiresActiveCommentator = true,
-
-	SecretWhenInCombat = true,
-	SecretReturns = true,
-	SecretNonPlayerUnitOrMinionWhileInCombat = true,
-	SecretWhenAnchoringSecret = true,
-
-	ConstSecretAccessor = true,
-	ReturnsNeverSecret = true,
-	SecretPayloads = true,
-
-	-- events
-	RequiresValidTimelineEvent = true,
-	SecretInChatMessagingLockdown = true,
-	SynchronousEvent = true,
-	UniqueEvent = true,
-	CallbackEvent = true,
-}
-
 local PRODUCT = "wow_beta" ---@type TactProduct
 local wowdoc = require("wowdoc.loader")
 wowdoc:main(PRODUCT, nil, true)
@@ -63,10 +31,9 @@ end
 
 local function ProcessDocTable(t0, v)
 	local t1 = {}
-	-- want to preserve the same order as in blizzard docs
-	for attrib in pairs(Predicates) do
-		if v[attrib] then
-			table.insert(t1, attrib)
+	for field, value in pairs(v) do
+		if value == true then -- straightforward way to just check for true
+			table.insert(t1, field)
 		end
 	end
 	if #t1 > 0 then
@@ -97,6 +64,7 @@ end
 
 local function WritePredicates()
 	local output = pathlib.join(PATH_PREDICATES, "API_info.predicates.lua")
+	log:info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
 	file:write([=[
@@ -136,6 +104,7 @@ end
 
 local function WriteSecretArguments()
 	local output = pathlib.join(PATH_PREDICATES, "API_info.SecretArguments.lua")
+	log:info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
 	file:write([=[function m:GetHeader()
@@ -193,6 +162,8 @@ local SecretAspect = {
 	BarValue = 0x4000,
 	Cooldown = 0x8000,
 	Rotation = 0x10000,
+	MinimumWidth = 0x20000,
+	Padding = 0x40000,
 }
 
 local RevEnum_SecretAspect = {}
@@ -202,6 +173,7 @@ end
 
 local function WriteSecretReturnsForAspect()
 	local output = pathlib.join(PATH_PREDICATES, "API_info.SecretReturnsForAspect.lua")
+	log:info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
 	file:write([=[function m:GetHeader()
