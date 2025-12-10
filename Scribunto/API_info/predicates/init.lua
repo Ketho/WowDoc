@@ -166,7 +166,7 @@ local function WriteSecretAspects()
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
 	file:write([=[function m:GetHeaderArguments()
-	return '<div style="font-family:monospace">[[Patch_12.0.0/API_changes#Secret_aspects|SecretReturnsForAspect]]</div>'
+	return '<div style="font-family:monospace">[[Patch_12.0.0/API_changes#Secret_aspects|SecretArgumentsAddAspect]]</div>'
 end
 
 function m:GetHeaderReturns()
@@ -186,8 +186,7 @@ end
 			local name = GetFullName(v)
 			local t2 = {}
 			for _, v2 in pairs(v.SecretArgumentsAddAspect) do
-				local fs = '"Enum.SecretAspect.%s"'
-				table.insert(t2, fs:format(RevEnum_SecretAspect[v2]))
+				table.insert(t2, RevEnum_SecretAspect[v2])
 			end
 			table.insert(t, line:format(name, table.concat(t2, ", ")))
 		end
@@ -206,8 +205,7 @@ end
 			local name = GetFullName(v)
 			local t2 = {}
 			for _, v2 in pairs(v.SecretReturnsForAspect) do
-				local fs = '"Enum.SecretAspect.%s"'
-				table.insert(t2, fs:format(RevEnum_SecretAspect[v2]))
+				table.insert(t2, RevEnum_SecretAspect[v2])
 			end
 			table.insert(t, line:format(name, table.concat(t2, ", ")))
 		end
