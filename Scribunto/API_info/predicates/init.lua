@@ -123,12 +123,8 @@ local function WriteSecretArguments()
 	log:info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
-	file:write([=[function m:GetHeaderArguments()
-	return '<div style="font-family:monospace">[[Patch_12.0.0/API_changes#Secret_aspects|SecretArgumentsAddAspect]]</div>'
-end
-
-function m:GetHeaderReturns()
-	return '<div style="font-family:monospace">[[Patch_12.0.0/API_changes#Secret_aspects|SecretReturnsForAspect]]</div>'
+	file:write([=[function m:GetHeader()
+	return '<div style="font-family:monospace">[[Patch_12.0.0/API_changes#Secret_values|SecretArguments]]</div>'
 end
 
 function m:GetAttributes()
@@ -164,7 +160,7 @@ for k, v in pairs(Enum.SecretAspect) do
 	RevEnum_SecretAspect[v] = k
 end
 
-local function WriteSecretReturnsForAspect()
+local function WriteSecretAspects()
 	local output = pathlib.join(PATH_PREDICATES, "API_info.SecretAspects.lua")
 	log:info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
@@ -173,9 +169,14 @@ local function WriteSecretReturnsForAspect()
 	return '<div style="font-family:monospace">[[Patch_12.0.0/API_changes#Secret_aspects|SecretReturnsForAspect]]</div>'
 end
 
-function m:GetAttributes()
-	return 'style="font-family:monospace;" class="apitype"'
+function m:GetHeaderReturns()
+	return '<div style="font-family:monospace">[[Patch_12.0.0/API_changes#Secret_aspects|SecretReturnsForAspect]]</div>'
 end
+
+function m:GetAttributes()
+	return 'class="apitype" title="%s" style="font-family:monospace;"'
+end
+
 ]=])
 	file:write("m.SecretArgumentsAddAspect = {\n")
 	local line = '\t["%s"] = {%s},\n'
@@ -225,7 +226,7 @@ local function main()
 	pathlib.mkdir(PATH_PREDICATES)
 	WritePredicates()
 	WriteSecretArguments()
-	WriteSecretReturnsForAspect()
+	WriteSecretAspects()
 	log:success("Done")
 end
 
