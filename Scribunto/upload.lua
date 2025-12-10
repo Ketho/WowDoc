@@ -16,7 +16,7 @@ local function WriteFiles()
         Path.join(scribunto, "patch", "api", "api"),
         Path.join(scribunto, "patch", "event", "event"),
         Path.join(scribunto, "systems", "get_full_list"),
-        Path.join(scribunto, "systems", "get_systems"),
+        Path.join(scribunto, "systems", "categories", "get_systems"),
         Path.join(scribunto, "predicates"),
     }
     for _, v in pairs(files) do

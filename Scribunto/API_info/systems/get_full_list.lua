@@ -5,8 +5,6 @@ local wowdoc = require("wowdoc")
 local serpent = require("serpent")
 
 local m = {}
-local OUT_DIR = pathlib.join(".wow", "api_systems", "systems")
-pathlib.mkdir(OUT_DIR)
 
 function m:main(product)
 	loader:main(product, nil, true)
@@ -43,7 +41,7 @@ function m:GetFunctionList()
 		t[v.System.Name] = t[v.System.Name] or {}
 		table.insert(t[v.System.Name], name)
 	end
-	local path = pathlib.join(OUT_DIR, "functions_systems.lua")
+	local path = pathlib.join(PATHS.WIKI_CATEGORIES, "functions_systems.lua")
 	WriteScribuntoData(path, t)
 end
 
@@ -53,7 +51,7 @@ function m:GetEventList()
 		t[v.System.Name] = t[v.System.Name] or {}
 		table.insert(t[v.System.Name], v.LiteralName)
 	end
-	local path = pathlib.join(OUT_DIR, "events_systems.lua")
+	local path = pathlib.join(PATHS.WIKI_CATEGORIES, "events_systems.lua")
 	WriteScribuntoData(path, t)
 end
 
