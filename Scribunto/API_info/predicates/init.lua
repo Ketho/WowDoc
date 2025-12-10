@@ -186,7 +186,7 @@ end
 			local name = GetFullName(v)
 			local t2 = {}
 			for _, v2 in pairs(v.SecretArgumentsAddAspect) do
-				table.insert(t2, RevEnum_SecretAspect[v2])
+				table.insert(t2, string.format('"%s"', RevEnum_SecretAspect[v2]))
 			end
 			table.insert(t, line:format(name, table.concat(t2, ", ")))
 		end
@@ -205,7 +205,7 @@ end
 			local name = GetFullName(v)
 			local t2 = {}
 			for _, v2 in pairs(v.SecretReturnsForAspect) do
-				table.insert(t2, RevEnum_SecretAspect[v2])
+				table.insert(t2, string.format('"%s"', RevEnum_SecretAspect[v2]))
 			end
 			table.insert(t, line:format(name, table.concat(t2, ", ")))
 		end
