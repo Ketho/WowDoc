@@ -2003,9 +2003,9 @@ local added_313 = {
 	"wipe",
 }
 
-for k in pairs(added_313) do
-	if api_map[k] then
-		api_map[k] = nil
+for _, v in pairs(added_313) do
+	if api_map[v] then
+		api_map[v] = nil
 	end
 end
 
