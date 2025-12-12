@@ -13,8 +13,9 @@ def update_text(name: str, s: str):
 	for i, line in enumerate(lines):
 		for old, new in replacements.items():
 			if old in line:
-				lines[i] = line.replace(old, new)
-				is_updated = True
+				if not "system=" in line: # dont change system names
+					lines[i] = line.replace(old, new)
+					is_updated = True
 	
 	if is_updated:
 		return "\n".join(lines)
