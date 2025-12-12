@@ -2,7 +2,9 @@ import util.warcraftwiki
 
 def update_text(name: str, s: str):
 	replacements = {
-		"supressRaidIcons": "suppressRaidIcons",
+		"LuaDurationObject": "DurationObject",
+		"LuaCurveObjectBase": "CurveObjectBase",
+		"LuaCurveEvaluatedResult": "CurveEvaluatedResult",
 	}
 	
 	lines = s.splitlines()
@@ -18,7 +20,7 @@ def update_text(name: str, s: str):
 		return "\n".join(lines)
 
 def main():
-	util.warcraftwiki.main(update_text, summary="suppressRaidIcons")
+	util.warcraftwiki.main(update_text, summary="fix 12.0.1 types")
 
 if __name__ == "__main__": 
 	main()

@@ -32,8 +32,8 @@ def category_members(catname):
 
 		if 'error' in data:
 			if data['error']['code'] == 'ratelimited':
-				print(f"Rate limited, waiting 60 seconds...")
-				time.sleep(60)
+				print(f"Rate limited, waiting 90 seconds...")
+				time.sleep(90)
 				continue
 
 		for page in data['query']['categorymembers']:
