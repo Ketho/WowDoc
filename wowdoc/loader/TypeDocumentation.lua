@@ -128,6 +128,11 @@ local Types =
 		{ Name = "SoundHandle", Type = "number"},
 		{ Name = "AuraFilters", Type = "string"},
 		{ Name = "AbbreviateConfig", Type = "AbbreviateConfig"},
+		{ Name = "LuaDurationObject", Type = "DurationObject"},
+		{ Name = "LuaCurveObjectBase", Type = "CurveObjectBase"},
+		{ Name = "LuaCurveEvaluatedResult", Type = "CurveEvaluatedResult"},
+		{ Name = "FrameTime", Type = "number"},
+		{ Name = "FrameScriptObject", Type = "FrameScriptObject"},
 
 		-- widgets
 		-- defined: ScriptObject

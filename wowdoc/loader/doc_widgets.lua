@@ -66,6 +66,8 @@ local doc_widgets = {
 	LuaColorCurveObjectAPI = "ColorCurve",
 	LuaCurveObjectAPI = "Curve",
 	AbbreviateConfigAPI = "AbbreviateConfig",
+	LuaDurationObjectAPI = "LuaDurationObject",
+	LuaCurveObjectBaseAPI = "LuaCurveObjectBase",
 
 	-- special cases
 	FrameAPISimpleCheckout = "SimpleCheckout",
