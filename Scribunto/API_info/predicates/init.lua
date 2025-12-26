@@ -65,8 +65,11 @@ end
 local function ProcessDocTable(t0, v)
 	local t1 = {}
 	for field, value in pairs(v) do
-		if value == true then -- straightforward way to just check for true
+		-- predicates can be true or false
+		if value == true then
 			table.insert(t1, field)
+		elseif value == false then
+			table.insert(t1, field..": false")
 		end
 	end
 	if #t1 > 0 then
