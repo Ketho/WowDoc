@@ -33,7 +33,7 @@ local branches = {
 local m = {}
 
 local function SendHttpsRequest(url)
-	GITHUB_TOKEN = GITHUB_TOKEN:match("^%s*(.-)%s*$")
+	GITHUB_TOKEN = GITHUB_TOKEN:gsub("\n", "")
 	local headers = {
 		["Authorization"] = string.format("Bearer %s", GITHUB_TOKEN),
 		["User-Agent"] = "WowpediaDoc"

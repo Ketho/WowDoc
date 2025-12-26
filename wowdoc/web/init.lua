@@ -8,8 +8,8 @@ local m = {}
 local GITHUB_TOKEN = util:run_command("gh auth token")
 
 function m:SendHttpsRequest(url)
-	-- apparently need to trim whitespace/newlines or it sometimes returns HTTP 400
-	GITHUB_TOKEN = GITHUB_TOKEN:match("^%s*(.-)%s*$")
+	-- apparently need to trim newlines or it sometimes returns HTTP 400/403
+	GITHUB_TOKEN = GITHUB_TOKEN:gsub("\n", "")
 	local headers = {
 		["Authorization"] = string.format("Bearer %s", GITHUB_TOKEN),
 		["User-Agent"] = "WowDoc"
