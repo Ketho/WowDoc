@@ -1,3 +1,4 @@
+import sys
 import pywikibot
 
 site = pywikibot.Site("en", "warcraftwiki")
@@ -32,7 +33,7 @@ def getFileText(p):
 def saveFile(text, wikipath):
 	page = pywikibot.Page(site, wikipath)
 	page.text = text
-	page.save(summary = "12.0.0 (64889)")
+	page.save(summary = sys.argv[1])
 
 def main():
 	for v in files:

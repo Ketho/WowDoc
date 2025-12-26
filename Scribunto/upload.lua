@@ -7,6 +7,8 @@ local log = require("wowdoc.log")
 local PRODUCT = CONFIG.TACT_PRODUCT ---@type TactProduct
 local _, blizzres_branch = products:GetBranch(PRODUCT)
 
+local SUMMARY = "12.0.0 (65028), 12.0.1 (64914)"
+
 local function WriteFiles()
     local scribunto = Path.join("Scribunto", "API_info")
     local files = {
@@ -27,7 +29,7 @@ end
 
 local function UploadFiles()
     os.execute(".venv/bin/pwb login")
-    os.execute(".venv/bin/python Scribunto/upload.py")
+    os.execute(string.format('.venv/bin/python Scribunto/upload.py "%s"', SUMMARY))
 end
 
 local function main()
