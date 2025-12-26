@@ -106,8 +106,8 @@ def category_members(catname):
 
 		if 'error' in data:
 			if data['error']['code'] == 'ratelimited':
-				print(f"Rate limited, waiting 60 seconds...")
-				time.sleep(60)
+				print(f"Rate limited, waiting 80 seconds...")
+				time.sleep(80)
 				continue
 
 		for page in data['query']['categorymembers']:
@@ -160,7 +160,7 @@ def main():
 			page = pywikibot.Page(site, v)
 			if not page.exists():
 				page.text = docApi[v]
-				page.save(summary="12.0.0 (64889)")
+				page.save(summary="12.0.1 (64914)")
 				time.sleep(4)
 	print("done")
 
