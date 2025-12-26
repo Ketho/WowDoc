@@ -28,11 +28,10 @@ function m:ExportSystems(folder)
 			util:mkdir(format("%s/%s/%s", folder, systemFolder, systemName))
 			local prefix
 			if system.Type == "ScriptObject" then
-				-- if Widgets[system.Name] then
-					prefix = Widgets[system.Name].." "
-				-- else
-				-- 	prefix = system.Name
-				-- end
+				if not Widgets[system.Name] then
+					error(string.format("Not yet mapped widget in doc_widgets.lua for %s", system.Name))
+				end
+				prefix = Widgets[system.Name].." "
 			else
 				prefix = system.Namespace and system.Namespace.."." or ""
 			end

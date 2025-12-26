@@ -156,6 +156,7 @@ local Types =
 		{ Name = "CooldownFrame", Type = "Cooldown", Replace = true },
 		{ Name = "LuaColorCurveObject", Type = "ColorCurve", Replace = true },
 		{ Name = "LuaCurveObject", Type = "Curve", Replace = true },
+		{ Name = "UnitHealPredictionCalculator", Type = "UnitHealPredictionCalculator", Replace = true },
 		-- frame widgets
 		{ Name = "ChatBubbleFrame", Type = "Frame" },
 		{ Name = "NamePlateFrame", Type = "Frame", Mixin = "NamePlateBaseMixin" },

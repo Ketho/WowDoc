@@ -1,3 +1,5 @@
+local log = require("wowdoc.log")
+
 Wowpedia.basicTypes = {
 	bool = "boolean",
 	number = "number",
@@ -154,7 +156,9 @@ function Wowpedia:GetPrettyType(apiTable, isArgument)
 	elseif complexType then
 		apiText = complexType:GetFullName(false, false)
 	else
-		error("Unknown Type: "..apiTable.Type)
+		-- error("Unknown Type: "..apiTable.Type)
+		log:warn("Unknown Type: "..apiTable.Type)
+		apiTable.Type = "Unknown"
 	end
 	-- `Default` implies `Nilable`, even if nilable is false
 	if apiTable.Nilable or apiTable.Default ~= nil then
