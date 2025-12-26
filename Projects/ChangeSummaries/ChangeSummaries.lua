@@ -5,6 +5,7 @@ local log = require("wowdoc.log")
 local cvar_module = require("Projects/ChangeSummaries/CVar")
 local widget_module = require("Projects/ChangeSummaries/Widget")
 local m = {}
+-- `git diff --binary --full-index 12.0.0 12.0.1 > diff-12.0.0..12.0.1.patch`
 local BRANCH1 = "12.0.0"
 local BRANCH2 = "12.0.1"
 local WIDGET= BRANCH2 -- for widgets
