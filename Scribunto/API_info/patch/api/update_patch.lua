@@ -12,13 +12,11 @@ local FLAVOR = "mainline" ---@type "classic"|"classic_era"|"mainline"
 local FULL_PATH = pathlib.join(BASE_PATH, FLAVOR, TAG..".lua")
 
 local function GetCommit(tag)
-	local result, version = pcall(github.GetCommitVersion, github, tag)
-	-- print("miku", result, version)
-	if result then
+	local version = github:GetCommitVersion(tag)
+	if version then
 		return version
 	else
-		log:failure(string.format("Error %s; aborting update for %s", version, tag))
-		return false
+		log:failure(string.format("Error %s for %s", version, tag))
 	end
 end
 

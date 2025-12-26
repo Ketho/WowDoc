@@ -33,6 +33,7 @@ local branches = {
 local m = {}
 
 local function SendHttpsRequest(url)
+	GITHUB_TOKEN = GITHUB_TOKEN:match("^%s*(.-)%s*$")
 	local headers = {
 		["Authorization"] = string.format("Bearer %s", GITHUB_TOKEN),
 		["User-Agent"] = "WowpediaDoc"
@@ -81,7 +82,11 @@ end
 function m:GetGithubTag(v)
 	local URL_TAG = "https://github.com/Gethe/wow-ui-source/archive/refs/tags/%s.zip"
 	local version = self:GetCommitVersion(v)
-	return URL_TAG:format(v), version
+	if version then
+		return URL_TAG:format(v), version
+	else
+		log:failure(string.format("Error %s for %s", version, v))
+	end
 end
 
 function m:GetCommitVersion(tag)
