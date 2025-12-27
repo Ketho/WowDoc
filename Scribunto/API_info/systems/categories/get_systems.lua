@@ -5,6 +5,7 @@ local pathlib = require("path")
 local products = require("wowdoc.products")
 local git = require("wowdoc.git")
 local enum = require("wowdoc.enum")
+local log = require("wowdoc.log")
 
 local PRODUCT = CONFIG.TACT_PRODUCT ---@type TactProduct
 
@@ -58,6 +59,14 @@ local function BuildCsvLine(...)
 	return table.concat(t, ",")
 end
 
+local function FormatDocumentation(t)
+	if t then
+		local s = table.concat(t)
+		s = s:gsub('"', '\\"')
+		return string.format('"%s"', s)
+	end
+end
+
 function m:GetSystems()
 	local t = {}
 	for _, v in pairs(docTables) do
@@ -73,6 +82,7 @@ function m:GetSystems()
 						namespace = v.system.Namespace,
 						numFunctions = numFunctions,
 						numEvents = numEvents,
+						documentation = FormatDocumentation(v.system.Documentation),
 					}
 					table.insert(t, {
 						line = line,
@@ -90,8 +100,9 @@ end
 
 function m:WriteCsv(tbl)
 	local filePath = pathlib.join(PATHS.WIKI_CATEGORIES, "systems.csv")
+	log:info("Writing "..filePath)
 	local file = io.open(filePath, "w")
-	file:write("File,Name,Namespace,NumFunctions,NumEvents\n")
+	file:write("File,Name,Namespace,NumFunctions,NumEvents,Documentation\n")
 	for _, v in pairs(tbl) do
 		file:write(v.line.."\n")
 	end
@@ -100,13 +111,14 @@ end
 
 function m:WriteModuleData(tbl)
 	local filePath = pathlib.join(PATHS.WIKI_CATEGORIES, "systems_data.lua")
+	log:info("Writing "..filePath)
 	local file = io.open(filePath, "w")
 	file:write("local data = {\n")
-	local fs = '\t%s = {"%s", %s, %d, %d},\n'
+	local fs = '\t%s = {"%s", %s, %d, %d, %s},\n'
 	for _, v in pairs(tbl) do
 		local data = v.data
 		local namespace = data.namespace and string.format('"%s"', data.namespace)
-		file:write(fs:format(data.system, data.file, namespace, data.numFunctions, data.numEvents))
+		file:write(fs:format(data.system, data.file, namespace, data.numFunctions, data.numEvents, data.documentation))
 	end
 	file:write("}\n\nreturn data")
 	file:close()
