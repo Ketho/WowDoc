@@ -82,7 +82,7 @@ function Wowpedia:GetSignature(paramTbl)
 			if param:IsOptional() then
 				name = format("%s?", name)
 			end
-			tinsert(tbl, name)
+			table.insert(tbl, name)
 		end
 		return table.concat(tbl, ", ")
 	else
@@ -95,7 +95,7 @@ function Wowpedia:GetSignature(paramTbl)
 			else
 				name = format("%s", name)
 			end
-			tinsert(tbl, name)
+			table.insert(tbl, name)
 		end
 		local str = table.concat(tbl, ", ")
 		local result
@@ -113,16 +113,21 @@ function Wowpedia:GetParameters(params, isArgument)
 	local tbl = {}
 	for _, param in ipairs(params) do
 		if param:GetStrideIndex() == 1 then
-			tinsert(tbl, format("(Variable %s)", isArgument and "arguments" or "returns"))
+			table.insert(tbl, format("(Variable %s)", isArgument and "arguments" or "returns"))
 		end
-		tinsert(tbl, paramFs:format(param.Name, self:GetPrettyType(param, isArgument)))
+		local r = {}
+		table.insert(r, paramFs:format(param.Name, self:GetPrettyType(param, isArgument)))
+		if param.Documentation and #param.Documentation > 0 then
+			table.insert(r, self:GetDocumentationField(param))
+		end
+		table.insert(tbl, table.concat(r, " - "))
 		local complexTable, isTransclude = self:GetComplexTypeInfo(param)
 		if complexTable then
 			if isTransclude then
 				local transclude = format("{{:%s|nocaption=1}}", self:GetTranscludeBase(complexTable))
-				tinsert(tbl, transclude)
+				table.insert(tbl, transclude)
 			else
-				tinsert(tbl, self:GetTableText(complexTable))
+				table.insert(tbl, self:GetTableText(complexTable))
 			end
 		end
 	end
@@ -173,7 +178,7 @@ end
 
 function Wowpedia:GetDocumentationField(apiTable)
 	if apiTable.Documentation then
-		return table.concat(apiTable.Documentation, "<br>")
+		return table.concat(apiTable.Documentation, "; ")
 	else
 		return ""
 	end
