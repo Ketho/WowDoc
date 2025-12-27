@@ -168,10 +168,15 @@ function Wowpedia:GetPrettyType(apiTable, isArgument)
 		apiText = apiText..format("|default=%s", tostring(apiTable.Default))
 	end
 	local str = string.format("{{apitype|%s}}", apiText)
-	if apiTable.Documentation then
-		str = str.." - "..table.concat(apiTable.Documentation, "; ")
-	end
 	return str
+end
+
+function Wowpedia:GetDocumentationField(apiTable)
+	if apiTable.Documentation then
+		return table.concat(apiTable.Documentation, "<br>")
+	else
+		return ""
+	end
 end
 
 function Wowpedia:GetComplexTypeInfo(apiTable)

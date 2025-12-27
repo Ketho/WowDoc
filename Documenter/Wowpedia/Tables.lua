@@ -37,19 +37,23 @@ function Wowpedia:GetTableText(apiTable, isTemplate, isSubTable)
 		local isBitEnum = util:IsBitEnum(apiTable)
 		tinsert(tbl, "! Value !! Field !! Description")
 		for _, field in ipairs(apiTable.Fields) do
-			tinsert(tbl, format('|-\n| %s || {{apiname|%s}} || ', isBitEnum and string.format("0x%X", field.EnumValue) or field.EnumValue, field.Name))
+			local enumValue = isBitEnum and string.format("0x%X", field.EnumValue) or field.EnumValue
+			local doc = self:GetDocumentationField(field)
+			tinsert(tbl, format('|-\n| %s || {{apiname|%s}} || %s', enumValue, field.Name, doc))
 		end
 	elseif apiTable.Type == "Structure" then
 		tinsert(tbl, "! Field !! Type !! Description")
 		for _, field in ipairs(apiTable.Fields) do
 			local prettyType = self:GetPrettyType(field)
-			tinsert(tbl, format('|-\n| {{apiname|%s}} || %s || ', field.Name, prettyType))
+			local doc = self:GetDocumentationField(field)
+			tinsert(tbl, format('|-\n| {{apiname|%s}} || %s || %s', field.Name, prettyType, doc))
 		end
 	elseif apiTable.Type == "Constants" then
 		tinsert(tbl, "! Constant !! Type !! Value !! Description")
 		for _, field in ipairs(apiTable.Values) do
 			local prettyType = self:GetPrettyType(field)
-			tinsert(tbl, format('|-\n| {{apiname|%s}} || %s || %s || ', field.Name, prettyType, field.Value))
+			local doc = self:GetDocumentationField(field)
+			tinsert(tbl, format('|-\n| {{apiname|%s}} || %s || %s || %s', field.Name, prettyType, field.Value, doc))
 		end
 	end
 	tinsert(tbl, "|}")
