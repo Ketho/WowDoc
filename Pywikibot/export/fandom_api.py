@@ -7,6 +7,10 @@ from pathlib import Path
 
 url = 'https://warcraft.wiki.gg/'
 
+headers = { # https://foundation.wikimedia.org/wiki/Policy:Wikimedia_Foundation_User-Agent_Policy
+    'User-Agent': 'KethoBot/1.0 (https://warcraft.wiki.gg/wiki/User:KethoBot)'
+}
+
 categories = [
 	"API functions",
 	"Lua functions",
@@ -27,7 +31,7 @@ def category_members(catname):
 		'formatversion': 2,
 	}
 	while True:
-		resp = requests.post(f'{url}/api.php', params)
+		resp = requests.post(f'{url}/api.php', params, headers=headers)
 		data = resp.json()
 
 		if 'error' in data:
@@ -55,7 +59,7 @@ def export(catname):
 		'wpEditToken': '%2B%5C',
 	}
 	print(f'Exporting {len(pages)} page(s) found in "Category:{catname}"')
-	resp = requests.post(f'{url}/index.php', params)
+	resp = requests.post(f'{url}/index.php', params, headers=headers)
 	data = resp.content
 	return data
 

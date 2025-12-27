@@ -7,6 +7,10 @@ from pathlib import Path
 site = pywikibot.Site("en", "warcraftwiki")
 url = 'https://warcraft.wiki.gg'
 
+headers = { # https://foundation.wikimedia.org/wiki/Policy:Wikimedia_Foundation_User-Agent_Policy
+    'User-Agent': 'KethoBot/1.0 (https://warcraft.wiki.gg/wiki/User:KethoBot)'
+}
+
 redirects = [
 	#  api
 	"API C ArtifactUI.GetPowersAffectedByRelicItemLink",
@@ -101,7 +105,7 @@ def category_members(catname):
 		'formatversion': 2,
 	}
 	while True:
-		resp = requests.post(f'{url}/api.php', params)
+		resp = requests.post(f'{url}/api.php', params, headers=headers)
 		data = resp.json()
 
 		if 'error' in data:
@@ -127,7 +131,7 @@ def recursiveFiles(path, l):
 	for base in os.listdir(path):
 		newPath = Path(path, base)
 		if os.path.isdir(newPath):
-			if base != "widget" or ('Housing' in str(newPath)):
+			if base != "widget":
 				recursiveFiles(newPath, l)
 		else:
 			name = base[:-4].replace("_", " ")
@@ -160,7 +164,7 @@ def main():
 			page = pywikibot.Page(site, v)
 			if not page.exists():
 				page.text = docApi[v]
-				page.save(summary="12.0.1 (64914)")
+				page.save(summary="12.0.0 (65028)")
 				time.sleep(4)
 	print("done")
 

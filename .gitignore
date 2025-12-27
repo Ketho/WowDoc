@@ -15,6 +15,7 @@ wago/*/*.csv
 *.lwp
 *.ctrl
 *.pyc
+Pywikibot/vibe
 
 # hererocks
 /.lua
