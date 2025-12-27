@@ -11,7 +11,7 @@ w.Util.PtrVersion = "10.1.7"
 function w.util:SortTable(tbl)
 	local t = {}
 	for k in pairs(tbl) do
-		tinsert(t, k)
+		table.insert(t, k)
 	end
 	sort(t)
 	return t

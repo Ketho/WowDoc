@@ -54,7 +54,7 @@ local function GetCvarTypes(commandType)
 			v.isPTR = true
 		end
 		if v.commandType == commandType then
-			tinsert(t, v)
+			table.insert(t, v)
 		end
 	end
 	sort(t, SortNocase)

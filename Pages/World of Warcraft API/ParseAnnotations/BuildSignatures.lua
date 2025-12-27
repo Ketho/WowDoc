@@ -50,7 +50,7 @@ local function FomatOptionals(paramTbl)
         else
             name = format("%s", name)
         end
-        tinsert(tbl, name)
+        table.insert(tbl, name)
     end
     local str = table.concat(tbl, ", ")
     local result

@@ -6,7 +6,7 @@ function KethoWowpedia:GameError()
 	local enums = {}
 	for k, v in pairs(_G) do
 		if k:find("^LE_GAME_ERR") then
-			tinsert(enums, {k, v})
+			table.insert(enums, {k, v})
 		end
 	end
 	sort(enums, function(a, b)

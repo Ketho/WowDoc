@@ -21,7 +21,7 @@ function Wowpedia:GetTableText(apiTable, isTemplate, isSubTable)
 		tableClass = tableClass.." col1-center"
 	end
 	tableClass = tableClass..'" style="margin-left: 3.9em"'
-	tinsert(tbl, tableClass)
+	table.insert(tbl, tableClass)
 	if isTemplate then
 		-- local link
 		-- if transclude == fullName then -- Enum; save some space
@@ -29,34 +29,34 @@ function Wowpedia:GetTableText(apiTable, isTemplate, isSubTable)
 		-- else -- Struct
 		-- 	link = format("%s|%s", transclude, fullName)
 		-- end
-		tinsert(tbl, format("|+ {{#if:{{{nocaption|}}}||%s}}", fullName))
+		table.insert(tbl, format("|+ {{#if:{{{nocaption|}}}||%s}}", fullName))
 	elseif isSubTable then
-		tinsert(tbl, format("|+ %s", fullName))
+		table.insert(tbl, format("|+ %s", fullName))
 	end
 	if apiTable.Type == "Enumeration" then
 		local isBitEnum = util:IsBitEnum(apiTable)
-		tinsert(tbl, "! Value !! Field !! Description")
+		table.insert(tbl, "! Value !! Field !! Description")
 		for _, field in ipairs(apiTable.Fields) do
 			local enumValue = isBitEnum and string.format("0x%X", field.EnumValue) or field.EnumValue
 			local doc = self:GetDocumentationField(field)
-			tinsert(tbl, format('|-\n| %s || {{apiname|%s}} || %s', enumValue, field.Name, doc))
+			table.insert(tbl, format('|-\n| %s || {{apiname|%s}} || %s', enumValue, field.Name, doc))
 		end
 	elseif apiTable.Type == "Structure" then
-		tinsert(tbl, "! Field !! Type !! Description")
+		table.insert(tbl, "! Field !! Type !! Description")
 		for _, field in ipairs(apiTable.Fields) do
 			local prettyType = self:GetPrettyType(field)
 			local doc = self:GetDocumentationField(field)
-			tinsert(tbl, format('|-\n| {{apiname|%s}} || %s || %s', field.Name, prettyType, doc))
+			table.insert(tbl, format('|-\n| {{apiname|%s}} || %s || %s', field.Name, prettyType, doc))
 		end
 	elseif apiTable.Type == "Constants" then
-		tinsert(tbl, "! Constant !! Type !! Value !! Description")
+		table.insert(tbl, "! Constant !! Type !! Value !! Description")
 		for _, field in ipairs(apiTable.Values) do
 			local prettyType = self:GetPrettyType(field)
 			local doc = self:GetDocumentationField(field)
-			tinsert(tbl, format('|-\n| {{apiname|%s}} || %s || %s || %s', field.Name, prettyType, field.Value, doc))
+			table.insert(tbl, format('|-\n| {{apiname|%s}} || %s || %s || %s', field.Name, prettyType, field.Value, doc))
 		end
 	end
-	tinsert(tbl, "|}")
+	table.insert(tbl, "|}")
 	local text = table.concat(tbl, "\n")
 	local includedTables = self:GetIncludedTables(apiTable)
 	if #includedTables > 0 then
@@ -75,9 +75,9 @@ function Wowpedia:GetIncludedTables(apiTable)
 				tblHash[complexTable] = true
 				if isTransclude then
 					local transclude = format("{{:%s}}", self:GetTranscludeBase(complexTable))
-					tinsert(tbl, transclude)
+					table.insert(tbl, transclude)
 				else
-					tinsert(tbl, self:GetTableText(complexTable, false, true))
+					table.insert(tbl, self:GetTableText(complexTable, false, true))
 				end
 			end
 		end

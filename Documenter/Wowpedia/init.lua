@@ -20,7 +20,7 @@ function Wowpedia:GetPageText(apiTable, systemType)
 		params,
 	}
 	for _, v in ipairs(sections) do
-		tinsert(tbl, v)
+		table.insert(tbl, v)
 	end
 	return table.concat(tbl, "\n")
 end
@@ -35,23 +35,23 @@ end
 function Wowpedia:GetTemplateInfo(apiTable, systemType)
 	local tbl = {}
 	if systemType == "ScriptObject" then
-		tinsert(tbl, "widgetmethod")
+		table.insert(tbl, "widgetmethod")
 	elseif apiTable.Type == "Function" then
-		tinsert(tbl, "wowapi")
-		tinsert(tbl, "t=a")
+		table.insert(tbl, "wowapi")
+		table.insert(tbl, "t=a")
 	elseif apiTable.Type == "Event" then
-		tinsert(tbl, "wowapievent")
-		tinsert(tbl, "t=e")
+		table.insert(tbl, "wowapievent")
+		table.insert(tbl, "t=e")
 	elseif apiTable.Type == "Enumeration" or apiTable.Type == "Structure" then
-		tinsert(tbl, "wowapitype")
+		table.insert(tbl, "wowapitype")
 	end
 	local system = apiTable.System
 	if system then
 		if system.Namespace then
-			tinsert(tbl, "namespace="..system.Namespace)
+			table.insert(tbl, "namespace="..system.Namespace)
 		end
 		if system.Name then
-			tinsert(tbl, "system="..system.Name)
+			table.insert(tbl, "system="..system.Name)
 		end
 	end
 	return format("{{%s}}", table.concat(tbl, "|"))

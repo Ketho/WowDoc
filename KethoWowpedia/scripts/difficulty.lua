@@ -14,11 +14,11 @@ function KethoWowpedia:GetDifficultyIDs()
 			local difficultyName, instanceType, isHeroic, isChallengeMode, displayHeroic, displayMythic, toggleDifficultyID = GetDifficultyInfo(i)
 
 			local t = {}
-			if isHeroic then tinsert(t, "isHeroic") end
-			if isChallengeMode then tinsert(t, "isChallengeMode") end
-			if displayHeroic then tinsert(t, "displayHeroic") end
-			if displayMythic then tinsert(t, "displayMythic") end
-			if toggleDifficultyID then tinsert(t, "toggleDifficultyID: "..toggleDifficultyID) end
+			if isHeroic then table.insert(t, "isHeroic") end
+			if isChallengeMode then table.insert(t, "isChallengeMode") end
+			if displayHeroic then table.insert(t, "displayHeroic") end
+			if displayMythic then table.insert(t, "displayMythic") end
+			if toggleDifficultyID then table.insert(t, "toggleDifficultyID: "..toggleDifficultyID) end
 
 			eb:InsertLine(fs:format(i, difficultyName, instanceType,
 				table.concat(t, ", ")))

@@ -56,7 +56,7 @@ local patternsFloor = {
 }
 
 for _, v in pairs(patternsMap) do
-	tinsert(patternsFloor, v)
+	table.insert(patternsFloor, v)
 end
 
 local function IsValidName(s, patterns)
