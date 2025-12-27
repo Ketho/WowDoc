@@ -3,7 +3,7 @@ local util = require("wowdoc")
 local OUT = pathlib.join(PATHS.WIKI_PAGE, "Widget_API.txt")
 local doc_widgets = require("wowdoc/loader/doc_widgets")
 
-local PRODUCT = "wow_beta" ---@type TactProduct
+local PRODUCT = CONFIG.TACT_PRODUCT
 util:LoadDocumentation(PRODUCT)
 
 local widget_order = {
@@ -58,6 +58,7 @@ local widget_order = {
 	"HousingCatalogSearcher",
 	"HousingFixturePointFrame",
 	"HousingLayoutPinFrame",
+	"UnitHealPredictionCalculator",
 }
 
 local widget_desc = {
