@@ -62,7 +62,6 @@ end
 local function FormatDocumentation(t)
 	if t then
 		local s = table.concat(t)
-		s = s:gsub('"', '\\"')
 		return string.format('"%s"', s)
 	end
 end

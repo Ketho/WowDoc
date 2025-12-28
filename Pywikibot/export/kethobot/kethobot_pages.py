@@ -25,10 +25,8 @@ def parse_xml(filepath):
 		timestamp_str = timestamp_el.text
 		timestamp = parse_timestamp(timestamp_str)
 
-		comment_el = revision.find('mw:comment', NS)
-		if comment_el is None:
-			continue
-		comment = comment_el.text
+		# comment_el = revision.find('mw:comment', NS)
+		# comment = comment_el.text
 
 		contributor = revision.find('mw:contributor', NS)
 		username_elem = contributor.find('mw:username', NS)
@@ -37,7 +35,7 @@ def parse_xml(filepath):
 		dict[username].append({
 			'title': title,
 			'timestamp': timestamp,
-			'comment': comment,
+			# 'comment': comment,
 		})
 
 	return dict
@@ -58,7 +56,7 @@ def read_xml_folder(path):
 
 def main():
 	pages = read_xml_folder('.wow/wiki_export')
-	kethobot_pages = pages['KethoBot']
+	kethobot_pages = pages['Ketho']
 
 	now = datetime.now(timezone.utc)
 	days = 80
@@ -70,7 +68,7 @@ def main():
 	
 	for i, page in enumerate(recent_pages, start=1):
 		timestamp = page['timestamp'].strftime('%Y-%m-%d %H:%M:%S')
-		print(f"{i:3d}, {timestamp}, {page['comment']}, {page['title']}")
+		print(f"{i:3d}, {timestamp}, {page['title']}")
 
 	return recent_pages
 
