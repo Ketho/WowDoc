@@ -6,6 +6,7 @@ import time
 from pathlib import Path
 
 url = 'https://warcraft.wiki.gg/'
+EXPORT_PATH = Path(".wow", "wiki_export")
 
 headers = { # https://foundation.wikimedia.org/wiki/Policy:Wikimedia_Foundation_User-Agent_Policy
     'User-Agent': 'KethoBot/1.0 (https://warcraft.wiki.gg/wiki/User:KethoBot)'
@@ -64,7 +65,7 @@ def export(catname):
 	return data
 
 def main(catname):
-	dir_path = Path(".wow", "wiki_export")
+	dir_path = EXPORT_PATH
 	dir_path.mkdir(parents=True, exist_ok=True)
 
 	xml = export(catname)

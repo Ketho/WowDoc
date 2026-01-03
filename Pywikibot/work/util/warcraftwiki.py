@@ -5,6 +5,8 @@ from pathlib import Path
 from time import time, sleep
 import glob
 
+EXPORT_PATH = Path(".wow", "wiki_export")
+
 xmlns = "{http://www.mediawiki.org/xml/export-0.11/}"
 categories = [
 	"API functions",
@@ -21,7 +23,7 @@ def main(func, category=None, summary=None, test=None):
 	save_pages(changes, summary, test)
 
 def get_updates(func, category):
-	folder = Path(".wow", "wiki_export")
+	folder = EXPORT_PATH
 	li = []
 	if category:
 		# Find the most recent file matching the category name
@@ -78,5 +80,5 @@ def save_pages(changes, summary, test):
 			sleep(3)
 			numEdits = numEdits+1
 		elif test == "verbose":
-			print(name, text)
+			print(numEdits, name, text)
 	print(f"done. {numEdits} edits, {floor(time()-elapsed)} seconds")
