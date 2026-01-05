@@ -131,7 +131,7 @@ local function WriteSecretArguments()
 end
 
 function m:GetAttributes()
-	return 'class="apitype" title="%s" style="font-family:monospace;"'
+	return 'title="%s" style="font-family: monospace; text-decoration: underline dotted;"'
 end
 
 m.description = {
