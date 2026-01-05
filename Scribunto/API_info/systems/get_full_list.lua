@@ -55,4 +55,4 @@ function m:GetEventList()
 	WriteScribuntoData(path, t)
 end
 
-m:main(CONFIG.TACT_PRODUCT) ---@type TactProduct
+m:main(CONFIG.TACT_PRODUCT)

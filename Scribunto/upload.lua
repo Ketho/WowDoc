@@ -4,10 +4,10 @@ local enum = require("wowdoc.enum")
 local products = require("wowdoc.products")
 local log = require("wowdoc.log")
 
-local PRODUCT = CONFIG.TACT_PRODUCT ---@type TactProduct
+local PRODUCT = CONFIG.TACT_PRODUCT
 local _, blizzres_branch = products:GetBranch(PRODUCT)
 
-local SUMMARY = "12.0.0 (65028), 12.0.1 (64914)"
+local SUMMARY = "test"
 
 local function WriteFiles()
     local scribunto = Path.join("Scribunto", "API_info")

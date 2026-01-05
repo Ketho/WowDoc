@@ -7,7 +7,7 @@ local git = require("wowdoc.git")
 local enum = require("wowdoc.enum")
 local log = require("wowdoc.log")
 
-local PRODUCT = CONFIG.TACT_PRODUCT ---@type TactProduct
+local PRODUCT = CONFIG.TACT_PRODUCT
 
 local m = {}
 local DocGenerated = pathlib.join("wow-ui-source", "Interface", "AddOns", "Blizzard_APIDocumentationGenerated")

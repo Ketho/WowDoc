@@ -6,7 +6,7 @@ local widget_docs = require("wowdoc.loader.doc_widgets")
 local log = require("wowdoc.log")
 local PATH_PREDICATES = pathlib.join(".wow", "predicates")
 
-local PRODUCT = "wow_beta" ---@type TactProduct
+local PRODUCT = CONFIG.TACT_PRODUCT
 local wowdoc = require("wowdoc.loader")
 
 local function EditEnum()

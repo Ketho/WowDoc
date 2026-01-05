@@ -3,7 +3,7 @@ local log = require("wowdoc.log")
 local products = require("wowdoc.products")
 local enum = require("wowdoc.enum")
 
-local PRODUCT = "wow_beta" ---@type TactProduct
+local PRODUCT = CONFIG.TACT_PRODUCT
 local _, branch = products:GetBranch(PRODUCT)
 enum:LoadLuaEnums(branch)
 local apidoc_nontoc = require("wowdoc.loader.nontoc")
