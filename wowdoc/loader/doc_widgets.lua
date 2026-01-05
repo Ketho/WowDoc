@@ -63,11 +63,11 @@ local doc_widgets = {
 	HousingCatalogSearcherAPI = "HousingCatalogSearcher",
 	HousingFixturePointFrameAPI = "HousingFixturePointFrame",
 	HousingLayoutPinFrameAPI = "HousingLayoutPinFrame",
-	LuaColorCurveObjectAPI = "ColorCurve",
-	LuaCurveObjectAPI = "Curve",
+	LuaColorCurveObjectAPI = "ColorCurveObject",
+	LuaCurveObjectAPI = "CurveObject",
 	AbbreviateConfigAPI = "AbbreviateConfig",
-	LuaDurationObjectAPI = "LuaDurationObject",
-	LuaCurveObjectBaseAPI = "LuaCurveObjectBase",
+	LuaDurationObjectAPI = "DurationObject",
+	LuaCurveObjectBaseAPI = "CurveObjectBase",
 	UnitHealPredictionCalculatorAPI = "UnitHealPredictionCalculator",
 
 	-- special cases

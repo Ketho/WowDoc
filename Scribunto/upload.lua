@@ -7,7 +7,7 @@ local log = require("wowdoc.log")
 local PRODUCT = CONFIG.TACT_PRODUCT
 local _, blizzres_branch = products:GetBranch(PRODUCT)
 
-local SUMMARY = "test"
+local SUMMARY = "rename LuaDurationObject and curve"
 
 local function WriteFiles()
     local scribunto = Path.join("Scribunto", "API_info")
