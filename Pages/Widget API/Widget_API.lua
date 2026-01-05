@@ -59,6 +59,7 @@ local widget_order = {
 	"HousingFixturePointFrame",
 	"HousingLayoutPinFrame",
 	"UnitHealPredictionCalculator",
+	"LuaDurationObject",
 }
 
 local widget_desc = {

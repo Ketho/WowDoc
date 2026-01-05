@@ -2,7 +2,7 @@ local pathlib = require("path")
 
 CONFIG = {}
 ---@type TactProduct
-CONFIG.TACT_PRODUCT = "wow_beta"
+CONFIG.TACT_PRODUCT = "wowt"
 
 PATHS = {}
 local root = ".wow"
