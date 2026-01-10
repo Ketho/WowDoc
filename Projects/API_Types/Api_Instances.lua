@@ -1,9 +1,7 @@
-local util = require("wowdoc")
-
 local loader = require("wowdoc.loader")
-loader:main("mainline_ptr")
+loader:main(CONFIG.TACT_PRODUCT)
 local m_Api_Types = require("Projects.API_Types.Api_Types")
-local widgetSystems = require("Util.widget_system")
+local widgetSystems = require("wowdoc.loader.doc_widgets")
 
 local function explode(t)
     for k, v in pairs(t) do
@@ -167,4 +165,4 @@ local function main(search_name)
     end
 end
 
-main("WOWGUID")
+main("LuaCurveEvaluatedResult")
