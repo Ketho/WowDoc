@@ -5,27 +5,32 @@ local m = {}
 
 ---@alias TactProduct
 ---|"wow"
----|"wowt"
----|"wowxptr"
+---|"wow_anniversary"
 ---|"wow_beta"
 ---|"wow_classic"
----|"wow_classic_ptr"
 ---|"wow_classic_beta"
 ---|"wow_classic_era"
 ---|"wow_classic_era_ptr"
+---|"wow_classic_ptr"
+---|"wow_classic_titan"
+---|"wowt"
+---|"wowxptr"
 
 ---@alias GetheBranch string
 ---|"live"
+---|"beta"
+---|"classic_anniversary"
+---|"classic_beta"
+---|"classic_era_ptr"
+---|"classic_era"
+---|"classic_ptr"
+---|"classic_titan"
+---|"classic"
 ---|"ptr"
 ---|"ptr2"
----|"beta"
----|"classic"
----|"classic_ptr"
----|"classic_beta"
----|"classic_era"
----|"classic_era_ptr"
 
 ---@alias BlizzResBranch string
+---|"classic_anniversary"
 ---|"mainline"
 ---|"mainline_ptr"
 ---|"mainline_beta"
@@ -36,7 +41,7 @@ local m = {}
 ---|"cata_ptr"
 ---|"vanilla"
 ---|"vanilla_ptr"
-
+---
 ---@alias GameType
 ---|"mainline"
 ---|"classic"
@@ -49,30 +54,31 @@ local m = {}
 ---@type table<GetheBranch, true>
 m.gethe_branch = {
 	live = true,
-	ptr = true,
-	ptr2 = true,
+	classic_anniversary = true,
 	beta = true,
 	classic = true,
-	classic_ptr = true,
 	classic_beta = true,
 	classic_era = true,
 	classic_era_ptr = true,
+	classic_ptr = true,
+	classic_titan = true,
+	ptr = true,
+	ptr2 = true,
 }
 
 ---@type table<TactProduct, GetheBranch>
 m.tact_gethe = {
-	-- mainline
 	wow = "live",
-	wowt = "ptr",
-	wowxptr = "ptr2",
+	wow_anniversary = "classic_anniversary",
 	wow_beta = "beta",
-	-- classic
 	wow_classic = "classic",
-	wow_classic_ptr = "classic_ptr",
 	wow_classic_beta = "classic_beta",
-	-- vanilla
 	wow_classic_era = "classic_era",
 	wow_classic_era_ptr = "classic_era_ptr",
+	wow_classic_ptr = "classic_ptr",
+	wow_classic_titan = "classic_titan",
+	wowt = "ptr",
+	wowxptr = "ptr2",
 }
 
 ---@type table<TactProduct, BlizzResBranch>
@@ -94,7 +100,7 @@ m.gametype_branch = {
 	mists = "classic",
 	cata = "4.4.2",
 	wrath = "3.4.3",
-	tbc = "2.5.4",
+	tbc = "classic_anniversary",
 	vanilla = "classic_era",
 }
 
