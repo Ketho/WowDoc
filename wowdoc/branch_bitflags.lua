@@ -8,8 +8,8 @@ local gethe_branches = {
 	-- "live", -- mainline
 	"beta", -- mainline beta
 	"classic", -- mists
-	"classic_era", -- vanilla
 	"classic_anniversary", -- bc anniversary
+	"classic_era", -- vanilla
 }
 
 ---@alias ResourceType
