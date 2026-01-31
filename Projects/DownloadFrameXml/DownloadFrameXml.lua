@@ -52,14 +52,13 @@ local function SendHttpsRequest(url)
 	return data
 end
 
+---@param name string tag name
 function m:DownloadZip(name)
 	local url, version
-	if products.gethe_branch[name] then
-		url, version = self:GetGithubBranch(name)
-	elseif name:find("%d+%.%d+%.%d+") then
+	if name:find("%d+%.%d+%.%d+") then
 		url, version = self:GetGithubTag(name)
 	else
-		error("No known branch or valid tag found")
+		error("No valid tag found")
 	end
 	local patch, build = self:GetPatchBuild(name, version)
 	local fileBaseName = string.format("%s (%s)", patch, build)

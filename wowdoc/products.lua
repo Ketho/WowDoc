@@ -5,43 +5,45 @@ local m = {}
 
 ---@alias TactProduct
 ---|"wow"
----|"wow_anniversary"
 ---|"wow_beta"
+---|"wowt"
+---|"wowxptr"
 ---|"wow_classic"
+---|"wow_classic_ptr"
 ---|"wow_classic_beta"
 ---|"wow_classic_era"
 ---|"wow_classic_era_ptr"
----|"wow_classic_ptr"
+---|"wow_anniversary"
 ---|"wow_classic_titan"
----|"wowt"
----|"wowxptr"
 
 ---@alias GetheBranch string
 ---|"live"
 ---|"beta"
----|"classic_anniversary"
----|"classic_beta"
----|"classic_era_ptr"
----|"classic_era"
----|"classic_ptr"
----|"classic_titan"
----|"classic"
 ---|"ptr"
 ---|"ptr2"
+---|"classic"
+---|"classic_ptr"
+---|"classic_beta"
+---|"classic_era"
+---|"classic_era_ptr"
+---|"classic_anniversary"
+---|"classic_titan"
 
----@alias BlizzResBranch string
----|"live"
----|"beta"
----|"classic_anniversary"
----|"classic_beta"
----|"classic_era_ptr"
----|"classic_era"
----|"classic_ptr"
----|"classic_titan"
----|"classic"
----|"ptr"
----|"ptr2"
----
+---@type table<TactProduct, GetheBranch>
+m.product_gethe = {
+	wow = "live",
+	wow_beta = "beta",
+	wowt = "ptr",
+	wowxptr = "ptr2",
+	wow_classic = "classic",
+	wow_classic_ptr = "classic_ptr",
+	wow_classic_beta = "classic_beta",
+	wow_classic_era = "classic_era",
+	wow_classic_era_ptr = "classic_era_ptr",
+	wow_anniversary = "classic_anniversary",
+	wow_classic_titan = "classic_titan",
+}
+
 ---@alias GameType
 ---|"mainline"
 ---|"classic"
@@ -50,51 +52,6 @@ local m = {}
 ---|"wrath"
 ---|"tbc"
 ---|"vanilla"
-
----@type table<GetheBranch, true>
-m.gethe_branch = {
-	live = true,
-	classic_anniversary = true,
-	beta = true,
-	classic = true,
-	classic_beta = true,
-	classic_era = true,
-	classic_era_ptr = true,
-	classic_ptr = true,
-	classic_titan = true,
-	ptr = true,
-	ptr2 = true,
-}
-
----@type table<TactProduct, GetheBranch>
-m.tact_gethe = {
-	wow = "live",
-	wow_anniversary = "classic_anniversary",
-	wow_beta = "beta",
-	wow_classic = "classic",
-	wow_classic_beta = "classic_beta",
-	wow_classic_era = "classic_era",
-	wow_classic_era_ptr = "classic_era_ptr",
-	wow_classic_ptr = "classic_ptr",
-	wow_classic_titan = "classic_titan",
-	wowt = "ptr",
-	wowxptr = "ptr2",
-}
-
----@type table<TactProduct, BlizzResBranch>
-m.blizzres_branch = {
-	wow = "live",
-	wow_anniversary = "classic_anniversary",
-	wow_beta = "beta",
-	wow_classic = "classic",
-	wow_classic_beta = "classic_beta",
-	wow_classic_era = "classic_era",
-	wow_classic_era_ptr = "classic_era_ptr",
-	wow_classic_ptr = "classic_ptr",
-	wow_classic_titan = "classic_titan",
-	wowt = "ptr",
-	wowxptr = "ptr2",
-}
 
 ---@type table<GameType, GetheBranch>
 m.gametype_branch = {
@@ -108,7 +65,7 @@ m.gametype_branch = {
 
 local hasShownMsg = {}
 
-local function showLogMessage(product, framexml, blizzres)
+local function showLogMessage(product, framexml)
 	if not hasShownMsg[product] then
 		if product then
 			log:success(string.format("TACT product: %s", product))
@@ -116,19 +73,15 @@ local function showLogMessage(product, framexml, blizzres)
 		if framexml then
 			log:success(string.format("Gethe branch: %s", framexml))
 		end
-		if blizzres then
-			log:success(string.format("BlizzRes branch: %s", blizzres))
-		end
 		print("----")
 		hasShownMsg[product] = true
 	end
 end
 
 function m:GetBranch(product)
-	local framexml = self.tact_gethe[product]
-	local blizzres = self.blizzres_branch[product]
-	showLogMessage(product, framexml, blizzres)
-	return framexml, blizzres
+	local gethe_branch = self.product_gethe[product]
+	showLogMessage(product, gethe_branch)
+	return gethe_branch
 end
 
 return m

@@ -19,10 +19,10 @@ local filter = {
 }
 
 function m:main(product)
-	local framexml_branch, blizzres_branch = products:GetBranch(product)
+	local framexml_branch = products:GetBranch(product)
 	git:checkout("https://github.com/Gethe/wow-ui-source", framexml_branch)
 	self:HookDocTable()
-	enum:LoadLuaEnums(blizzres_branch)
+	enum:LoadLuaEnums(framexml_branch)
 	self:LoadBlizzardDocs()
 	local systems = self:GetSystems()
 	self:WriteCsv(systems)

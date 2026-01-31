@@ -5,7 +5,7 @@ local products = require("wowdoc.products")
 local log = require("wowdoc.log")
 
 local PRODUCT = CONFIG.TACT_PRODUCT
-local _, blizzres_branch = products:GetBranch(PRODUCT)
+local gethe_branch = products:GetBranch(PRODUCT)
 
 local SUMMARY = "rename LuaDurationObject and curve"
 
@@ -33,7 +33,7 @@ local function UploadFiles()
 end
 
 local function main()
-    enum:LoadLuaEnums(blizzres_branch)
+    enum:LoadLuaEnums(gethe_branch)
     WriteFiles()
     UploadFiles()
 end
