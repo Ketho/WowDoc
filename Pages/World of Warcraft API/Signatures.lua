@@ -1,7 +1,7 @@
 local util = require("wowdoc")
 
 local products = require("wowdoc.products")
-PRODUCT = "wow" ---@type TactProduct
+PRODUCT = CONFIG.TACT_PRODUCT ---@type TactProduct
 local _, blizres_branch = products:GetBranch(PRODUCT)
 BRANCH = blizres_branch -- hack
 util:LoadDocumentation(PRODUCT)
