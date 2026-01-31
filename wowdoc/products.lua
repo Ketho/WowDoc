@@ -16,7 +16,7 @@ local m = {}
 ---|"wow_anniversary"
 ---|"wow_classic_titan"
 
----@alias GetheBranch string
+---@alias GetheBranch
 ---|"live"
 ---|"beta"
 ---|"ptr"
@@ -53,7 +53,7 @@ m.product_gethe = {
 ---|"tbc"
 ---|"vanilla"
 
----@type table<GameType, GetheBranch>
+---@type table<GameType, GetheBranch|string>
 m.gametype_branch = {
 	mainline = "live",
 	mists = "classic",

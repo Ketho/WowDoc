@@ -4,7 +4,7 @@ local WikiText = require("Pages/World of Warcraft API/WikiText")
 
 local PRODUCT = "wow" ---@type TactProduct
 util:LoadDocumentation(PRODUCT)
-local _, blizres_branch = products:GetBranch(PRODUCT)
+local gethe_branch = products:GetBranch(PRODUCT)
 
 local Signatures_Parse = require("Pages/World of Warcraft API/Signatures_Parse")
 local signatures = Signatures_Parse:GetSignatures()
@@ -32,8 +32,8 @@ end
 
 function m:GetGlobalApi()
 	local global_api = util:DownloadAndRun(
-		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/GlobalAPI.lua", blizres_branch),
-		pathlib.join(PATHS.BLIZZRES, string.format("GlobalAPI_%s.lua", blizres_branch))
+		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/GlobalAPI.lua", gethe_branch),
+		pathlib.join(PATHS.BLIZZRES, string.format("GlobalAPI_%s.lua", gethe_branch))
 	)
 	return util:ToMap(global_api[1])
 end

@@ -2728,6 +2728,7 @@ local GlobalAPI = {
 	"C_NeighborhoodInitiative.IsInitiativeEnabled",
 	"C_NeighborhoodInitiative.IsPlayerInNeighborhoodGroup",
 	"C_NeighborhoodInitiative.IsViewingActiveNeighborhood",
+	"C_NeighborhoodInitiative.PlayerHasInitiativeAccess",
 	"C_NeighborhoodInitiative.PlayerMeetsRequiredLevel",
 	"C_NeighborhoodInitiative.RemoveTrackedInitiativeTask",
 	"C_NeighborhoodInitiative.RequestInitiativeActivityLog",
@@ -3426,6 +3427,8 @@ local GlobalAPI = {
 	"C_Secrets.ShouldSpellAuraBeSecret",
 	"C_Secrets.ShouldSpellBookItemCooldownBeSecret",
 	"C_Secrets.ShouldSpellCooldownBeSecret",
+	"C_Secrets.ShouldTotemSlotBeSecret",
+	"C_Secrets.ShouldTotemSpellBeSecret",
 	"C_Secrets.ShouldUnitAuraIndexBeSecret",
 	"C_Secrets.ShouldUnitAuraInstanceBeSecret",
 	"C_Secrets.ShouldUnitAuraSlotBeSecret",
@@ -3768,6 +3771,7 @@ local GlobalAPI = {
 	"C_Timer.NewTicker",
 	"C_Timer.NewTimer",
 	"C_TimerunningUI.GetActiveTimerunningSeasonID",
+	"C_TooltipComparison.CompareItem",
 	"C_TooltipComparison.GetItemComparisonDelta",
 	"C_TooltipComparison.GetItemComparisonInfo",
 	"C_TooltipInfo.GetAchievementByID",
@@ -6406,6 +6410,7 @@ local GlobalAPI = {
 	"secretwrap",
 	"securecall",
 	"securecallfunction",
+	"securecallmethod",
 	"secureexecuterange",
 	"seterrorhandler",
 	"setsecurehookforbidden",
@@ -6563,4 +6568,4 @@ local LuaAPI = {
 }
 
 return {GlobalAPI, LuaAPI}
--- version: 12.0.0 (65028)
+-- version: 12.0.0 (65655)

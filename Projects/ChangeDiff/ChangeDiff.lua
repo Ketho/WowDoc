@@ -4,7 +4,7 @@ local products = require("wowdoc.products")
 local enum = require("wowdoc.enum")
 
 local PRODUCT = CONFIG.TACT_PRODUCT
-local _, branch = products:GetBranch(PRODUCT)
+local branch = products:GetBranch(PRODUCT)
 enum:LoadLuaEnums(branch)
 local apidoc_nontoc = require("wowdoc.loader.nontoc")
 

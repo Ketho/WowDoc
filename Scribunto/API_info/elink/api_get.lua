@@ -6,7 +6,7 @@ local m = {}
 
 function m:main(product)
 	util:LoadDocumentation(product)
-	local _, branch = products:GetBranch(product)
+	local branch = products:GetBranch(product)
 	local globalApi = util:DownloadAndRun(
 		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/GlobalAPI.lua", branch),
 		pathlib.join(PATHS.BLIZZRES, string.format("GlobalAPI_%s.lua", branch))

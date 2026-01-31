@@ -8,7 +8,7 @@ local util = require("wowdoc")
 local enum = require("wowdoc.enum")
 local products = require("wowdoc.products")
 
-local _, BRANCH = products:GetBranch(CONFIG.TACT_PRODUCT)
+local BRANCH = products:GetBranch(CONFIG.TACT_PRODUCT)
 enum:LoadLuaEnums(BRANCH)
 
 local flavors = {

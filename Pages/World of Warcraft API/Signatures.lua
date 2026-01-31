@@ -2,8 +2,8 @@ local util = require("wowdoc")
 
 local products = require("wowdoc.products")
 PRODUCT = CONFIG.TACT_PRODUCT ---@type TactProduct
-local _, blizres_branch = products:GetBranch(PRODUCT)
-BRANCH = blizres_branch -- hack
+local gethe_branch = products:GetBranch(PRODUCT)
+BRANCH = gethe_branch -- hack
 util:LoadDocumentation(PRODUCT)
 
 local WikiText = require("Pages/World of Warcraft API/WikiText")
