@@ -13,13 +13,13 @@ local function EditEnum()
 	Enum.SecretAspect = {
 		-- need to do a reverse lookup
 		-- so gonna apply hack and make them unique /shrug
-		Hierarchy = 0x1a,
-		ObjectDebug = 0x1b,
-		ObjectName = 0x1c,
-		ObjectSecrets = 0x1d,
-		ObjectSecurity = 0x1e,
-		ObjectType = 0x1f,
-
+		Attributes = 0x10a,
+		Hierarchy = 0x10b,
+		ObjectDebug = 0x10c,
+		ObjectName = 0x10d,
+		ObjectSecrets = 0x10e,
+		ObjectSecurity = 0x10f,
+		ObjectType = 0x11,
 		ID = 0x2,
 		Toplevel = 0x4,
 		Text = 0x8,
