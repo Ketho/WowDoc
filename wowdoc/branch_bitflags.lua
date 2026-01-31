@@ -98,8 +98,8 @@ end
 local function GetBitFlags(unified, branches, map)
 	local t = {}
 	for k in pairs(unified) do
-		for idx, branch_name in pairs(branches) do
-			if map[branch_name][k] then
+		for idx, name in pairs(branches) do
+			if map[name][k] then
 				t[k] = (t[k] or 0) | 1 << idx-1
 			end
 		end

@@ -2,7 +2,7 @@
 -- https://warcraft.wiki.gg/wiki/Module:API_info/flavor/api
 -- https://warcraft.wiki.gg/wiki/Module:API_info/flavor/event
 local util = require("wowdoc")
-local branch_flags = require("wowdoc.bitflags")
+local branch_flags = require("wowdoc.branch_bitflags")
 
 ---@type table<ResourceType, table>
 local sources = {
