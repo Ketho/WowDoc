@@ -1,10 +1,11 @@
 local widgets = require("wowdoc.loader.doc_widgets")
 
+local function FormatApisig(s)
+	return string.format("{{apisig|%s}}", s)
+end
+
 function Wowpedia:GetFunctionText(func, systemType)
 	local str = format("%s\n", self:GetFunctionSignature(func, systemType))
-	if systemType ~= "ScriptObject" then
-		str = " "..str
-	end
 	-- widget api can provide empty tables
 	if func.Arguments and #func.Arguments>0 then
 		str = str..format("\n==Arguments==\n%s\n", self:GetParameters(func.Arguments, true))
@@ -45,8 +46,8 @@ function Wowpedia:GetFunctionSignature(func, systemType)
 		end
 		if func.Returns and #func.Returns > 0 then
 			local returnString = func:GetReturnString(false, false)
-			str = format("%s = %s", returnString, str)
+			str = format("%s {{=}} %s", returnString, str)
 		end
 	end
-	return str
+	return FormatApisig(str)
 end
