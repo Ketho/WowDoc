@@ -1,5 +1,5 @@
 function Wowpedia:GetEventText(event)
-	local signature = format(" %s\n", self:GetEventSignature(event))
+	local signature = format("{{apisig|%s}}\n", self:GetEventSignature(event))
 	local payload = format("\n==Payload==\n%s\n", self:GetEventPayload(event))
 	return signature..payload
 end
