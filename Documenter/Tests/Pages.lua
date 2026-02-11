@@ -1,4 +1,6 @@
-local function TestFunction(name)
+local m = {}
+
+function m.TestFunction(name)
 	for _, func in ipairs(APIDocumentation.functions) do
 		-- print(func:GetFullName(false, false))
 		local fullName
@@ -14,12 +16,12 @@ local function TestFunction(name)
 	end
 end
 
-TestFunction("C_Calendar.CanSendInvite") -- no arguments, one return value
-TestFunction("C_Calendar.EventSetTitle") -- one argument, no return values
-TestFunction("C_AuctionHouse.MakeItemKey") -- three optional args
-TestFunction("C_Calendar.EventSetClubId") -- first argument optional
-TestFunction("C_ArtifactUI.GetAppearanceInfo") -- two optional returns
-TestFunction("C_Club.CreateClub") -- optional arguments in middle
+-- TestFunction("C_Calendar.CanSendInvite") -- no arguments, one return value
+-- TestFunction("C_Calendar.EventSetTitle") -- one argument, no return values
+-- TestFunction("C_AuctionHouse.MakeItemKey") -- three optional args
+-- TestFunction("C_Calendar.EventSetClubId") -- first argument optional
+-- TestFunction("C_ArtifactUI.GetAppearanceInfo") -- two optional returns
+-- TestFunction("C_Club.CreateClub") -- optional arguments in middle
 
 -- TestFunction("C_ChatInfo.SendAddonMessage") -- string arguments
 -- TestFunction("UnitPowerDisplayMod") -- enum transclude argument
@@ -43,7 +45,7 @@ TestFunction("C_Club.CreateClub") -- optional arguments in middle
 -- TestFunction("GetUnitPowerBarInfo") -- no system namespace
 
 
-local function TestEvent(name)
+function m.TestEvent(name)
 	for _, event in ipairs(APIDocumentation.events) do
 		-- print(event:GetFullName(false, false))
 		if event.LiteralName == name then
@@ -61,7 +63,7 @@ end
 -- TestEvent("CONTRIBUTION_CHANGED") -- StrideIndex
 -- TestEvent("HONOR_XP_UPDATE") -- Unit system
 
-local function TestTable(name)
+function m.TestTable(name)
 	local apiTable = Wowpedia.complexTypes[name]
 	-- print(Wowpedia:GetTableTransclude(apiTable))
 	print(Wowpedia:GetTableText(apiTable, true))
@@ -88,7 +90,7 @@ end
 -- TestTable("AppearanceSourceInfo")
 -- TestTable("GuildTabardInfo")
 
-local function PrintWowpediaLinks(name)
+function m.PrintWowpediaLinks(name)
 	local fsFunc = ": {{api|%s}}"
 	local fsEvent = ": {{api|t=e|%s}}"
 	for _, system in ipairs(APIDocumentation.systems) do
@@ -105,3 +107,5 @@ local function PrintWowpediaLinks(name)
 end
 -- PrintWowpediaLinks("Unit")
 -- PrintWowpediaLinks("Expansion")
+
+return m
