@@ -46,7 +46,7 @@ local data = {
 	-- SetButtonState
 	{ Name = "SimpleButtonStateToken", Type = {"string"}, Description = {"DISABLED", "NORMAL", "PUSHED"} },
 	-- SetFont
-	{ Name = "TBFFlags", Type = {"string"}, Description = {"OUTLINE", "THICK", "MONOCHROME"} },
+	{ Name = "TBFFlags", Type = {"string"}, Description = {"OUTLINE", "THICK", "MONOCHROME", "SLUG"} },
 
 	-- widgets
 	{ Name = "ChatBubbleFrame", Type = {"Frame"} }, -- the only InnerType not documented
