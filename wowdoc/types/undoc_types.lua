@@ -8,7 +8,7 @@ local m = {}
 -- documented types are Structure and Enumeration tables with a Name
 function m:GetDocTypes()
 	local s = get_types:GetSets()
-	return s.table_types
+	return s.table_docs
 end
 
 function m:GetUndocTypes()

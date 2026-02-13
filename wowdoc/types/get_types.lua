@@ -46,9 +46,11 @@ local function GetTableTypes()
 		Constants = {}, -- seems unused by blizzard
 	}
 	local table_fields = {}
+	local table_docs = {}
 	for _, apitbl in ipairs(APIDocumentation.tables) do
 		if type(apitbl.Type) == "string" then -- workaround for hacky TypeDocumentation.lua
 			table_groups[apitbl.Type][apitbl.Name] = apitbl
+			table_docs[apitbl.Name] = apitbl
 			if apitbl.Fields then
 				for _, field in ipairs(apitbl.Fields) do
 					table_fields[field.Type] = field
@@ -65,7 +67,7 @@ local function GetTableTypes()
 		table_groups.CallbackType,
 		table_groups.Constants
 	)
-	return table_fields, combined_groups
+	return table_fields, combined_groups, table_docs
 end
 
 local function GetFieldTypes()
@@ -99,7 +101,7 @@ function m:GetSets()
 	-- u.table.explode(function_types, true)
 	local event_types = GetEventTypes()
 	-- u.table.explode(event_types, true)
-	local table_field_types, table_types = GetTableTypes()
+	local table_field_types, table_types, table_docs = GetTableTypes()
 	-- u.table.explode(table_types, true)
 	local field_types = GetFieldTypes()
 	-- u.table.explode(field_types, true)
@@ -108,6 +110,7 @@ function m:GetSets()
 		event_types = event_types,
 		table_field_types = table_field_types,
 		table_types = table_types,
+		table_docs = table_docs,
 		field_types = field_types,
 	}
 	return t
