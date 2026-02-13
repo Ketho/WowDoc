@@ -11,6 +11,13 @@
 -- W_Replace: replaces the type on the wiki
 -- W_Alias: creates another entry in the table
 local data = {
+	-- basic types
+	{ Name = "bool", Type = {"boolean"} },
+	{ Name = "number", Type = {"number"} },
+	{ Name = "string", Type = {"string"} },
+	{ Name = "table", Type = {"table"} },
+	{ Name = "uiRect", Type = {"uiRect"} },
+
 	-- UI_shared.xsd
 	-- <xs:simpleType name="FRAMEPOINT">, SetPoint
 	{ Name = "FramePoint", Type = {"string"}, Description = {"TOPLEFT", "TOPRIGHT", "BOTTOMLEFT", "BOTTOMRIGHT", "TOP", "BOTTOM", "LEFT", "RIGHT", "CENTER"} },

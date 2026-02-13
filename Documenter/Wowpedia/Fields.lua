@@ -23,6 +23,12 @@ function Wowpedia:UpdateComplexTableTypes()
 	end
 end
 
+function Wowpedia:InitTypeDocumentation()
+	for _, v in ipairs(TypeDocumentation.Tables) do
+		Wowpedia.blizzardTypes[v.Name] = v
+	end
+end
+
 function Wowpedia:InitComplexFieldRefs()
 	for _, field in ipairs(APIDocumentation.fields) do
 		local parent = field.Function or field.Event or field.Table
@@ -40,12 +46,6 @@ function Wowpedia:InitSubtables()
 				Wowpedia.subTables[field.InnerType or field.Type] = true
 			end
 		end
-	end
-end
-
-function Wowpedia:InitTypeDocumentation()
-	for _, v in ipairs(TypeDocumentation.Tables) do
-		Wowpedia.blizzardTypes[v.Name] = v
 	end
 end
 
@@ -149,7 +149,8 @@ function Wowpedia:GetPrettyType(apiTable, isArgument)
 			elseif complexInnertype then
 				apiText = complexInnertype:GetFullName(false, false).."[]"
 			else
-				error("Unknown InnerType: "..apiTable.InnerType)
+				log:failure("Unknown InnerType: "..apiTable.InnerType)
+				apiText = "Unknown"
 			end
 		else
 			apiText = "Unknown"
@@ -161,9 +162,8 @@ function Wowpedia:GetPrettyType(apiTable, isArgument)
 	elseif complexType then
 		apiText = complexType:GetFullName(false, false)
 	else
-		-- error("Unknown Type: "..apiTable.Type)
-		log:warn("Unknown Type: "..apiTable.Type)
-		apiTable.Type = "Unknown"
+		log:failure("Unknown Type: "..apiTable.Type)
+		apiText = "Unknown"
 	end
 	-- `Default` implies `Nilable`, even if nilable is false
 	if apiTable.Nilable or apiTable.Default ~= nil then

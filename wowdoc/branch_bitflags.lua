@@ -5,8 +5,8 @@ local m = {}
 
 ---@type GetheBranch[]
 local gethe_branches = {
-	-- "live", -- mainline
-	"beta", -- mainline beta
+	"live", -- mainline
+	-- "beta", -- mainline beta
 	"classic", -- mists
 	"classic_anniversary", -- bc anniversary
 	"classic_era", -- vanilla
