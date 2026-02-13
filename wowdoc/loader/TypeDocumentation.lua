@@ -15,9 +15,8 @@ local data = {
 	{ Name = "bool", Type = {"boolean"} },
 	{ Name = "number", Type = {"number"} },
 	{ Name = "string", Type = {"string"} },
-	{ Name = "table", Type = {"table"} },
-	{ Name = "uiRect", Type = {"uiRect"} },
 	{ Name = "cstring", W_Replace = "string" },
+	{ Name = "table", Type = {"table"} },
 
 	-- UI_shared.xsd
 	-- <xs:simpleType name="ALPHAMODE">, SetBlendMode
@@ -144,10 +143,6 @@ local data = {
 	{ Name = "WOWGUID", Type = {"string"}, W_Link = "GUID" },
 	{ Name = "WOWMONEY", Type = {"number"}, Description = {"Amount in copper"} },
  	{ Name = "IDOrLink", Type = {"number", "string"} },
-	-- custom
-	{ Name = "FunctionContainer", Type = {"userdata"}, W_Link = "API_types/FunctionContainer" }, -- custom type
-	{ Name = "TickerCallback", Type = {"function", "FunctionContainer"} }, -- updated type
-	{ Name = "TimerCallback", Type = {"function", "FunctionContainer"} }, -- updated type
 	-- mixins
 	{ Name = "AzeriteEmpoweredItemLocation", Type = {"Mixin"}, Mixin = "ItemLocationMixin", W_Link = "ItemLocationMixin" },
 	{ Name = "AzeriteItemLocation", Type = {"Mixin"}, Mixin = "ItemLocationMixin", W_Link = "ItemLocationMixin" },
@@ -162,13 +157,12 @@ local data = {
 	{ Name = "TransmogPendingInfo", Type = {"Mixin"}, Mixin = "TransmogPendingInfoMixin", W_Link = "TransmogPendingInfoMixin" },
 	{ Name = "vector2", Type = {"Mixin"}, Mixin = "Vector2DMixin", W_Link = "Vector2DMixin" },
 	{ Name = "vector3", Type = {"Mixin"}, Mixin = "Vector3DMixin", W_Link = "Vector3DMixin" },
-
+	-- custom
+	{ Name = "FunctionContainer", Type = {"userdata"}, W_Link = "API_types/FunctionContainer" }, -- custom type
+	{ Name = "TickerCallback", Type = {"function", "FunctionContainer"} }, -- updated type
+	{ Name = "TimerCallback", Type = {"function", "FunctionContainer"} }, -- updated type
 	-- lists
-	-- { Name = "uiRect", Type = {"string"}, Description = {"left", "bottom", "width", "height"} },
-
-	-- # To Do:
-	-- AnchorBinding
-	-- AddonMessageParams
+	{ Name = "uiRect", Type = {"list"}, Description = {"left", "bottom", "width", "height"} },
 }
 
 return data
