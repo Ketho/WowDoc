@@ -9,7 +9,7 @@ function m:main(runTests)
 		test_types:Run()
 	end
 
-	local get_types = require("wowdoc.types.get_types")
+	-- local get_types = require("wowdoc.types.get_types")
 	-- local all_types = get_types:GetAllTypes()
 	-- for _, k in pairs(u.table.SortTable(all_types)) do
 	-- 	print(k)

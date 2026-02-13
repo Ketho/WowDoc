@@ -17,36 +17,37 @@ local data = {
 	{ Name = "string", Type = {"string"} },
 	{ Name = "table", Type = {"table"} },
 	{ Name = "uiRect", Type = {"uiRect"} },
+	{ Name = "cstring", W_Replace = "string" },
 
 	-- UI_shared.xsd
+	-- <xs:simpleType name="ALPHAMODE">, SetBlendMode
+	{ Name = "BlendMode", Type = {"string"}, W_Link = "UITYPE_AlphaMode", Description = {"DISABLE", "BLEND", "ALPHAKEY", "ADD", "MOD"} },
+	-- <xs:simpleType name="ANIMCURVETYPE">, SetCurveType
+	{ Name = "CurveType", Type = {"string"}, Description = {"NONE", "SMOOTH"} },
+	-- <xs:simpleType name="DRAWLAYER">, SetDrawLayer
+	{ Name = "DrawLayer", Type = {"string"}, W_Link = "Layer", Description = {"BACKGROUND", "BORDER", "ARTWORK", "OVERLAY", "HIGHLIGHT"} },
 	-- <xs:simpleType name="FRAMEPOINT">, SetPoint
 	{ Name = "FramePoint", Type = {"string"}, Description = {"TOPLEFT", "TOPRIGHT", "BOTTOMLEFT", "BOTTOMRIGHT", "TOP", "BOTTOM", "LEFT", "RIGHT", "CENTER"} },
 	-- <xs:simpleType name="FRAMESTRATA">, SetFrameStrata
 	{ Name = "FrameStrata", Type = {"string"}, W_Link = "Frame_Strata", Description = {"PARENT", "BACKGROUND", "LOW", "MEDIUM", "HIGH", "DIALOG", "FULLSCREEN", "FULLSCREEN_DIALOG", "TOOLTIP", "BLIZZARD"} },
-	-- <xs:simpleType name="DRAWLAYER">, SetDrawLayer
-	{ Name = "DrawLayer", Type = {"string"}, W_Link = "Layer", Description = {"BACKGROUND", "BORDER", "ARTWORK", "OVERLAY", "HIGHLIGHT"} },
-	-- <xs:simpleType name="ANIMCURVETYPE">, SetCurveType
-	{ Name = "CurveType", Type = {"string"}, Description = {"NONE", "SMOOTH"} },
-	-- <xs:simpleType name="JUSTIFYVTYPE">, SetJustifyV
-	-- <xs:simpleType name="JUSTIFYHTYPE">, SetJustifyH
-	{ Name = "TBFStyleFlags", Type = {"string"}, Description = {"CENTER", "LEFT", "RIGHT", "TOP", "BOTTOM"} },
-	-- SetFont
-	{ Name = "TBFFlags", Type = {"string"}, Description = {"OUTLINE", "THICK", "MONOCHROME"} },
-	-- <xs:simpleType name="ORIENTATION"> SetOrientation
-	{ Name = "Orientation", Type = {"string"}, Description = {"HORIZONTAL", "VERTICAL"} },
-	-- <xs:simpleType name="ALPHAMODE">, SetBlendMode
-	{ Name = "BlendMode", Type = {"string"}, W_Link = "UITYPE_AlphaMode", Description = {"DISABLE", "BLEND", "ALPHAKEY", "ADD", "MOD"} },
 	-- <xs:simpleType name="INSERTMODE">, SetInsertMode, (number or string?, see framexml usage)
 	{ Name = "InsertMode", Type = {"string"}, Description = {"TOP", "BOTTOM"} },
-	-- <xs:simpleType name="ANIMSMOOTHTYPE">
-	{ Name = "SmoothingType", Type = {"string"}, Description = {"NONE", "IN", "OUT", "IN_OUT", "OUT_IN"} },
+	-- <xs:simpleType name="JUSTIFYHTYPE">, SetJustifyH
+	{ Name = "JustifyHorizontal", Type = {"string"}, Description = {"LEFT", "RIGHT", "CENTER"} },
+	-- <xs:simpleType name="JUSTIFYVTYPE">, SetJustifyV
+	{ Name = "JustifyVertical", Type = {"string"}, Description = {"TOP", "MIDDLE", "BOTTOM"} },
 	-- <xs:simpleType name="ANIMLOOPTYPE">
 	{ Name = "LoopType", Type = {"string"}, Description = {"NONE", "REPEAT", "BOUNCE"} },
-	-- SetFillStyle
-	{ Name = "StatusBarFillStyle", Type = {"string"}, Description = {"STANDARD", "STANDARD_NO_RANGE_FILL", "CENTER", "REVERSE"} },
-	{ Name = "SimpleButtonStateToken", Type = {"string"}, Description = {"DISABLED", "NORMAL", "PUSHED"} },
+	-- <xs:simpleType name="ORIENTATION"> SetOrientation
+	{ Name = "Orientation", Type = {"string"}, Description = {"HORIZONTAL", "VERTICAL"} },
+	-- <xs:simpleType name="ANIMSMOOTHTYPE">
+	{ Name = "SmoothingType", Type = {"string"}, Description = {"NONE", "IN", "OUT", "IN_OUT", "OUT_IN"} },
 	-- SetAtlas, SetTexture
 	{ Name = "FilterMode", Type = {"string"}, Description = {"LINEAR", "TRILINEAR", "NEAREST"} },
+	-- SetButtonState
+	{ Name = "SimpleButtonStateToken", Type = {"string"}, Description = {"DISABLED", "NORMAL", "PUSHED"} },
+	-- SetFont
+	{ Name = "TBFFlags", Type = {"string"}, Description = {"OUTLINE", "THICK", "MONOCHROME"} },
 
 	-- widgets
 	{ Name = "ChatBubbleFrame", Type = {"Frame"} }, -- the only InnerType not documented
@@ -85,7 +86,6 @@ local data = {
 	{ Name = "AnimationDataEnum", Type = {"number"} },
 	{ Name = "ArtifactTiers", Type = {"number"} },
 	{ Name = "AuraFilters", Type = {"string"}, Description = {"A list of filters separated by pipe chars or spaces"}, --[[W_Link = "API_type/AuraFilters"]] },
-	{ Name = "BagIndex", Type = {"number"} }, -- already exists as an enum
 	{ Name = "BigInteger", Type = {"number"} }, -- in RecruitingClubInfo.lastUpdatedTime (unix time) -- /dump C_ClubFinder.GetRecruitingClubInfoFromFinderGUID(C_ClubFinder.ReturnMatchingGuildList()[1].clubFinderGUID)
 	{ Name = "BigUInteger", Type = {"number"} },
 	{ Name = "CalendarEventID", Type = {"number"} }, -- (used to be a string according to previous docs?)
@@ -94,28 +94,27 @@ local data = {
 	{ Name = "ClubInvitationId", Type = {"string"} },
 	{ Name = "ClubStreamId", Type = {"string"} },
 	{ Name = "ConnectionIptype", Type = {"number"}, Description = {"1=IPv4", "2=IPv6"} },
-	{ Name = "cstring", W_Replace = "string" },
 	{ Name = "DurationSeconds", Type = {"number"} },
 	{ Name = "EncounterTimelineEventID", Type = {"number"} },
 	{ Name = "FileAsset", Type = {"string"} }, -- texture path
 	{ Name = "fileID", Type = {"number"}, W_Link = "FileDataID" },
 	{ Name = "FontAlphabet", Type = {"string"}, Description = {"roman", "korean", "simplifiedchinese", "traditionalchinese", "russian"} },
 	{ Name = "FrameTime", Type = {"number"} },
-	{ Name = "FunctionContainer", Type = {"userdata"}, W_Link = "API_types/FunctionContainer" },
 	{ Name = "GarrisonFollower", Type = {"string"} },
 	{ Name = "HTMLTextType", Type = {"string"} },
 	{ Name = "InventorySlots", Type = {"number"}, W_Link = "InventorySlotId" },
 	{ Name = "ItemInfo", Type = {"number", "string"}, W_Link = "API_types/ItemInfo" }, -- item id, link, name
-	{ Name = "JustifyHorizontal", Type = {"string"}, Description = {"LEFT", "RIGHT", "CENTER"} },
-	{ Name = "JustifyVertical", Type = {"string"}, Description = {"TOP", "MIDDLE", "BOTTOM"} },
+	{ Name = "kstringClubMessage", Type = {"string"}, W_Link = "Kstring" },
+	{ Name = "kstringLfgListApplicant", Type = {"string"}, W_Link = "Kstring" },
+	{ Name = "kstringLfgListChat", Type = {"string"}, W_Link = "Kstring" },
+	{ Name = "kstringLfgListSearch", Type = {"string"}, W_Link = "Kstring" },
 	{ Name = "LuaCurveEvaluatedResult", W_Replace = "CurveEvaluatedResult", Type = {"number", "colorRGBA"}, W_Link = "API_types/CurveEvaluatedResult" },
 	{ Name = "luaFunction", W_Replace = "function" },
 	{ Name = "luaIndex", W_Replace = "number" },
 	{ Name = "LuaValueReference", Type = {"any"} },
 	{ Name = "LuaValueVariant", Type = {"any"} },
-	{ Name = "ModelAssest", Type = {"number"}, W_Link = "FileDataID" },
 	{ Name = "ModelAsset", Type = {"string"} },
-	{ Name = "mouseButton", Type = {"string"}, Description = {"LeftButton", "RightButton", "MiddleButton", "Button4", "Button5" } },
+	{ Name = "mouseButton", Type = {"string"}, Description = {"LeftButton", "RightButton", "MiddleButton", "Button4", "Button5"} },
 	{ Name = "MouseButton", Type = {"string"}, Description = {"LeftButton", "RightButton", "MiddleButton", "Button4", "Button5"} },
 	{ Name = "normalizedValue", Type = {"number"} }, -- [0.0 - 1.0]
 	{ Name = "NotificationDbId", Type = {"string"} },
@@ -132,9 +131,7 @@ local data = {
 	{ Name = "TextureAssetDisk", Type = {"string", "fileID"} },
 	{ Name = "textureAtlas", Type = {"string"}, W_Link = "AtlasID" }, -- texture atlas
 	{ Name = "textureKit", Type = {"string"} }, -- W_Link = "dbc:UiTextureKit" }, -- (what happened to textureKitID as a number?)
-	{ Name = "TickerCallback", Type = {"function", "FunctionContainer"} },
 	{ Name = "time_t", Type = {"number"} }, -- time in seconds
-	{ Name = "TimerCallback", Type = {"function", "FunctionContainer"} },
 	{ Name = "uiAddon", Type = {"string", "number"}, W_Link = "API_types/uiAddon" }, -- addon name, index
 	{ Name = "uiFontHeight", Type = {"number"} }, -- font height
 	{ Name = "UISoundSubType", Type = {"string"}},
@@ -147,11 +144,10 @@ local data = {
 	{ Name = "WOWGUID", Type = {"string"}, W_Link = "GUID" },
 	{ Name = "WOWMONEY", Type = {"number"}, Description = {"Amount in copper"} },
  	{ Name = "IDOrLink", Type = {"number", "string"} },
-	-- kstrings
-	{ Name = "kstringClubMessage", Type = {"string"}, W_Link = "Kstring" },
-	{ Name = "kstringLfgListApplicant", Type = {"string"}, W_Link = "Kstring" },
-	{ Name = "kstringLfgListChat", Type = {"string"}, W_Link = "Kstring" },
-	{ Name = "kstringLfgListSearch", Type = {"string"}, W_Link = "Kstring" },
+	-- custom
+	{ Name = "FunctionContainer", Type = {"userdata"}, W_Link = "API_types/FunctionContainer" }, -- custom type
+	{ Name = "TickerCallback", Type = {"function", "FunctionContainer"} }, -- updated type
+	{ Name = "TimerCallback", Type = {"function", "FunctionContainer"} }, -- updated type
 	-- mixins
 	{ Name = "AzeriteEmpoweredItemLocation", Type = {"Mixin"}, Mixin = "ItemLocationMixin", W_Link = "ItemLocationMixin" },
 	{ Name = "AzeriteItemLocation", Type = {"Mixin"}, Mixin = "ItemLocationMixin", W_Link = "ItemLocationMixin" },
