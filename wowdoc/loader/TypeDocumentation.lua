@@ -49,14 +49,17 @@ local data = {
 	{ Name = "FilterMode", Type = {"string"}, Description = {"LINEAR", "TRILINEAR", "NEAREST"} },
 
 	-- widgets
-	{ Name = "ChatBubbleFrame", Type = {"Frame"} },
+	{ Name = "ChatBubbleFrame", Type = {"Frame"} }, -- the only InnerType not documented
 	{ Name = "CooldownFrame", Type = {"Cooldown"}, W_Replace = "Cooldown" },
 	{ Name = "CScriptObject", Type = {"FrameScriptObject"}, W_Alias = "ScriptObject", W_Replace = "FrameScriptObject", W_Link = "UIOBJECT_FrameScriptObject" },
+	{ Name = "FrameScriptObject", Type = {"UIObject"} },
 	{ Name = "ModelSceneFrame", Type = {"ModelScene"}, W_Replace = "ModelScene", W_Link = "UIOBJECT_ModelScene" },
 	{ Name = "ModelSceneFrameActor", W_Replace = "ModelSceneActor", W_Link = "UIOBJECT_ModelSceneActor" },
 	{ Name = "NamePlateFrame", Type = {"Frame"}, Mixin = "NamePlateBaseMixin" },
+	{ Name = "ScriptRegion", Type = {"Region"} },
 	{ Name = "SimpleAnim", W_Replace = "Animation", W_Link = "UIOBJECT_Animation" },
 	{ Name = "SimpleAnimGroup", W_Replace = "AnimationGroup", W_Link = "UIOBJECT_AnimationGroup" },
+	{ Name = "SimpleCheckbox", Type = {"CheckButton"} },
 	{ Name = "SimpleControlPoint", W_Replace = "ControlPoint", W_Link = "UIOBJECT_ControlPoint" },
 	{ Name = "SimpleFont", W_Replace = "Font", W_Link = "UIOBJECT_Font" },
 	{ Name = "SimpleFontString", W_Replace = "FontString", W_Link = "UIOBJECT_FontString" },
@@ -64,7 +67,10 @@ local data = {
 	{ Name = "SimpleLine", W_Replace = "Line", W_Link = "UIOBJECT_Line" },
 	{ Name = "SimpleMaskTexture", W_Replace = "MaskTexture", W_Link = "UIOBJECT_MaskTexture" },
 	{ Name = "SimplePathAnim", W_Replace = "Path", W_Link = "UIOBJECT_Path" },
+	{ Name = "SimpleRegion", Type = {"Region"} },
 	{ Name = "SimpleTexture", W_Replace = "Texture", W_Link = "UIOBJECT_Texture" },
+	{ Name = "SimpleWindow", Type = {"nil"} },
+	{ Name = "Tooltip", Type = {"GameTooltip"} },
 	-- scriptobjects
 	{ Name = "AbbreviateConfig", Type = {"AbbreviateConfig"}, W_Link = "ScriptObject_AbbreviateConfig" },
 	{ Name = "HousingCatalogSearcher", Type = {"HousingCatalogSearcher", W_Link = "ScriptObject_HousingCatalogSearcher"} },
@@ -83,9 +89,11 @@ local data = {
 	{ Name = "BigInteger", Type = {"number"} }, -- in RecruitingClubInfo.lastUpdatedTime (unix time) -- /dump C_ClubFinder.GetRecruitingClubInfoFromFinderGUID(C_ClubFinder.ReturnMatchingGuildList()[1].clubFinderGUID)
 	{ Name = "BigUInteger", Type = {"number"} },
 	{ Name = "CalendarEventID", Type = {"number"} }, -- (used to be a string according to previous docs?)
+	{ Name = "ClickButton", Type = {"string"}, Description = {"AnyUp", "AnyDown", "LeftButtonUp", "LeftButtonDown", "RightButtonUp", "RightButtonDown", "MiddleButtonUp", "MiddleButtonDown", "Button4Up", "Button4Down", "Button5Up", "Button5Down"} },
 	{ Name = "ClubId", Type = {"string"} },
 	{ Name = "ClubInvitationId", Type = {"string"} },
 	{ Name = "ClubStreamId", Type = {"string"} },
+	{ Name = "ConnectionIptype", Type = {"number"}, Description = {"1=IPv4", "2=IPv6"} },
 	{ Name = "cstring", W_Replace = "string" },
 	{ Name = "DurationSeconds", Type = {"number"} },
 	{ Name = "EncounterTimelineEventID", Type = {"number"} },
@@ -106,14 +114,19 @@ local data = {
 	{ Name = "LuaValueReference", Type = {"any"} },
 	{ Name = "LuaValueVariant", Type = {"any"} },
 	{ Name = "ModelAssest", Type = {"number"}, W_Link = "FileDataID" },
+	{ Name = "ModelAsset", Type = {"string"} },
 	{ Name = "mouseButton", Type = {"string"}, Description = {"LeftButton", "RightButton", "MiddleButton", "Button4", "Button5" } },
+	{ Name = "MouseButton", Type = {"string"}, Description = {"LeftButton", "RightButton", "MiddleButton", "Button4", "Button5"} },
 	{ Name = "normalizedValue", Type = {"number"} }, -- [0.0 - 1.0]
 	{ Name = "NotificationDbId", Type = {"string"} },
+	{ Name = "QuestObjectiveType", Type = {"number"} },
 	{ Name = "RecruitAcceptanceID", Type = {"string"} },
 	{ Name = "SendChatMessageType", Type = {"string"} }, -- transcluded as a table
 	{ Name = "SingleColorValue", Type = {"number"} }, -- [0.0 - 1.0], used mainly for alpha
 	{ Name = "size", Type = {"number"} }, -- only used for Texture:GetNumMaskTextures
+	{ Name = "SoundHandle", Type = {"number"} },
 	{ Name = "SpellIdentifier", Type = {"number", "string"}, W_Link = "API_types/SpellIdentifier" },
+	{ Name = "StoreError", Type = {"number"} },
 	{ Name = "stringView", Type = {"string"} },
 	{ Name = "TextureAsset", Type = {"Texture", "string", "fileID"} },
 	{ Name = "TextureAssetDisk", Type = {"string", "fileID"} },
@@ -124,12 +137,16 @@ local data = {
 	{ Name = "TimerCallback", Type = {"function", "FunctionContainer"} },
 	{ Name = "uiAddon", Type = {"string", "number"}, W_Link = "API_types/uiAddon" }, -- addon name, index
 	{ Name = "uiFontHeight", Type = {"number"} }, -- font height
+	{ Name = "UISoundSubType", Type = {"string"}},
 	{ Name = "uiUnit", Type = {"number"} }, -- user interface units
 	{ Name = "UnitToken", Type = {"string"}, W_Link = "UnitId" },
+	{ Name = "UnitTokenNamePlate", Type = {"UnitToken"}, W_Link = "UnitId"},
+	{ Name = "UnitTokenRestrictedForAddOns", Type = {"UnitToken"}, W_Link = "UnitId"},
 	{ Name = "UnitTokenVariant", Type = {"string"}, W_Link = "UnitId" },
 	{ Name = "WeeklyRewardItemDBID", Type = {"string"} }, -- in WeeklyRewardActivityRewardInfo -- /dump C_WeeklyRewards.GetActivities()[1].rewards
 	{ Name = "WOWGUID", Type = {"string"}, W_Link = "GUID" },
 	{ Name = "WOWMONEY", Type = {"number"}, Description = {"Amount in copper"} },
+ 	{ Name = "IDOrLink", Type = {"number", "string"} },
 	-- kstrings
 	{ Name = "kstringClubMessage", Type = {"string"}, W_Link = "Kstring" },
 	{ Name = "kstringLfgListApplicant", Type = {"string"}, W_Link = "Kstring" },
