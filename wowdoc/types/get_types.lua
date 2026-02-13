@@ -21,11 +21,17 @@ local function GetFunctionTypes()
 		if apitbl.Arguments then
 			for _, arg in ipairs(apitbl.Arguments) do
 				t[arg.Type] = true
+				if arg.InnerType then
+					t[arg.InnerType] = true
+				end
 			end
 		end
 		if apitbl.Returns then
 			for _, ret in ipairs(apitbl.Returns) do
 				t[ret.Type] = true
+				if ret.InnerType then
+					t[ret.InnerType] = true
+				end
 			end
 		end
 	end
@@ -46,6 +52,9 @@ local function GetTableTypes()
 			if apitbl.Fields then
 				for _, field in ipairs(apitbl.Fields) do
 					table_fields[field.Type] = field
+					if field.InnerType then
+						table_fields[field.InnerType] = true
+					end
 				end
 			end
 		end
@@ -63,6 +72,9 @@ local function GetFieldTypes()
 	local t = {}
 	for _, apitbl in ipairs(APIDocumentation.fields) do
 		t[apitbl.Type] = true
+		if apitbl.InnerType then
+			t[apitbl.InnerType] = true
+		end
 	end
 	return t
 end
@@ -73,6 +85,9 @@ local function GetEventTypes()
 		if apitbl.Payload then
 			for _, arg in ipairs(apitbl.Payload) do
 				t[arg.Type] = true
+				if arg.InnerType then
+					t[arg.InnerType] = true
+				end
 			end
 		end
 	end
