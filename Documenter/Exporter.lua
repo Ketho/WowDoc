@@ -51,6 +51,9 @@ function m:ExportSystems(folder)
 	util:mkdir(format("%s/struct", folder))
 	log:info("Exporting (systemless) tables")
 	for _, apiTable in ipairs(APIDocumentation.tables) do
+		if type(apiTable.Type) == "table" then -- hack for TypeDocumentation
+			apiTable.Type = apiTable.Type[1]
+		end
 		local isTransclude = Wowpedia.complexRefs[apiTable.Name]
 		if isTransclude and isTransclude > 1 then
 			local transcludeBase, shortType = Wowpedia:GetTranscludeBase(apiTable)

@@ -86,7 +86,7 @@ function Wowpedia:GetIncludedTables(apiTable)
 end
 
 function Wowpedia:GetTranscludeBase(complexTable)
-	local shortType = shortComplex[complexTable.Type] or complexTable.Type
+	local shortType = shortComplex[complexTable.Type] or complexTable.Type or ""
 	local divider = shortType == "Enum" and "." or " "
 	return shortType..divider..complexTable.Name, shortType
 end
