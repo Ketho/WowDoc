@@ -9,7 +9,7 @@ def main():
 	for row in systems:
 		file, system, namespace, *_ = row
 		text = get_system_page(file, system, namespace)
-		save_page(f"Category:API_systems/{system}", text, "12.0.0 (64741) systems")
+		save_page(f"Category:API_systems/{system}", text, "12.0.0 (65893) systems")
 
 def read_csv(file_path):
 	with open(file_path, newline='', encoding='utf-8') as csvfile:

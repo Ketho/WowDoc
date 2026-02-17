@@ -1,5 +1,5 @@
 local Path = require("path")
-local util = require("wowdoc")
+local wowdoc = require("wowdoc")
 local enum = require("wowdoc.enum")
 local products = require("wowdoc.products")
 local log = require("wowdoc.log")
@@ -7,7 +7,7 @@ local log = require("wowdoc.log")
 local PRODUCT = CONFIG.TACT_PRODUCT
 local gethe_branch = products:GetBranch(PRODUCT)
 
-local SUMMARY = "12.0.1 (65617)"
+local SUMMARY = "12.0.1 (65893)"
 
 local function WriteFiles()
     local scribunto = Path.join("Scribunto", "API_info")

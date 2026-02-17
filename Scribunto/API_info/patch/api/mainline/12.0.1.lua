@@ -677,6 +677,7 @@ local GlobalAPI = {
 	"C_CatalogShop.PurchaseProduct",
 	"C_CatalogShop.RefreshRefundableDecors",
 	"C_CatalogShop.RefreshVirtualCurrencyBalance",
+	"C_CatalogShop.ShouldShowHousingWarning",
 	"C_CatalogShop.StartHousingVCPurchaseConfirmation",
 	"C_ChallengeMode.CanUseKeystoneInCurrentMap",
 	"C_ChallengeMode.ClearKeystone",
@@ -1392,8 +1393,10 @@ local GlobalAPI = {
 	"C_DelvesUI.GetFactionForCompanion",
 	"C_DelvesUI.GetLockedTextForCompanion",
 	"C_DelvesUI.GetModelSceneForCompanion",
+	"C_DelvesUI.GetPlayerCompanionPDEID",
 	"C_DelvesUI.GetRoleNodeForCompanion",
 	"C_DelvesUI.GetRoleSubtreeForCompanion",
+	"C_DelvesUI.GetTieredEntrancePDEID",
 	"C_DelvesUI.GetTraitTreeForCompanion",
 	"C_DelvesUI.GetUnseenCuriosBySlotType",
 	"C_DelvesUI.HasActiveDelve",
@@ -1495,10 +1498,14 @@ local GlobalAPI = {
 	"C_EncounterTimeline.SetViewType",
 	"C_EncounterWarnings.GetColorForSeverity",
 	"C_EncounterWarnings.GetEditModeWarningInfo",
+	"C_EncounterWarnings.GetPlayCustomSoundsWhenHidden",
 	"C_EncounterWarnings.GetSoundKitForSeverity",
+	"C_EncounterWarnings.GetWarningsShown",
 	"C_EncounterWarnings.IsFeatureAvailable",
 	"C_EncounterWarnings.IsFeatureEnabled",
 	"C_EncounterWarnings.PlaySound",
+	"C_EncounterWarnings.SetPlayCustomSoundsWhenHidden",
+	"C_EncounterWarnings.SetWarningsShown",
 	"C_EndOfMatchUI.GetEndOfMatchDetails",
 	"C_EquipmentSet.AssignSpecToEquipmentSet",
 	"C_EquipmentSet.CanUseEquipmentSets",
@@ -1991,6 +1998,7 @@ local GlobalAPI = {
 	"C_Housing.HouseFinderDeclineNeighborhoodInvitation",
 	"C_Housing.HouseFinderRequestNeighborhoods",
 	"C_Housing.HouseFinderRequestReservationAndPort",
+	"C_Housing.IsHousingMarketCartFullRemoveEnabled",
 	"C_Housing.IsHousingMarketEnabled",
 	"C_Housing.IsHousingMarketShopEnabled",
 	"C_Housing.IsHousingServiceEnabled",
@@ -4185,6 +4193,7 @@ local GlobalAPI = {
 	"C_TransmogCollection.IsSearchDBLoading",
 	"C_TransmogCollection.IsSearchInProgress",
 	"C_TransmogCollection.IsSourceTypeFilterChecked",
+	"C_TransmogCollection.IsSpellItemEnchantmentHiddenVisual",
 	"C_TransmogCollection.IsUsingDefaultFilters",
 	"C_TransmogCollection.IsValidCustomSetName",
 	"C_TransmogCollection.IsValidTransmogSource",
@@ -4255,6 +4264,7 @@ local GlobalAPI = {
 	"C_TransmogOutfitInfo.IsEquippedGearOutfitLocked",
 	"C_TransmogOutfitInfo.IsLockedOutfit",
 	"C_TransmogOutfitInfo.IsSlotWeaponSlot",
+	"C_TransmogOutfitInfo.IsUsableDiscountAvailable",
 	"C_TransmogOutfitInfo.IsValidTransmogOutfitName",
 	"C_TransmogOutfitInfo.PickupOutfit",
 	"C_TransmogOutfitInfo.ResetOutfitSituations",
@@ -6609,4 +6619,4 @@ local LuaAPI = {
 }
 
 return {GlobalAPI, LuaAPI}
--- version: 12.0.1 (65617)
+-- version: 12.0.1 (65893)

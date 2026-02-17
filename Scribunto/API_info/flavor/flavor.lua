@@ -1,7 +1,7 @@
 ---@diagnostic disable: need-check-nil
 -- https://warcraft.wiki.gg/wiki/Module:API_info/flavor/api
 -- https://warcraft.wiki.gg/wiki/Module:API_info/flavor/event
-local util = require("wowdoc")
+local util = require("wowdoc.util")
 local branch_flags = require("wowdoc.branch_bitflags")
 
 ---@type table<ResourceType, table>
@@ -21,7 +21,7 @@ local function main()
 		local file = io.open(info.out, "w")
 		file:write("-- https://github.com/Ketho/WowDoc/blob/master/Scribunto/API_info/flavor/flavor.lua\n")
 		file:write('local data = {\n')
-		for _, name in pairs(util:SortTable(data)) do
+		for _, name in pairs(util.table.SortTable(data)) do
 			local flavors = data[name]
 			file:write(string.format('\t["%s"] = 0x%X,\n', name, flavors))
 		end

@@ -1,6 +1,7 @@
 local lfs = require("lfs")
 local PATH = require("path")
-local util = require("wowdoc")
+local wowdoc = require("wowdoc")
+local util = require("wowdoc.util")
 local apidoc_nontoc = require("wowdoc.loader.nontoc.old")
 local log = require("wowdoc.log")
 
@@ -47,7 +48,7 @@ local m = {}
 function m:GetDocEvents(info)
 	local t = {}
 	for folder in lfs.dir(info.input) do
-		if not util.RelativePath[folder] then
+		if not wowdoc.RelativePath[folder] then
 			local path = FindApiDocFolder(PATH.join(info.input, folder))
 			if path then
 				local version = folder:match("%d+%.%d+.%d+")
@@ -92,7 +93,7 @@ end
 -- apparently this goes through all patches of both classic and retail
 function m:GetPatchData(tbl)
 	local added, removed = {}, {}
-	for _, v in pairs(util:SortTableCustom(tbl, SortMajor)) do -- todo: sorting here goes wrong
+	for _, v in pairs(util.table.SortTableCustom(tbl, SortMajor)) do -- todo: sorting here goes wrong
 		local version, data = v.value.version, v.value.events
 		for name in pairs(data) do
 			if not added[name] then
