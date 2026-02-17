@@ -172,6 +172,11 @@ function Wowpedia:GetPrettyType(apiTable, isArgument)
 	if apiTable.Default ~= nil then
 		apiText = apiText..format("|default=%s", tostring(apiTable.Default))
 	end
+	if apiTable.NeverSecret then
+		apiText = apiText.."|secret=NeverSecret"
+	elseif apiTable.ConditionalSecret then
+		apiText = apiText.."|secret=ConditionalSecret"
+	end
 	local str = string.format("{{apitype|%s}}", apiText)
 	return str
 end

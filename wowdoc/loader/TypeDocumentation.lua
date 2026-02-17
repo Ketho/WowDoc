@@ -72,10 +72,10 @@ local data = {
 	{ Name = "SimpleWindow", Type = {"nil"} },
 	{ Name = "Tooltip", W_Link = "UIOBJECT_GameTooltip" },
 	-- scriptobjects
-	{ Name = "AbbreviateConfig", Type = {"AbbreviateConfig"}, W_Link = "ScriptObject_AbbreviateConfig" },
-	{ Name = "HousingCatalogSearcher", Type = {"HousingCatalogSearcher", W_Link = "ScriptObject_HousingCatalogSearcher"} },
-	{ Name = "HousingFixturePointFrame", Type = {"HousingFixturePointFrame"}, W_Link = "ScriptObject_HousingFixturePointFrame"  },
-	{ Name = "HousingLayoutPinFrame", Type = {"HousingLayoutPinFrame"}, W_Link = "ScriptObject_HousingLayoutPinFrame" },
+	{ Name = "AbbreviateConfig", W_Link = "ScriptObject_AbbreviateConfig" },
+	{ Name = "HousingCatalogSearcher", W_Link = "ScriptObject_HousingCatalogSearcher" },
+	{ Name = "HousingFixturePointFrame", W_Link = "ScriptObject_HousingFixturePointFrame" },
+	{ Name = "HousingLayoutPinFrame", W_Link = "ScriptObject_HousingLayoutPinFrame" },
 	{ Name = "LuaColorCurveObject", Type = {"ColorCurve"}, W_Alias = "ColorCurve", W_Replace = "ColorCurveObject", W_Link = "ScriptObject_ColorCurveObject" },
 	{ Name = "LuaCurveObject", Type = {"Curve"}, W_Alias = "Curve", W_Replace = "CurveObject", W_Link = "ScriptObject_CurveObject" },
 	{ Name = "LuaCurveObjectBase", W_Replace = "CurveObjectBase", W_Link = "ScriptObject_CurveObjectBase" },
@@ -133,11 +133,11 @@ local data = {
 	{ Name = "time_t", Type = {"number"} }, -- time in seconds
 	{ Name = "uiAddon", Type = {"string", "number"}, W_Link = "API_types/uiAddon" }, -- addon name, index
 	{ Name = "uiFontHeight", Type = {"number"} }, -- font height
-	{ Name = "UISoundSubType", Type = {"string"}},
+	{ Name = "UISoundSubType", Type = {"string"} },
 	{ Name = "uiUnit", Type = {"number"} }, -- user interface units
 	{ Name = "UnitToken", Type = {"string"}, W_Link = "UnitId" },
-	{ Name = "UnitTokenNamePlate", W_Link = "UnitId"},
-	{ Name = "UnitTokenRestrictedForAddOns", W_Link = "UnitId"},
+	{ Name = "UnitTokenNamePlate", Type = {"string"}, W_Link = "UnitId" },
+	{ Name = "UnitTokenRestrictedForAddOns", Type = {"string"}, W_Link = "UnitId" },
 	{ Name = "UnitTokenVariant", Type = {"string"}, W_Link = "UnitId" },
 	{ Name = "WeeklyRewardItemDBID", Type = {"string"} }, -- in WeeklyRewardActivityRewardInfo -- /dump C_WeeklyRewards.GetActivities()[1].rewards
 	{ Name = "WOWGUID", Type = {"string"}, W_Link = "GUID" },
