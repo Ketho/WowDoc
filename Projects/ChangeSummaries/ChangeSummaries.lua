@@ -1,5 +1,6 @@
 -- https://wowpedia.fandom.com/wiki/API_change_summaries
-local util = require("wowdoc")
+local wowdoc = require("wowdoc")
+local util = require("wowdoc.util")
 local pathlib = require("path")
 local log = require("wowdoc.log")
 local cvar_module = require("Projects/ChangeSummaries/CVar")
@@ -13,11 +14,11 @@ local CVAR1, CVAR2 = BRANCH1, BRANCH2
 -- local DIFF = {"commit", "mainline"}
 local DIFF = {"compare", BRANCH1..".."..BRANCH2}
 
-PATH_CHANGES = util:mkdir(PATHS.OUT, "changes")
+PATH_CHANGES = wowdoc:mkdir(PATHS.OUT, "changes")
 local OUT_FILE = pathlib.join(PATH_CHANGES, "ChangeSummaries.txt")
 
-PATH_COMMIT = util:mkdir(PATHS.DIFF, "commit")
-PATH_COMPARE = util:mkdir(PATHS.DIFF, "compare")
+PATH_COMMIT = wowdoc:mkdir(PATHS.DIFF, "commit")
+PATH_COMPARE = wowdoc:mkdir(PATHS.DIFF, "compare")
 
 local function GetDiff()
 	local path, url
@@ -29,7 +30,7 @@ local function GetDiff()
 		path = pathlib.join(PATH_COMPARE, string.format("%s.diff", fpath))
 		url = string.format("https://github.com/Ketho/BlizzardInterfaceResources/compare/%s.diff", DIFF[2])
 	end
-	util:DownloadFile(url, path, true)
+	wowdoc:DownloadFile(url, path, true)
 	return path
 end
 
@@ -121,8 +122,8 @@ function m:GetWikiTable(info, section)
 			table.sort(info.changes["+"])
 			table.sort(info.changes["-"])
 		else
-			table.sort(info.changes["+"], util.SortNocase)
-			table.sort(info.changes["-"], util.SortNocase)
+			table.sort(info.changes["+"], util.table.SortNocase)
+			table.sort(info.changes["-"], util.table.SortNocase)
 		end
 	end
 	local t = {}

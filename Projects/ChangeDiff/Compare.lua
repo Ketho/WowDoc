@@ -1,4 +1,4 @@
-local util = require("wowdoc")
+local util = require("wowdoc.util")
 local log = require("wowdoc.log")
 local m = ChangeDiff
 
@@ -14,7 +14,7 @@ local function CompareApiTable(a, b)
 		if b[k] == nil then
 			removed[k] = v
 		else
-			if not util:equals(v, b[k]) then
+			if not util.table.equals(v, b[k]) then
 				modified[k] = {v, b[k]}
 			end
 		end

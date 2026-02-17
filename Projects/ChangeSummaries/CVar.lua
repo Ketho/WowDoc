@@ -1,4 +1,5 @@
 -- similar codebase as https://wowpedia.fandom.com/wiki/Module:API_info/cvar
+local wowdoc = require("wowdoc")
 local util = require("wowdoc.util")
 local pathlib = require("path")
 local m = {}
@@ -19,7 +20,7 @@ local ConsoleCategory = {
 }
 
 local function GetData(flavor)
-	local tbl = util:DownloadAndRun(
+	local tbl = wowdoc:DownloadAndRun(
 		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/CVars.lua", flavor),
 		string.format(pathlib.join(PATHS.CACHE, "CVars_%s.lua"), flavor)
 	)
@@ -75,8 +76,8 @@ function m:SanitizeCVars(ApiTypes)
 		end
 	end
 	-- cba safely removing while iterating
-	util:Wipe(ApiTypes.CVars.changes["+"])
-	util:Wipe(ApiTypes.CVars.changes["-"])
+	util.table.Wipe(ApiTypes.CVars.changes["+"])
+	util.table.Wipe(ApiTypes.CVars.changes["-"])
 	for k in pairs(added) do
 		table.insert(ApiTypes.CVars.changes["+"], k)
 	end

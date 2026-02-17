@@ -8,8 +8,8 @@ local branch = products:GetBranch(PRODUCT)
 enum:LoadLuaEnums(branch)
 local apidoc_nontoc = require("wowdoc.loader.nontoc")
 
-local BUILD1 = "11.2.7 (63853)"
-local BUILD2 = "12.0.0 (63854)"
+local BUILD1 = "12.0.0 (65727)"
+local BUILD2 = "12.0.1 (65893)"
 
 ChangeDiff = {}
 require("Projects.ChangeDiff.Compare")
