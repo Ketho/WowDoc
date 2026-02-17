@@ -55,7 +55,7 @@ local data = {
 	{ Name = "FrameScriptObject", Type = {"UIObject"} },
 	{ Name = "ModelSceneFrame", Type = {"ModelScene"}, W_Replace = "ModelScene", W_Link = "UIOBJECT_ModelScene" },
 	{ Name = "ModelSceneFrameActor", W_Replace = "ModelSceneActor", W_Link = "UIOBJECT_ModelSceneActor" },
-	{ Name = "NamePlateFrame", Type = {"Frame"}, Mixin = "NamePlateBaseMixin" },
+	{ Name = "NamePlateFrame", Mixin = "NamePlateBaseMixin" },
 	{ Name = "ScriptRegion", Type = {"Region"} },
 	{ Name = "SimpleAnim", W_Replace = "Animation", W_Link = "UIOBJECT_Animation" },
 	{ Name = "SimpleAnimGroup", W_Replace = "AnimationGroup", W_Link = "UIOBJECT_AnimationGroup" },
@@ -70,7 +70,7 @@ local data = {
 	{ Name = "SimpleRegion", Type = {"Region"} },
 	{ Name = "SimpleTexture", W_Replace = "Texture", W_Link = "UIOBJECT_Texture" },
 	{ Name = "SimpleWindow", Type = {"nil"} },
-	{ Name = "Tooltip", Type = {"GameTooltip"} },
+	{ Name = "Tooltip", W_Link = "UIOBJECT_GameTooltip" },
 	-- scriptobjects
 	{ Name = "AbbreviateConfig", Type = {"AbbreviateConfig"}, W_Link = "ScriptObject_AbbreviateConfig" },
 	{ Name = "HousingCatalogSearcher", Type = {"HousingCatalogSearcher", W_Link = "ScriptObject_HousingCatalogSearcher"} },
@@ -136,8 +136,8 @@ local data = {
 	{ Name = "UISoundSubType", Type = {"string"}},
 	{ Name = "uiUnit", Type = {"number"} }, -- user interface units
 	{ Name = "UnitToken", Type = {"string"}, W_Link = "UnitId" },
-	{ Name = "UnitTokenNamePlate", Type = {"UnitToken"}, W_Link = "UnitId"},
-	{ Name = "UnitTokenRestrictedForAddOns", Type = {"UnitToken"}, W_Link = "UnitId"},
+	{ Name = "UnitTokenNamePlate", W_Link = "UnitId"},
+	{ Name = "UnitTokenRestrictedForAddOns", W_Link = "UnitId"},
 	{ Name = "UnitTokenVariant", Type = {"string"}, W_Link = "UnitId" },
 	{ Name = "WeeklyRewardItemDBID", Type = {"string"} }, -- in WeeklyRewardActivityRewardInfo -- /dump C_WeeklyRewards.GetActivities()[1].rewards
 	{ Name = "WOWGUID", Type = {"string"}, W_Link = "GUID" },

@@ -18,7 +18,7 @@ local sources = {
 			return tbl[1]
 		end,
 		map = function(tbl)
-			return util:ToMap(tbl)
+			return util.table.ToMap(tbl)
 		end,
 		name_fs = "{{apilink|t=a|%s}}",
 	},
