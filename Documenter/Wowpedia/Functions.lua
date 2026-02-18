@@ -19,13 +19,12 @@ end
 function Wowpedia:GetWidgetSignature(func)
 	local t = {}
 	if func.Returns and #func.Returns > 0 then
-		table.insert(t, string.format("%s = ", self:GetSignature(func.Returns)))
+		table.insert(t, string.format("%s {{=}} ", self:GetSignature(func.Returns)))
 	end
 	local widget = widgets[func.System.Name]
-	table.insert(t, string.format("[[ScriptObject %s|%s]]", widget, widget))
-	table.insert(t, ":"..func.Name)
+	table.insert(t, string.format("%s:%s", widget, func.Name))
 	table.insert(t, string.format("(%s)", self:GetSignature(func.Arguments)))
-	return " "..table.concat(t)
+	return table.concat(t)
 end
 
 function Wowpedia:GetFunctionSignature(func, systemType)

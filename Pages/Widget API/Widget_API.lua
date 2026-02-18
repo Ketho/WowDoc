@@ -1,10 +1,11 @@
 local pathlib = require("path")
-local util = require("wowdoc")
+local wowdoc = require("wowdoc")
+local log = require("wowdoc.log")
 local OUT = pathlib.join(PATHS.WIKI_PAGE, "Widget_API.txt")
 local doc_widgets = require("wowdoc/loader/doc_widgets")
 
 local PRODUCT = CONFIG.TACT_PRODUCT
-util:LoadDocumentation(PRODUCT)
+wowdoc:LoadDocumentation(PRODUCT)
 
 local widget_order = {
 	"Object",
@@ -35,7 +36,7 @@ local widget_order = {
 	"ColorSelect",
 	"Cooldown",
 	"EditBox",
-	-- GameTooltip
+	"GameTooltip",
 	"MessageFrame",
 	"Minimap",
 	"MovieFrame",
@@ -53,13 +54,17 @@ local widget_order = {
 	-- Checkout
 	-- "OffScreenFrame",
 	-- WorldFrame
-	"Curve",
-	"ColorCurve",
+
+	-- scriptobjects
+	"AbbreviateConfig",
+	"CurveObjectBase",
+	"CurveObject",
+	"ColorCurveObject",
+	"DurationObject",
 	"HousingCatalogSearcher",
 	"HousingFixturePointFrame",
 	"HousingLayoutPinFrame",
 	"UnitHealPredictionCalculator",
-	"LuaDurationObject",
 }
 
 local widget_desc = {
@@ -201,6 +206,10 @@ local function main()
 	local file = io.open(OUT, "w")
 	print("writing to "..OUT)
 	for _, widget in pairs(widget_order) do
+		if not systemInfo[widget] then
+			log:failure("no system for widget "..widget)
+			goto blaat
+		end
 		file:write(string.format("===%s===\n", widget))
 		if widget_desc[widget] then
 			file:write(widget_desc[widget].."\n")
@@ -210,6 +219,7 @@ local function main()
 			file:write(string.format(": %s\n", template))
 		end
 		file:write("\n")
+		::blaat::
 	end
 	file:close()
 end
