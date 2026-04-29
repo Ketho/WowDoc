@@ -133,6 +133,9 @@ end
 
 local function main(_tag, _branch)
 	pathlib.mkdir(pathlib.join("FrameXML", "zips"))
+	for _, v in pairs(branches) do
+		pathlib.mkdir(pathlib.join("FrameXML", v))
+	end
 	if _tag then
 		DownLoadUnpack(_tag, _branch)
 	else
@@ -146,5 +149,5 @@ local function main(_tag, _branch)
 	log:success("Done")
 end
 
-main("12.0.1", "live")
+main("12.0.5", "live")
 -- main()

@@ -2,17 +2,20 @@
 local log = require("wowdoc.log")
 local products = require("wowdoc.products")
 local enum = require("wowdoc.enum")
+local util = require("wowdoc.util")
+local pathlib = require("path")
 
 local PRODUCT = CONFIG.TACT_PRODUCT
 local branch = products:GetBranch(PRODUCT)
 enum:LoadLuaEnums(branch)
 local apidoc_nontoc = require("wowdoc.loader.nontoc")
 
-local BUILD1 = "12.0.0 (65727)"
-local BUILD2 = "12.0.1 (65893)"
+local BUILD1 = "12.0.1 (66838)"
+local BUILD2 = "12.0.5 (67186)"
 
 ChangeDiff = {}
 require("Projects.ChangeDiff.Compare")
+local table_diff = require("wowdoc.util.table_diff")
 local m = ChangeDiff
 local PrintView = require("Projects.ChangeDiff.PrintView")
 
@@ -25,6 +28,9 @@ m.apiTypes = {
 					if system.Namespace then
 						local fullName = string.format("%s.%s", system.Namespace, apiTable.Name)
 						t[fullName] = apiTable
+					elseif system.Name then
+						local fullName = string.format("%s %s", system.Name, apiTable.Name)
+						t[fullName] = apiTable
 					else
 						t[apiTable.Name] = apiTable
 					end
@@ -32,7 +38,6 @@ m.apiTypes = {
 			end
 			return t
 		end,
-		params = {"Arguments", "Returns"},
 	},
 	Event = {
 		map = function(tbl)
@@ -44,7 +49,6 @@ m.apiTypes = {
 			end
 			return t
 		end,
-		params = {"Payload"},
 	},
 	Enumeration = {
 		map = function(tbl)
@@ -58,7 +62,6 @@ m.apiTypes = {
 			end
 			return t
 		end,
-		params = {"Fields"},
 	},
 	Structure = {
 		map = function(tbl)
@@ -72,7 +75,6 @@ m.apiTypes = {
 			end
 			return t
 		end,
-		params = {"Fields"},
 	},
 }
 m.apiType_order = {"Function", "Event", "Enumeration", "Structure"}
@@ -90,10 +92,35 @@ function m:LoadFrameXML(versions)
 	return t
 end
 
+local function CompareVersions(versions, framexml)
+	local ver_a, ver_b = table.unpack(versions)
+	log:info(string.format("Comparing %s to %s ", ver_a, ver_b))
+	local frame_a = framexml[ver_a]
+	local frame_b = framexml[ver_b]
+	local changes = {}
+	local file = io.open(pathlib.join(PATHS.WIKI_DIFF, "changes.txt"), "w")
+	for _, v in pairs(m.apiType_order) do
+		-- print("== "..v.." ==")
+		file:write("== "..v.." ==\n")
+		local changes = table_diff.print_table_diff(frame_a[v], frame_b[v])
+		table.sort(changes["(root)"])
+		-- changes["(root)"] = nil -- not currently interested in root level changes
+		for _, k in pairs(util.table.SortTable(changes)) do
+			local v = changes[k]
+			for k2, v2 in pairs(v) do
+				-- print(v2)
+				file:write(v2.."\n")
+			end
+		end
+		file:write("\n")
+	end
+	file:close()
+end
+
 local function main(versions, isWiki)
 	local framexml = m:LoadFrameXML(versions)
-	local changes = m:CompareVersions(versions, framexml)
-	PrintView:PrintView(changes, isWiki)
+	CompareVersions(versions, framexml)
+	-- PrintView:PrintView(changes, isWiki)
 end
 
 main({BUILD1, BUILD2}, true)

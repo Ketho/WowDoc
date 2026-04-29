@@ -162,7 +162,9 @@ function m.equals(a, b)
 	if a == b then return true end
 	local type_a, type_b = type(a), type(b)
 	if type_a ~= type_b then return false end
+	-- at this point they are the same type but not equal
 	if type_a ~= "table" then return false end
+	-- now we only need to do table comparison
 	for k, v in pairs(a) do
 		if b[k] == nil or not m.equals(v, b[k]) then return false end
 	end

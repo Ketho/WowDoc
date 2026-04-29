@@ -70,6 +70,11 @@ local doc_widgets = {
 	LuaDurationObjectAPI = "DurationObject",
 	UnitHealPredictionCalculatorAPI = "UnitHealPredictionCalculator",
 	FrameAPINamePlate = "NamePlate",
+	-- 12.0.5
+	AbbreviatedNumberFormatterAPI = "AbbreviatedNumberFormatter",
+	NumericFormatterAPI = "NumericFormatter",
+	NumericRuleFormatterAPI = "NumericRuleFormatter",
+	SecondsFormatterAPI = "SecondsFormatter",
 
 	-- special cases
 	FrameAPISimpleCheckout = "SimpleCheckout",
