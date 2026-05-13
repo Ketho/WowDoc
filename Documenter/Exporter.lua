@@ -1,6 +1,7 @@
 local util = require("wowdoc")
 local log = require("wowdoc.log")
 local Widgets = require("wowdoc.loader.doc_widgets")
+local emptySystems = require("wowdoc.analytics.systems.is_empty"):get()
 
 local m = {}
 
@@ -22,10 +23,9 @@ function m:ExportSystems(folder)
 		elseif system.Type == "ScriptObject" then
 			systemFolder = "widget"
 		end
-		log:info("Exporting system: "..system:GetFullName())
-		local systemName = system.Name or system.Namespace
-		if systemName then
-			util:mkdir(format("%s/%s/%s", folder, systemFolder, systemName))
+		if not emptySystems[system.Name] then
+			log:info("Exporting system: "..system:GetFullName())
+			util:mkdir(format("%s/%s/%s", folder, systemFolder, system.Name))
 			local prefix
 			if system.Type == "ScriptObject" then
 				if not Widgets[system.Name] then
@@ -36,15 +36,17 @@ function m:ExportSystems(folder)
 				prefix = system.Namespace and system.Namespace.."." or ""
 			end
 			for _, func in ipairs(system.Functions) do
-				local path = format("%s/%s/%s/API %s.txt", folder, systemFolder, systemName, prefix..func.Name)
+				local path = format("%s/%s/%s/API %s.txt", folder, systemFolder, system.Name, prefix..func.Name)
 				local pageText = Wowpedia:GetPageText(func, system.Type)
 				WriteFile(path, pageText)
 			end
 			for _, event in ipairs(system.Events) do
-				local path = format("%s/%s/%s/%s.txt", folder, systemFolder, systemName, event.LiteralName)
+				local path = format("%s/%s/%s/%s.txt", folder, systemFolder, system.Name, event.LiteralName)
 				local pageText = Wowpedia:GetPageText(event)
 				WriteFile(path, pageText)
 			end
+		else
+			log:warn(string.format("Skipping empty system: %s", system:GetFullName()))
 		end
 	end
 	util:mkdir(format("%s/enum", folder))

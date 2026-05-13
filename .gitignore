@@ -2,32 +2,31 @@
 *.xml
 *.html
 *.diff
-.work
 
 # csv
 /Projects/CursePoints/*.csv
-wago/community-listfile.csv
-wago/*/*.csv
 
 # python
-/.venv
-/apicache
-/logs
+/.venv/
+/apicache/
+/logs/
 *.lwp
 *.ctrl
 *.pyc
-Pywikibot/vibe
 
 # hererocks
-/.lua
+/.lua/
 
 # pywikibot
 user-config.py
 user-password.py
 
 # framexml
-/FrameXML
-/wow-ui-source
+/FrameXML/
+/wow-ui-source/
 
 # output folder
-.wow
+/.wow/
+
+# my random crap
+/.work/

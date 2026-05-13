@@ -5,11 +5,10 @@ local ltn12 = require("ltn12")
 
 local m = {}
 
-local GITHUB_TOKEN = util:run_command("gh auth token")
+-- apparently need to trim newlines or it sometimes returns HTTP 400/403
+local GITHUB_TOKEN = util:run_command("gh auth token"):GITHUB_TOKEN:gsub("\n", "")
 
 function m:SendHttpsRequest(url)
-	-- apparently need to trim newlines or it sometimes returns HTTP 400/403
-	GITHUB_TOKEN = GITHUB_TOKEN:gsub("\n", "")
 	local headers = {
 		["Authorization"] = string.format("Bearer %s", GITHUB_TOKEN),
 		["User-Agent"] = "WowDoc"

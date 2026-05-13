@@ -1,3 +1,7 @@
+if not APIDocumentation then
+	require("wowdoc.loader"):main()
+end
+
 local function PrintDocumentation(apiType)
 	for _, apiTable in ipairs(APIDocumentation[apiType]) do
 		if apiTable.Documentation then
