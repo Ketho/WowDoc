@@ -1,6 +1,7 @@
 local pathlib = require("path")
 
 CONFIG = {}
+
 ---@type TactProduct
 CONFIG.TACT_PRODUCT = "wow"
 

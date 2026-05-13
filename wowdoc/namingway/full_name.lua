@@ -12,6 +12,21 @@ function m:GetFullName(apiTable, isWikiLink)
 	end
 end
 
+-- keep note this is also being called indirectly from the wikiparser
+-- with "converted" api tables which dont include the mixins
+function m:GetArguments(apiTable)
+	local t = {}
+	for _, v in pairs(apiTable.Arguments or {}) do
+		-- luals varargs need to be annotated with "..."
+		if v.StrideIndex then
+			table.insert(t, "...")
+		else
+			table.insert(t, v.Name)
+		end
+	end
+	return table.concat(t, ", ")
+end
+
 function m:GetBaseName(apiTable, isWikiLink)
 	local baseName
 	local system = apiTable.System

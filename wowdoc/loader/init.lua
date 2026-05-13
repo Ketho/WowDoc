@@ -2,7 +2,6 @@ local lfs = require("lfs")
 local pathlib = require("path")
 require("wowdoc.config")
 
-local wowdoc = require("wowdoc")
 local system = require("wowdoc.util.system")
 local log = require("wowdoc.util.log")
 local products = require("wowdoc.products")

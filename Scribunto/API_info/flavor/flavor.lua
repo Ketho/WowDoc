@@ -3,7 +3,7 @@
 -- https://warcraft.wiki.gg/wiki/Module:API_info/flavor/event
 local pathlib = require("path")
 local table_sort = require("wowdoc.util.table_sort")
-local branch_flags = require("wowdoc.web.branch_bitflags")
+local branch_flags = require("wowdoc.web.blizres.bitflags")
 
 ---@type table<ResourceType, table>
 local sources = {
