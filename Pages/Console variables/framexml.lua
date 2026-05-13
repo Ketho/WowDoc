@@ -1,6 +1,6 @@
 local util = require("wowdoc")
 local system = require("wowdoc.util.system")
-local wago = require("wowdoc.wago")
+local wago = require("wowdoc.web.wago")
 
 local framexml_strings = {}
 

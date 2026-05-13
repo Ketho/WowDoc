@@ -4,7 +4,7 @@ local pathlib = require("path")
 local table_sort = require("wowdoc.util.table_sort")
 
 require("wowdoc.config")
-local wago = require("wowdoc.wago")
+local wago = require("wowdoc.web.wago")
 local log = require("wowdoc.util.log")
 local doc_widgets = require("wowdoc.loader.doc_widgets")
 

@@ -1,7 +1,7 @@
 -- exports to lua tables for use in an addon
 local table_sort = require("wowdoc.util.table_sort")
 local system = require("wowdoc.util.system")
-local parser = require("wowdoc.wago")
+local parser = require("wowdoc.web.wago")
 local dbc_patch = require("Projects/DBC/DBC_patch")
 local OUTPUT_DBC = "KethoWowpedia/dbc/%s.lua"
 local OUTPUT_PATCH = "KethoWowpedia/patch/%s.lua"

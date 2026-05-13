@@ -1,5 +1,5 @@
 -- https://wowpedia.fandom.com/wiki/TitleId
-local parser = require("wowdoc.wago")
+local parser = require("wowdoc.web.wago")
 local util = require("wowdoc")
 local dbc_patch = require("Projects/DBC/DBC_patch")
 local OUTPUT = "out/page/TitleId.txt"

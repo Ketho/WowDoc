@@ -2,7 +2,7 @@ local util = require("wowdoc.util")
 local system = require("wowdoc.util.system")
 local tablelib = require("wowdoc.util.table")
 local Path = require("path")
-local wago_csv = require("wowdoc.wago")
+local wago_csv = require("wowdoc.web.wago")
 local output = "KethoWowpedia/patch/%s.lua"
 
 system:mkdir("KethoWowpedia/patch")

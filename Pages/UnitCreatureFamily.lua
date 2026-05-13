@@ -1,10 +1,10 @@
 -- https://warcraft.wiki.gg/wiki/API_UnitCreatureFamily
 local util = require("wowdoc")
 local table_sort = require("wowdoc.util.table_sort")
-local parser = require("wowdoc.wago")
+local parser = require("wowdoc.web.wago")
 local dbc_patch = require("Projects/DBC/DBC_patch")
 local OUTPUT = "out/page/UnitCreatureFamily.txt"
-local wago = require("wowdoc.wago")
+local wago = require("wowdoc.web.wago")
 
 local patch_override = {
 	["7.3.5"] = "",

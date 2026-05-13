@@ -1,8 +1,7 @@
 local gumbo = require "gumbo"
 local xml2lua = require "xml2lua"
 local handler = require "xmlhandler.tree"
-local wowdoc = require("wowdoc")
-local util = require("wowdoc.util")
+local strlib = require("wowdoc.util.string")
 local system = require("wowdoc.util.system")
 local web = require("wowdoc.util.web")
 local m = {}
@@ -19,7 +18,7 @@ local function get_api_cat_names(catname)
 	local res = web:DownloadFilePost(export_url, path, form, true)
 	local document = gumbo.parseFile(path)
 	local text = document:getElementById("ooui-php-2").childNodes[1].data
-	local names = util.string.strsplit(text, "\n")
+	local names = strlib.strsplit(text, "\n")
 	table.sort(names)
 	return names
 end
