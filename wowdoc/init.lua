@@ -44,7 +44,7 @@ function m:GetLatestLocalBuild(flavor)
 		return tonumber(a.build) > tonumber(b.build)
 	end)
 	local path = pathlib.join(folder, t[1].name)
-	log:success("util:GetLatestBuild: "..path)
+	log.success("util:GetLatestBuild: "..path)
 	return path
 end
 
@@ -147,7 +147,7 @@ function m:GetFlavorOptions(info)
 end
 
 function m:ReadCSV(dbc, parser, options, func)
-	log:info("Reading "..dbc)
+	log.info("Reading "..dbc)
 	local csv = parser:ReadCSV(dbc, options)
 	local tbl = {}
 	for l in csv:lines() do

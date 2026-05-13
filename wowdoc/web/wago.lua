@@ -40,7 +40,7 @@ end
 CreateFolder(cache_folder)
 
 local function DownloadFile(url, path)
-	log:info(string.format("Downloading %s to %s", url, path))
+	log.info(string.format("Downloading %s to %s", url, path))
 	local res, code, _, status = https.request(url)
 	if code == 200 then
 		if url:find("listfile") then -- hack for empty lines in file
@@ -50,7 +50,7 @@ local function DownloadFile(url, path)
 		file:write(res)
 		file:close()
 	else
-		log:failure(string.format("failed: %s, HTTP %s", path, status))
+		log.failure(string.format("failed: %s, HTTP %s", path, status))
 	end
 end
 
@@ -115,7 +115,7 @@ function m:ReadCSV(name, options)
 		DownloadFile(url, path)
 	end
 	if PathExists(path) then
-		log:info(string.format('Reading CSV "%s"', path))
+		log.info(string.format('Reading CSV "%s"', path))
 		local iter = csv.open(path, {header = options and options.header})
 		return iter
 	end
@@ -125,17 +125,17 @@ end
 
 function m:ReadListfile()
 	if ShouldDownload(listfile_path, true) then
-		log:info("Downloading listfile")
+		log.info("Downloading listfile")
 		DownloadFile(listfile_url, listfile_path)
 	end
 	local iter = csv.open(listfile_path, {separator = ";"})
 	local filedata = {}
-	log:info("Reading listfile, this will take a moment")
+	log.info("Reading listfile, this will take a moment")
 	for line in iter:lines() do
 		local fdid, filePath = tonumber(line[1]), line[2]
 		filedata[fdid] = filePath
 	end
-	log:success("Finished reading listfile")
+	log.success("Finished reading listfile")
 	return filedata
 end
 -- parser:ReadListfile()

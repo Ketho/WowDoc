@@ -84,7 +84,7 @@ function m:GetGithubTag(v)
 	if version then
 		return URL_TAG:format(v), version
 	else
-		log:failure(string.format("Error %s for %s", version, v))
+		log.failure(string.format("Error %s for %s", version, v))
 	end
 end
 
@@ -146,7 +146,7 @@ local function main(_tag, _branch)
 			end
 		end
 	end
-	log:success("Done")
+	log.success("Done")
 end
 
 main("12.0.5", "live")

@@ -164,4 +164,4 @@ local function main()
 end
 
 main()
-log:success("Done")
+log.success("Done")

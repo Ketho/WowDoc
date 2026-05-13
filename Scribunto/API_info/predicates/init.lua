@@ -101,7 +101,7 @@ end
 
 local function WritePredicates()
 	local output = pathlib.join(PATH_PREDICATES, "API_info.predicates.lua")
-	log:info(string.format("Writing %s", output))
+	log.info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
 	file:write([=[
@@ -124,7 +124,7 @@ end
 
 local function WriteSecretArguments()
 	local output = pathlib.join(PATH_PREDICATES, "API_info.SecretArguments.lua")
-	log:info(string.format("Writing %s", output))
+	log.info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
 	file:write([=[function m:GetHeader()
@@ -166,7 +166,7 @@ end
 
 local function WriteSecretAspects()
 	local output = pathlib.join(PATH_PREDICATES, "API_info.SecretAspects.lua")
-	log:info(string.format("Writing %s", output))
+	log.info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
 	file:write([=[function m:GetHeaderArguments()
@@ -229,7 +229,7 @@ local function main()
 	WritePredicates()
 	WriteSecretArguments()
 	WriteSecretAspects()
-	log:success("Done")
+	log.success("Done")
 end
 
 main()

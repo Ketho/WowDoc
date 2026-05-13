@@ -13,7 +13,7 @@ local INVALIDATION_TIME = 60*60
 ---@param isCache? number|boolean If the file should be redownloaded after `INVALIDATION_TIME`
 function m:DownloadFile(url, path, isCache)
 	if self:ShouldDownload(path, isCache) then
-		log:info(string.format('Downloading %s to "%s"', url, path))
+		log.info(string.format('Downloading %s to "%s"', url, path))
 		local body = https.request(url)
 		system:WriteFile(path, body)
 	end

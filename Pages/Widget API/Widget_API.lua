@@ -207,7 +207,7 @@ local function main()
 	print("writing to "..OUT)
 	for _, widget in pairs(widget_order) do
 		if not systemInfo[widget] then
-			log:failure("no system for widget "..widget)
+			log.failure("no system for widget "..widget)
 			goto blaat
 		end
 		file:write(string.format("===%s===\n", widget))

@@ -22,7 +22,7 @@ local function WriteFiles()
         Path.join(scribunto, "predicates"),
     }
     for _, v in pairs(files) do
-        log:important(string.format("require: %s", v))
+        log.important(string.format("require: %s", v))
         require(v)
     end
 end

@@ -95,7 +95,7 @@ end
 
 local function CompareVersions(versions, framexml)
 	local ver_a, ver_b = table.unpack(versions)
-	log:info(string.format("Comparing %s to %s ", ver_a, ver_b))
+	log.info(string.format("Comparing %s to %s ", ver_a, ver_b))
 	local frame_a = framexml[ver_a]
 	local frame_b = framexml[ver_b]
 	local changes = {}
@@ -130,4 +130,4 @@ local function main2(versions, isWiki)
 end
 
 main2({BUILD1, BUILD2}, true)
-log:success("Done")
+log.success("Done")

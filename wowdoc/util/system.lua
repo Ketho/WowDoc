@@ -8,7 +8,7 @@ local m = {}
 ---@param cmd string
 ---@return string result
 function m:run_command(cmd)
-	log:important("Running command: "..cmd)
+	log.important("Running command: "..cmd)
 	local handle = io.popen(cmd)
 	local result = handle:read("a")
 	handle:close()
@@ -37,7 +37,7 @@ function m:mkdir(path, ...)
 end
 
 function m:WriteFile(path, text)
-	log:info(string.format('Writing "%s"', path))
+	log.info(string.format('Writing "%s"', path))
 	local file = io.open(path, "w")
 	if file then
 		file:write(text)

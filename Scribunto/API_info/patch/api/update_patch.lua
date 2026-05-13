@@ -16,7 +16,7 @@ local function GetCommit(tag)
 	if version then
 		return version
 	else
-		log:failure(string.format("Error %s for %s", version, tag))
+		log.failure(string.format("Error %s for %s", version, tag))
 	end
 end
 
@@ -43,11 +43,11 @@ local function main()
 	if github_version and pathlib.exists(FULL_PATH) then
 		local file_version = GetFileVersion(FULL_PATH)
 		if not file_version or file_version ~= github_version then
-			log:info(string.format("versions %s and %s don't match; updating...", file_version, github_version))
+			log.info(string.format("versions %s and %s don't match; updating...", file_version, github_version))
 			web:DownloadFile(URL:format(TAG), FULL_PATH, 1) -- always redownload
 			AppendVersion(FULL_PATH, github_version)
 		else
-			log:info(string.format("version %s of tag %s is up-to-date", file_version, TAG))
+			log.info(string.format("version %s of tag %s is up-to-date", file_version, TAG))
 		end
 	end
 end

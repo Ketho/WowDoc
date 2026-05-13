@@ -24,7 +24,7 @@ end
 
 function m:CompareVersions(versions, framexml)
 	local ver_a, ver_b = table.unpack(versions)
-	log:info(string.format("Comparing %s to %s ", ver_a, ver_b))
+	log.info(string.format("Comparing %s to %s ", ver_a, ver_b))
 	local frame_a = framexml[ver_a]
 	local frame_b = framexml[ver_b]
 	local changes = {}

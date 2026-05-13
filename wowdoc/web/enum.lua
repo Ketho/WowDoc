@@ -27,7 +27,7 @@ end
 
 function m:LoadLuaEnums(branch, force)
 	if Enum then
-		log:warn(string.format("WowDocLoader: Enum table already loaded (%s)", branch))
+		log.warn(string.format("WowDocLoader: Enum table already loaded (%s)", branch))
 		if not force then
 			return
 		end
@@ -36,7 +36,7 @@ function m:LoadLuaEnums(branch, force)
 	local url = string.format("%s/%s/Resources/LuaEnum.lua", REPO, branch)
 	web:DownloadAndRun(url, path)
 	ApplyFixes()
-	log:success(string.format("WowDocLoader: Loaded Enum table (%s)", branch))
+	log.success(string.format("WowDocLoader: Loaded Enum table (%s)", branch))
 end
 
 return m

@@ -99,7 +99,7 @@ end
 
 function m:WriteCsv(tbl)
 	local filePath = pathlib.join(PATHS.WIKI_CATEGORIES, "systems.csv")
-	log:info("Writing "..filePath)
+	log.info("Writing "..filePath)
 	local file = io.open(filePath, "w")
 	file:write("File,Name,Namespace,NumFunctions,NumEvents,Documentation\n")
 	for _, v in pairs(tbl) do
@@ -110,7 +110,7 @@ end
 
 function m:WriteModuleData(tbl)
 	local filePath = pathlib.join(PATHS.WIKI_CATEGORIES, "systems_data.lua")
-	log:info("Writing "..filePath)
+	log.info("Writing "..filePath)
 	local file = io.open(filePath, "w")
 	file:write("local data = {\n")
 	local fs = '\t%s = {"%s", %s, %d, %d, %s},\n'

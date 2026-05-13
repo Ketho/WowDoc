@@ -26,13 +26,13 @@ function Wowpedia:PullMissingTypes(missingTypes)
 	for complexType, info in pairs(missingTypes) do
 		-- only fetch a type if its missing so as to not overwrite any Blizzard docs if they appear
 		if Enum[complexType] then
-			log:warn("Fetching missing: Enum."..complexType)
+			log.warn("Fetching missing: Enum."..complexType)
 			table.insert(missingDocs.Tables, self:GetMissingEnum(complexType))
 		elseif missingStructures[complexType] then
-			log:warn("Fetching missing: struct "..complexType)
+			log.warn("Fetching missing: struct "..complexType)
 			table.insert(missingDocs.Tables, missingStructures[complexType])
 		else
-			log:debug(string.format("Undocumented type: %s (source: %s - %s)",
+			log.debug(string.format("Undocumented type: %s (source: %s - %s)",
 				complexType, info.parent.Type, info.parent.Name))
 		end
 	end

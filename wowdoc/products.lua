@@ -68,10 +68,10 @@ local hasShownMsg = {}
 local function showLogMessage(product, framexml)
 	if not hasShownMsg[product] then
 		if product then
-			log:success(string.format("TACT product: %s", product))
+			log.success(string.format("TACT product: %s", product))
 		end
 		if framexml then
-			log:success(string.format("Gethe branch: %s", framexml))
+			log.success(string.format("Gethe branch: %s", framexml))
 		end
 		print("----")
 		hasShownMsg[product] = true

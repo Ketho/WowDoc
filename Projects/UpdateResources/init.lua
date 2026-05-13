@@ -17,16 +17,16 @@ local branch = products:GetBranch(PRODUCT)
 git:checkout("https://github.com/Gethe/wow-ui-source", branch)
 
 local latestBuild = wago:GetLatestBuild(PRODUCT) -- want the latest build number for caching the csv
-log:success(string.format("Latest wago build for product: %s", latestBuild))
+log.success(string.format("Latest wago build for product: %s", latestBuild))
 local options = {build = latestBuild, header = true}
 
-log:info("Updating GlobalStrings")
+log.info("Updating GlobalStrings")
 globalstrings:WriteLocales(options)
 
-log:info("Updating AtlasInfo")
+log.info("Updating AtlasInfo")
 atlasinfo:WriteAtlases(options)
 
-log:info("Parsing FrameXML for mixins and templates")
+log.info("Parsing FrameXML for mixins and templates")
 dumbparser:ParseFrameXML()
 
-log:success("Done")
+log.success("Done")

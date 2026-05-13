@@ -149,7 +149,7 @@ function Wowpedia:GetPrettyType(apiTable, isArgument)
 			elseif complexInnertype then
 				apiText = complexInnertype:GetFullName(false, false).."[]"
 			else
-				log:failure("Unknown InnerType: "..apiTable.InnerType)
+				log.failure("Unknown InnerType: "..apiTable.InnerType)
 				apiText = "Unknown"
 			end
 		else
@@ -162,7 +162,7 @@ function Wowpedia:GetPrettyType(apiTable, isArgument)
 	elseif complexType then
 		apiText = complexType:GetFullName(false, false)
 	else
-		log:failure("Unknown Type: "..apiTable.Type)
+		log.failure("Unknown Type: "..apiTable.Type)
 		apiText = "Unknown"
 	end
 	-- `Default` implies `Nilable`, even if nilable is false

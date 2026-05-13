@@ -24,7 +24,7 @@ function m:ExportSystems(folder)
 			systemFolder = "widget"
 		end
 		if not emptySystems[system.Name] then
-			log:info("Exporting system: "..system:GetFullName())
+			log.info("Exporting system: "..system:GetFullName())
 			util_system:mkdir(format("%s/%s/%s", folder, systemFolder, system.Name))
 			local prefix
 			if system.Type == "ScriptObject" then
@@ -46,12 +46,12 @@ function m:ExportSystems(folder)
 				WriteFile(path, pageText)
 			end
 		else
-			log:warn(string.format("Skipping empty system: %s", system:GetFullName()))
+			log.warn(string.format("Skipping empty system: %s", system:GetFullName()))
 		end
 	end
 	util_system:mkdir(format("%s/enum", folder))
 	util_system:mkdir(format("%s/struct", folder))
-	log:info("Exporting (systemless) tables")
+	log.info("Exporting (systemless) tables")
 	for _, apiTable in ipairs(APIDocumentation.tables) do
 		if type(apiTable.Type) == "table" then -- hack for TypeDocumentation
 			apiTable.Type = apiTable.Type[1]
@@ -64,7 +64,7 @@ function m:ExportSystems(folder)
 			WriteFile(path, pageText)
 		end
 	end
-	log:success("Finished exporting")
+	log.success("Finished exporting")
 end
 
 return m

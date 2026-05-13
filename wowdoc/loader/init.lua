@@ -101,15 +101,15 @@ end
 
 function m:main(product, isAnnotate, force, enumHackFunc)
 	if not product then
-		log:warn(string.format("wowdoc.loader: Defaulting to `%s` tact product", CONFIG.TACT_PRODUCT))
+		log.warn(string.format("wowdoc.loader: Defaulting to `%s` tact product", CONFIG.TACT_PRODUCT))
 		product = CONFIG.TACT_PRODUCT
 	end
 
 	if APIDocumentation and not force then
-		log:warn("wowdoc.loader: APIDocumentation already loaded")
+		log.warn("wowdoc.loader: APIDocumentation already loaded")
 		return
 	else
-		log:info("wowdoc.loader: Loading APIDocumentation")
+		log.info("wowdoc.loader: Loading APIDocumentation")
 	end
 	local gethe_branch = products:GetBranch(product)
 	git:checkout("https://github.com/Gethe/wow-ui-source", gethe_branch)
@@ -130,7 +130,7 @@ function m:main(product, isAnnotate, force, enumHackFunc)
 	end
 
 	LoadTypeDocumentation()
-	log:success("wowdoc.loader: Loaded APIDocumentation")
+	log.success("wowdoc.loader: Loaded APIDocumentation")
 	-- self:PrintSystems()
 end
 
