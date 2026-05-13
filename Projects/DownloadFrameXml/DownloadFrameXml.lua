@@ -16,6 +16,7 @@ local cjson = require("cjson")
 local ltn12 = require("ltn12")
 
 local util = require("wowdoc")
+local web = require("wowdoc.util.web")
 local log = require("wowdoc.util.log")
 local products = require("wowdoc.products")
 local tags = require("wowdoc.git.framexml_tags")
@@ -66,7 +67,7 @@ function m:DownloadZip(name)
 
 	local zipFolder = pathlib.join("FrameXML", "zips")
 	local zipFile = pathlib.join(zipFolder, fileExtName)
-	util:DownloadFile(url, zipFile)
+	web:DownloadFile(url, zipFile)
 	return fileBaseName, zipFile
 end
 

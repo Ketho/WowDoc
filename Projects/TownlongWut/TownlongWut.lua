@@ -3,6 +3,7 @@ local lfs = require("lfs")
 local cjson = require "cjson"
 local cjsonutil = require "cjson.util"
 local util = require("wowdoc")
+local web = require("wowdoc.util.web")
 
 util:mkdir("cache_wut")
 local wut_url = "https://www.townlong-yak.com/globe/api/wut-symbol?q=%s"
@@ -10,7 +11,7 @@ local github_url = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceRes
 
 local function WutRequest(folder, search)
 	local path = string.format("cache_wut/%s/%s.json", folder, search)
-	util:DownloadFilePost(wut_url:format(search), path, "", false)
+	web:DownloadFilePost(wut_url:format(search), path, "", false)
 	if not lfs.attributes(path) then
 		local file = io.open(path, "w")
 		file:write([[{"a":{}}]]) -- create placeholder json to avoid further requests
@@ -23,21 +24,21 @@ end
 
 local sources = {
 	GlobalAPI = function(name)
-		local tbl = util:DownloadAndRun(
+		local tbl = web:DownloadAndRun(
 			github_url:format(name),
 			string.format("cache_lua/%s.lua", name)
 		)
 		return tbl[1]
 	end,
 	Lua = function()
-		local tbl = util:DownloadAndRun(
+		local tbl = web:DownloadAndRun(
 			github_url:format("GlobalAPI"),
 			string.format("cache_lua/%s.lua", "GlobalAPI")
 		)
 		return tbl[2]
 	end,
 	Events = function(name)
-		local tbl = util:DownloadAndRun(
+		local tbl = web:DownloadAndRun(
 			github_url:format(name),
 			string.format("cache_lua/%s.lua", name)
 		)
@@ -51,14 +52,14 @@ local sources = {
 		return t
 	end,
 	-- CVars = function(name)
-	-- local tbl = util:DownloadAndRun(
+	-- local tbl = web:DownloadAndRun(
 		-- 	github_url:format(name),
 	-- 	string.format("cache_lua/%s.lua", name)
 	-- )
 	-- 	return util:SortTable(tbl[1].var)
 	-- end,
 	FrameXML = function(name)
-		local tbl = util:DownloadAndRun(
+		local tbl = web:DownloadAndRun(
 			github_url:format(name),
 			string.format("cache_lua/%s.lua", name)
 		)
@@ -68,21 +69,21 @@ local sources = {
 		return tbl[1]
 	end,
 	Frames = function(name)
-		local tbl = util:DownloadAndRun(
+		local tbl = web:DownloadAndRun(
 			github_url:format(name),
 			string.format("cache_lua/%s.lua", name)
 		)
 		return tbl[1]
 	end,
 	Templates = function(name)
-		local tbl = util:DownloadAndRun(
+		local tbl = web:DownloadAndRun(
 			github_url:format(name),
 			string.format("cache_lua/%s.lua", name)
 		)
 		return util:SortTable(tbl)
 	end,
 	Mixins = function(name)
-		local tbl = util:DownloadAndRun(
+		local tbl = web:DownloadAndRun(
 			github_url:format(name),
 			string.format("cache_lua/%s.lua", name)
 		)

@@ -1,5 +1,6 @@
 local pathlib = require("path")
 local util = require("wowdoc")
+local web = require("wowdoc.util.web")
 local products = require("wowdoc.products")
 
 local m = {}
@@ -7,7 +8,7 @@ local m = {}
 function m:main(product)
 	util:LoadDocumentation(product)
 	local branch = products:GetBranch(product)
-	local globalApi = util:DownloadAndRun(
+	local globalApi = web:DownloadAndRun(
 		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/GlobalAPI.lua", branch),
 		pathlib.join(PATHS.BLIZZRES, string.format("GlobalAPI_%s.lua", branch))
 	)

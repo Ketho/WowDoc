@@ -2,6 +2,7 @@
 -- https://wowpedia.fandom.com/wiki/Events/Classic
 -- https://wowpedia.fandom.com/wiki/Console_variables/Classic
 local util = require("wowdoc")
+local web = require("wowdoc.util.web")
 local Signatures = require("Pages/ClassicCompare/Signatures")
 
 local PRODUCT = "wowxptr" ---@type TactProduct
@@ -125,7 +126,7 @@ function m:GetData(sourceType)
 	end
 
 	for _, branch in pairs(branches) do
-		local fileTbl = util:DownloadAndRun(
+		local fileTbl = web:DownloadAndRun(
 			info.url:format(branch),
 			info.cache:format(branch)
 		)

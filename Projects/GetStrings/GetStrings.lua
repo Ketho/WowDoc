@@ -1,5 +1,6 @@
 local lfs = require("lfs")
 local util = require("wowdoc")
+local web = require("wowdoc.util.web")
 local PATH = [[D:\Prog\World of Warcraft\Binaries]]
 local BRANCH = "mainline"
 util:mkdir("cache_txt")
@@ -46,7 +47,7 @@ local function WriteFile(path, tbl)
 end
 
 local function GetCVars(branch)
-	return util:DownloadAndRun(
+	return web:DownloadAndRun(
 		string.format("https://github.com/Ketho/BlizzardInterfaceResources/blob/%s/Resources/CVars.lua", branch),
 		pathlib.join(PATHS.BLIZZRES, string.format("CVars_%s", branch))
 	)

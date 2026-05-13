@@ -1,6 +1,6 @@
 local xml2lua = require "xml2lua"
 local handler = require "xmlhandler.tree"
-local util = require("wowdoc")
+local web = require("wowdoc.util.web")
 
 local OUTPUT = pathlib.join(PATHS.WIKI_PAGE, "World_of_Warcraft_API.xml")
 local m = {}
@@ -8,7 +8,7 @@ local m = {}
 function m:SaveExport()
 	local url = "https://warcraft.wiki.gg/wiki/Special:Export"
 	local requestBody = "pages=World_of_Warcraft_API&curonly=1"
-	util:DownloadFilePost(url, OUTPUT, requestBody, 60)
+	web:DownloadFilePost(url, OUTPUT, requestBody, 60)
 end
 
 local symbols = {

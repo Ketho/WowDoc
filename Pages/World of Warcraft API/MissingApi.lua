@@ -1,4 +1,5 @@
 local wowdoc = require("wowdoc")
+local web = require("wowdoc.util.web")
 local util = require("wowdoc.util")
 local products = require("wowdoc.products")
 local WikiText = require("Pages/World of Warcraft API/WikiText")
@@ -32,7 +33,7 @@ function m:ParseWikitext(wikitext)
 end
 
 function m:GetGlobalApi()
-	local global_api = wowdoc:DownloadAndRun(
+	local global_api = web:DownloadAndRun(
 		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/GlobalAPI.lua", gethe_branch),
 		pathlib.join(PATHS.BLIZZRES, string.format("GlobalAPI_%s.lua", gethe_branch))
 	)

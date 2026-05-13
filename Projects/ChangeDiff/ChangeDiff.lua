@@ -15,7 +15,7 @@ local BUILD2 = "12.0.5 (67186)"
 
 ChangeDiff = {}
 require("Projects.ChangeDiff.Compare")
-local table_diff = require("wowdoc.util.table_diff")
+local table_diff = require("wowdoc.util.table_compare")
 local m = ChangeDiff
 local PrintView = require("Projects.ChangeDiff.PrintView")
 

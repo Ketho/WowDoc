@@ -1,4 +1,5 @@
 local util = require("wowdoc")
+local filesys = require("wowdoc.util.filesys")
 local log = require("wowdoc.util.log")
 local Widgets = require("wowdoc.loader.doc_widgets")
 local emptySystems = require("wowdoc.analytics.systems.is_empty"):get()
@@ -14,8 +15,8 @@ local function WriteFile(path, text)
 end
 
 function m:ExportSystems(folder)
-	util:mkdir(format("%s/system", folder))
-	util:mkdir(format("%s/widget", folder))
+	filesys:mkdir(format("%s/system", folder))
+	filesys:mkdir(format("%s/widget", folder))
 	for _, system in ipairs(APIDocumentation.systems) do
 		local systemFolder
 		if system.Type == "System" then
@@ -25,7 +26,7 @@ function m:ExportSystems(folder)
 		end
 		if not emptySystems[system.Name] then
 			log:info("Exporting system: "..system:GetFullName())
-			util:mkdir(format("%s/%s/%s", folder, systemFolder, system.Name))
+			filesys:mkdir(format("%s/%s/%s", folder, systemFolder, system.Name))
 			local prefix
 			if system.Type == "ScriptObject" then
 				if not Widgets[system.Name] then
@@ -49,8 +50,8 @@ function m:ExportSystems(folder)
 			log:warn(string.format("Skipping empty system: %s", system:GetFullName()))
 		end
 	end
-	util:mkdir(format("%s/enum", folder))
-	util:mkdir(format("%s/struct", folder))
+	filesys:mkdir(format("%s/enum", folder))
+	filesys:mkdir(format("%s/struct", folder))
 	log:info("Exporting (systemless) tables")
 	for _, apiTable in ipairs(APIDocumentation.tables) do
 		if type(apiTable.Type) == "table" then -- hack for TypeDocumentation

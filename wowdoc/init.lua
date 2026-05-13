@@ -1,9 +1,6 @@
 ---@diagnostic disable: need-check-nil
-lfs = require("lfs")
-pathlib = require("path")
-
-local https = require("ssl.https")
-local ltn12 = require("ltn12")
+local lfs = require("lfs")
+local pathlib = require("path")
 
 require("wowdoc.config")
 local wago = require("wowdoc.wago")
@@ -11,7 +8,6 @@ local log = require("wowdoc.util.log")
 local doc_widgets = require("wowdoc.loader.doc_widgets")
 
 local m = {}
-local INVALIDATION_TIME = 60*60
 
 -- useful when using PTR builds and a retail build is higher than a PTR build
 -- e.g. PTR 10.1.7.50587 vs retail 10.1.5.50622
@@ -105,114 +101,6 @@ end
 
 function m:LoadDocumentation(product)
 	require("wowdoc.loader"):main(product)
-end
-
-function m:FolderExists(path)
-	return lfs.attributes(path, "mode") == "directory"
-end
-
--- use pathlib.mkdir instead of lfs.mkdir since creates parent folders as needed
--- also returns the path for the created folder
----@param ... string
----@return string path
-function m:mkdir(path, ...)
-	local p
-	if ... then
-		p = pathlib.join(path, ...)
-	else
-		p = path
-	end
-	if not pathlib.exists(p) then
-		pathlib.mkdir(p)
-	end
-	return p
-end
-
-function m:WriteFile(path, text)
-	log:info(string.format('Writing "%s"', path))
-	local file = io.open(path, "w")
-	if file then
-		file:write(text)
-		file:close()
-	end
-end
-
--- while in a file with the meta tag it will not show completion context and ignores find references
--- Giving the name _ will make it unable to be required.
--- https://luals.github.io/wiki/annotations/#meta
-function m:WriteFileMeta(path, text)
-	text = "---@meta _\n"..text
-	self:WriteFile(path, text)
-end
-
---- Downloads a file
----@param url string URL to download from
----@param path string Path to write the file to
----@param isCache? number|boolean If the file should be redownloaded after `INVALIDATION_TIME`
-function m:DownloadFile(url, path, isCache)
-	if self:ShouldDownload(path, isCache) then
-		log:info(string.format('Downloading %s to "%s"', url, path))
-		local body = https.request(url)
-		self:WriteFile(path, body)
-	end
-end
-
---- Downloads and runs a Lua file
----@param url string URL to download from
----@param path string Path to write the file to
----@return ... @ The values returned from the Lua file, if applicable
-function m:DownloadAndRun(url, path)
-	self:DownloadFile(url, path, true)
-	local p = path:gsub("%.lua", "")
-	if p:find("%.") then
-		return loadfile(path)()
-	else
-		return require(p)
-	end
-end
-
---- Sends a POST request and downloads a file
----@param url string URL to download from
----@param path string Path to write the file to
----@param requestBody string Contents of the request
----@param cacheTime? number|boolean If the file should be redownloaded after `INVALIDATION_TIME`
-function m:DownloadFilePost(url, path, requestBody, cacheTime)
-	if self:ShouldDownload(path, cacheTime) then
-		local body = self:HttpPostRequest(url, requestBody)
-		if body then
-			self:WriteFile(path, body)
-		end
-	end
-end
-
-function m:ShouldDownload(path, cacheTime)
-	local attr = lfs.attributes(path)
-	if not attr then
-		return true
-	elseif cacheTime and os.time() > attr.modification + (type(cacheTime) == "number" and cacheTime or INVALIDATION_TIME) then
-		return true
-	end
-end
-
--- https://github.com/brunoos/luasec/wiki/LuaSec-1.0.x#httpsrequesturl---body
-function m:HttpPostRequest(url, request)
-	local response = {}
-	local _, code = https.request{
-		url = url,
-		method = "POST",
-		headers = {
-			["Content-Length"] = string.len(request),
-			["Content-Type"] = "application/x-www-form-urlencoded"
-		},
-		source = ltn12.source.string(request),
-		sink = ltn12.sink.table(response)
-	}
-	if code == 204 then -- tly no result
-		return false
-	elseif code ~= 200 then
-		error("HTTP error: "..code)
-	end
-	return table.concat(response)
 end
 
 function m:GetFullName(apiTable, isWikiLink)

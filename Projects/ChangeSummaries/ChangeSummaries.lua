@@ -3,6 +3,7 @@ local wowdoc = require("wowdoc")
 local util = require("wowdoc.util")
 local pathlib = require("path")
 local log = require("wowdoc.util.log")
+local web = require("wowdoc.util.web")
 local cvar_module = require("Projects/ChangeSummaries/CVar")
 local widget_module = require("Projects/ChangeSummaries/Widget")
 local m = {}
@@ -30,7 +31,7 @@ local function GetDiff()
 		path = pathlib.join(PATH_COMPARE, string.format("%s.diff", fpath))
 		url = string.format("https://github.com/Ketho/BlizzardInterfaceResources/compare/%s.diff", DIFF[2])
 	end
-	wowdoc:DownloadFile(url, path, true)
+	web:DownloadFile(url, path, true)
 	return path
 end
 

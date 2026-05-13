@@ -1,5 +1,5 @@
 local pathlib = require("path")
-local util = require("wowdoc")
+local web = require("wowdoc.util.web")
 local log = require("wowdoc.util.log")
 local github = require("wowdoc.web.github")
 
@@ -44,7 +44,7 @@ local function main()
 		local file_version = GetFileVersion(FULL_PATH)
 		if not file_version or file_version ~= github_version then
 			log:info(string.format("versions %s and %s don't match; updating...", file_version, github_version))
-			util:DownloadFile(URL:format(TAG), FULL_PATH, 1) -- always redownload
+			web:DownloadFile(URL:format(TAG), FULL_PATH, 1) -- always redownload
 			AppendVersion(FULL_PATH, github_version)
 		else
 			log:info(string.format("version %s of tag %s is up-to-date", file_version, TAG))

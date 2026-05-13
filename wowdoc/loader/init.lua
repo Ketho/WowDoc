@@ -1,5 +1,6 @@
 local lfs = require("lfs")
 local pathlib = require("path")
+local filesys = require("wowdoc.util.filesys")
 require("wowdoc.config")
 
 local wowdoc = require("wowdoc")
@@ -78,9 +79,9 @@ local function LoadAnnotationAddon(path, name)
 				local text = annotate:GetSystem(docInfo)
 				if #text > 0 then -- try not to create empty files as they take up the maxPreload limit
 					if docInfo.Type == "System" or not docInfo.Type then
-						wowdoc:WriteFileMeta(pathlib.join(OUTPUT_PATH, line), text.."\n")
+						filesys:WriteFileMeta(pathlib.join(OUTPUT_PATH, line), text.."\n")
 					elseif docInfo.Type == "ScriptObject" then
-						wowdoc:WriteFileMeta(pathlib.join(OUT_WIDGET, line), text.."\n")
+						filesys:WriteFileMeta(pathlib.join(OUT_WIDGET, line), text.."\n")
 					end
 				end
 				documentationInfo = nil
@@ -100,7 +101,7 @@ end
 
 function m:main(product, isAnnotate, force, enumHackFunc)
 	if not product then
-		log:warn(string.format("wowdoc.loader: Falling back to `%s` tact product", CONFIG.TACT_PRODUCT))
+		log:warn(string.format("wowdoc.loader: Defaulting to `%s` tact product", CONFIG.TACT_PRODUCT))
 		product = CONFIG.TACT_PRODUCT
 	end
 
