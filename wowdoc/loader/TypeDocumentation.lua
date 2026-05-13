@@ -46,11 +46,11 @@ local data = {
 	-- SetButtonState
 	{ Name = "SimpleButtonStateToken", Type = {"string"}, Description = {"DISABLED", "NORMAL", "PUSHED"} },
 	-- SetFont
-	{ Name = "TBFFlags", Type = {"string"}, Description = {"OUTLINE", "THICK", "MONOCHROME", "SLUG"} },
+	{ Name = "TBFFlags", Type = {"string"}, Description = {'""', "MONOCHROME", "OUTLINE", "THICKOUTLINE", "SLUG"} },
 
 	-- widgets
 	{ Name = "ChatBubbleFrame", Type = {"Frame"} }, -- the only InnerType not documented
-	{ Name = "CooldownFrame", Type = {"Cooldown"}, W_Replace = "Cooldown" },
+	{ Name = "CooldownFrame", W_Replace = "Cooldown", W_Link = "UIOBJECT_Cooldown" },
 	{ Name = "CScriptObject", Type = {"FrameScriptObject"}, W_Alias = "ScriptObject", W_Replace = "FrameScriptObject", W_Link = "UIOBJECT_FrameScriptObject" },
 	{ Name = "FrameScriptObject", Type = {"UIObject"} },
 	{ Name = "ModelSceneFrame", Type = {"ModelScene"}, W_Replace = "ModelScene", W_Link = "UIOBJECT_ModelScene" },
@@ -59,7 +59,8 @@ local data = {
 	{ Name = "ScriptRegion", Type = {"Region"} },
 	{ Name = "SimpleAnim", W_Replace = "Animation", W_Link = "UIOBJECT_Animation" },
 	{ Name = "SimpleAnimGroup", W_Replace = "AnimationGroup", W_Link = "UIOBJECT_AnimationGroup" },
-	{ Name = "SimpleCheckbox", Type = {"CheckButton"} },
+	{ Name = "SimpleButton", W_Replace = "Button", W_Link = "UIOBJECT_Button" },
+	{ Name = "SimpleCheckbox", W_Replace = "CheckButton", W_Link = "UIOBJECT_CheckButton" },
 	{ Name = "SimpleControlPoint", W_Replace = "ControlPoint", W_Link = "UIOBJECT_ControlPoint" },
 	{ Name = "SimpleFont", W_Replace = "Font", W_Link = "UIOBJECT_Font" },
 	{ Name = "SimpleFontString", W_Replace = "FontString", W_Link = "UIOBJECT_FontString" },
@@ -73,6 +74,7 @@ local data = {
 	{ Name = "Tooltip", W_Link = "UIOBJECT_GameTooltip" },
 	-- scriptobjects
 	{ Name = "AbbreviateConfig", W_Link = "ScriptObject_AbbreviateConfig" },
+	{ Name = "AbbreviatedNumberFormatter", W_Link = "ScriptObject_AbbreviatedNumberFormatter" },
 	{ Name = "HousingCatalogSearcher", W_Link = "ScriptObject_HousingCatalogSearcher" },
 	{ Name = "HousingFixturePointFrame", W_Link = "ScriptObject_HousingFixturePointFrame" },
 	{ Name = "HousingLayoutPinFrame", W_Link = "ScriptObject_HousingLayoutPinFrame" },
@@ -80,6 +82,9 @@ local data = {
 	{ Name = "LuaCurveObject", W_Alias = "Curve", W_Replace = "CurveObject", W_Link = "ScriptObject_CurveObject" },
 	{ Name = "LuaCurveObjectBase", W_Replace = "CurveObjectBase", W_Link = "ScriptObject_CurveObjectBase" },
 	{ Name = "LuaDurationObject", W_Replace = "DurationObject", W_Link = "ScriptObject_DurationObject" },
+	{ Name = "NumericFormatter", W_Link = "ScriptObject_NumericFormatter" },
+	{ Name = "NumericRuleFormatter", W_Link = "ScriptObject_NumericRuleFormatter" },
+	{ Name = "SecondsFormatter", W_Link = "ScriptObject_SecondsFormatter" },
 	{ Name = "UnitHealPredictionCalculator", W_Link = "ScriptObject_UnitHealPredictionCalculator" },
 	-- types
 	{ Name = "AnimationDataEnum", Type = {"number"} },
@@ -135,14 +140,19 @@ local data = {
 	{ Name = "uiFontHeight", Type = {"number"} }, -- font height
 	{ Name = "UISoundSubType", Type = {"string"} },
 	{ Name = "uiUnit", Type = {"number"} }, -- user interface units
-	{ Name = "UnitToken", Type = {"string"}, W_Link = "UnitId" },
-	{ Name = "UnitTokenNamePlate", Type = {"string"}, W_Link = "UnitId" },
-	{ Name = "UnitTokenRestrictedForAddOns", Type = {"string"}, W_Link = "UnitId" },
-	{ Name = "UnitTokenVariant", Type = {"string"}, W_Link = "UnitId" },
+	{ Name = "UnitToken", Type = {"string"}, W_Link = "UnitToken" },
+	{ Name = "UnitTokenNamePlate", Type = {"string"}, W_Link = "UnitToken" },
+	{ Name = "UnitTokenRestrictedForAddOns", Type = {"string"}, W_Link = "UnitToken" },
+	{ Name = "UnitTokenVariant", Type = {"string"}, W_Link = "UnitToken" },
 	{ Name = "WeeklyRewardItemDBID", Type = {"string"} }, -- in WeeklyRewardActivityRewardInfo -- /dump C_WeeklyRewards.GetActivities()[1].rewards
 	{ Name = "WOWGUID", Type = {"string"}, W_Link = "GUID" },
 	{ Name = "WOWMONEY", Type = {"number"}, Description = {"Amount in copper"} },
+ 	{ Name = "DurationMillisecondsPrimitive", Type = {"number"} },
+ 	{ Name = "DurationSecondsDouble", Type = {"number"} },
+ 	{ Name = "DurationSecondsPrimitive", Type = {"number"} },
+ 	{ Name = "FontAsset", Type = {"string"} }, -- path to font file
  	{ Name = "IDOrLink", Type = {"number", "string"} },
+ 	{ Name = "UnitTokenPvPRestrictedForAddOns", Type = {"string"} },
 	-- mixins
 	{ Name = "AzeriteEmpoweredItemLocation", Mixin = "ItemLocationMixin", W_Link = "ItemLocationMixin" },
 	{ Name = "AzeriteItemLocation", Mixin = "ItemLocationMixin", W_Link = "ItemLocationMixin" },
@@ -157,10 +167,17 @@ local data = {
 	{ Name = "TransmogPendingInfo", Mixin = "TransmogPendingInfoMixin", W_Link = "TransmogPendingInfoMixin" },
 	{ Name = "vector2", Mixin = "Vector2DMixin", W_Link = "Vector2DMixin" },
 	{ Name = "vector3", Mixin = "Vector3DMixin", W_Link = "Vector3DMixin" },
+	-- framexml mixins
+	{ Name = "NamePlateDriverMixin", W_Link = "NamePlateDriverMixin" },
+	{ Name = "NamePlateUnitFrameMixin", W_Link = "NamePlateUnitFrameMixin" },
 	-- custom
 	{ Name = "FunctionContainer", Type = {"userdata"}, W_Link = "API_types/FunctionContainer" }, -- custom type
 	{ Name = "TickerCallback", Type = {"function", "FunctionContainer"} }, -- updated type
 	{ Name = "TimerCallback", Type = {"function", "FunctionContainer"} }, -- updated type
+	{ Name = "Enum.InventoryType", W_Link = "Enum.InventoryType" },
+	{ Name = "Enum.ItemQuality", W_Link = "Enum.ItemQuality" },
+	{ Name = "Enum.PowerType", W_Link = "Enum.PowerType" },
+
 	-- lists
 	{ Name = "uiRect", Type = {"list"}, Description = {"left", "bottom", "width", "height"} },
 }

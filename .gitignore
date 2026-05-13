@@ -2,6 +2,7 @@
 *.xml
 *.html
 *.diff
+.work
 
 # csv
 /Projects/CursePoints/*.csv

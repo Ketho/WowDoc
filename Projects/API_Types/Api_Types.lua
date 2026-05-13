@@ -115,8 +115,7 @@ local docNoExistEnums = {
 }
 
 local mixins = {
-    AzeriteEmpoweredItemLocation = 
-    true,
+    AzeriteEmpoweredItemLocation = true,
     AzeriteItemLocation = true,
     colorRGB = true,
     colorRGBA = true,
