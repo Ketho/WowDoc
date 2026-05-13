@@ -15,14 +15,14 @@ local https = require("ssl.https")
 local cjson = require("cjson")
 local ltn12 = require("ltn12")
 
-local util = require("wowdoc")
+local system = require("wowdoc.util.system")
 local web = require("wowdoc.util.web")
 local log = require("wowdoc.util.log")
 local products = require("wowdoc.products")
 local tags = require("wowdoc.git.framexml_tags")
 
 -- os.getenv("GITHUB_TOKEN") did not return the token on WSL even if the env var was set
-local GITHUB_TOKEN = util:run_command("gh auth token")
+local GITHUB_TOKEN = system:run_command("gh auth token"):gsub("\n", "")
 
 ---@type GetheBranch[]
 local branches = {
@@ -34,7 +34,6 @@ local branches = {
 local m = {}
 
 local function SendHttpsRequest(url)
-	GITHUB_TOKEN = GITHUB_TOKEN:gsub("\n", "")
 	local headers = {
 		["Authorization"] = string.format("Bearer %s", GITHUB_TOKEN),
 		["User-Agent"] = "WowpediaDoc"
@@ -123,7 +122,7 @@ function m:UnpackZip(branch, fileBaseName, zipFile)
 	local unpackFolder = pathlib.join(gameTypeFolder, fileBaseName)
 	if not pathlib.exists(unpackFolder) then
 		local command = string.format('unzip "%s" -d "%s"', zipFile, unpackFolder)
-		util:run_command(command)
+		system:run_command(command)
 	end
 end
 

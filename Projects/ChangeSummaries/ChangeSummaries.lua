@@ -1,5 +1,6 @@
 -- https://wowpedia.fandom.com/wiki/API_change_summaries
 local wowdoc = require("wowdoc")
+local system = require("wowdoc.util.system")
 local util = require("wowdoc.util")
 local pathlib = require("path")
 local log = require("wowdoc.util.log")
@@ -15,11 +16,11 @@ local CVAR1, CVAR2 = BRANCH1, BRANCH2
 -- local DIFF = {"commit", "mainline"}
 local DIFF = {"compare", BRANCH1..".."..BRANCH2}
 
-PATH_CHANGES = wowdoc:mkdir(PATHS.OUT, "changes")
+PATH_CHANGES = system:mkdir(PATHS.OUT, "changes")
 local OUT_FILE = pathlib.join(PATH_CHANGES, "ChangeSummaries.txt")
 
-PATH_COMMIT = wowdoc:mkdir(PATHS.DIFF, "commit")
-PATH_COMPARE = wowdoc:mkdir(PATHS.DIFF, "compare")
+PATH_COMMIT = system:mkdir(PATHS.DIFF, "commit")
+PATH_COMPARE = system:mkdir(PATHS.DIFF, "compare")
 
 local function GetDiff()
 	local path, url

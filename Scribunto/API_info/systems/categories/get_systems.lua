@@ -4,7 +4,7 @@ local pathlib = require("path")
 
 local products = require("wowdoc.products")
 local git = require("wowdoc.git")
-local enum = require("wowdoc.enum")
+local enum = require("wowdoc.web.enum")
 local log = require("wowdoc.util.log")
 
 local PRODUCT = CONFIG.TACT_PRODUCT

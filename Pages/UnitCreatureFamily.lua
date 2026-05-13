@@ -1,5 +1,6 @@
 -- https://warcraft.wiki.gg/wiki/API_UnitCreatureFamily
 local util = require("wowdoc")
+local table_sort = require("wowdoc.util.table_sort")
 local parser = require("wowdoc.wago")
 local dbc_patch = require("Projects/DBC/DBC_patch")
 local OUTPUT = "out/page/UnitCreatureFamily.txt"
@@ -24,7 +25,7 @@ end
 local function main(options)
 	options = util:GetFlavorOptions(options)
 	options.initial = false
-    options.sort = util.SortBuild
+    options.sort = table_sort.SortBuild
     local patchData = dbc_patch:GetPatchData("creaturefamily", options)
     local listfile = wago:ReadListfile()
 	local fs = "|-\n| %d || %s || %s || %s\n"

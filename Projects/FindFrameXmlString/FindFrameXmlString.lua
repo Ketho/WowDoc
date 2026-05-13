@@ -1,4 +1,5 @@
 local util = require("wowdoc")
+local system = require("wowdoc.util.system")
 local web = require("wowdoc.util.web")
 local FRAMEXML = "../#FrameXML/Generate-Globals/wow-ui-source/"
 
@@ -40,7 +41,7 @@ local function WriteTable(tbl)
 end
 
 local function main()
-	util:IterateFiles(FRAMEXML, GetStrings)
+	system:IterateFiles(FRAMEXML, GetStrings)
 	local t = {}
 	for k in pairs(GetCvars()) do
 		-- there are some cvars that dont match case insensitive

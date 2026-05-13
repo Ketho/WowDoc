@@ -1,5 +1,6 @@
 local lfs = require("lfs")
-local util = require("wowdoc")
+local system = require("wowdoc.util.system")
+local table_sort = require("wowdoc.util.table_sort")
 
 local non_framexml_added = {
 	UNIT_TARGET = "2.0.1",
@@ -16,19 +17,19 @@ local m = {}
 function m:GetPatches(path)
 	local t = {}
 	for folder in lfs.dir(path) do
-		if not util.RelativePath[folder] then
+		if not system.RelativePath[folder] then
 			table.insert(t, folder)
 		end
 	end
 	-- sorting by build is easier in this case
-	table.sort(t, util.SortBuild)
+	table.sort(t, table_sort.SortBuild)
 	return t
 end
 
 function m:GetEvents(flavors, patches, tbl_apidoc)
 	local path = flavors.retail.input
 	local t = {}
-	for _, event in pairs(util:SortTable(tbl_apidoc)) do
+	for _, event in pairs(table_sort:SortTable(tbl_apidoc)) do
 		local v = tbl_apidoc[event]
 		if v[1] == false then
 			for _, patch in pairs(patches) do
@@ -49,7 +50,7 @@ function m:IterateFiles(folder, search)
 		local path = folder.."/"..fileName
 		local attr = lfs.attributes(path)
 		if attr.mode == "directory" then
-			if not util.RelativePath[fileName] then
+			if not system.RelativePath[fileName] then
 				local path2 = self:IterateFiles(path, search)
 				if path2 then
 					return path2

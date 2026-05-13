@@ -1,11 +1,12 @@
 -- exports to lua tables for use in an addon
-local util = require("wowdoc")
+local table_sort = require("wowdoc.util.table_sort")
+local system = require("wowdoc.util.system")
 local parser = require("wowdoc.wago")
 local dbc_patch = require("Projects/DBC/DBC_patch")
 local OUTPUT_DBC = "KethoWowpedia/dbc/%s.lua"
 local OUTPUT_PATCH = "KethoWowpedia/patch/%s.lua"
 
-util:mkdir("KethoWowpedia/dbc")
+system:mkdir("KethoWowpedia/dbc")
 
 local handlers = {
 	creaturemodeldata = {
@@ -92,7 +93,7 @@ local function WriteDbcTable(name, path, options)
 	local file = io.open(path, "w")
 	file:write(string.format("KethoWowpedia.dbc.%s = {\n", name))
 	local fs = handlers[name].fs
-	for _, id in pairs(util:SortTable(dbc)) do
+	for _, id in pairs(table_sort:SortTable(dbc)) do
 		local v = dbc[id]
 		file:write(fs:format(id, table.unpack(v)))
 	end
@@ -105,7 +106,7 @@ local function WritePatchTable(name, path, options)
 	local file = io.open(path, "w")
 	file:write(string.format("KethoWowpedia.patch.%s = {\n", name))
 	local fs = '\t[%d] = "%s",\n'
-	for _, id in pairs(util:SortTable(data)) do
+	for _, id in pairs(table_sort:SortTable(data)) do
 		local version = data[id].patch:match("^%d+%.%d+%.%d+")
 		if filters[name] ~= version then
 			file:write(fs:format(id, version))

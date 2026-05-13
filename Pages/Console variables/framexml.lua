@@ -1,4 +1,5 @@
 local util = require("wowdoc")
+local system = require("wowdoc.util.system")
 local wago = require("wowdoc.wago")
 
 local framexml_strings = {}
@@ -20,7 +21,7 @@ end
 local function main(blizzres)
 	-- local latestWagoBuild = wago:GetLatestBuild("wow")
 	local frameXML = util:GetLatestLocalBuild("live")
-	util:IterateFiles(frameXML, GetStrings)
+	system:IterateFiles(frameXML, GetStrings)
 	local framexml_cvars = {}
 	for k in pairs(blizzres[1].var) do
 		if framexml_strings[k:lower()] then

@@ -1,4 +1,4 @@
-local util = require("wowdoc")
+local table_util = require("wowdoc.util.table")
 
 local shortComplex = {
 	Enumeration = "Enum",
@@ -34,7 +34,7 @@ function Wowpedia:GetTableText(apiTable, isTemplate, isSubTable)
 		table.insert(tbl, format("|+ %s", fullName))
 	end
 	if apiTable.Type == "Enumeration" then
-		local isBitEnum = util:IsBitEnum(apiTable)
+		local isBitEnum = table_util.IsBitEnum(apiTable)
 		table.insert(tbl, "! Value !! Field !! Description")
 		for _, field in ipairs(apiTable.Fields) do
 			local enumValue = isBitEnum and string.format("0x%X", field.EnumValue) or field.EnumValue

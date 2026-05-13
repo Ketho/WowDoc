@@ -1,8 +1,8 @@
 local lfs = require("lfs")
-local util = require("wowdoc")
+local system = require("wowdoc.util.system")
 
 local PATH = "Projects/TownlongWut"
-util:mkdir(PATH.."/Metrics")
+system:mkdir(PATH.."/Metrics")
 
 local api_types = {
 	"Events",

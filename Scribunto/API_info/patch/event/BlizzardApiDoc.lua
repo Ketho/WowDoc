@@ -1,9 +1,9 @@
 local lfs = require("lfs")
-local PATH = require("path")
-local wowdoc = require("wowdoc")
-local util = require("wowdoc.util")
-local apidoc_nontoc = require("wowdoc.loader.nontoc.old")
+local pathlib = require("path")
+local system = require("wowdoc.util.system")
+local table_sort = require("wowdoc.util.table_sort")
 local log = require("wowdoc.util.log")
+local apidoc_nontoc = require("wowdoc.loader.nontoc.old")
 
 local function GetEventMap(data)
 	local t = {}
@@ -18,8 +18,8 @@ local function GetEventMap(data)
 end
 
 local function GetSubfolder(parent, name)
-	local path = PATH.join(parent, name)
-	if PATH.exists(path) then
+	local path = pathlib.join(parent, name)
+	if pathlib.exists(path) then
 		return path
 	end
 end
@@ -48,8 +48,8 @@ local m = {}
 function m:GetDocEvents(info)
 	local t = {}
 	for folder in lfs.dir(info.input) do
-		if not wowdoc.RelativePath[folder] then
-			local path = FindApiDocFolder(PATH.join(info.input, folder))
+		if not system.RelativePath[folder] then
+			local path = FindApiDocFolder(pathlib.join(info.input, folder))
 			if path then
 				local version = folder:match("%d+%.%d+.%d+")
 				local build = folder:match("%((%d+)%)$") or folder:match("%d+$")
@@ -93,7 +93,7 @@ end
 -- apparently this goes through all patches of both classic and retail
 function m:GetPatchData(tbl)
 	local added, removed = {}, {}
-	for _, v in pairs(util.table.SortTableCustom(tbl, SortMajor)) do -- todo: sorting here goes wrong
+	for _, v in pairs(table_sort.SortTableCustom(tbl, SortMajor)) do -- todo: sorting here goes wrong
 		local version, data = v.value.version, v.value.events
 		for name in pairs(data) do
 			if not added[name] then

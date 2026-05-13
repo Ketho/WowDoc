@@ -1,6 +1,7 @@
 ---@diagnostic disable: need-check-nil
 local lfs = require("lfs")
 local pathlib = require("path")
+local table_sort = require("wowdoc.util.table_sort")
 
 require("wowdoc.config")
 local wago = require("wowdoc.wago")
@@ -8,34 +9,6 @@ local log = require("wowdoc.util.log")
 local doc_widgets = require("wowdoc.loader.doc_widgets")
 
 local m = {}
-
--- useful when using PTR builds and a retail build is higher than a PTR build
--- e.g. PTR 10.1.7.50587 vs retail 10.1.5.50622
-function m.SortPatch(a, b)
-	local major_a, minor_a, patch_a, build_a = a:match("(%d+)%.(%d+)%.(%d+)%.(%d+)")
-	local major_b, minor_b, patch_b, build_b = b:match("(%d+)%.(%d+)%.(%d+)%.(%d+)")
-	major_a = tonumber(major_a); major_b = tonumber(major_b)
-	minor_a = tonumber(minor_a); minor_b = tonumber(minor_b)
-	patch_a = tonumber(patch_a); patch_b = tonumber(patch_b)
-	build_a = tonumber(build_a); build_b = tonumber(build_b)
-	if major_a ~= major_b then
-		return major_a < major_b
-	elseif minor_a ~= minor_b then
-		return minor_a < minor_b
-	elseif patch_a ~= patch_b then
-		return patch_a < patch_b
-	elseif build_a ~= build_b then
-		return build_a < build_b
-	end
-end
-
-function m.SortBuild(a, b)
-	local build_a = tonumber(a:match("(%d+)$"))
-	local build_b = tonumber(b:match("(%d+)$"))
-	if build_a ~= build_b then
-		return build_a < build_b
-	end
-end
 
 m.PtrVersion = "11.2.7"
 
@@ -57,22 +30,6 @@ local classicVersions = {
 	"^2.5.",
 	"^3.4.",
 }
-
-m.RelativePath = {
-	["."] = true,
-	[".."] = true,
-}
-
---- Runs a commmand in the shell
----@param cmd string
----@return string result
-function m:run_command(cmd)
-	log:important("Running command: "..cmd)
-	local handle = io.popen(cmd)
-	local result = handle:read("a")
-	handle:close()
-	return result
-end
 
 --- Looks through the FrameXML folder and returns
 --- the copy of the FrameXML with the highest build number
@@ -182,7 +139,7 @@ function m:GetFlavorOptions(info)
 			-- need to know what the latest build is when downloading
 			t.build = wago:GetWagoVersions(t.branch)[1] -- latest build for a branch
 		end
-		t.sort = m.SortPatch
+		t.sort = table_sort.SortPatch
 		return t
 	elseif not info then
 		return flavorInfo.mainline
@@ -200,23 +157,6 @@ function m:ReadCSV(dbc, parser, options, func)
 		end
 	end
 	return tbl
-end
-
-function m:IterateFiles(folder, func)
-	for fileName in lfs.dir(folder) do
-		local path = folder.."/"..fileName
-		local attr = lfs.attributes(path)
-		if attr.mode == "directory" then
-			if not self.RelativePath[fileName] then
-				self:IterateFiles(path, func)
-			end
-		else
-			local ext = fileName:match("%.(%a+)")
-			if ext == "lua" or ext == "xml" then
-				func(path)
-			end
-		end
-	end
 end
 
 function m:template_apilink(apitype, apitable)
@@ -259,25 +199,6 @@ function m:api_func_GetFullName(v)
 			return string.format("%s:%s", v.System.Name, v.Name)
 		end
 	end
-end
-
-function m:IsBitEnum(apiTbl)
-	local t = {}
-	for _, v in pairs(apiTbl.Fields) do
-		t[v.EnumValue] = true
-	end
-	if apiTbl.name == "Damageclass" then
-		return true
-	end
-	for i = 1, 3 do
-		if not t[2^i] then
-			return false
-		end
-	end
-	if t[3] or t[5] or t[7] then
-		return false
-	end
-	return true
 end
 
 return m

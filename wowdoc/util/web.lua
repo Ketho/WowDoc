@@ -1,6 +1,6 @@
 local https = require("ssl.https")
 local ltn12 = require("ltn12")
-local filesys = require("wowdoc.util.filesys")
+local system = require("wowdoc.util.system")
 local log = require("wowdoc.util.log")
 
 local m = {}
@@ -15,7 +15,7 @@ function m:DownloadFile(url, path, isCache)
 	if self:ShouldDownload(path, isCache) then
 		log:info(string.format('Downloading %s to "%s"', url, path))
 		local body = https.request(url)
-		filesys:WriteFile(path, body)
+		system:WriteFile(path, body)
 	end
 end
 
@@ -42,7 +42,7 @@ function m:DownloadFilePost(url, path, requestBody, cacheTime)
 	if self:ShouldDownload(path, cacheTime) then
 		local body = self:HttpPostRequest(url, requestBody)
 		if body then
-			filesys:WriteFile(path, body)
+			system:WriteFile(path, body)
 		end
 	end
 end

@@ -2,10 +2,11 @@
 local lfs = require("lfs")
 local cjson = require "cjson"
 local cjsonutil = require "cjson.util"
-local util = require("wowdoc")
+local system = require("wowdoc.util.system")
+local table_sort = require("wowdoc.util.table_sort")
 local web = require("wowdoc.util.web")
 
-util:mkdir("cache_wut")
+system:mkdir("cache_wut")
 local wut_url = "https://www.townlong-yak.com/globe/api/wut-symbol?q=%s"
 local github_url = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/mainline/Resources/%s.lua"
 
@@ -80,7 +81,7 @@ local sources = {
 			github_url:format(name),
 			string.format("cache_lua/%s.lua", name)
 		)
-		return util:SortTable(tbl)
+		return table_sort:SortTable(tbl)
 	end,
 	Mixins = function(name)
 		local tbl = web:DownloadAndRun(
@@ -93,7 +94,7 @@ local sources = {
 
 local function WriteResource(apiType)
 	local start = os.time()
-	util:mkdir("cache_wut/"..apiType)
+	system:mkdir("cache_wut/"..apiType)
 	local t = {}
 	local resource = sources[apiType](apiType)
 	for _, name in pairs(resource) do
@@ -117,7 +118,7 @@ local function WriteResource(apiType)
 	local fs = "%s,%s\n"
 	local file = io.open(string.format("Projects/TownlongWut/%s.csv", apiType), "w")
 	file:write("Count,Name\n")
-	for _, tbl in pairs(util:SortTableCustom(t, sortfunc)) do
+	for _, tbl in pairs(table_sort.SortTableCustom(t, sortfunc)) do
 		file:write(fs:format(tbl.value, tbl.key))
 	end
 	file:close()

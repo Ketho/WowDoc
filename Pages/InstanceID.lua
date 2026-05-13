@@ -1,5 +1,6 @@
 -- https://wowpedia.fandom.com/wiki/InstanceID#Complete_list
 local util = require("wowdoc")
+local table_sort = require("wowdoc.util.table_sort")
 local parser = require("wowdoc.wago")
 local dbc_patch = require("Projects/DBC/DBC_patch")
 local OUTPUT = "out/page/InstanceID.txt"
@@ -169,7 +170,7 @@ end
 local function main(options)
 	options = util:GetFlavorOptions(options)
 	options.initial = false
-	options.sort = util.SortBuild -- I dont even remember how and why I implemented sorting
+	options.sort = table_sort.SortBuild -- I dont even remember how and why I implemented sorting
 	local map = parser:ReadCSV("map", options)
 	local patchData = dbc_patch:GetPatchData("map", options)
 

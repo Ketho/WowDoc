@@ -78,67 +78,6 @@ function m.tInvert(a)
 	return t
 end
 
-function m.SortTable(tbl, func)
-	local t = {}
-	for k in pairs(tbl) do
-		table.insert(t, k)
-	end
-	table.sort(t, func)
-	return t
-end
-
-function m.SortTableCustom(tbl, func)
-	local t = {}
-	for k, v in pairs(tbl) do
-		table.insert(t, {
-			key = k,
-			value = v
-		})
-	end
-	table.sort(t, func)
-	return t
-end
-
-function m.SortNocase(a, b)
-	return a:lower() < b:lower()
-end
-
-function m.SortTableByType(tbl, sortType)
-	local t = {}
-	for k, v in pairs(tbl) do
-		tinsert(t, {
-			key = k,
-			value = v
-		})
-	end
-	table.sort(t, function(a, b)
-		local va, vb = a[sortType], b[sortType]
-		local ta, tb = type(va), type(vb)
-		if ta ~= tb then
-			if ta == "boolean" and tb == "number" then
-				return true
-			elseif ta == "number" and tb == "boolean" then
-				return false
-			end
-		end
-		if ta == "boolean" then
-			if va ~= vb then
-				return va and not vb
-			end
-		elseif ta == "string" then
-			return va < vb
-		elseif ta == "number" then
-			if va == vb then
-				return a.key < b.key
-			else
-				return va < vb
-			end
-        ---@diagnostic disable-next-line: missing-return
-		end
-	end)
-	return t
-end
-
 function m.CompareTable(a, b)
 	local x, y = 0, 0
     for k in pairs(a) do
@@ -170,6 +109,26 @@ function m.equals(a, b)
 	end
 	for k in pairs(b) do
 		if a[k] == nil then return false end
+	end
+	return true
+end
+
+-- discern if a documented enum is a bitfield
+function m.IsBitEnum(apiTbl)
+	local t = {}
+	for _, v in pairs(apiTbl.Fields) do
+		t[v.EnumValue] = true
+	end
+	if apiTbl.name == "Damageclass" then
+		return true
+	end
+	for i = 1, 3 do
+		if not t[2^i] then
+			return false
+		end
+	end
+	if t[3] or t[5] or t[7] then
+		return false
 	end
 	return true
 end

@@ -1,9 +1,10 @@
-local util = require("wowdoc")
+local util = require("wowdoc.util")
+local system = require("wowdoc.util.system")
 local Path = require("path")
 local wago_csv = require("wowdoc.wago")
 local output = "KethoWowpedia/patch/%s.lua"
 
-util:mkdir("KethoWowpedia/patch")
+system:mkdir("KethoWowpedia/patch")
 
 local m = {}
 
@@ -43,7 +44,7 @@ function m:GetPatchData(name, options)
 			end
 		end
 	end
-	local patches_sorted = util:ToList(patches, options.sort)
+	local patches_sorted = util.table:ToList(patches, options.sort)
 	local t = {}
 	for _, patch in pairs(patches_sorted) do
 		local iter = wago_csv:ReadCSV(name, {header = true, build = patch})

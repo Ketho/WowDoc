@@ -3,9 +3,9 @@
 local lfs = require("lfs")
 local pathlib = require("path")
 
-local write_table = require("wowdoc.write_table")
+local write_table = require("wowdoc.util.table_write")
 local util = require("wowdoc")
-local enum = require("wowdoc.enum")
+local enum = require("wowdoc.web.enum")
 local products = require("wowdoc.products")
 
 local BRANCH = products:GetBranch(CONFIG.TACT_PRODUCT)

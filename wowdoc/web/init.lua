@@ -1,4 +1,4 @@
-local util = require("wowdoc")
+local system = require("wowdoc.util.system")
 local cjson = require("cjson")
 local https = require("ssl.https")
 local ltn12 = require("ltn12")
@@ -6,7 +6,7 @@ local ltn12 = require("ltn12")
 local m = {}
 
 -- apparently need to trim newlines or it sometimes returns HTTP 400/403
-local GITHUB_TOKEN = util:run_command("gh auth token"):GITHUB_TOKEN:gsub("\n", "")
+local GITHUB_TOKEN = system:run_command("gh auth token"):GITHUB_TOKEN:gsub("\n", "")
 
 function m:SendHttpsRequest(url)
 	local headers = {

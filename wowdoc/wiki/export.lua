@@ -3,6 +3,7 @@ local xml2lua = require "xml2lua"
 local handler = require "xmlhandler.tree"
 local wowdoc = require("wowdoc")
 local util = require("wowdoc.util")
+local system = require("wowdoc.util.system")
 local web = require("wowdoc.util.web")
 local m = {}
 
@@ -29,7 +30,7 @@ local function get_api_cat_pages(catName, names)
 end
 
 function m:get_api_cat(catName)
-	util:mkdir(FOLDER)
+	system:mkdir(FOLDER)
 	local names = get_api_cat_names(catName)
 	get_api_cat_pages(catName, table.concat(names, "\n"))
 end

@@ -1,6 +1,6 @@
 ---@diagnostic disable: need-check-nil
 local lfs = require("lfs")
-local PATH = require("path")
+local pathlib = require("path")
 local https = require("ssl.https")
 local cjson = require("cjson")
 local cjsonutil = require("cjson.util")
@@ -11,7 +11,7 @@ local products = require("wowdoc.products")
 
 ---@diagnostic disable-next-line: undefined-global
 local cache_folder = PATHS.WAGO or "wago"
-local listfile_path = PATH.join(cache_folder, "community-listfile.csv")
+local listfile_path = pathlib.join(cache_folder, "community-listfile.csv")
 
 local wago_builds_latest_url = "https://wago.tools/api/builds/%s/latest"
 local wago_builds_url = "https://wago.tools/api/builds"
@@ -70,8 +70,8 @@ local function CreateCsvPath(csv_name, options)
 	else
 		file_name = string.format("%s.csv", csv_name)
 	end
-	CreateFolder(PATH.join(cache_folder, csv_name))
-	return PATH.join(cache_folder, csv_name, file_name)
+	CreateFolder(pathlib.join(cache_folder, csv_name))
+	return pathlib.join(cache_folder, csv_name, file_name)
 end
 
 local function CreateWagoUrl(name, options)
@@ -166,7 +166,7 @@ end
 
 function m:GetWagoVersions(branch)
 	local t = {}
-	local path = PATH.join(cache_folder, "versions.json")
+	local path = pathlib.join(cache_folder, "versions.json")
 	if ShouldDownload(path, true) then
 		DownloadFile(wago_builds_url, path)
 	end

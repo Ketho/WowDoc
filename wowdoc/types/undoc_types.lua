@@ -1,6 +1,6 @@
 local u = require("wowdoc.util")
 local get_types = require("wowdoc.types.get_types")
-local enum = require("wowdoc.enum")
+local enum = require("wowdoc.web.enum")
 local TypeDoc = require("wowdoc.loader.TypeDocumentation")
 local MissingDoc = require("wowdoc.loader.MissingDocumentation")
 local m = {}

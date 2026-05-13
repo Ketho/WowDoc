@@ -1,13 +1,13 @@
 local lfs = require("lfs")
 local pathlib = require("path")
-local filesys = require("wowdoc.util.filesys")
+local system = require("wowdoc.util.system")
 require("wowdoc.config")
 
 local wowdoc = require("wowdoc")
 local log = require("wowdoc.util.log")
 local products = require("wowdoc.products")
 local git = require("wowdoc.git")
-local enum = require("wowdoc.enum")
+local enum = require("wowdoc.web.enum")
 local patches = require("wowdoc.loader.patches")
 local annotate
 local custom_doc
@@ -79,9 +79,9 @@ local function LoadAnnotationAddon(path, name)
 				local text = annotate:GetSystem(docInfo)
 				if #text > 0 then -- try not to create empty files as they take up the maxPreload limit
 					if docInfo.Type == "System" or not docInfo.Type then
-						filesys:WriteFileMeta(pathlib.join(OUTPUT_PATH, line), text.."\n")
+						system:WriteFileMeta(pathlib.join(OUTPUT_PATH, line), text.."\n")
 					elseif docInfo.Type == "ScriptObject" then
-						filesys:WriteFileMeta(pathlib.join(OUT_WIDGET, line), text.."\n")
+						system:WriteFileMeta(pathlib.join(OUT_WIDGET, line), text.."\n")
 					end
 				end
 				documentationInfo = nil

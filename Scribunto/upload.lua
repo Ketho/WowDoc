@@ -1,6 +1,6 @@
 local Path = require("path")
 local wowdoc = require("wowdoc")
-local enum = require("wowdoc.enum")
+local enum = require("wowdoc.web.enum")
 local products = require("wowdoc.products")
 local log = require("wowdoc.util.log")
 
