@@ -76,13 +76,15 @@ local function parseLine(file, line)
 			end
 		elseif category == "Event" then
 			local name, change = line:sub(3):match("(.+)%.Payload(.+)")
-			local linkname = createHyperLink(name)
-			if not sections[name] then
-				sections[name] = true
-				file:write(" "..name.."\n")
-			end
-			if colors[symbol] then
-				file:write(string.format('   %s <font color="%s">%s</font>\n', symbol, colors[symbol], change))
+			if name then
+				local linkname = createHyperLink(name)
+				if not sections[name] then
+					sections[name] = true
+					file:write(" "..name.."\n")
+				end
+				if colors[symbol] then
+					file:write(string.format('   %s <font color="%s">%s</font>\n', symbol, colors[symbol], change))
+				end
 			end
 		end
 	end

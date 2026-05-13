@@ -28,9 +28,6 @@ m.apiTypes = {
 					if system.Namespace then
 						local fullName = string.format("%s.%s", system.Namespace, apiTable.Name)
 						t[fullName] = apiTable
-					elseif system.Name then
-						local fullName = string.format("%s %s", system.Name, apiTable.Name)
-						t[fullName] = apiTable
 					else
 						t[apiTable.Name] = apiTable
 					end
@@ -38,6 +35,7 @@ m.apiTypes = {
 			end
 			return t
 		end,
+		params = {"Arguments", "Returns"},
 	},
 	Event = {
 		map = function(tbl)
@@ -49,6 +47,7 @@ m.apiTypes = {
 			end
 			return t
 		end,
+		params = {"Payload"},
 	},
 	Enumeration = {
 		map = function(tbl)
@@ -62,6 +61,7 @@ m.apiTypes = {
 			end
 			return t
 		end,
+		params = {"Fields"},
 	},
 	Structure = {
 		map = function(tbl)
@@ -75,6 +75,7 @@ m.apiTypes = {
 			end
 			return t
 		end,
+		params = {"Fields"},
 	},
 }
 m.apiType_order = {"Function", "Event", "Enumeration", "Structure"}
@@ -120,8 +121,13 @@ end
 local function main(versions, isWiki)
 	local framexml = m:LoadFrameXML(versions)
 	CompareVersions(versions, framexml)
-	-- PrintView:PrintView(changes, isWiki)
 end
 
-main({BUILD1, BUILD2}, true)
+local function main2(versions, isWiki)
+	local framexml = m:LoadFrameXML(versions)
+	local changes = m:CompareVersions(versions, framexml)
+	PrintView:PrintView(changes, isWiki)
+end
+
+main2({BUILD1, BUILD2}, true)
 log:success("Done")
