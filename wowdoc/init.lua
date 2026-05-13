@@ -12,17 +12,6 @@ local m = {}
 
 m.PtrVersion = "11.2.7"
 
-local flavorInfo = {
-	mainline = {flavor = "mainline", branch = "wow", header = true},
-	mainline_beta = {flavor = "mainline", branch = "wow_beta", header = true},
-	mainline_ptr = {flavor = "mainline", branch = "wowxptr", header = true},
-	vanilla = {flavor = "vanilla", header = true, branch = "wow_classic_era"},
-	vanilla_ptr = {flavor = "vanilla", branch = "wow_classic_era_ptr", header = true}, -- has 10.1.5 and 10.0.7 builds
-	cata = {flavor = "cata", header = true, branch = "wow_classic"},
-	cata_ptr = {flavor = "cata", header = true, branch = "wow_classic_beta"},
-	mists_beta = {flavor = "mists", header = true, branch = "wow_classic_beta"},
-}
-
 --- Looks through the FrameXML folder and returns
 --- the copy of the FrameXML with the highest build number
 --- it does not look at the semantic version (major,minor,patch) but only at the build number
@@ -128,6 +117,17 @@ function m:IsClassicVersion(v)
 	return false
 end
 
+local flavorInfo = {
+	mainline = {flavor = "mainline", branch = "wow", header = true},
+	mainline_beta = {flavor = "mainline", branch = "wow_beta", header = true},
+	mainline_ptr = {flavor = "mainline", branch = "wowxptr", header = true},
+	vanilla = {flavor = "vanilla", header = true, branch = "wow_classic_era"},
+	vanilla_ptr = {flavor = "vanilla", branch = "wow_classic_era_ptr", header = true}, -- has 10.1.5 and 10.0.7 builds
+	cata = {flavor = "cata", header = true, branch = "wow_classic"},
+	cata_ptr = {flavor = "cata", header = true, branch = "wow_classic_beta"},
+	mists_beta = {flavor = "mists", header = true, branch = "wow_classic_beta"},
+}
+
 -- accepts an options table or a game flavor
 function m:GetFlavorOptions(info)
 	local infoType = type(info)
@@ -144,19 +144,6 @@ function m:GetFlavorOptions(info)
 	elseif not info then
 		return flavorInfo.mainline
 	end
-end
-
-function m:ReadCSV(dbc, parser, options, func)
-	log.info("Reading "..dbc)
-	local csv = parser:ReadCSV(dbc, options)
-	local tbl = {}
-	for l in csv:lines() do
-		local ID = tonumber(l.ID)
-		if ID then
-			func(tbl, ID, l) -- maybe bad code
-		end
-	end
-	return tbl
 end
 
 function m:template_apilink(apitype, apitable)

@@ -6,11 +6,11 @@ local cjson = require("cjson")
 local cjsonutil = require("cjson.util")
 
 local log = require("wowdoc.util.log")
-local csv = require("wowdoc.lua-csv")
+local csv = require("wowdoc.util.csv")
 local products = require("wowdoc.products")
 
 ---@diagnostic disable-next-line: undefined-global
-local cache_folder = PATHS.WAGO or "wago"
+local cache_folder = PATHS and PATHS.WAGO or "wago"
 local listfile_path = pathlib.join(cache_folder, "community-listfile.csv")
 
 local wago_builds_latest_url = "https://wago.tools/api/builds/%s/latest"
@@ -108,20 +108,31 @@ local function ShouldDownload(path, isCache)
 	return not PathExists(path) or isCache and IsStale(path)
 end
 
-function m:ReadCSV(name, options)
+function m:GetCSV(name, options)
 	local path = CreateCsvPath(name, options)
 	if ShouldDownload(path) then
 		local url = CreateWagoUrl(name, options)
 		DownloadFile(url, path)
 	end
 	if PathExists(path) then
-		log.info(string.format('Reading CSV "%s"', path))
 		local iter = csv.open(path, {header = options and options.header})
 		return iter
 	end
 end
--- parser:ReadCSV("mount", {header = true, build = "10.0.2.47657", locale = "deDE"})
--- parser:ReadCSV("battlepetspecies")
+-- wago:GetCSV("mount", {header = true, build = "10.0.2.47657", locale = "deDE"})
+
+function m:ReadCSV(name, options, callback)
+	log.info(string.format('Reading CSV "%s"', name))
+	local iter = self:GetCSV(name, options)
+	local tbl = {} -- optional table
+	for line in iter:lines() do
+		local ID = tonumber(line[1])
+		if ID then
+			callback(tbl, ID, line) -- maybe bad code
+		end
+	end
+	return tbl
+end
 
 function m:ReadListfile()
 	if ShouldDownload(listfile_path, true) then
@@ -138,14 +149,14 @@ function m:ReadListfile()
 	log.success("Finished reading listfile")
 	return filedata
 end
--- parser:ReadListfile()
+-- wago:ReadListfile()
 
 function m:PrintCSV(iter)
 	for line in iter:lines() do
 		print(table.unpack(line))
 	end
 end
--- parser:PrintCSV(parser:ReadCSV("mount"))
+-- wago:PrintCSV(wago:GetCSV("mount"))
 
 local function IsValidBuild(branch, version)
 	if branch == "wow_classic_era_ptr" then
@@ -211,6 +222,6 @@ function m:FindBuild(branch, build)
 		return versions[1] -- the most recent build
 	end
 end
--- print(parser:FindBuild("wow"))
+-- print(wago:FindBuild("wow"))
 
 return m

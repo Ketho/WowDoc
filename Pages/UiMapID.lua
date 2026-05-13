@@ -15,7 +15,7 @@ local function main(options)
 
 	local fs = '\t[%d] = "%s",\n'
 	file:write("KethoWowpedia.patch.uimap = {\n")
-	util:ReadCSV("uimap", parser, options, function(_, ID, l)
+	csv:ReadCSV("uimap", parser, options, function(_, ID, l)
 		local patch = patchData[ID] and util:GetPatchVersion(patchData[ID].patch) or ""
 		file:write(fs:format(ID, patch))
 	end)

@@ -1,5 +1,6 @@
 -- https://wowpedia.fandom.com/wiki/JournalEncounterID
 local util = require("wowdoc")
+local csv = require("wowdoc.util.csv")
 local parser = require("wowdoc.web.wago")
 local dbc_patch = require("Projects/DBC/DBC_patch")
 local OUTPUT = "out/page/JournalEncounterID.txt"
@@ -47,10 +48,10 @@ local patch_override = {
 
 local function main(options)
 	options = util:GetFlavorOptions(options)
-	local journalinstance_csv = util:ReadCSV("journalinstance", parser, options, function(tbl, ID, l)
+	local journalinstance_csv = csv:ReadCSV("journalinstance", parser, options, function(tbl, ID, l)
 		tbl[ID] = l.Name_lang
 	end)
-	local journalencountercreature_csv = util:ReadCSV("journalencountercreature", parser, options, function(tbl, _, l)
+	local journalencountercreature_csv = csv:ReadCSV("journalencountercreature", parser, options, function(tbl, _, l)
 		local encounterID = tonumber(l.JournalEncounterID)
 		local displayID = tonumber(l.CreatureDisplayInfoID)
 		local order = tonumber(l.OrderIndex)
@@ -58,10 +59,10 @@ local function main(options)
 			tbl[encounterID] = displayID
 		end
 	end)
-	local dungeonencounter_csv = util:ReadCSV("dungeonencounter", parser, options, function(tbl, ID, l)
+	local dungeonencounter_csv = csv:ReadCSV("dungeonencounter", parser, options, function(tbl, ID, l)
 		tbl[ID] = {l.Name_lang, tonumber(l.MapID)}
 	end)
-	local map_csv = util:ReadCSV("map", parser, options, function(tbl, ID, l)
+	local map_csv = csv:ReadCSV("map", parser, options, function(tbl, ID, l)
 		tbl[ID] = l.MapName_lang
 	end)
 	local patchData = dbc_patch:GetPatchData("journalencounter", options)
@@ -69,7 +70,7 @@ local function main(options)
 	local file = io.open(OUTPUT, "w")
 	file:write('{| class="sortable darktable zebra col1-center"\n! ID !! Name !! Map !! [[DisplayID]] !! <small>[[DungeonEncounterID]]</small> !! [[InstanceID]] !! Patch\n')
 	local fs = '|-\n| %d || %s || %s || %s || %s || %s || %s\n'
-	util:ReadCSV("journalencounter", parser, options, function(_, ID, l)
+	csv:ReadCSV("journalencounter", parser, options, function(_, ID, l)
 		local name = l.Name_lang
 		local journalInstanceID = tonumber(l.JournalInstanceID)
 		local dungeonEncounterID = tonumber(l.DungeonEncounterID)

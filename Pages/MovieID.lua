@@ -1,6 +1,7 @@
 -- https://wowpedia.fandom.com/wiki/MovieID
 local util = require("wowdoc")
-local parser = require("wowdoc.web.wago")
+local csv = require("wowdoc.util.csv")
+local wago = require("wowdoc.web.wago")
 local wowpedia_export = require("wowdoc.web.wiki_export")
 local dbc_patch = require("Projects/DBC/DBC_patch")
 
@@ -28,14 +29,14 @@ end
 
 local function main(options)
 	options = util:GetFlavorOptions(options)
-	local filedata = parser:ReadListfile()
+	local filedata = wago:ReadListfile()
 	local patchData = dbc_patch:GetPatchData("movie", options)
 	local file = io.open(OUTPUT, "w")
 
 	-- there are multiple avi files with different resolutions per movieid
 	-- but we only care about the fallback filename if there is no sound
 	local movievariation = {}
-	util:ReadCSV("movievariation", parser, options, function(_, _, l)
+	csv:ReadCSV("movievariation", parser, options, function(_, _, l)
 		local fdid = tonumber(l.FileDataID)
 		local fd = filedata[fdid]
 		local name = ""
@@ -53,7 +54,7 @@ local function main(options)
 	local duplicates = {}
 	file:write('{| class="sortable darktable zebra col1-center col3-center"\n! ID !! Name !! YouTube !! Description !! Patch\n')
 	local fs = '|-\n| %d || %s || %s || %s || %s\n'
-	util:ReadCSV("movie", parser, options, function(_, ID, l)
+	csv:ReadCSV("movie", parser, options, function(_, ID, l)
 		local audio = tonumber(l.AudioFileDataID)
 		local name = ""
 		if audio == 0 then

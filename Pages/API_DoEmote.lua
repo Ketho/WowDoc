@@ -1,6 +1,6 @@
 -- https://wowpedia.fandom.com/wiki/API_DoEmote
 local util = require("wowdoc")
-local parser = require("wowdoc.web.wago")
+local csv = require("wowdoc.util.csv")
 local dbc_patch = require("Projects/DBC/DBC_patch")
 local OUTPUT = "out/page/EmoteToken.txt"
 
@@ -32,7 +32,7 @@ function m:main(options)
 	local patchData = dbc_patch:GetPatchData("emotestext", options)
 
 	local dbc_emotestextdata = {}
-	util:ReadCSV("emotestextdata", parser, options, function(_, ID, l)
+	csv:ReadCSV("emotestextdata", options, function(_, ID, l)
 		local EmotesTextID = tonumber(l.EmotesTextID)
 		local RelationshipFlags = tonumber(l.RelationshipFlags)
 		dbc_emotestextdata[EmotesTextID] = dbc_emotestextdata[EmotesTextID] or {}
@@ -40,12 +40,12 @@ function m:main(options)
 	end)
 
 	local dbc_emotes = {}
-	util:ReadCSV("emotes", parser, options, function(_, ID, l)
+	csv:ReadCSV("emotes", options, function(_, ID, l)
 		dbc_emotes[ID] = tonumber(l.AnimID)
 	end)
 
 	local dbc_emotestextsound = {}
-	util:ReadCSV("emotestextsound", parser, options, function(_, ID, l)
+	csv:ReadCSV("emotestextsound", options, function(_, ID, l)
 		local EmotesTextID = tonumber(l.EmotesTextID)
 		dbc_emotestextsound[EmotesTextID] = true
 	end)
@@ -55,7 +55,7 @@ function m:main(options)
 	..'! Token !! Slash Command !! Anim !! Voice !! No Target Text !! Targeted Text !! Patch\n')
 	local fs = '|-\n| %s || %s || %s || %s || %s || %s || %s\n'
 
-	util:ReadCSV("emotestext", parser, options, function(_, ID, l)
+	csv:ReadCSV("emotestext", options, function(_, ID, l)
 		local token = l.Name
 		local cmd_list = cmd_tbl[token] or "❌"
 		if wp_removed[ID] then

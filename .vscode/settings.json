@@ -8,5 +8,6 @@
         "lfs",
         "pathlib",
         "Constants"
-    ]
+    ],
+    "editor.insertSpaces": false
 }

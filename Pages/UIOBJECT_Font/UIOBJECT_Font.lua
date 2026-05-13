@@ -1,5 +1,5 @@
 ---@diagnostic disable: need-check-nil
-local csv = require("wowdoc.lua-csv")
+local csv = require("wowdoc.util.csv.lua-csv")
 
 local function Round(v, decimals)
 	local mult = 10^(decimals or 0)

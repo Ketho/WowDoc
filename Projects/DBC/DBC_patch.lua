@@ -1,4 +1,4 @@
-local util = require("wowdoc.util")
+local util = require("wowdoc")
 local system = require("wowdoc.util.system")
 local tablelib = require("wowdoc.util.table")
 local Path = require("path")

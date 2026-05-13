@@ -37,7 +37,7 @@ end
 -- just a quick single page, no caching
 function m:get_api_page(pageName)
 	local form = string.format("pages=%s&curonly=1", pageName)
-	local body = web:HttpPostRequest(export_url, form)
+	local body = web:HttpsPostRequest(export_url, form)
 	local parser = xml2lua.parser(handler)
 	parser:parse(body)
 	local page = handler.root.mediawiki.page

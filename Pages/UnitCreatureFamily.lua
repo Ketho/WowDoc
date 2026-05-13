@@ -31,7 +31,7 @@ local function main(options)
 	local fs = "|-\n| %d || %s || %s || %s\n"
 	local file = io.open(OUTPUT, "w")
 	file:write('{| class="sortable darktable zebra col1-center col2-center"\n! ID !! Icon !! Name (enUS) !! Patch\n')
-	util:ReadCSV("creaturefamily", parser, options, function(_, ID, l)
+	csv:ReadCSV("creaturefamily", parser, options, function(_, ID, l)
 		local patch = util:GetPatchText(patchData, ID, patch_override)
         local icon = GetWikiIcon(listfile, l.IconFileID)
 		file:write(fs:format(ID, icon, l.Name_lang, patch))

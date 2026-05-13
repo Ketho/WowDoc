@@ -1,5 +1,6 @@
 -- https://wowpedia.fandom.com/wiki/LanguageID
 local util = require("wowdoc")
+local csv = require("wowdoc.util.csv")
 local parser = require("wowdoc.web.wago")
 local dbc_patch = require("Projects/DBC/DBC_patch")
 local OUTPUT = "out/page/LanguageID.txt"
@@ -63,7 +64,7 @@ local function main(options)
 	local fs = "|-\n| %d || %s || %s || %s\n"
 	local file = io.open(OUTPUT, "w")
 	file:write('{| class="sortable darktable zebra col1-center col2-center"\n! ID !! !! Name !! Patch\n')
-	util:ReadCSV("languages", parser, options, function(_, ID, l)
+	csv:ReadCSV("languages", parser, options, function(_, ID, l)
 		local icon
 		if wpIcon[ID] then
 			icon = wpIcon[ID]
