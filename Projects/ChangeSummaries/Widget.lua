@@ -1,4 +1,4 @@
-local web = require("wowdoc.util.web")
+local request = require("wowdoc.web.request")
 local pathlib = require("path")
 local blizzres_url = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/WidgetAPI.lua"
 local WIDGET_PATH = pathlib.join(PATHS.CACHE, "WidgetAPI_%s.lua")
@@ -8,7 +8,7 @@ local pos_tbl = {}
 
 local function GetWidgetFile(path, branch)
 	local url = blizzres_url:format(branch)
-	web:DownloadFile(url, path, true)
+	request:DownloadFile(url, path, true)
 end
 
 local function GetWidgetObjectName(path)

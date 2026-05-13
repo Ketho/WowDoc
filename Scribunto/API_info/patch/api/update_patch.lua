@@ -1,5 +1,5 @@
 local pathlib = require("path")
-local web = require("wowdoc.util.web")
+local request = require("wowdoc.web.request")
 local log = require("wowdoc.util.log")
 local github = require("wowdoc.web.github")
 

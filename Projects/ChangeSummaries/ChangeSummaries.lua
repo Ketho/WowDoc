@@ -4,7 +4,7 @@ local wowdoc = require("wowdoc")
 local system = require("wowdoc.util.system")
 local table_sort = require("wowdoc.util.table_sort")
 local log = require("wowdoc.util.log")
-local web = require("wowdoc.util.web")
+local request = require("wowdoc.web.request")
 local cvar_module = require("Projects/ChangeSummaries/CVar")
 local widget_module = require("Projects/ChangeSummaries/Widget")
 local m = {}
@@ -32,7 +32,7 @@ local function GetDiff()
 		path = pathlib.join(PATH_COMPARE, string.format("%s.diff", fpath))
 		url = string.format("https://github.com/Ketho/BlizzardInterfaceResources/compare/%s.diff", DIFF[2])
 	end
-	web:DownloadFile(url, path, true)
+	request:DownloadFile(url, path, true)
 	return path
 end
 
@@ -151,6 +151,7 @@ end
 local function main()
 	local path = GetDiff()
 	m:ParseDiff(path) -- fill changes tbl
+	request:DownloadFile(url, path, true)
 	widget_module.main(data_table.WidgetAPI, path, WIDGET)
 	cvar_module:SanitizeCVars(data_table)
 

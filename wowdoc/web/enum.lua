@@ -2,7 +2,7 @@
 local util = require("wowdoc")
 local pathlib = require("path")
 local log = require("wowdoc.util.log")
-local web = require("wowdoc.util.web")
+local request = require("wowdoc.web.request")
 
 local m = {}
 local REPO = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources"
@@ -34,7 +34,7 @@ function m:LoadLuaEnums(branch, force)
 	end
 	local path = pathlib.join(PATHS.BLIZZRES, string.format("LuaEnum_%s.lua", branch))
 	local url = string.format("%s/%s/Resources/LuaEnum.lua", REPO, branch)
-	web:DownloadAndRun(url, path)
+	request:DownloadAndRun(url, path)
 	ApplyFixes()
 	log.success(string.format("WowDocLoader: Loaded Enum table (%s)", branch))
 end

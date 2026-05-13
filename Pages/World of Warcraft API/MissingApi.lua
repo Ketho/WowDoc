@@ -1,5 +1,5 @@
-local wowdoc = require("wowdoc")
-local web = require("wowdoc.util.web")
+local loader = require("wowdoc.loader")
+local request = require("wowdoc.web.request")
 local strlib = require("wowdoc.util.string")
 local tablelib = require("wowdoc.util.table")
 local table_sort = require("wowdoc.util.table_sort")
@@ -7,7 +7,7 @@ local products = require("wowdoc.products")
 local WikiText = require("Pages/World of Warcraft API/WikiText")
 
 local PRODUCT = "wow" ---@type TactProduct
-wowdoc:LoadDocumentation(PRODUCT)
+loader:LoadDocumentation(PRODUCT)
 local gethe_branch = products:GetBranch(PRODUCT)
 
 local Signatures_Parse = require("Pages/World of Warcraft API/Signatures_Parse")
@@ -35,7 +35,7 @@ function m:ParseWikitext(wikitext)
 end
 
 function m:GetGlobalApi()
-	local global_api = web:DownloadAndRun(
+	local global_api = request:DownloadAndRun(
 		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/GlobalAPI.lua", gethe_branch),
 		pathlib.join(PATHS.BLIZZRES, string.format("GlobalAPI_%s.lua", gethe_branch))
 	)

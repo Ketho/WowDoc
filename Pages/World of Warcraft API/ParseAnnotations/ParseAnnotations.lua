@@ -1,4 +1,4 @@
-local web = require("wowdoc.util.web")
+local request = require("wowdoc.web.request")
 local api_get = require("Scribunto/API_info/elink/api_get")
 
 local undoc = api_get:main(PRODUCT)[2]
@@ -9,7 +9,7 @@ local CACHE_ANNOTATIONS = pathlib.join(PATHS.CACHE, "Wiki.lua")
 local m = {}
 
 function m:DownloadAnnotations()
-	web:DownloadFile(URL_ANNOTATIONS, CACHE_ANNOTATIONS, true)
+	request:DownloadFile(URL_ANNOTATIONS, CACHE_ANNOTATIONS, true)
 end
 
 -- ugly crap

@@ -1,6 +1,6 @@
 local util = require("wowdoc")
 local system = require("wowdoc.util.system")
-local web = require("wowdoc.util.web")
+local request = require("wowdoc.web.request")
 local FRAMEXML = "../#FrameXML/Generate-Globals/wow-ui-source/"
 
 local m = {}
@@ -22,7 +22,7 @@ local function GetStrings(path)
 end
 
 local function GetCvars()
-	local data = web:DownloadAndRun(
+	local data = request:DownloadAndRun(
 		"https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/mainline/Resources/CVars.lua",
 		pathlib.join(PATHS.BLIZZRES, "CVars_mainline.lua")
 	)

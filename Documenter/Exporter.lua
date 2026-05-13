@@ -1,7 +1,7 @@
 local util_system = require("wowdoc.util.system")
 local log = require("wowdoc.util.log")
 local Widgets = require("wowdoc.loader.doc_widgets")
-local emptySystems = require("wowdoc.analysis.systems.is_empty"):get()
+local emptySystems = require("wowdoc.analyse.systems.is_empty"):get()
 
 local m = {}
 

@@ -2,7 +2,7 @@ local lfs = require("lfs")
 local util = require("wowdoc.util")
 local system = require("wowdoc.util.system")
 local table_sort = require("wowdoc.util.table_sort")
-local web = require("wowdoc.util.web")
+local request = require("wowdoc.web.request")
 local PATH = [[D:\Prog\World of Warcraft\Binaries]]
 local BRANCH = "mainline"
 system:mkdir("cache_txt")
@@ -49,7 +49,7 @@ local function WriteFile(path, tbl)
 end
 
 local function GetCVars(branch)
-	return web:DownloadAndRun(
+	return request:DownloadAndRun(
 		string.format("https://github.com/Ketho/BlizzardInterfaceResources/blob/%s/Resources/CVars.lua", branch),
 		pathlib.join(PATHS.BLIZZRES, string.format("CVars_%s", branch))
 	)

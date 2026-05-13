@@ -1,9 +1,9 @@
 local lfs = require("lfs")
 local pathlib = require("path")
-local system = require("wowdoc.util.system")
 require("wowdoc.config")
 
 local wowdoc = require("wowdoc")
+local system = require("wowdoc.util.system")
 local log = require("wowdoc.util.log")
 local products = require("wowdoc.products")
 local git = require("wowdoc.git")
@@ -99,7 +99,7 @@ local function LoadTypeDocumentation()
 	TypeDocumentation = Types
 end
 
-function m:main(product, isAnnotate, force, enumHackFunc)
+function m:LoadDocumentation(product, isAnnotate, force, enumHackFunc)
 	if not product then
 		log.warn(string.format("wowdoc.loader: Defaulting to `%s` tact product", CONFIG.TACT_PRODUCT))
 		product = CONFIG.TACT_PRODUCT

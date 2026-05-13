@@ -1,6 +1,6 @@
-local wowdocloader = require("wowdoc.loader")
+local loader = require("wowdoc.loader")
 
-wowdocloader:main(CONFIG.TACT_PRODUCT)
+loader:LoadDocumentation(CONFIG.TACT_PRODUCT)
 require("Documenter.Wowpedia")
 --require("Documenter.Tests.Tests")
 

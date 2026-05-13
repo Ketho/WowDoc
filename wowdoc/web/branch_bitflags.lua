@@ -1,6 +1,6 @@
 local pathlib = require("path")
 local tablelib = require("wowdoc.util.table")
-local web = require("wowdoc.util.web")
+local request = require("wowdoc.web.request")
 
 local m = {}
 
@@ -80,7 +80,7 @@ local function GetBranchMap(branches, resource)
 		local url = BLIZZRES:format(branch, resource)
 		local file_branch = string.format("%s_%s.lua", resource, branch)
 		local path = pathlib.join(PATHS.BLIZZRES, file_branch)
-		local file_data = web:DownloadAndRun(url, path)
+		local file_data = request:DownloadAndRun(url, path)
 		map[branch] = ToMap[resource](file_data)
 	end
 	return map

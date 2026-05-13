@@ -1,11 +1,11 @@
 local pathlib = require("path")
-local wowdoc = require("wowdoc")
+local loader = require("wowdoc.loader")
 local log = require("wowdoc.util.log")
 local OUT = pathlib.join(PATHS.WIKI_PAGE, "Widget_API.txt")
 local doc_widgets = require("wowdoc/loader/doc_widgets")
 
 local PRODUCT = CONFIG.TACT_PRODUCT
-wowdoc:LoadDocumentation(PRODUCT)
+loader:LoadDocumentation(PRODUCT)
 
 local widget_order = {
 	"Object",

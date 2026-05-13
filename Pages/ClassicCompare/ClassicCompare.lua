@@ -2,9 +2,10 @@
 -- https://wowpedia.fandom.com/wiki/Events/Classic
 -- https://wowpedia.fandom.com/wiki/Console_variables/Classic
 local util = require("wowdoc")
+local loader = require("wowdoc.loader")
 local tablelib = require("wowdoc.util.table")
 local table_sort = require("wowdoc.util.table_sort")
-local web = require("wowdoc.util.web")
+local request = require("wowdoc.web.request")
 local Signatures = require("Pages/ClassicCompare/Signatures")
 
 local PRODUCT = "wowxptr" ---@type TactProduct
@@ -128,7 +129,7 @@ function m:GetData(sourceType)
 	end
 
 	for _, branch in pairs(branches) do
-		local fileTbl = web:DownloadAndRun(
+		local fileTbl = request:DownloadAndRun(
 			info.url:format(branch),
 			info.cache:format(branch)
 		)
@@ -166,7 +167,7 @@ function m:GetData(sourceType)
 end
 
 function m:GetEventPayload()
-	util:LoadDocumentation(PRODUCT)
+	loader:LoadDocumentation(PRODUCT)
 	local t = {}
 	for _, event in pairs(APIDocumentation.events) do
 		if event.Payload then
