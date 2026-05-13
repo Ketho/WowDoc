@@ -1,8 +1,8 @@
 -- compares framexml versions
+local table_sort = require("wowdoc.util.table_sort")
 local log = require("wowdoc.util.log")
 local products = require("wowdoc.products")
 local enum = require("wowdoc.web.enum")
-local util = require("wowdoc.util")
 local pathlib = require("path")
 
 local PRODUCT = CONFIG.TACT_PRODUCT
@@ -106,7 +106,7 @@ local function CompareVersions(versions, framexml)
 		local changes = table_diff.print_table_diff(frame_a[v], frame_b[v])
 		table.sort(changes["(root)"])
 		-- changes["(root)"] = nil -- not currently interested in root level changes
-		for _, k in pairs(util.table.SortTable(changes)) do
+		for _, k in pairs(table_sort.SortTable(changes)) do
 			local v = changes[k]
 			for k2, v2 in pairs(v) do
 				-- print(v2)

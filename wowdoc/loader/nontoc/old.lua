@@ -1,6 +1,6 @@
 -- when we dont need the Blizzard_APIDocumentation addon
 local lfs = require("lfs")
-local util = require("wowdoc.util")
+local tablelib = require("wowdoc.util.table")
 
 local m = {}
 local docTables = {}
@@ -54,7 +54,7 @@ Constants.HousingCatalogConsts.HOUSING_CATALOG_SUBCATEGORIES_EXPECTED = 0
 
 -- only checks for :AddDocumentationTable files
 function m:LoadBlizzardDocs(folder)
-	util.table.Wipe(docTables)
+	tablelib.Wipe(docTables)
 	local version = folder:match("%d+%.%d+.%d+")
 	for fileName in lfs.dir(folder) do
 		if not nondoc[fileName] and not IsTocRemoved(fileName, version) then
@@ -66,7 +66,7 @@ function m:LoadBlizzardDocs(folder)
 			end
 		end
 	end
-	return util.table.CopyTable(docTables)
+	return tablelib.CopyTable(docTables)
 end
 
 return m

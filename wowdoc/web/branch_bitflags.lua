@@ -1,7 +1,6 @@
-local wowdoc = require("wowdoc")
-local util = require("wowdoc.util")
-local web = require("wowdoc.util.web")
 local pathlib = require("path")
+local tablelib = require("wowdoc.util.table")
+local web = require("wowdoc.util.web")
 
 local m = {}
 
@@ -52,13 +51,13 @@ local ToMap = {
 		return t
 	end,
 	Frames = function(tbl)
-		return util.table.ToMap(table.unpack(tbl)) -- include loadondemand
+		return tablelib.ToMap(table.unpack(tbl)) -- include loadondemand
 	end,
 	FrameXML = function(tbl)
-		return util.table.ToMap(table.unpack(tbl)) -- include loadondemand
+		return tablelib.ToMap(table.unpack(tbl)) -- include loadondemand
 	end,
 	GlobalAPI = function(tbl)
-		return util.table.ToMap(table.unpack(tbl)) -- include lua api
+		return tablelib.ToMap(table.unpack(tbl)) -- include lua api
 	end,
 	LuaEnum = function()
 		local t = {}
@@ -66,7 +65,7 @@ local ToMap = {
 		return t
 	end,
 	Mixins = function(tbl)
-		return util.table.ToMap(tbl)
+		return tablelib.ToMap(tbl)
 	end,
 	Templates = function(tbl)
 		local t = {}

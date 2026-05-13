@@ -23,14 +23,6 @@ local flavorInfo = {
 	mists_beta = {flavor = "mists", header = true, branch = "wow_classic_beta"},
 }
 
-local classicVersions = {
-	"^1.13.",
-	"^1.14.",
-	"^1.15.",
-	"^2.5.",
-	"^3.4.",
-}
-
 --- Looks through the FrameXML folder and returns
 --- the copy of the FrameXML with the highest build number
 --- it does not look at the semantic version (major,minor,patch) but only at the build number
@@ -118,6 +110,14 @@ function m:GetPatchText(patchData, ID, patch_override)
 	end
 	return text
 end
+
+local classicVersions = {
+	"^1.13.",
+	"^1.14.",
+	"^1.15.",
+	"^2.5.",
+	"^3.4.",
+}
 
 function m:IsClassicVersion(v)
 	for _, pattern in pairs(classicVersions) do

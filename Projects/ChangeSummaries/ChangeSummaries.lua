@@ -1,8 +1,8 @@
 -- https://wowpedia.fandom.com/wiki/API_change_summaries
+local pathlib = require("path")
 local wowdoc = require("wowdoc")
 local system = require("wowdoc.util.system")
-local util = require("wowdoc.util")
-local pathlib = require("path")
+local table_sort = require("wowdoc.util.table_sort")
 local log = require("wowdoc.util.log")
 local web = require("wowdoc.util.web")
 local cvar_module = require("Projects/ChangeSummaries/CVar")
@@ -124,8 +124,8 @@ function m:GetWikiTable(info, section)
 			table.sort(info.changes["+"])
 			table.sort(info.changes["-"])
 		else
-			table.sort(info.changes["+"], util.table.SortNocase)
-			table.sort(info.changes["-"], util.table.SortNocase)
+			table.sort(info.changes["+"], table_sort.SortNocase)
+			table.sort(info.changes["-"], table_sort.SortNocase)
 		end
 	end
 	local t = {}

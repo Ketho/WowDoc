@@ -2,6 +2,8 @@
 -- https://wowpedia.fandom.com/wiki/Events/Classic
 -- https://wowpedia.fandom.com/wiki/Console_variables/Classic
 local util = require("wowdoc")
+local tablelib = require("wowdoc.util.table")
+local table_sort = require("wowdoc.util.table_sort")
 local web = require("wowdoc.util.web")
 local Signatures = require("Pages/ClassicCompare/Signatures")
 
@@ -19,7 +21,7 @@ local sources = {
 			return tbl[1]
 		end,
 		map = function(tbl)
-			return util.table.ToMap(tbl)
+			return tablelib.ToMap(tbl)
 		end,
 		name_fs = "{{apilink|t=a|%s}}",
 	},
@@ -215,7 +217,7 @@ local function main()
 		for _, sectionInfo in pairs(sections) do
 			if next(data[sectionInfo.id]) then
 				file:write(section_fs:format(sectionInfo.label))
-				for _, name in pairs(util:SortTable(data[sectionInfo.id], info.sortFunc)) do
+				for _, name in pairs(table_sort:SortTable(data[sectionInfo.id], info.sortFunc)) do
 					local expansions = {
 						parts.mainline_ptr[name] and "mainline_ptr",
 						parts.mists[name] and "mists",

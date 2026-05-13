@@ -3,7 +3,7 @@
 local lfs = require("lfs")
 local pathlib = require("path")
 
-local write_table = require("wowdoc.util.table_write")
+local table_write = require("wowdoc.util.table_write")
 local util = require("wowdoc")
 local enum = require("wowdoc.web.enum")
 local products = require("wowdoc.products")
@@ -35,7 +35,7 @@ local function GetFrameXmlData(tbl_apidoc)
 	if not lfs.attributes(path) then
 		local FrameXML = require("Scribunto/API_info/patch/event/FrameXML")
 		data = FrameXML:main(flavors, tbl_apidoc)
-		write_table(data, path)
+		table_write(data, path)
 	else
 		data = loadfile(path)()
 	end
@@ -57,7 +57,7 @@ local function WritePatchData(flavor)
 			tbl_apidoc[k][1] = v
 		end
 	end
-	write_table(tbl_apidoc, flavor.out)
+	table_write(tbl_apidoc, flavor.out)
 	local file = io.open(flavor.out, "a+")
 	file:write("-- https://github.com/Ketho/WowpediaApiDoc/blob/master/Scribunto/API_info/patch/event/event.lua\n")
 	file:close()

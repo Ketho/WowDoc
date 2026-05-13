@@ -1,6 +1,7 @@
 local lfs = require("lfs")
 local util = require("wowdoc.util")
 local system = require("wowdoc.util.system")
+local table_sort = require("wowdoc.util.table_sort")
 local web = require("wowdoc.util.web")
 local PATH = [[D:\Prog\World of Warcraft\Binaries]]
 local BRANCH = "mainline"
@@ -41,7 +42,7 @@ end
 local function WriteFile(path, tbl)
 	print("writing to", path)
 	local file = io.open(path, "w")
-	for _, k in pairs(util.table:SortTable(tbl)) do
+	for _, k in pairs(table_sort.SortTable(tbl)) do
 		file:write(k.."\n")
 	end
 	file:close()
@@ -103,7 +104,7 @@ local function main()
 	print("writing to ", out_path)
 	local file = io.open(out_path, "w")
 	file:write("KethoWowpedia.patch.cvar = {\n")
-	for _, k in pairs(util.table:SortTable(t, util.table.SortNocase)) do
+	for _, k in pairs(table_sort.SortTable(t, table_sort.SortNocase)) do
 		file:write(string.format('\t["%s"] = "%s",\n', k, t[k]))
 	end
 	file:write("}\n")

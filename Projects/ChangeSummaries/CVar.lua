@@ -1,8 +1,7 @@
 -- similar codebase as https://wowpedia.fandom.com/wiki/Module:API_info/cvar
-local wowdoc = require("wowdoc")
-local util = require("wowdoc.util")
-local web = require("wowdoc.util.web")
 local pathlib = require("path")
+local tablelib = require("wowdoc.util.table")
+local web = require("wowdoc.util.web")
 local m = {}
 local data = {}
 
@@ -68,8 +67,8 @@ end
 
 -- check if it's not some minor CVar attribute change
 function m:SanitizeCVars(ApiTypes)
-	local added = util.table.ToMap(ApiTypes.CVars.changes["+"])
-	local removed = util.table.ToMap(ApiTypes.CVars.changes["-"])
+	local added = tablelib.ToMap(ApiTypes.CVars.changes["+"])
+	local removed = tablelib.ToMap(ApiTypes.CVars.changes["-"])
 	for k in pairs(added) do
 		if removed[k] then
 			added[k] = nil
@@ -77,8 +76,8 @@ function m:SanitizeCVars(ApiTypes)
 		end
 	end
 	-- cba safely removing while iterating
-	util.table.Wipe(ApiTypes.CVars.changes["+"])
-	util.table.Wipe(ApiTypes.CVars.changes["-"])
+	tablelib.Wipe(ApiTypes.CVars.changes["+"])
+	tablelib.Wipe(ApiTypes.CVars.changes["-"])
 	for k in pairs(added) do
 		table.insert(ApiTypes.CVars.changes["+"], k)
 	end

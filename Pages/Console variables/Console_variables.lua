@@ -1,7 +1,7 @@
 -- https://warcraft.wiki.gg/wiki/Console_variables/Complete_list
 local pathlib = require("path")
 local wowdoc = require("wowdoc")
-local util = require("wowdoc.util")
+local table_sort = require("wowdoc.util.table_sort")
 local products = require("wowdoc.products")
 
 PRODUCT = "wow" ---@type TactProduct
@@ -51,7 +51,7 @@ function m:WriteCVarList(blizzres_cvars, framexml_strings, binary_strings)
 	file:write("! !! !! !! Name !! Default !! Category !! Scope !! Description\n")
 	local githubLink = "{{framexml_search|t=icon|%s}}"
 	local fs = "|-\n| %s || %s || %s || %s\n| %s || %s || %s\n| %s\n"
-	for _, cvar in pairs(util.table.SortTable(blizzres_cvars, util.table.SortNocase)) do
+	for _, cvar in pairs(table_sort.SortTable(blizzres_cvars, table_sort.SortNocase)) do
 		local v = blizzres_cvars[cvar]
 		local default, category, server, character, secure, desc = table.unpack(v)
 		local default_text
@@ -88,7 +88,7 @@ function m:WriteCommandList(blizzres_commands)
 	file:write('{| class="sortable darktable zebra col2-center"\n')
 	file:write("! Name !! Category !! Description\n")
 	local fs = "|-\n| %s\n| %s\n| %s\n"
-	for _, command in pairs(util.table.SortTable(blizzres_commands, util.table.SortNocase)) do
+	for _, command in pairs(table_sort.SortTable(blizzres_commands, table_sort.SortNocase)) do
 		local v = blizzres_commands[command]
 		local category, desc = table.unpack(v)
 		local name = string.format("[[CVar %s|%s]]", command, command)

@@ -1,6 +1,8 @@
 local wowdoc = require("wowdoc")
 local web = require("wowdoc.util.web")
-local util = require("wowdoc.util")
+local strlib = require("wowdoc.util.string")
+local tablelib = require("wowdoc.util.table")
+local table_sort = require("wowdoc.util.table_sort")
 local products = require("wowdoc.products")
 local WikiText = require("Pages/World of Warcraft API/WikiText")
 
@@ -37,7 +39,7 @@ function m:GetGlobalApi()
 		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/GlobalAPI.lua", gethe_branch),
 		pathlib.join(PATHS.BLIZZRES, string.format("GlobalAPI_%s.lua", gethe_branch))
 	)
-	return util.table.ToMap(global_api[1])
+	return tablelib.ToMap(global_api[1])
 end
 
 function m:FindDuplicates(wowpedia)
@@ -53,7 +55,7 @@ function m:FindDuplicates(wowpedia)
 end
 
 function m:HasIgnoredTag(str)
-	local tags = util.string.strsplit(str, ", ")
+	local tags = strlib.strsplit(str, ", ")
 	for _, tag in pairs(tags) do
 		if ignoredTags[tag] then
 			return true
@@ -62,9 +64,9 @@ function m:HasIgnoredTag(str)
 end
 
 function m:FindMissing(wowpedia, wowpedia_tags, global_api)
-	local map = util.table.ToMap(wowpedia)
+	local map = tablelib.ToMap(wowpedia)
 	print("\n-- to add")
-	for _, k in pairs(util.table.SortTable(global_api)) do
+	for _, k in pairs(table_sort.SortTable(global_api)) do
 		if not map[k] then
 			if signatures[k] then
 				print(string.format(": %s", signatures[k]))
