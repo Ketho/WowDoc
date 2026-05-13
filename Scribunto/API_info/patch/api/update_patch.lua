@@ -1,6 +1,6 @@
 local pathlib = require("path")
 local util = require("wowdoc")
-local log = require("wowdoc.log")
+local log = require("wowdoc.util.log")
 local github = require("wowdoc.web.github")
 
 local URL = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/refs/tags/%s/Resources/GlobalAPI.lua"

@@ -1,7 +1,7 @@
 -- Blizzard_APIDocumentationGenerated requires the `Enum` table
 local util = require("wowdoc")
 local pathlib = require("path")
-local log = require("wowdoc.log")
+local log = require("wowdoc.util.log")
 
 local m = {}
 local REPO = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources"

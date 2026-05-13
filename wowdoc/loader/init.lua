@@ -3,7 +3,7 @@ local pathlib = require("path")
 require("wowdoc.config")
 
 local wowdoc = require("wowdoc")
-local log = require("wowdoc.log")
+local log = require("wowdoc.util.log")
 local products = require("wowdoc.products")
 local git = require("wowdoc.git")
 local enum = require("wowdoc.enum")

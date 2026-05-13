@@ -1,5 +1,5 @@
 -- https://wago.tools/
-local log = require("wowdoc.log")
+local log = require("wowdoc.util.log")
 
 local m = {}
 

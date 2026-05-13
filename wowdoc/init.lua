@@ -7,7 +7,7 @@ local ltn12 = require("ltn12")
 
 require("wowdoc.config")
 local wago = require("wowdoc.wago")
-local log = require("wowdoc.log")
+local log = require("wowdoc.util.log")
 local doc_widgets = require("wowdoc.loader.doc_widgets")
 
 local m = {}

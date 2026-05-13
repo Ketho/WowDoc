@@ -3,7 +3,7 @@ local PATH = require("path")
 local wowdoc = require("wowdoc")
 local util = require("wowdoc.util")
 local apidoc_nontoc = require("wowdoc.loader.nontoc.old")
-local log = require("wowdoc.log")
+local log = require("wowdoc.util.log")
 
 local function GetEventMap(data)
 	local t = {}

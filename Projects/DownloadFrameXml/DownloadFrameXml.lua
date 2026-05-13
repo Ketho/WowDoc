@@ -16,7 +16,7 @@ local cjson = require("cjson")
 local ltn12 = require("ltn12")
 
 local util = require("wowdoc")
-local log = require("wowdoc.log")
+local log = require("wowdoc.util.log")
 local products = require("wowdoc.products")
 local tags = require("wowdoc.git.framexml_tags")
 

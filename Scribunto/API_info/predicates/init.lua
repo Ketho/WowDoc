@@ -3,7 +3,7 @@ local pathlib = require("path")
 
 require("wowdoc.config")
 local widget_docs = require("wowdoc.loader.doc_widgets")
-local log = require("wowdoc.log")
+local log = require("wowdoc.util.log")
 local PATH_PREDICATES = pathlib.join(".wow", "predicates")
 
 local PRODUCT = CONFIG.TACT_PRODUCT

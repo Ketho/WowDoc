@@ -5,7 +5,7 @@ local https = require("ssl.https")
 local cjson = require("cjson")
 local cjsonutil = require("cjson.util")
 
-local log = require("wowdoc.log")
+local log = require("wowdoc.util.log")
 local csv = require("wowdoc.lua-csv")
 local products = require("wowdoc.products")
 

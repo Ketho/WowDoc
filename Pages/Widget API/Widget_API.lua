@@ -1,6 +1,6 @@
 local pathlib = require("path")
 local wowdoc = require("wowdoc")
-local log = require("wowdoc.log")
+local log = require("wowdoc.util.log")
 local OUT = pathlib.join(PATHS.WIKI_PAGE, "Widget_API.txt")
 local doc_widgets = require("wowdoc/loader/doc_widgets")
 

@@ -1,5 +1,5 @@
 local util = require("wowdoc")
-local log = require("wowdoc.log")
+local log = require("wowdoc.util.log")
 local Widgets = require("wowdoc.loader.doc_widgets")
 local emptySystems = require("wowdoc.analytics.systems.is_empty"):get()
 

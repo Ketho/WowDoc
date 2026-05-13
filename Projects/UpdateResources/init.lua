@@ -1,4 +1,4 @@
-local log = require("wowdoc.log")
+local log = require("wowdoc.util.log")
 local git = require("wowdoc.git")
 local products = require("wowdoc.products")
 local wago = require("wowdoc.wago")

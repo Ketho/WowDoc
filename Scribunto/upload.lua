@@ -2,7 +2,7 @@ local Path = require("path")
 local wowdoc = require("wowdoc")
 local enum = require("wowdoc.enum")
 local products = require("wowdoc.products")
-local log = require("wowdoc.log")
+local log = require("wowdoc.util.log")
 
 local PRODUCT = CONFIG.TACT_PRODUCT
 local gethe_branch = products:GetBranch(PRODUCT)

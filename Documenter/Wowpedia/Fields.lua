@@ -1,4 +1,4 @@
-local log = require("wowdoc.log")
+local log = require("wowdoc.util.log")
 
 Wowpedia.basicTypes = {
 	bool = "boolean",
