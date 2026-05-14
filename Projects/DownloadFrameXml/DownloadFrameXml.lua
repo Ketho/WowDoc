@@ -19,8 +19,8 @@ local system = require("wowdoc.util.system")
 local web = require("wowdoc.web")
 local github = require("wowdoc.web.github")
 local log = require("wowdoc.util.log")
-local products = require("wowdoc.products")
-local tags = require("wowdoc.git.tags")
+local products = require("wowdoc.products.branches")
+local tags = require("wowdoc.products.tags")
 
 ---@type GetheBranch[]
 local branches = {

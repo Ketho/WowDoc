@@ -1,6 +1,6 @@
 local util_system = require("wowdoc.util.system")
 local log = require("wowdoc.util.log")
-local Widgets = require("wowdoc.loader.doc_widgets")
+local Widgets = require("wowdoc.namingway.scriptobjects")
 local emptySystems = require("wowdoc.analyse.systems.is_empty"):get()
 
 local m = {}
@@ -29,7 +29,7 @@ function m:ExportSystems(folder)
 			local prefix
 			if system.Type == "ScriptObject" then
 				if not Widgets[system.Name] then
-					error(string.format("Not yet mapped widget in doc_widgets.lua for %s", system.Name))
+					error(string.format("Not yet mapped widget in namingway/scriptobjects.lua for %s", system.Name))
 				end
 				prefix = Widgets[system.Name].." "
 			else

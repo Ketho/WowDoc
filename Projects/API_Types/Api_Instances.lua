@@ -1,7 +1,7 @@
 local loader = require("wowdoc.loader")
 loader:main(CONFIG.TACT_PRODUCT)
 local m_Api_Types = require("Projects.API_Types.Api_Types")
-local widgetSystems = require("wowdoc.loader.doc_widgets")
+local widgetSystems = require("wowdoc.namingway.scriptobjects")
 
 local function explode(t)
     for k, v in pairs(t) do

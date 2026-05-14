@@ -1,5 +1,5 @@
 local loader = require("wowdoc.loader")
-local products = require("wowdoc.products")
+local products = require("wowdoc.products.branches")
 
 PRODUCT = CONFIG.TACT_PRODUCT ---@type TactProduct
 local gethe_branch = products:GetBranch(PRODUCT)

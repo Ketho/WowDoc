@@ -2,7 +2,7 @@
 local pathlib = require("path")
 
 require("wowdoc.config")
-local widget_docs = require("wowdoc.loader.doc_widgets")
+local widget_docs = require("wowdoc.namingway.scriptobjects")
 local log = require("wowdoc.util.log")
 local PATH_PREDICATES = pathlib.join(".wow", "predicates")
 

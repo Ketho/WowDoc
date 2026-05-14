@@ -1,7 +1,7 @@
 local Path = require("path")
 local wowdoc = require("wowdoc")
 local enum = require("wowdoc.web.enum")
-local products = require("wowdoc.products")
+local products = require("wowdoc.products.branches")
 local log = require("wowdoc.util.log")
 
 local PRODUCT = CONFIG.TACT_PRODUCT

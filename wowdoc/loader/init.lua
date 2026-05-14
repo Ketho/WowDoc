@@ -4,10 +4,10 @@ require("wowdoc.config")
 
 local system = require("wowdoc.util.system")
 local log = require("wowdoc.util.log")
-local products = require("wowdoc.products")
-local git = require("wowdoc.git")
-local enum = require("wowdoc.web.enum")
-local patches = require("wowdoc.loader.patches")
+local products = require("wowdoc.products.branches")
+local git = require("wowdoc.web.git")
+local enum = require("wowdoc.web.blizres.enum")
+local patches = require("wowdoc.loader.doc.patches")
 local annotate
 local custom_doc
 
@@ -92,7 +92,7 @@ local function LoadAnnotationAddon(path, name)
 end
 
 local function LoadTypeDocumentation()
-	local data = require(pathlib.join(LOADER_PATH, "TypeDocumentation"))
+	local data = require(pathlib.join(LOADER_PATH, "doc", "TypeDocumentation"))
 	local Types = {Tables = data}
 	APIDocumentation:AddDocumentationTable(Types)
 	TypeDocumentation = Types

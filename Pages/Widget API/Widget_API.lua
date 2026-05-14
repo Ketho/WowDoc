@@ -2,7 +2,7 @@ local pathlib = require("path")
 local loader = require("wowdoc.loader")
 local log = require("wowdoc.util.log")
 local OUT = pathlib.join(PATHS.WIKI_PAGE, "Widget_API.txt")
-local doc_widgets = require("wowdoc/loader/doc_widgets")
+local doc_widgets = require("wowdoc.namingway.scriptobjects")
 
 local PRODUCT = CONFIG.TACT_PRODUCT
 loader:LoadDocumentation(PRODUCT)

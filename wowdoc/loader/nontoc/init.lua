@@ -2,7 +2,7 @@
 local lfs = require("lfs")
 local pathlib = require("path")
 local tablelib = require("wowdoc.util.table")
-local get_framexml = require("wowdoc.loader.get_framexml_path")
+local get_framexml = require("wowdoc.loader.nontoc.get_framexml_path")
 
 local m = {}
 local docTables = {}

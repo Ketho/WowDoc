@@ -1,4 +1,4 @@
-local widgets = require("wowdoc.loader.doc_widgets")
+local widgets = require("wowdoc.namingway.scriptobjects")
 
 local function FormatApisig(s)
 	return string.format("{{apisig|%s}}", s)

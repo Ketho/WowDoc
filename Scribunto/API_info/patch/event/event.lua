@@ -6,7 +6,7 @@ local pathlib = require("path")
 local table_write = require("wowdoc.util.table_write")
 local util = require("wowdoc")
 local enum = require("wowdoc.web.enum")
-local products = require("wowdoc.products")
+local products = require("wowdoc.products.branches")
 
 local BRANCH = products:GetBranch(CONFIG.TACT_PRODUCT)
 enum:LoadLuaEnums(BRANCH)

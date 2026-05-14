@@ -1,6 +1,6 @@
 local log = require("wowdoc.util.log")
-local git = require("wowdoc.git")
-local products = require("wowdoc.products")
+local git = require("wowdoc.web.git")
+local products = require("wowdoc.products.branches")
 local wago = require("wowdoc.web.wago")
 
 OUT_GLOBALSTRINGS = "/mnt/d/Repo/wow-api/BlizzardInterfaceResources/Resources/GlobalStrings/%s.lua"

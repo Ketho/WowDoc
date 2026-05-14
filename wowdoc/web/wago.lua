@@ -7,7 +7,7 @@ local cjsonutil = require("cjson.util")
 
 local log = require("wowdoc.util.log")
 local csv = require("wowdoc.util.csv")
-local products = require("wowdoc.products")
+local products = require("wowdoc.products.branches")
 
 ---@diagnostic disable-next-line: undefined-global
 local cache_folder = PATHS and PATHS.WAGO or "wago"

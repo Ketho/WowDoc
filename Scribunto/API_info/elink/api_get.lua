@@ -1,7 +1,7 @@
 local pathlib = require("path")
 local loader = require("wowdoc.loader")
 local request = require("wowdoc.web.request")
-local products = require("wowdoc.products")
+local products = require("wowdoc.products.branches")
 
 local m = {}
 

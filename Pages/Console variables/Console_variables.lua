@@ -2,7 +2,7 @@
 local pathlib = require("path")
 local wowdoc = require("wowdoc")
 local table_sort = require("wowdoc.util.table_sort")
-local products = require("wowdoc.products")
+local products = require("wowdoc.products.branches")
 
 PRODUCT = "wow" ---@type TactProduct
 GETHE_BRANCH = products:GetBranch(PRODUCT)

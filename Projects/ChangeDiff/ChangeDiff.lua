@@ -1,7 +1,7 @@
 -- compares framexml versions
 local table_sort = require("wowdoc.util.table_sort")
 local log = require("wowdoc.util.log")
-local products = require("wowdoc.products")
+local products = require("wowdoc.products.branches")
 local enum = require("wowdoc.web.enum")
 local pathlib = require("path")
 

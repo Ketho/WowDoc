@@ -3,7 +3,7 @@ local request = require("wowdoc.web.request")
 local strlib = require("wowdoc.util.string")
 local tablelib = require("wowdoc.util.table")
 local table_sort = require("wowdoc.util.table_sort")
-local products = require("wowdoc.products")
+local products = require("wowdoc.products.branches")
 local WikiText = require("Pages/World of Warcraft API/WikiText")
 
 local PRODUCT = "wow" ---@type TactProduct

@@ -2,8 +2,8 @@
 local lfs = require("lfs")
 local pathlib = require("path")
 
-local products = require("wowdoc.products")
-local git = require("wowdoc.git")
+local products = require("wowdoc.products.branches")
+local git = require("wowdoc.web.git")
 local enum = require("wowdoc.web.enum")
 local log = require("wowdoc.util.log")
 

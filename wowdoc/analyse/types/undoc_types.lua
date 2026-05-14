@@ -1,8 +1,8 @@
 local u = require("wowdoc.util")
 local get_types = require("wowdoc.types.get_types")
 local enum = require("wowdoc.web.enum")
-local TypeDoc = require("wowdoc.loader.TypeDocumentation")
-local MissingDoc = require("wowdoc.loader.MissingDocumentation")
+local TypeDoc = require("wowdoc.loader.doc.TypeDocumentation")
+local MissingDoc = require("wowdoc.loader.doc.MissingDocumentation")
 local m = {}
 
 -- documented types are Structure and Enumeration tables with a Name
