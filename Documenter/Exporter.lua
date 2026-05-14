@@ -2,7 +2,6 @@ local util_system = require("wowdoc.util.system")
 local log = require("wowdoc.util.log")
 local Widgets = require("wowdoc.namingway.scriptobjects")
 local emptySystems = require("wowdoc.analyse.systems.is_empty"):get()
-
 local m = {}
 
 local function WriteFile(path, text)

@@ -1,6 +1,6 @@
-local m = {}
 local table_sort = require("wowdoc.util.table_sort")
 local loader = require("wowdoc.loader")
+local m = {}
 
 function m:main(runTests)
     loader:LoadDocumentation()

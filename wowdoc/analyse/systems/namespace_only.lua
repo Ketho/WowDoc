@@ -1,10 +1,9 @@
 -- systems with only a namespace and no name -> empty set
+local m = {}
 
 if not APIDocumentation then
 	require("wowdoc.loader"):LoadDocumentation()
 end
-
-local m = {}
 
 local function GetOnlyNamespaceSystems()
 	local t = {}

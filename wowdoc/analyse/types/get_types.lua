@@ -12,7 +12,6 @@ Blizzard_APIDocumentationGenerated depends on Blizzard_APIDocumentation in the T
 - fields: from tables, functions, events
 ]]
 local u = require("wowdoc.util.table")
-
 local m = {}
 
 local function GetFunctionTypes()

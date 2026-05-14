@@ -98,14 +98,19 @@ local data = {
 	{ Name = "ClubInvitationId", Type = {"string"} },
 	{ Name = "ClubStreamId", Type = {"string"} },
 	{ Name = "ConnectionIptype", Type = {"number"}, Description = {"1=IPv4", "2=IPv6"} },
+	{ Name = "DurationMillisecondsPrimitive", Type = {"number"} },
 	{ Name = "DurationSeconds", Type = {"number"} },
+	{ Name = "DurationSecondsDouble", Type = {"number"} },
+	{ Name = "DurationSecondsPrimitive", Type = {"number"} },
 	{ Name = "EncounterTimelineEventID", Type = {"number"} },
 	{ Name = "FileAsset", Type = {"string"} }, -- texture path
 	{ Name = "fileID", Type = {"number"}, W_Link = "FileDataID" },
 	{ Name = "FontAlphabet", Type = {"string"}, Description = {"roman", "korean", "simplifiedchinese", "traditionalchinese", "russian"} },
+	{ Name = "FontAsset", Type = {"string"} }, -- path to font file
 	{ Name = "FrameTime", Type = {"number"} },
 	{ Name = "GarrisonFollower", Type = {"string"} },
 	{ Name = "HTMLTextType", Type = {"string"} },
+	{ Name = "IDOrLink", Type = {"number", "string"} },
 	{ Name = "InventorySlots", Type = {"number"}, W_Link = "InventorySlotId" },
 	{ Name = "ItemInfo", Type = {"number", "string"}, W_Link = "API_types/ItemInfo" }, -- item id, link, name
 	{ Name = "kstringClubMessage", Type = {"string"}, W_Link = "Kstring" },
@@ -142,17 +147,12 @@ local data = {
 	{ Name = "uiUnit", Type = {"number"} }, -- user interface units
 	{ Name = "UnitToken", Type = {"string"}, W_Link = "UnitToken" },
 	{ Name = "UnitTokenNamePlate", Type = {"string"}, W_Link = "UnitToken" },
+	{ Name = "UnitTokenPvPRestrictedForAddOns", Type = {"string"} },
 	{ Name = "UnitTokenRestrictedForAddOns", Type = {"string"}, W_Link = "UnitToken" },
 	{ Name = "UnitTokenVariant", Type = {"string"}, W_Link = "UnitToken" },
 	{ Name = "WeeklyRewardItemDBID", Type = {"string"} }, -- in WeeklyRewardActivityRewardInfo -- /dump C_WeeklyRewards.GetActivities()[1].rewards
 	{ Name = "WOWGUID", Type = {"string"}, W_Link = "GUID" },
 	{ Name = "WOWMONEY", Type = {"number"}, Description = {"Amount in copper"} },
- 	{ Name = "DurationMillisecondsPrimitive", Type = {"number"} },
- 	{ Name = "DurationSecondsDouble", Type = {"number"} },
- 	{ Name = "DurationSecondsPrimitive", Type = {"number"} },
- 	{ Name = "FontAsset", Type = {"string"} }, -- path to font file
- 	{ Name = "IDOrLink", Type = {"number", "string"} },
- 	{ Name = "UnitTokenPvPRestrictedForAddOns", Type = {"string"} },
 	-- mixins
 	{ Name = "AzeriteEmpoweredItemLocation", Mixin = "ItemLocationMixin", W_Link = "ItemLocationMixin" },
 	{ Name = "AzeriteItemLocation", Mixin = "ItemLocationMixin", W_Link = "ItemLocationMixin" },

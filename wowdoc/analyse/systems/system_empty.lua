@@ -1,10 +1,9 @@
 -- systems that have only empty tables
+local m = {}
 
 if not APIDocumentation then
 	require("wowdoc.loader"):LoadDocumentation()
 end
-
-local m = {}
 
 local function IsSystemEmpty(tbl)
 	for k, v in pairs(tbl) do

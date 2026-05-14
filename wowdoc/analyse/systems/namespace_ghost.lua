@@ -1,13 +1,11 @@
 -- documented namespaces that dont actually exist
-
 local tablelib = require("wowdoc.util.table")
 local blizres = require("wowdoc.web.blizres.get")
+local m = {}
 
 if not APIDocumentation then
 	require("wowdoc.loader"):LoadDocumentation()
 end
-
-local m = {}
 
 function m:GetDocNamespaces()
 	local t = {}

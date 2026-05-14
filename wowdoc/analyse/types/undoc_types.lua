@@ -1,9 +1,9 @@
 local tablelib = require("wowdoc.util.table")
 local cfg = require("wowdoc.loader.config")
-local get_types = require("wowdoc.analyse.types.get_types")
-local enum = require("wowdoc.web.blizres.enum")
 local TypeDoc = require("wowdoc.loader.doc.TypeDocumentation")
 local MissingDoc = require("wowdoc.loader.doc.MissingDocumentation")
+local enum = require("wowdoc.web.blizres.enum")
+local get_types = require("wowdoc.analyse.types.get_types")
 local m = {}
 
 -- documented types are Structure and Enumeration tables with a Name
