@@ -1,6 +1,7 @@
-local u = require("wowdoc.util")
-local get_types = require("wowdoc.types.get_types")
-local enum = require("wowdoc.web.enum")
+local tablelib = require("wowdoc.util.table")
+local cfg = require("wowdoc.loader.config")
+local get_types = require("wowdoc.analyse.types.get_types")
+local enum = require("wowdoc.web.blizres.enum")
 local TypeDoc = require("wowdoc.loader.doc.TypeDocumentation")
 local MissingDoc = require("wowdoc.loader.doc.MissingDocumentation")
 local m = {}
@@ -13,12 +14,12 @@ end
 
 function m:GetUndocTypes()
 	local all_types = get_types:GetAllTypes()
-	local t = u.table.CopyTable(all_types)
+	local t = tablelib.CopyTable(all_types)
 	local docTypes = self:GetDocTypes()
 	for k in pairs(docTypes) do
 		t[k] = nil
 	end
-	enum:LoadLuaEnums(CONFIG.TACT_PRODUCT)
+	enum:LoadLuaEnums(cfg.TACT_PRODUCT)
 	for k in pairs(Enum) do
 		t[k] = nil
 	end

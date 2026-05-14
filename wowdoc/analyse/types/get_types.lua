@@ -1,5 +1,3 @@
-local u = require("wowdoc.util")
-
 --[[
 1. get all referenced types in blizzard docs
 2. get all actually documented types in blizzard docs
@@ -13,6 +11,8 @@ Blizzard_APIDocumentationGenerated depends on Blizzard_APIDocumentation in the T
 	- Constants contain Values
 - fields: from tables, functions, events
 ]]
+local u = require("wowdoc.util.table")
+
 local m = {}
 
 local function GetFunctionTypes()
@@ -61,7 +61,7 @@ local function GetTableTypes()
 			end
 		end
 	end
-	local combined_groups = u.table.CombineTable(
+	local combined_groups = u.CombineTable(
 		table_groups.Structure,
 		table_groups.Enumeration,
 		table_groups.CallbackType,
@@ -98,13 +98,13 @@ end
 
 function m:GetSets()
 	local function_types = GetFunctionTypes()
-	-- u.table.explode(function_types, true)
+	-- u.explode(function_types, true)
 	local event_types = GetEventTypes()
-	-- u.table.explode(event_types, true)
+	-- u.explode(event_types, true)
 	local table_field_types, table_types, table_docs = GetTableTypes()
-	-- u.table.explode(table_types, true)
+	-- u.explode(table_types, true)
 	local field_types = GetFieldTypes()
-	-- u.table.explode(field_types, true)
+	-- u.explode(field_types, true)
 	local t = {
 		function_types = function_types,
 		event_types = event_types,
@@ -118,7 +118,7 @@ end
 
 function m:GetAllTypes()
 	local s = self:GetSets()
-	local t = u.table.CombineTable(s.table_types, s.field_types)
+	local t = u.CombineTable(s.table_types, s.field_types)
 	return t
 end
 

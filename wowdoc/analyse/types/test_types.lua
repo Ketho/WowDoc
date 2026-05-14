@@ -1,6 +1,6 @@
 local m = {}
-local u = require("wowdoc.util")
-local get_types = require("wowdoc.types.get_types")
+local u = require("wowdoc.util.table")
+local get_types = require("wowdoc.analyse.types.get_types")
 
 local Tests = {
 	function()
