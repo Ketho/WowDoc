@@ -1,8 +1,7 @@
 local loader = require("wowdoc.loader")
 local cfg = require("wowdoc.loader.config")
 loader:LoadDocumentation(cfg.TACT_PRODUCT)
-require("Documenter.Wowpedia")
---require("Documenter.Tests.Tests")
-
+require("warcraftwiki")
+--require("warcraftwiki.tests")
 local Exporter = require("Documenter.Exporter")
-Exporter:ExportSystems(cfg.path.DOCUMENTER)
+Exporter:ExportSystems(cfg.path.WARCRAFTWIKI)

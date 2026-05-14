@@ -1,11 +1,12 @@
-Wowpedia = {}
-require("Documenter/Wowpedia/Functions")
-require("Documenter/Wowpedia/Events")
-require("Documenter/Wowpedia/Tables")
-require("Documenter/Wowpedia/Fields")
-require("Documenter/Wowpedia/Missing")
+WarcraftWiki = {}
+require("warcraftwiki.functions")
+require("warcraftwiki.events")
+require("warcraftwiki.tables")
+require("warcraftwiki.fields")
+require("warcraftwiki.types.types")
+require("warcraftwiki.types.missing")
 
-function Wowpedia:GetPageText(apiTable, systemType)
+function WarcraftWiki:GetPageText(apiTable, systemType)
 	local tbl = {}
 	local params
 	if apiTable.Type == "Function" then
@@ -25,14 +26,14 @@ function Wowpedia:GetPageText(apiTable, systemType)
 	return table.concat(tbl, "\n")
 end
 
-function Wowpedia:GetDescription(apiTable)
+function WarcraftWiki:GetDescription(apiTable)
 	if apiTable.Documentation then
 		return table.concat(apiTable.Documentation, "; ")
 	end
 	return "&nbsp;"
 end
 
-function Wowpedia:GetTemplateInfo(apiTable, systemType)
+function WarcraftWiki:GetTemplateInfo(apiTable, systemType)
 	local tbl = {}
 	if systemType == "ScriptObject" then
 		table.insert(tbl, "widgetmethod")
@@ -45,28 +46,13 @@ function Wowpedia:GetTemplateInfo(apiTable, systemType)
 	elseif apiTable.Type == "Enumeration" or apiTable.Type == "Structure" then
 		table.insert(tbl, "wowapitype")
 	end
-	local system = apiTable.System
-	if system then
-		if system.Namespace then
-			table.insert(tbl, "namespace="..system.Namespace)
-		end
-		if system.Name then
-			table.insert(tbl, "system="..system.Name)
-		end
-	end
 	return format("{{%s}}", table.concat(tbl, "|"))
 end
 
-function Wowpedia:main()
-	self:UpdateComplexTableTypes()
-	self:InitComplexFieldRefs()
-	self:InitSubtables()
+function WarcraftWiki:main()
 	self:InitTypeDocumentation()
-
-	local missingTypes = Wowpedia:FindMissingTypes()
+	local missingTypes = WarcraftWiki:FindMissingTypes()
 	if next(missingTypes) then
 		self:PullMissingTypes(missingTypes)
-		self:UpdateComplexTableTypes() -- update complex types again
 	end
 end
-Wowpedia:main()

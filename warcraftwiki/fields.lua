@@ -1,54 +1,5 @@
 local log = require("wowdoc.util.log")
 
-Wowpedia.basicTypes = {
-	bool = "boolean",
-	number = "number",
-	luaIndex = "number",
-	string = "string",
-	cstring = "string",
-	table = "table",
-	["function"] = "function",
-}
-
-Wowpedia.complexTypes = {}
-Wowpedia.blizzardTypes = {}
-Wowpedia.complexRefs = {}
-Wowpedia.subTables = {}
-
-function Wowpedia:UpdateComplexTableTypes()
-	for _, apiInfo in ipairs(APIDocumentation.tables) do
-		if apiInfo.Type == "Structure" or apiInfo.Type == "Enumeration" or apiInfo.Type == "CallbackType" then
-			Wowpedia.complexTypes[apiInfo.Name] = apiInfo
-		end
-	end
-end
-
-function Wowpedia:InitTypeDocumentation()
-	for _, v in ipairs(TypeDocumentation.Tables) do
-		Wowpedia.blizzardTypes[v.Name] = v
-	end
-end
-
-function Wowpedia:InitComplexFieldRefs()
-	for _, field in ipairs(APIDocumentation.fields) do
-		local parent = field.Function or field.Event or field.Table
-		local typeName = field.InnerType or field.Type
-		if not Wowpedia.basicTypes[typeName] and parent.Type ~= "Enumeration" then
-			Wowpedia.complexRefs[typeName] = (Wowpedia.complexRefs[typeName] or 0) + 1
-		end
-	end
-end
-
-function Wowpedia:InitSubtables()
-	for _, apiTable in ipairs(APIDocumentation.tables) do
-		if apiTable.Type == "Structure" then
-			for _, field in pairs(apiTable.Fields) do
-				Wowpedia.subTables[field.InnerType or field.Type] = true
-			end
-		end
-	end
-end
-
 local paramFs = ":;%s:%s"
 
 local function HasMiddleOptionals(paramTbl)
@@ -65,16 +16,16 @@ local function HasMiddleOptionals(paramTbl)
 end
 
 local function GetBlizzardType(name)
-	if Wowpedia.blizzardTypes[name] then
-		if Wowpedia.blizzardTypes[name].Replace then
-			return Wowpedia.blizzardTypes[name].Type
+	if WarcraftWiki.blizzardTypes[name] then
+		if WarcraftWiki.blizzardTypes[name].Replace then
+			return WarcraftWiki.blizzardTypes[name].Type
 		else
 			return name
 		end
 	end
 end
 
-function Wowpedia:GetSignature(paramTbl)
+function WarcraftWiki:GetSignature(paramTbl)
 	local tbl = {}
 	if HasMiddleOptionals(paramTbl) then
 		for _, param in ipairs(paramTbl) do
@@ -109,7 +60,7 @@ function Wowpedia:GetSignature(paramTbl)
 	end
 end
 
-function Wowpedia:GetParameters(params, isArgument)
+function WarcraftWiki:GetParameters(params, isArgument)
 	local tbl = {}
 	for _, param in ipairs(params) do
 		if param:GetStrideIndex() == 1 then
@@ -134,7 +85,7 @@ function Wowpedia:GetParameters(params, isArgument)
 	return table.concat(tbl, "\n")
 end
 
-function Wowpedia:GetPrettyType(apiTable, isArgument)
+function WarcraftWiki:GetPrettyType(apiTable, isArgument)
 	local complexType = self.complexTypes[apiTable.Type]
 	local apiText
 	if apiTable.Type == "table" then
@@ -181,19 +132,10 @@ function Wowpedia:GetPrettyType(apiTable, isArgument)
 	return str
 end
 
-function Wowpedia:GetDocumentationField(apiTable)
+function WarcraftWiki:GetDocumentationField(apiTable)
 	if apiTable.Documentation then
 		return table.concat(apiTable.Documentation, "; ")
 	else
 		return ""
-	end
-end
-
-function Wowpedia:GetComplexTypeInfo(apiTable)
-	local typeName = apiTable.InnerType or apiTable.Type
-	if not self.basicTypes[typeName] then
-		local complexTable = self.complexTypes[typeName]
-		local isTransclude = (self.complexRefs[typeName] or 0) > 1
-		return complexTable, isTransclude
 	end
 end

@@ -1,6 +1,6 @@
 local log = require("wowdoc.util.log")
 
-function Wowpedia:FindMissingTypes()
+function WarcraftWiki:FindMissingTypes()
 	local missingTypes = {}
 	for _, field in ipairs(APIDocumentation.fields) do
 		local parent = field.Function or field.Event or field.Table
@@ -14,7 +14,7 @@ function Wowpedia:FindMissingTypes()
 	return missingTypes
 end
 
-function Wowpedia:PullMissingTypes(missingTypes)
+function WarcraftWiki:PullMissingTypes(missingTypes)
 	local missingDocs = {Tables = {}}
 
 	local MissingDocumentation = require("wowdoc.loader.doc.MissingDocumentation")
@@ -39,7 +39,7 @@ function Wowpedia:PullMissingTypes(missingTypes)
 	APIDocumentation:AddDocumentationTable(missingDocs)
 end
 
-function Wowpedia:GetMissingEnum(name)
+function WarcraftWiki:GetMissingEnum(name)
 	local t = {
 		Name = name,
 		Type = "Enumeration",

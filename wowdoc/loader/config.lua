@@ -9,13 +9,13 @@ local root = ".wow"
 
 config.path = {
 	OUT        = pathlib.join(root, "out"),
-	DOCUMENTER = pathlib.join(root, "documenter"),
 	WAGO       = pathlib.join(root, "wago"),
 	CACHE      = pathlib.join(root, "cache"),
 	DIFF       = pathlib.join(root, "diff"),
 	BLIZZRES   = pathlib.join(root, "blizzres"),
 	SCRIBUNTO  = pathlib.join(root, "scribunto"),
 	STRINGS    = pathlib.join(root, "strings"),
+	WARCRAFTWIKI = pathlib.join(root, "warcraftwiki"),
 	WIKI_PAGE  = pathlib.join(root, "wiki_page"),
 	WIKI_CLASSIC_COMPARE = pathlib.join(root, "wiki_page", "classic_compare"),
 	WIKI_DIFF  = pathlib.join(root, "wiki_page", "diff"),

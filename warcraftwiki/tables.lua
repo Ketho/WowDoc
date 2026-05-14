@@ -12,7 +12,7 @@ local alignFirstCol = {
 	Constants = true,
 }
 
-function Wowpedia:GetTableText(apiTable, isTemplate, isSubTable)
+function WarcraftWiki:GetTableText(apiTable, isTemplate, isSubTable)
 	local tbl = {}
 	local transclude = self:GetTranscludeBase(apiTable)
 	local fullName = apiTable:GetFullName()
@@ -23,12 +23,6 @@ function Wowpedia:GetTableText(apiTable, isTemplate, isSubTable)
 	tableClass = tableClass..'" style="margin-left: 3.9em"'
 	table.insert(tbl, tableClass)
 	if isTemplate then
-		-- local link
-		-- if transclude == fullName then -- Enum; save some space
-		-- 	link = transclude
-		-- else -- Struct
-		-- 	link = format("%s|%s", transclude, fullName)
-		-- end
 		table.insert(tbl, format("|+ {{#if:{{{nocaption|}}}||%s}}", fullName))
 	elseif isSubTable then
 		table.insert(tbl, format("|+ %s", fullName))
@@ -66,7 +60,7 @@ function Wowpedia:GetTableText(apiTable, isTemplate, isSubTable)
 	return isTemplate and format("%s\n<onlyinclude>%s</onlyinclude>", apiTemplate, text) or text
 end
 
-function Wowpedia:GetIncludedTables(apiTable)
+function WarcraftWiki:GetIncludedTables(apiTable)
 	local tbl, tblHash = {}, {}
 	if apiTable.Type == "Structure" then
 		for _, field in ipairs(apiTable.Fields) do
@@ -85,7 +79,7 @@ function Wowpedia:GetIncludedTables(apiTable)
 	return tbl
 end
 
-function Wowpedia:GetTranscludeBase(complexTable)
+function WarcraftWiki:GetTranscludeBase(complexTable)
 	local shortType = shortComplex[complexTable.Type] or complexTable.Type or ""
 	local divider = shortType == "Enum" and "." or " "
 	return shortType..divider..complexTable.Name, shortType

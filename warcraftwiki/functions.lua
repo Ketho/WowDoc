@@ -4,7 +4,7 @@ local function FormatApisig(s)
 	return string.format("{{apisig|%s}}", s)
 end
 
-function Wowpedia:GetFunctionText(func, systemType)
+function WarcraftWiki:GetFunctionText(func, systemType)
 	local str = format("%s\n", self:GetFunctionSignature(func, systemType))
 	-- widget api can provide empty tables
 	if func.Arguments and #func.Arguments>0 then
@@ -16,7 +16,7 @@ function Wowpedia:GetFunctionText(func, systemType)
 	return str
 end
 
-function Wowpedia:GetWidgetSignature(func)
+function WarcraftWiki:GetWidgetSignature(func)
 	local t = {}
 	if func.Returns and #func.Returns > 0 then
 		table.insert(t, string.format("%s {{=}} ", self:GetSignature(func.Returns)))
@@ -27,7 +27,7 @@ function Wowpedia:GetWidgetSignature(func)
 	return table.concat(t)
 end
 
-function Wowpedia:GetFunctionSignature(func, systemType)
+function WarcraftWiki:GetFunctionSignature(func, systemType)
 	local str
 	if systemType == "ScriptObject" then
 		str = self:GetWidgetSignature(func)

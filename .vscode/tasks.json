@@ -11,9 +11,9 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Lua Documenter",
+			"label": "Lua warcraftwiki",
 			"type": "shell",
-			"command": "source .lua/bin/activate && lua 'Documenter/init.lua'",
+			"command": "source .lua/bin/activate && lua 'warcraftwiki/init.lua'",
 			"presentation": {"showReuseMessage": false, "clear": true},
 			"problemMatcher": []
 		},
