@@ -1,5 +1,3 @@
-local util = require("wowdoc.util")
-
 -- mostly vibecoded
 local M = {}
 

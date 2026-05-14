@@ -1,7 +1,7 @@
--- # systems with only a namespace and no name -> empty set
+-- systems with only a namespace and no name -> empty set
 
 if not APIDocumentation then
-	require("wowdoc.loader"):main()
+	require("wowdoc.loader"):LoadDocumentation()
 end
 
 local m = {}
@@ -17,13 +17,12 @@ local function OnlyNamespace()
 	return t
 end
 
-function m:get()
-	local t = OnlyNamespace()
-	if not next(t) then
+function m:test()
+	local tbl = OnlyNamespace()
+	if not next(tbl) then
 		print("there are no systems with a namespace and no name")
 	end
-	return t
 end
-m:get()
+m:test()
 
 return m

@@ -1,7 +1,7 @@
--- # systems that have only empty tables
+-- systems that have only empty tables
 
 if not APIDocumentation then
-	require("wowdoc.loader"):main()
+	require("wowdoc.loader"):LoadDocumentation()
 end
 
 local m = {}
@@ -26,7 +26,7 @@ function m:get()
 	end
 	return t
 end
-m:get()
+-- m:get()
 
 -- # all found systems at least have a name
 -- AccessibilityOptions

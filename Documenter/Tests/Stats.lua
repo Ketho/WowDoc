@@ -58,7 +58,7 @@ end
 -- GetComplexTypeStats()
 
 if not APIDocumentation then
-	require("wowdoc.loader"):main()
+	require("wowdoc.loader"):LoadDocumentation()
 end
 
 APIDocumentation:HandleSlashCommand("stats")

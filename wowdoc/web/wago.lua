@@ -158,14 +158,6 @@ function m:PrintCSV(iter)
 end
 -- wago:PrintCSV(wago:GetCSV("mount"))
 
-local function IsValidBuild(branch, version)
-	if branch == "wow_classic_era_ptr" then
-		return not version:find("10.0.7") and not version:find("10.1.5")
-	else
-		return true
-	end
-end
-
 ---@param product TactProduct
 ---@return number
 function m:GetLatestBuild(product)
@@ -173,6 +165,14 @@ function m:GetLatestBuild(product)
 	local json = https.request(url)
 	local data = cjson.decode(json)
 	return data.version
+end
+
+local function IsValidBuild(branch, version)
+	if branch == "wow_classic_era_ptr" then
+		return not version:find("10.0.7") and not version:find("10.1.5")
+	else
+		return true
+	end
 end
 
 function m:GetWagoVersions(branch)
