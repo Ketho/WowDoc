@@ -6,19 +6,19 @@ end
 
 local m = {}
 
-local function OnlyNamespace()
+local function GetOnlyNamespaceSystems()
 	local t = {}
 	for _, v in pairs(APIDocumentation.systems) do
 		if v.Namespace and not v.Name then
 			t[v.Namespace] = true
-			print(v.Namespace)
+			-- print(v.Namespace)
 		end
 	end
 	return t
 end
 
 function m:test()
-	local tbl = OnlyNamespace()
+	local tbl = GetOnlyNamespaceSystems()
 	if not next(tbl) then
 		print("there are no systems with a namespace and no name")
 	end

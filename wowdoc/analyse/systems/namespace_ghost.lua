@@ -9,7 +9,7 @@ end
 
 local m = {}
 
-local function GetDocNamespaces()
+function m:GetDocNamespaces()
 	local t = {}
 	for _, v in pairs(APIDocumentation.systems) do
 		if v.Namespace then
@@ -19,7 +19,7 @@ local function GetDocNamespaces()
 	return t
 end
 
-local function GetDefinedNamespaces()
+function m:GetDefinedNamespaces()
 	local globalapi = blizres:GetResource("GlobalAPI", "live")
 	local t = {}
 	for _, v in pairs(globalapi[1]) do
@@ -31,14 +31,26 @@ local function GetDefinedNamespaces()
 	return t
 end
 
+function m:GetGhostNamespaces()
+	local doc = self:GetDocNamespaces()
+	local defined = self:GetDefinedNamespaces()
+	local t = {}
+	for k in pairs(doc) do
+		if not defined[k] then
+			t[k] = true
+		end
+	end
+	return t
+end
+
 function m:test()
-	local doc = GetDocNamespaces()
-	local defined = GetDefinedNamespaces()
+	local doc = m:GetDocNamespaces()
+	local defined = m:GetDefinedNamespaces()
 	tablelib.CompareTable(doc, defined)
 end
-m:test()
+-- m:test()
 
--- these do not exist but are documented with having at least a namespace
+-- these do not exist or do not have functions yet, but are documented with having at least a namespace
 -- C_AccessibilityOptions
 -- C_BarberShopInternal
 -- C_BattlePet

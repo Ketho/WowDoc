@@ -13,7 +13,7 @@ local Tests = {
 			s.event_types,
 			s.table_field_types
 		)
-		-- u.table.explode(combined_fields)
+		-- u.explode(combined_fields)
 		u.CompareTable(combined_fields, s.field_types)
 		print(u.count(combined_fields), u.count(s.field_types))
 		local equals = u.equals(combined_fields, s.field_types)
@@ -35,7 +35,7 @@ local Tests = {
 			s.table_types,
 			s.field_types
 		)
-		-- u.table.explode(all_types_2)
+		-- u.explode(all_types_2)
 		u.CompareTable(all_types_1, all_types_2)
 		print(u.count(all_types_1), u.count(all_types_2))
 		local equals = u.equals(all_types_1, all_types_2)
