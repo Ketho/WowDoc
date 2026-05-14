@@ -27,5 +27,5 @@ function m:main(runTests)
 	end
 end
 
-m:main()
+m:main(true)
 return m

@@ -1,5 +1,6 @@
 local m = {}
 local u = require("wowdoc.util.table")
+local utest = require("wowdoc.util.utest")
 local get_types = require("wowdoc.analyse.types.get_types")
 
 local Tests = {
@@ -7,39 +8,39 @@ local Tests = {
 		-- function, event, table fields == field types
 		local name = "set of field types"
 		local s = get_types:GetSets()
-		local combined_fields = u.table.CombineTable(
+		local combined_fields = u.CombineTable(
 			s.function_types,
 			s.event_types,
 			s.table_field_types
 		)
 		-- u.table.explode(combined_fields)
-		u.table.CompareTable(combined_fields, s.field_types)
-		print(u.table.count(combined_fields), u.table.count(s.field_types))
-		local equals = u.table.equals(combined_fields, s.field_types)
+		u.CompareTable(combined_fields, s.field_types)
+		print(u.count(combined_fields), u.count(s.field_types))
+		local equals = u.equals(combined_fields, s.field_types)
 		print("equals", equals)
-		return name, u.assert.assert_true(equals)
+		return name, utest.assert_true(equals)
 	end,
 	function()
 		-- all types == table types + field types
 		local name = "set of all types"
 		local s = get_types:GetSets()
-		local all_types_1 = u.table.CombineTable(
+		local all_types_1 = u.CombineTable(
 			s.function_types,
 			s.event_types,
 			s.table_field_types,
 			s.table_types,
 			s.field_types
 		)
-		local all_types_2 = u.table.CombineTable(
+		local all_types_2 = u.CombineTable(
 			s.table_types,
 			s.field_types
 		)
 		-- u.table.explode(all_types_2)
-		u.table.CompareTable(all_types_1, all_types_2)
-		print(u.table.count(all_types_1), u.table.count(all_types_2))
-		local equals = u.table.equals(all_types_1, all_types_2)
+		u.CompareTable(all_types_1, all_types_2)
+		print(u.count(all_types_1), u.count(all_types_2))
+		local equals = u.equals(all_types_1, all_types_2)
 		print("equals", equals)
-		return name, u.assert.assert_true(equals)
+		return name, utest.assert_true(equals)
 	end,
 }
 
