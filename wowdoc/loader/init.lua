@@ -1,6 +1,6 @@
 local lfs = require("lfs")
 local pathlib = require("path")
-require("wowdoc.config")
+local cfg = require("wowdoc.loader.config")
 
 local system = require("wowdoc.util.system")
 local log = require("wowdoc.util.log")
@@ -12,7 +12,13 @@ local annotate
 local custom_doc
 
 local LOADER_PATH = pathlib.join("wowdoc", "loader")
+local TYPEDOC_PATH = pathlib.join(LOADER_PATH, "doc", "TypeDocumentation")
+local COMPAT_PATH = pathlib.join(LOADER_PATH, "compat")
+
 local OUTPUT_PATH = pathlib.join("Annotations", "Core", "Blizzard_APIDocumentationGenerated")
+
+local ADDONS_PATH = pathlib.join("wow-ui-source", "Interface", "AddOns")
+
 local documentationInfo
 
 local gluesSystems = {
@@ -92,7 +98,7 @@ local function LoadAnnotationAddon(path, name)
 end
 
 local function LoadTypeDocumentation()
-	local data = require(pathlib.join(LOADER_PATH, "doc", "TypeDocumentation"))
+	local data = require(TYPEDOC_PATH)
 	local Types = {Tables = data}
 	APIDocumentation:AddDocumentationTable(Types)
 	TypeDocumentation = Types
@@ -100,8 +106,8 @@ end
 
 function m:LoadDocumentation(product, isAnnotate, force, enumHackFunc)
 	if not product then
-		log.warn(string.format("wowdoc.loader: Defaulting to `%s` tact product", CONFIG.TACT_PRODUCT))
-		product = CONFIG.TACT_PRODUCT
+		log.warn(string.format("wowdoc.loader: Defaulting to `%s` tact product", cfg.TACT_PRODUCT))
+		product = cfg.TACT_PRODUCT
 	end
 
 	if APIDocumentation and not force then
@@ -116,16 +122,15 @@ function m:LoadDocumentation(product, isAnnotate, force, enumHackFunc)
 	if enumHackFunc then
 		enumHackFunc()
 	end
-	require(pathlib.join(LOADER_PATH, "compat"))
+	require(COMPAT_PATH)
 
-	local addons_path = pathlib.join("wow-ui-source", "Interface", "AddOns")
-	LoadAddon(addons_path, "Blizzard_APIDocumentation")
+	LoadAddon(ADDONS_PATH, "Blizzard_APIDocumentation")
 	if isAnnotate then
 		annotate = require("luasrc.annotate")
 		custom_doc = require("luasrc.custom_doc")
-		LoadAnnotationAddon(addons_path, "Blizzard_APIDocumentationGenerated")
+		LoadAnnotationAddon(ADDONS_PATH, "Blizzard_APIDocumentationGenerated")
 	else
-		LoadAddon(addons_path, "Blizzard_APIDocumentationGenerated")
+		LoadAddon(ADDONS_PATH, "Blizzard_APIDocumentationGenerated")
 	end
 
 	LoadTypeDocumentation()

@@ -1,25 +1,26 @@
 local pathlib = require("path")
 
-CONFIG = {}
+local config = {}
 
 ---@type TactProduct
-CONFIG.TACT_PRODUCT = "wow"
+config.TACT_PRODUCT = "wow"
 
-PATHS = {}
 local root = ".wow"
 
-PATHS.OUT = pathlib.join(root, "out")
-PATHS.DOCUMENTER = pathlib.join(root, "documenter")
-PATHS.WAGO = pathlib.join(root, "wago")
-PATHS.CACHE = pathlib.join(root, "cache")
-PATHS.DIFF = pathlib.join(root, "diff")
-PATHS.BLIZZRES = pathlib.join(root, "blizzres")
-PATHS.SCRIBUNTO = pathlib.join(root, "scribunto")
-PATHS.STRINGS = pathlib.join(root, "strings")
-PATHS.WIKI_PAGE = pathlib.join(root, "wiki_page")
-PATHS.WIKI_CLASSIC_COMPARE = pathlib.join(root, "wiki_page", "classic_compare")
-PATHS.WIKI_DIFF = pathlib.join(root, "wiki_page", "diff")
-PATHS.WIKI_CATEGORIES = pathlib.join(root, "wiki_categories")
+config.path = {
+	OUT        = pathlib.join(root, "out"),
+	DOCUMENTER = pathlib.join(root, "documenter"),
+	WAGO       = pathlib.join(root, "wago"),
+	CACHE      = pathlib.join(root, "cache"),
+	DIFF       = pathlib.join(root, "diff"),
+	BLIZZRES   = pathlib.join(root, "blizzres"),
+	SCRIBUNTO  = pathlib.join(root, "scribunto"),
+	STRINGS    = pathlib.join(root, "strings"),
+	WIKI_PAGE  = pathlib.join(root, "wiki_page"),
+	WIKI_CLASSIC_COMPARE = pathlib.join(root, "wiki_page", "classic_compare"),
+	WIKI_DIFF  = pathlib.join(root, "wiki_page", "diff"),
+	WIKI_CATEGORIES = pathlib.join(root, "wiki_categories"),
+}
 
 local function CreatePath(path)
 	if not pathlib.exists(path) then
@@ -27,6 +28,8 @@ local function CreatePath(path)
 	end
 end
 
-for _, v in pairs(PATHS) do
+for _, v in pairs(config.path) do
 	CreatePath(v)
 end
+
+return config

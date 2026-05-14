@@ -1,5 +1,6 @@
 -- Blizzard_APIDocumentationGenerated requires the `Enum` table
 local pathlib = require("path")
+local cfg = require("wowdoc.loader.config")
 local log = require("wowdoc.util.log")
 local request = require("wowdoc.web.request")
 
@@ -31,7 +32,7 @@ function m:LoadLuaEnums(branch, force)
 			return
 		end
 	end
-	local path = pathlib.join(PATHS.BLIZZRES, string.format("LuaEnum_%s.lua", branch))
+	local path = pathlib.join(cfg.path.BLIZZRES, string.format("LuaEnum_%s.lua", branch))
 	local url = string.format("%s/%s/Resources/LuaEnum.lua", REPO, branch)
 	request:DownloadAndRun(url, path)
 	ApplyFixes()
