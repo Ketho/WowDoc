@@ -1,12 +1,13 @@
 local lfs      = require("lfs")
 local pathlib  = require("path")
+local strlib   = require("wowdoc.util.string")
 local system   = require("wowdoc.util.system")
 local log      = require("wowdoc.util.log")
 local products = require("wowdoc.products.branches")
 local git      = require("wowdoc.web.git")
 local enum     = require("wowdoc.web.blizres.enum")
 local cfg      = require("wowdoc.loader.config")
-local patches  = require("wowdoc.loader.doc.patches")
+-- local patches  = require("wowdoc.loader.doc.patches")
 local m = {}
 
 local COMPAT_PATH = pathlib.join("wowdoc", "loader", "compat")
@@ -16,14 +17,15 @@ local ADDONS_PATH = pathlib.join("wow-ui-source", "Interface", "AddOns")
 -- loads the blizzard addons from the git checkout
 function m:LoadDocumentation(product)
 	product = product or cfg.TACT_PRODUCT
-	local pretty_product = log.colorize(product, 32)
+	local branch = products:GetBranch(product)
 	if APIDocumentation then
-		log.warn(string.format("wowdoc: [product %s] APIDocumentation already loaded", product))
+		log.warn(string.format("wowdoc: [product %s, branch %s] APIDocumentation already loaded", product, branch))
 		return
 	else
-		log.info(string.format("wowdoc: [product %s] Loading APIDocumentation", pretty_product))
+		local pretty_product = strlib.colorize(product, 32)
+		local pretty_branch = strlib.colorize(branch, 32)
+		log.info(string.format("wowdoc: [product %s, branch %s] Loading APIDocumentation", pretty_product, pretty_branch))
 	end
-	local branch = products:GetBranch(product)
 	git:checkout("https://github.com/Gethe/wow-ui-source", branch)
 	-- compat code
 	require(COMPAT_PATH)

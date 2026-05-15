@@ -8,12 +8,11 @@ local m = {}
 local URL = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/LuaEnum.lua"
 
 function m:LoadEnumTable(branch)
-	local pretty_branch = log.colorize(branch, 32)
 	if Enum then
 		log.warn(string.format("wowdoc: [branch %s] Enum table already loaded", branch))
 		return
 	else
-		log.info(string.format("wowdoc: [branch %s] Loading Enum table", pretty_branch))
+		log.info(string.format("wowdoc: [branch %s] Loading Enum table", branch))
 	end
 	local url = URL:format(branch)
 	local path = pathlib.join(cfg.path.BLIZZRES, string.format("LuaEnum_%s.lua", branch))

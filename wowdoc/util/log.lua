@@ -25,8 +25,4 @@ function m.failure(msg) -- red
 	print(fs:format(31, "-", msg))
 end
 
-function m.colorize(msg, color_id)
-	return string.format("\27[%dm%s\27[0m", color_id, msg)
-end
-
 return m
