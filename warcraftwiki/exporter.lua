@@ -1,17 +1,43 @@
 local util_system = require("wowdoc.util.system")
 local log = require("wowdoc.util.log")
-local Widgets = require("wowdoc.namingway.scriptobjects")
-local emptySystems = require("wowdoc.analyse.systems.is_empty"):get()
+local cfg = require("wowdoc.loader.config")
+-- local Widgets = require("wowdoc.namingway.scriptobjects")
+local emptySystems = require("wowdoc.analyse.systems.system_empty"):get()
+local ghostSystems = require("wowdoc.analyse.systems.system_ghost"):get()
 local m = {}
 
-local function WriteFile(path, text)
-	--print("Writing", path)
-	local file = io.open(path, "w")
-	if not file then return end -- uhh callback types are still unsupported
-	file:write(text)
-	file:close()
+local subfolders = {
+	"enum",
+	"struct",
+	"system",
+	"scriptobject",
+}
+
+local function IsValidSystem(system)
+	if emptySystems.isEmpty[system.Name] then
+		return false
+	elseif ghostSystems[system.Namespace] then
+		return false
+	end
+	return true
 end
 
+function m:ExportSystems()
+	local folder = cfg.path.WARCRAFTWIKI
+	for _, v in pairs(subfolders) do
+		util_system:mkdir(folder, v)
+	end
+	for _, system in ipairs(APIDocumentation.systems) do
+		if system.Type == "System" then
+			if IsValidSystem(system) then
+				util_system:mkdir(folder, "system", system.Name)
+			end
+		end
+	end
+	log.success("Finished exporting")
+end
+
+--[[
 function m:ExportSystems(folder)
 	util_system:mkdir(format("%s/system", folder))
 	util_system:mkdir(format("%s/widget", folder))
@@ -65,5 +91,6 @@ function m:ExportSystems(folder)
 	end
 	log.success("Finished exporting")
 end
+]]
 
 return m

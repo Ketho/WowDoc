@@ -19,7 +19,7 @@ function m:FolderExists(path)
 	return lfs.attributes(path, "mode") == "directory"
 end
 
--- use pathlib.mkdir instead of lfs.mkdir since creates parent folders as needed
+-- use pathlib.mkdir instead of lfs.mkdir since it creates parent folders as needed
 -- also returns the path for the created folder
 ---@param ... string
 ---@return string path
@@ -36,8 +36,6 @@ function m:mkdir(path, ...)
 	return p
 end
 
----@param path string
----@return file
 function m:OpenFile(path)
 	local f = assert(io.open(path, "r"))
 	return f
@@ -47,11 +45,9 @@ end
 ---@param text string
 function m:WriteFile(path, text)
 	log.info(string.format('Writing "%s"', path))
-	local file = io.open(path, "w")
-	if file then
-		file:write(text)
-		file:close()
-	end
+	local f = assert(io.open(path, "w"))
+	f:write(text)
+	f:close()
 end
 
 -- while in a file with the meta tag it will not show completion context and ignores find references

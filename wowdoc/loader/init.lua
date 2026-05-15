@@ -12,7 +12,6 @@ local m = {}
 
 local COMPAT_PATH = pathlib.join("wowdoc", "loader", "compat")
 local ADDONS_PATH = pathlib.join("wow-ui-source", "Interface", "AddOns")
--- local TYPEDOC_PATH = "wowdoc.loader.doc.TypeDocumentation"
 
 -- loads the blizzard addons from the git checkout
 function m:LoadDocumentation(product)
@@ -33,9 +32,7 @@ function m:LoadDocumentation(product)
 	-- load blizzard addons
 	self:LoadAddOn(ADDONS_PATH, "Blizzard_APIDocumentation")
 	self:LoadAddOn(ADDONS_PATH, "Blizzard_APIDocumentationGenerated")
-
-	-- self:LoadTypeDocumentation()
-	-- self:PrintSystems()
+	-- APIDocumentation:OutputStats()
 end
 
 -- parses the TOC file of an addon
@@ -50,19 +47,6 @@ function m:LoadAddOn(framexml_path, addon_name)
 		end
 	end
 	toc_file:close()
-end
-
--- function m:LoadTypeDocumentation()
--- 	local data = require(TYPEDOC_PATH)
--- 	local Types = {Tables = data}
--- 	APIDocumentation:AddDocumentationTable(Types)
--- 	TypeDocumentation = Types
--- end
-
-function m:PrintSystems()
-	for k, v in pairs(APIDocumentation.systems) do
-		print(k, v.Name)
-	end
 end
 
 return m

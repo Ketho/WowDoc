@@ -19,7 +19,7 @@ function m:GetUndocTypes()
 	for k in pairs(docTypes) do
 		t[k] = nil
 	end
-	enum:LoadLuaEnums(cfg.TACT_PRODUCT)
+	enum:LoadEnumTable(cfg.TACT_PRODUCT)
 	for k in pairs(Enum) do
 		t[k] = nil
 	end

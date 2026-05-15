@@ -10,7 +10,6 @@ function m:GetGhostSystems()
 	local noexist = namespace_ghost:GetGhostNamespaces()
 	local hasFunctions = system_empty:get().hasFunctions
 	local t = {}
-	print("-- ghost systems")
 	for k in pairs(noexist) do
 		if hasFunctions[k] then
 			t[k] = true
@@ -19,20 +18,20 @@ function m:GetGhostSystems()
 	end
 	return t
 end
-
-function m:test()
-	self:GetGhostSystems()
+function m:get()
+	return self:GetGhostSystems()
 end
-m:test()
+
+return m
 
 -- # these systems are partially documented on the wiki and should be marked as ghost/restricted
--- C_BarberShopInternal
--- C_CinematicList
--- C_CombatLogInternal
--- C_CombatLogSecure
--- C_ConfigurationWarnings
--- C_LiveEvent
--- C_MacOptions
--- C_PingSecure
--- C_SecureTransfer
--- C_WorldSafeLocsUIInternal
+-- C_BarberShopInternal, BarberShop
+-- C_CinematicList, CinematicList
+-- C_CombatLogInternal, CombatLogInternal
+-- C_CombatLogSecure, CombatLogSecure
+-- C_ConfigurationWarnings, ConfigurationWarnings
+-- C_LiveEvent, LiveEvent
+-- C_MacOptions, MacOptions
+-- C_PingSecure, PingManagerSecure
+-- C_SecureTransfer, SecureTransfer
+-- C_WorldSafeLocsUIInternal, WorldSafeLocsUIInternal
