@@ -1,14 +1,11 @@
 local pathlib = require("path")
-
 local config = {}
 
 ---@type TactProduct
 config.TACT_PRODUCT = "wow"
 
 local root = ".wow"
-
 config.path = {
-	OUT        = pathlib.join(root, "out"),
 	WAGO       = pathlib.join(root, "wago"),
 	CACHE      = pathlib.join(root, "cache"),
 	DIFF       = pathlib.join(root, "diff"),

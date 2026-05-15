@@ -1,7 +1,6 @@
 
 
 local system = require("wowdoc.util.system")
-
 local m = {}
 
 function m:checkout(url, branch)
@@ -10,9 +9,11 @@ function m:checkout(url, branch)
 	if not system:FolderExists(repo) then
 		print(system:run_command(string.format("git clone %s", url)))
 	end
-	print(system:run_command(string.format("git -C %s checkout %s && git -C %s pull", repo, branch, repo)))
+	system:run_command(string.format("git -C %s checkout %s", repo, branch))
+	system:run_command(string.format("git -C %s pull", repo, repo))
 	-- show latest commit
-	print(system:run_command(string.format("git -C %s log -1", repo)))
+	local msg = system:run_command(string.format("git -C %s log -1", repo))
+	print("commit:", msg:match("%d-%.%d-%.%d- %(%d-%)"))
 end
 
 return m

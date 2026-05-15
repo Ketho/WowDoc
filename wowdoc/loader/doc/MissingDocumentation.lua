@@ -34,17 +34,6 @@ local Missing =
 				{ Name = "timeMod", Type = "number" },
 			},
 		},
-		-- {
-		-- 	-- PvpInfoDocumentation.lua (in mainline but not in classic)
-		-- 	Name = "RoleShortageReward",
-		-- 	Type = "Structure",
-		-- 	Fields =
-		-- 	{
-		-- 		{ Name = "validRoles", Type = "table", InnerType = "cstring", Nilable = false },
-		-- 		{ Name = "rewardSpellID", Type = "number", Nilable = false },
-		-- 		{ Name = "rewardItemID", Type = "number", Nilable = false },
-		-- 	},
-		-- },
 		{
 			-- TooltipInfoDocumentation.lua (removed in 10.0.2)
 			-- dynamic context
@@ -72,14 +61,17 @@ local Missing =
 				{ Name = "z", Type = "number", Nilable = true },
 			},
 		},
-		{
-			-- cata PvpInfoDocumentation.lua
-			Name = "RoleShortageReward",
-			Type = "Structure",
-			Fields =
-			{
-			},
-		},
+		-- {
+		-- 	-- PvpInfoDocumentation.lua (in mainline but not in classic)
+		-- 	Name = "RoleShortageReward",
+		-- 	Type = "Structure",
+		-- 	Fields =
+		-- 	{
+		-- 		{ Name = "validRoles", Type = "table", InnerType = "cstring", Nilable = false },
+		-- 		{ Name = "rewardSpellID", Type = "number", Nilable = false },
+		-- 		{ Name = "rewardItemID", Type = "number", Nilable = false },
+		-- 	},
+		-- },
 	},
 }
 

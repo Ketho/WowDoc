@@ -36,6 +36,15 @@ function m:mkdir(path, ...)
 	return p
 end
 
+---@param path string
+---@return file
+function m:OpenFile(path)
+	local f = assert(io.open(path, "r"))
+	return f
+end
+
+---@param path string
+---@param text string
 function m:WriteFile(path, text)
 	log.info(string.format('Writing "%s"', path))
 	local file = io.open(path, "w")

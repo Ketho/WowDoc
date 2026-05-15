@@ -1,6 +1,5 @@
 -- https://wago.tools/
 local log = require("wowdoc.util.log")
-
 local m = {}
 
 ---@alias TactProduct
@@ -63,25 +62,12 @@ m.gametype_branch = {
 	vanilla = "classic_era",
 }
 
-local hasShownMsg = {}
-
-local function showLogMessage(product, framexml)
-	if not hasShownMsg[product] then
-		if product then
-			log.success(string.format("TACT product: %s", product))
-		end
-		if framexml then
-			log.success(string.format("Gethe branch: %s", framexml))
-		end
-		print("----")
-		hasShownMsg[product] = true
-	end
-end
-
 function m:GetBranch(product)
-	local gethe_branch = self.product_gethe[product]
-	showLogMessage(product, gethe_branch)
-	return gethe_branch
+	local branch = self.product_gethe[product]
+	if not branch then
+		error(string.format("No branch found for product %s", product))
+	end
+	return branch
 end
 
 return m
