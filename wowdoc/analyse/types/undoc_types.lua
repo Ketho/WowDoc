@@ -1,5 +1,5 @@
 local tablelib = require("wowdoc.util.table")
-local cfg = require("wowdoc.loader.config")
+local cfg = require("wowdoc.config")
 local TypeDoc = require("wowdoc.loader.doc.TypeDocumentation")
 local MissingDoc = require("wowdoc.loader.doc.MissingDocumentation")
 local enum = require("wowdoc.web.blizres.enum")

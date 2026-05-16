@@ -1,5 +1,5 @@
 local loader = require("wowdoc.loader")
 loader:LoadDocumentation()
 
-local exporter = require("warcraftwiki.exporter")
-exporter:ExportDocumentation()
+local export = require("warcraftwiki.export")
+export:ExportDocumentation()

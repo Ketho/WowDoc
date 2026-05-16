@@ -1,7 +1,7 @@
 local pathlib = require("path")
 local util_system  = require("wowdoc.util.system")
 local log          = require("wowdoc.util.log")
-local cfg          = require("wowdoc.loader.config")
+local cfg          = require("wowdoc.config")
 local naming       = require("wowdoc.namingway.naming")
 local emptySystems = require("wowdoc.analyse.systems.system_empty"):get()
 local ghostSystems = require("wowdoc.analyse.systems.system_ghost"):get()
@@ -40,7 +40,7 @@ end
 
 function m:ExportSystem(system)
 	local proper_name = naming:GetSystemName(system)
-	local folder = pathlib.join(cfg.path.WARCRAFTWIKI, system.Type, proper_name)
+	local folder = pathlib.join(cfg.path.warcraftwiki, system.Type, proper_name)
 	util_system:mkdir(folder)
 	for _, v1 in pairs({"Functions", "Events"}) do
 		for _, v2 in pairs(system[v1]) do
@@ -51,10 +51,10 @@ end
 
 function m:ExportTables()
 	for _, folder in pairs({"Enumeration", "Structure"}) do
-		util_system:mkdir(cfg.path.WARCRAFTWIKI, folder)
+		util_system:mkdir(cfg.path.warcraftwiki, folder)
 	end
 	for _, tbl in pairs(APIDocumentation.tables) do
-		local folder = pathlib.join(cfg.path.WARCRAFTWIKI, tbl.Type)
+		local folder = pathlib.join(cfg.path.warcraftwiki, tbl.Type)
 		self:ExportFile(tbl, folder)
 	end
 end

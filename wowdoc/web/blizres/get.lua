@@ -1,6 +1,6 @@
 local pathlib = require("path")
 local dl = require("wowdoc.web.download")
-local cfg = require("wowdoc.loader.config")
+local cfg = require("wowdoc.config")
 local m = {}
 
 local URL = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/refs/heads/%s/Resources/%s.lua"

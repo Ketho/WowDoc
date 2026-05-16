@@ -2,7 +2,7 @@
 local pathlib = require("path")
 local log = require("wowdoc.util.log")
 local dl = require("wowdoc.web.download")
-local cfg = require("wowdoc.loader.config")
+local cfg = require("wowdoc.config")
 local m = {}
 
 local URL = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/LuaEnum.lua"

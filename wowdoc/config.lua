@@ -12,11 +12,11 @@ config.path = {
 	BLIZRES    = pathlib.join(root, "blizres"),
 	SCRIBUNTO  = pathlib.join(root, "scribunto"),
 	STRINGS    = pathlib.join(root, "strings"),
-	WARCRAFTWIKI = pathlib.join(root, "warcraftwiki"),
 	WIKI_PAGE  = pathlib.join(root, "wiki_page"),
 	WIKI_CLASSIC_COMPARE = pathlib.join(root, "wiki_page", "classic_compare"),
 	WIKI_DIFF  = pathlib.join(root, "wiki_page", "diff"),
 	WIKI_CATEGORIES = pathlib.join(root, "wiki_categories"),
+	warcraftwiki = pathlib.join(".wiki"),
 }
 
 local function CreatePath(path)

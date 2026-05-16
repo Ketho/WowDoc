@@ -6,7 +6,7 @@ local log      = require("wowdoc.util.log")
 local products = require("wowdoc.products.branches")
 local git      = require("wowdoc.web.git")
 local enum     = require("wowdoc.web.blizres.enum")
-local cfg      = require("wowdoc.loader.config")
+local cfg      = require("wowdoc.config")
 -- local patches  = require("wowdoc.loader.doc.patches")
 local m = {}
 

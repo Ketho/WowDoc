@@ -14,7 +14,7 @@ function m:DownloadFile(url, path, isCache)
 	if self:ShouldDownload(path, isCache) then
 		log.info(string.format('Downloading %s to "%s"', url, path))
 		local body = request.HttpsRequest(url)
-		system:WriteFile(path, body)
+		system:WriteFile(path, body, true)
 	end
 end
 
@@ -41,7 +41,7 @@ function m:DownloadFilePost(url, path, requestBody, cacheTime)
 	if self:ShouldDownload(path, cacheTime) then
 		local body = request.HttpsPostRequest(url, requestBody)
 		if body then
-			system:WriteFile(path, body)
+			system:WriteFile(path, body, true)
 		end
 	end
 end
