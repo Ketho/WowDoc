@@ -1,96 +1,83 @@
-local util_system = require("wowdoc.util.system")
-local log = require("wowdoc.util.log")
-local cfg = require("wowdoc.loader.config")
--- local Widgets = require("wowdoc.namingway.scriptobjects")
+local pathlib = require("path")
+local util_system  = require("wowdoc.util.system")
+local log          = require("wowdoc.util.log")
+local cfg          = require("wowdoc.loader.config")
+local naming       = require("wowdoc.namingway.full_name")
 local emptySystems = require("wowdoc.analyse.systems.system_empty"):get()
 local ghostSystems = require("wowdoc.analyse.systems.system_ghost"):get()
+local page = require("warcraftwiki.page")
 local m = {}
 
-local subfolders = {
-	"enum",
-	"struct",
-	"system",
-	"scriptobject",
-}
+function m:ExportDocumentation()
+	self:ExportSystems()
+	self:ExportTables()
+	log.success("Finished exporting")
+end
 
 local function IsValidSystem(system)
-	if emptySystems.isEmpty[system.Name] then
-		return false
+	if emptySystems.empty[system.Name] then
+		return false, "empty"
+	elseif emptySystems.irrelevant[system.Name] then
+		return false, "irrelevant"
 	elseif ghostSystems[system.Namespace] then
-		return false
+		return false, "ghost"
 	end
 	return true
 end
 
 function m:ExportSystems()
-	local folder = cfg.path.WARCRAFTWIKI
-	for _, v in pairs(subfolders) do
-		util_system:mkdir(folder, v)
-	end
-	for _, system in ipairs(APIDocumentation.systems) do
-		if system.Type == "System" then
-			if IsValidSystem(system) then
-				util_system:mkdir(folder, "system", system.Name)
-			end
+	for _, system in pairs(APIDocumentation.systems) do
+		local name = system:GetFullName()
+		local isValid, reason = IsValidSystem(system)
+		if isValid then
+			log.info(string.format("Exporting %s: %s", system.Type, name))
+			self:ExportSystem(system)
+		else
+			log.warn(string.format("Skipping %s system: %s", reason, name))
 		end
 	end
-	log.success("Finished exporting")
 end
 
---[[
-function m:ExportSystems(folder)
-	util_system:mkdir(format("%s/system", folder))
-	util_system:mkdir(format("%s/widget", folder))
-	for _, system in ipairs(APIDocumentation.systems) do
-		local systemFolder
-		if system.Type == "System" then
-			systemFolder = "system"
-		elseif system.Type == "ScriptObject" then
-			systemFolder = "widget"
-		end
-		if not emptySystems[system.Name] then
-			log.info("Exporting system: "..system:GetFullName())
-			util_system:mkdir(format("%s/%s/%s", folder, systemFolder, system.Name))
-			local prefix
-			if system.Type == "ScriptObject" then
-				if not Widgets[system.Name] then
-					error(string.format("Not yet mapped widget in namingway/scriptobjects.lua for %s", system.Name))
-				end
-				prefix = Widgets[system.Name].." "
-			else
-				prefix = system.Namespace and system.Namespace.."." or ""
-			end
-			for _, func in ipairs(system.Functions) do
-				local path = format("%s/%s/%s/API %s.txt", folder, systemFolder, system.Name, prefix..func.Name)
-				local pageText = Wowpedia:GetPageText(func, system.Type)
-				WriteFile(path, pageText)
-			end
-			for _, event in ipairs(system.Events) do
-				local path = format("%s/%s/%s/%s.txt", folder, systemFolder, system.Name, event.LiteralName)
-				local pageText = Wowpedia:GetPageText(event)
-				WriteFile(path, pageText)
-			end
-		else
-			log.warn(string.format("Skipping empty system: %s", system:GetFullName()))
+function m:ExportSystem(system)
+	local folder = pathlib.join(cfg.path.WARCRAFTWIKI, system.Type, system.Name)
+	util_system:mkdir(folder)
+	for _, v1 in pairs({"Functions", "Events"}) do
+		for _, v2 in pairs(system[v1]) do
+			self:ExportFile(v2, folder)
 		end
 	end
-	util_system:mkdir(format("%s/enum", folder))
-	util_system:mkdir(format("%s/struct", folder))
-	log.info("Exporting (systemless) tables")
-	for _, apiTable in ipairs(APIDocumentation.tables) do
-		if type(apiTable.Type) == "table" then -- hack for TypeDocumentation
-			apiTable.Type = apiTable.Type[1]
-		end
-		local isTransclude = Wowpedia.complexRefs[apiTable.Name]
-		if isTransclude and isTransclude > 1 then
-			local transcludeBase, shortType = Wowpedia:GetTranscludeBase(apiTable)
-			local path = format("%s/%s/%s.txt", folder, shortType:lower(), transcludeBase)
-			local pageText = Wowpedia:GetTableText(apiTable, true)
-			WriteFile(path, pageText)
-		end
-	end
-	log.success("Finished exporting")
 end
-]]
+
+function m:ExportTables()
+	for _, folder in pairs({"Enumeration", "Structure"}) do
+		util_system:mkdir(cfg.path.WARCRAFTWIKI, folder)
+	end
+	for _, tbl in pairs(APIDocumentation.tables) do
+		local folder = pathlib.join(cfg.path.WARCRAFTWIKI, tbl.Type)
+		self:ExportFile(tbl, folder)
+	end
+end
+
+function m:ExportFile(tbl, folder)
+	local proper = naming:GetProperName(tbl)
+	local file
+	if tbl.Type == "Function" then
+		file = string.format("API %s.txt", proper)
+	elseif tbl.Type == "Event" then
+		file = string.format("%s.txt", proper)
+	elseif tbl.Type == "Enumeration" then
+		file = string.format("Enum.%s.txt", proper)
+	elseif tbl.Type == "Structure" then
+		file = string.format("Struct %s.txt", proper)
+	end
+	if file then
+		local path = pathlib.join(folder, file)
+		local text = page:GetPageText(tbl)
+		util_system:WriteFile(path, text, true)
+	end
+end
+
+-- Tables: Constants, CallbackType
+-- Predicates: Precondition, Secret
 
 return m

@@ -43,8 +43,10 @@ end
 
 ---@param path string
 ---@param text string
-function m:WriteFile(path, text)
-	log.info(string.format('Writing "%s"', path))
+function m:WriteFile(path, text, silent)
+	if not silent then
+		log.info(string.format('Writing "%s"', path))
+	end
 	local f = assert(io.open(path, "w"))
 	f:write(text)
 	f:close()

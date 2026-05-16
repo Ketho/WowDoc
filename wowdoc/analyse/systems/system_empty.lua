@@ -15,7 +15,12 @@ local function IsSystemEmpty(tbl)
 	return true
 end
 
--- constraint it with it having at least a namespace
+-- only care about functions and events
+local function IsSystemNonRelevant(tbl)
+	return not next(tbl.Functions) and not next(tbl.Events)
+end
+
+-- constrain it with it having at least a namespace
 -- for easier comparison with namespace names instead of system names
 local function SystemHasFunctions(tbl)
 	return tbl.Namespace and next(tbl.Functions) -- no need to guard against missing Functions table
@@ -23,23 +28,31 @@ end
 
 function m:get()
 	local t = {
-		isEmpty = {},
+		empty = {},
+		irrelevant = {},
 		hasFunctions = {},
 	}
 	for _, systemTbl in pairs(APIDocumentation.systems) do
 		if IsSystemEmpty(systemTbl) then
-			t.isEmpty[systemTbl.Name] = true
+			t.empty[systemTbl.Name] = true
+			-- print(systemTbl.Name)
+		end
+		if IsSystemNonRelevant(systemTbl) then
+			t.irrelevant[systemTbl.Name] = true
 			-- print(systemTbl.Name)
 		end
 		if SystemHasFunctions(systemTbl) then
 			t.hasFunctions[systemTbl.Namespace] = true
+			-- print(systemTbl.Namespace)
 		end
 	end
 	return t
 end
 m:get()
 
--- # all found systems at least have a name; some dont have a namespace, like the scriptobject ones
+return m
+
+-- # IsSystemEmpty
 -- AccessibilityOptions
 -- CursorUtil
 -- FrameAPIArchaeologyDigSiteFrame
@@ -50,4 +63,15 @@ m:get()
 -- SimpleMaskTextureAPI
 -- TraitConfig
 
-return m
+-- # IsSystemNonRelevant
+-- AccessibilityOptions
+-- BagIndexConstants
+-- CursorUtil
+-- FrameAPIArchaeologyDigSiteFrame
+-- PingPinFrameAPI
+-- Platform
+-- Pony
+-- SimpleAnimScaleLineAPI
+-- SimpleAnimTranslationLineAPI
+-- SimpleMaskTextureAPI
+-- TraitConfig

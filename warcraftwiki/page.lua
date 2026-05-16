@@ -5,9 +5,12 @@ WarcraftWiki = {}
 -- require("warcraftwiki.core.fields")
 -- require("warcraftwiki.types.types")
 -- require("warcraftwiki.types.missing")
+local naming = require("wowdoc.namingway.full_name")
 
-function WarcraftWiki:GetPageText(apiTable, systemType)
-	return apiTable.Name
+function WarcraftWiki:GetPageText(apiTable)
+	local t = {}
+	local proper = naming:GetProperName(apiTable)
+	return proper
 	-- local tbl = {}
 	-- local params
 	-- if apiTable.Type == "Function" then
