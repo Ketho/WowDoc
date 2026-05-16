@@ -69,7 +69,7 @@ function m:ExportFile(tbl, folder)
 	elseif tbl.Type == "Enumeration" then
 		file = string.format("Enum.%s.txt", proper_name)
 	elseif tbl.Type == "Structure" then
-		file = string.format("Struct %s.txt", proper_name)
+		file = string.format("Structure %s.txt", proper_name)
 	end
 	if file then
 		local path = pathlib.join(folder, file)
