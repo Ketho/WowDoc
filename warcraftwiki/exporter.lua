@@ -2,7 +2,7 @@ local pathlib = require("path")
 local util_system  = require("wowdoc.util.system")
 local log          = require("wowdoc.util.log")
 local cfg          = require("wowdoc.loader.config")
-local naming       = require("wowdoc.namingway.full_name")
+local naming       = require("wowdoc.namingway.naming")
 local emptySystems = require("wowdoc.analyse.systems.system_empty"):get()
 local ghostSystems = require("wowdoc.analyse.systems.system_ghost"):get()
 local page = require("warcraftwiki.page")
@@ -39,7 +39,8 @@ function m:ExportSystems()
 end
 
 function m:ExportSystem(system)
-	local folder = pathlib.join(cfg.path.WARCRAFTWIKI, system.Type, system.Name)
+	local proper_name = naming:GetSystemName(system)
+	local folder = pathlib.join(cfg.path.WARCRAFTWIKI, system.Type, proper_name)
 	util_system:mkdir(folder)
 	for _, v1 in pairs({"Functions", "Events"}) do
 		for _, v2 in pairs(system[v1]) do
@@ -59,16 +60,16 @@ function m:ExportTables()
 end
 
 function m:ExportFile(tbl, folder)
-	local proper = naming:GetProperName(tbl)
+	local proper_name = naming:GetWikiPageName(tbl)
 	local file
 	if tbl.Type == "Function" then
-		file = string.format("API %s.txt", proper)
+		file = string.format("API %s.txt", proper_name)
 	elseif tbl.Type == "Event" then
-		file = string.format("%s.txt", proper)
+		file = string.format("%s.txt", proper_name)
 	elseif tbl.Type == "Enumeration" then
-		file = string.format("Enum.%s.txt", proper)
+		file = string.format("Enum.%s.txt", proper_name)
 	elseif tbl.Type == "Structure" then
-		file = string.format("Struct %s.txt", proper)
+		file = string.format("Struct %s.txt", proper_name)
 	end
 	if file then
 		local path = pathlib.join(folder, file)

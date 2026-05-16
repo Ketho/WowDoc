@@ -1,22 +1,50 @@
--- system name to condensed name
-local doc_widgets = {
+local scriptobjects = {
+	AbbreviateConfigAPI = "AbbreviateConfig",
+	AbbreviatedNumberFormatterAPI = "AbbreviatedNumberFormatter",
+	FrameAPIArchaeologyDigSiteFrame = "ArchaeologyDigSiteFrame", -- empty
+	FrameAPIBlob = "Blob",
+	FrameAPICharacterModelBase = "PlayerModel", -- instead of CharacterModelBase
+	FrameAPICinematicModel = "CinematicModel",
 	FrameAPICooldown = "Cooldown",
-	-- CooldownFrameAPI = "Cooldown", -- wtf
+	FrameAPIDressUpModel = "DressUpModel",
+	FrameAPIFogOfWarFrame = "FogOfWarFrame",
+	FrameAPIModelSceneFrame = "ModelScene",
+	FrameAPIModelSceneFrameActor = "ModelSceneActor",
+	FrameAPIModelSceneFrameActorBase = "ModelSceneActorBase",
+	FrameAPINamePlate = "NamePlate",
+	FrameAPIQuestPOI = "QuestPOIFrame",
+	FrameAPIScenarioPOI = "ScenarioPOIFrame",
+	FrameAPISimpleCheckout = "SimpleCheckout", -- idk
+	FrameAPITabardModel = "TabardModel",
+	FrameAPITabardModelBase = "TabardModelBase",
+	FrameAPITooltip = "GameTooltip",
+	FrameAPIUnitPositionFrame = "UnitPositionFrame",
+	HousingCatalogSearcherAPI = "HousingCatalogSearcher",
+	HousingFixturePointFrameAPI = "HousingFixturePointFrame",
+	HousingLayoutPinFrameAPI = "HousingLayoutPinFrame",
+	LuaColorCurveObjectAPI = "ColorCurveObject",
+	LuaCurveObjectAPI = "CurveObject",
+	LuaCurveObjectBaseAPI = "CurveObjectBase",
+	LuaDurationObjectAPI = "DurationObject",
 	MinimapFrameAPI = "Minimap",
+	NumericFormatterAPI = "NumericFormatter",
+	NumericRuleFormatterAPI = "NumericRuleFormatter",
 	PingPinFrameAPI = "PingPin",
-	SimpleAnimAPI = "Animation",
+	SecondsFormatterAPI = "SecondsFormatter",
 	SimpleAnimAlphaAPI = "Alpha",
+	SimpleAnimAPI = "Animation",
+	SimpleAnimatableObjectAPI = "AnimatableObject",
 	SimpleAnimFlipBookAPI = "FlipBook",
 	SimpleAnimGroupAPI = "AnimationGroup",
 	SimpleAnimPathAPI = "Path",
 	SimpleAnimRotationAPI = "Rotation",
 	SimpleAnimScaleAPI = "Scale",
-	SimpleAnimScaleLineAPI = "LineScale", -- empty
+	SimpleAnimScaleLineAPI = "ScaleLine", -- empty
 	SimpleAnimTextureCoordTranslationAPI = "TextureCoordTranslation",
 	SimpleAnimTranslationAPI = "Translation",
-	SimpleAnimTranslationLineAPI = "LineTranslation", -- empty
-	SimpleAnimatableObjectAPI = "AnimatableObject",
+	SimpleAnimTranslationLineAPI = "TranslationLine", -- empty
 	SimpleAnimVertexColorAPI = "VertexColor",
+	SimpleBrowserAPI = "Browser", -- idk
 	SimpleButtonAPI = "Button",
 	SimpleCheckboxAPI = "CheckButton",
 	SimpleColorSelectAPI = "ColorSelect",
@@ -28,11 +56,14 @@ local doc_widgets = {
 	SimpleFrameScriptObjectAPI = "FrameScriptObject",
 	SimpleHTMLAPI = "SimpleHTML",
 	SimpleLineAPI = "Line",
+	SimpleMapSceneAPI = "MapScene", -- idk
 	SimpleMaskTextureAPI = "MaskTexture", -- empty
 	SimpleMessageFrameAPI = "MessageFrame",
 	SimpleModelAPI = "Model",
+	SimpleModelFFXAPI = "ModelFFX", -- unavailable to addons
 	SimpleMovieAPI = "MovieFrame",
 	SimpleObjectAPI = "Object",
+	SimpleOffScreenFrameAPI = "OffScreenFrame", -- idk
 	SimpleRegionAPI = "Region",
 	SimpleScriptRegionAPI = "ScriptRegion",
 	SimpleScriptRegionResizingAPI = "ScriptRegionResizing",
@@ -41,47 +72,7 @@ local doc_widgets = {
 	SimpleStatusBarAPI = "StatusBar",
 	SimpleTextureAPI = "Texture",
 	SimpleTextureBaseAPI = "TextureBase",
-	FrameAPICharacterModelBase = "CharacterModelBase", -- PlayerModel
-	FrameAPIDressUpModel = "DressUpModel",
-	-- ScriptRegionSharedDocumentation
-	-- SharedScriptObjectModelLightDocumentation
-	FrameAPICinematicModel = "CinematicModel",
-	FrameAPITabardModelBase = "TabardModelBase",
-	FrameAPITabardModel = "TabardModel",
-	FrameAPIModelSceneFrame = "ModelScene",
-	FrameAPIModelSceneFrameActorBase = "ModelSceneActorBase",
-	FrameAPIModelSceneFrameActor = "ModelSceneActor",
-	FrameAPIFogOfWarFrame = "FogOfWarFrame",
-	FrameAPIUnitPositionFrame = "UnitPositionFrame",
-	FrameAPIBlob = "Blob",
-	FrameAPIArchaeologyDigsite = "ArchaeologyDigSiteFrame", -- why do I have double
-	FrameAPIArchaeologyDigSiteFrame = "ArchaeologyDigSiteFrame",
-	FrameAPIQuestPOI = "QuestPOIFrame",
-	FrameAPIScenarioPOI = "ScenarioPOIFrame",
-	FrameAPITooltip = "GameTooltip",
-	-- 12.0.0
-	HousingCatalogSearcherAPI = "HousingCatalogSearcher",
-	HousingFixturePointFrameAPI = "HousingFixturePointFrame",
-	HousingLayoutPinFrameAPI = "HousingLayoutPinFrame",
-	LuaCurveObjectBaseAPI = "CurveObjectBase",
-	LuaCurveObjectAPI = "CurveObject",
-	LuaColorCurveObjectAPI = "ColorCurveObject",
-	AbbreviateConfigAPI = "AbbreviateConfig",
-	LuaDurationObjectAPI = "DurationObject",
 	UnitHealPredictionCalculatorAPI = "UnitHealPredictionCalculator",
-	FrameAPINamePlate = "NamePlate",
-	-- 12.0.5
-	AbbreviatedNumberFormatterAPI = "AbbreviatedNumberFormatter",
-	NumericFormatterAPI = "NumericFormatter",
-	NumericRuleFormatterAPI = "NumericRuleFormatter",
-	SecondsFormatterAPI = "SecondsFormatter",
-
-	-- special cases
-	FrameAPISimpleCheckout = "SimpleCheckout",
-	SimpleBrowserAPI = "Browser",
-	SimpleModelFFXAPI = "ModelFFX", -- unavailable to addons
-	SimpleOffScreenFrameAPI = "OffScreenFrame",
-	SimpleMapSceneAPI = "SimpleMap",
 }
 
-return doc_widgets
+return scriptobjects

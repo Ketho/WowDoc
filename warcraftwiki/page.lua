@@ -5,7 +5,7 @@ WarcraftWiki = {}
 -- require("warcraftwiki.core.fields")
 -- require("warcraftwiki.types.types")
 -- require("warcraftwiki.types.missing")
-local naming = require("wowdoc.namingway.full_name")
+local naming = require("wowdoc.namingway.naming")
 
 function WarcraftWiki:GetPageText(apiTable)
 	local t = {}

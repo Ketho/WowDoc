@@ -1,0 +1,49 @@
+local log = require("wowdoc.util.log")
+local scriptobjects = require("wowdoc.namingway.scriptobjects")
+local m = {}
+
+function m:GetSystemName(v)
+	if v.Type == "System" then
+		return v.Name
+	elseif v.Type == "ScriptObject" then
+		return self:ShortenScriptObject(v.Name)
+	end
+end
+
+function m:GetProperName(v)
+	local t = {}
+	if v.Type == "Function" then
+		if v.System.Type == "System" then
+			if v.System.Namespace and v.Namespace ~= "" then -- see InCombatLockdown
+				table.insert(t, v.System.Namespace..".")
+			end
+			table.insert(t, v.Name)
+		elseif v.System.Type == "ScriptObject" then
+			local proper = self:ShortenScriptObject(v.System.Name)
+			local fullName = string.format("%s:%s", proper, v.Name)
+			table.insert(t, fullName)
+		end
+	elseif v.Type == "Event" then
+		table.insert(t, v.LiteralName)
+	else
+		table.insert(t, v.Name)
+	end
+	return table.concat(t)
+end
+
+function m:GetWikiPageName(v)
+	local name = self:GetProperName(v)
+	name = name:gsub(":", " ")
+	return name
+end
+
+function m:ShortenScriptObject(s)
+	if scriptobjects[s] then
+		return scriptobjects[s]
+	else
+		log.failure(string.format("Missing short name for ScriptObject %s", s))
+		return s
+	end
+end
+
+return m

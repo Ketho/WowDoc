@@ -1,20 +1,5 @@
 local m = {}
 
-function m:GetProperName(v)
-	local t = {}
-	if v.Type == "Function" then
-		if v.System.Namespace and v.Namespace ~= "" then -- see InCombatLockdown
-			table.insert(t, v.System.Namespace..".")
-		end
-		table.insert(t, v.Name)
-	elseif v.Type == "Event" then
-		table.insert(t, v.LiteralName)
-	else
-		table.insert(t, v.Name)
-	end
-	return table.concat(t)
-end
-
 function m:GetFullName(apiTable, isWikiLink)
 	if isWikiLink then
 		local baseName = self:GetBaseName(apiTable, true)
