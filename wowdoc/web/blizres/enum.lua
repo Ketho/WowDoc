@@ -15,7 +15,7 @@ function m:LoadEnumTable(branch)
 		log.info(string.format("wowdoc: [branch %s] Loading Enum table", branch))
 	end
 	local url = URL:format(branch)
-	local path = pathlib.join(cfg.path.BLIZZRES, string.format("LuaEnum_%s.lua", branch))
+	local path = pathlib.join(cfg.path.BLIZRES, string.format("LuaEnum_%s.lua", branch))
 	dl:DownloadAndRun(url, path)
 	self:FixEnumTable()
 end

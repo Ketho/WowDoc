@@ -13,11 +13,11 @@ local m = {}
 
 function m:main()
 	local base_folder = pathlib.join("Pages", "Console variables")
-	local blizzres_cvars = require(pathlib.join(base_folder, "blizzres"))()
-	local framexml_strings = require(pathlib.join(base_folder, "framexml"))(blizzres_cvars)
-	local binary_strings = require(pathlib.join(base_folder, "binaries"))(blizzres_cvars)
-	self:WriteCVarList(blizzres_cvars[1].var, framexml_strings, binary_strings)
-	self:WriteCommandList(blizzres_cvars[1].command)
+	local blizres_cvars = require(pathlib.join(base_folder, "blizres"))()
+	local framexml_strings = require(pathlib.join(base_folder, "framexml"))(blizres_cvars)
+	local binary_strings = require(pathlib.join(base_folder, "binaries"))(blizres_cvars)
+	self:WriteCVarList(blizres_cvars[1].var, framexml_strings, binary_strings)
+	self:WriteCommandList(blizres_cvars[1].command)
 end
 
 local cvar_enum = {
@@ -43,7 +43,7 @@ local false_positives = {
 	AreaTriggers = true, -- 11.2.0 ptr
 }
 
-function m:WriteCVarList(blizzres_cvars, framexml_strings, binary_strings)
+function m:WriteCVarList(blizres_cvars, framexml_strings, binary_strings)
 	print("writing to "..OUTPUT_CVAR)
 	local file = io.open(OUTPUT_CVAR, "w")
 
@@ -51,8 +51,8 @@ function m:WriteCVarList(blizzres_cvars, framexml_strings, binary_strings)
 	file:write("! !! !! !! Name !! Default !! Category !! Scope !! Description\n")
 	local githubLink = "{{framexml_search|t=icon|%s}}"
 	local fs = "|-\n| %s || %s || %s || %s\n| %s || %s || %s\n| %s\n"
-	for _, cvar in pairs(table_sort.SortTable(blizzres_cvars, table_sort.SortNocase)) do
-		local v = blizzres_cvars[cvar]
+	for _, cvar in pairs(table_sort.SortTable(blizres_cvars, table_sort.SortNocase)) do
+		local v = blizres_cvars[cvar]
 		local default, category, server, character, secure, desc = table.unpack(v)
 		local default_text
 		if #default > 0 then
@@ -81,15 +81,15 @@ function m:WriteCVarList(blizzres_cvars, framexml_strings, binary_strings)
 	file:close()
 end
 
-function m:WriteCommandList(blizzres_commands)
+function m:WriteCommandList(blizres_commands)
 	print("writing to "..OUTPUT_COMMAND)
 	local file = io.open(OUTPUT_COMMAND, "w")
 
 	file:write('{| class="sortable darktable zebra col2-center"\n')
 	file:write("! Name !! Category !! Description\n")
 	local fs = "|-\n| %s\n| %s\n| %s\n"
-	for _, command in pairs(table_sort.SortTable(blizzres_commands, table_sort.SortNocase)) do
-		local v = blizzres_commands[command]
+	for _, command in pairs(table_sort.SortTable(blizres_commands, table_sort.SortNocase)) do
+		local v = blizres_commands[command]
 		local category, desc = table.unpack(v)
 		local name = string.format("[[CVar %s|%s]]", command, command)
 		file:write(fs:format(

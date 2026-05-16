@@ -62,8 +62,8 @@ local function WriteFile(path, tbl)
 	file:close()
 end
 
-local function main(blizzres_cvars)
-	local cvars = blizzres_cvars[1].var
+local function main(blizres_cvars)
+	local cvars = blizres_cvars[1].var
 	local NoStrings = {}
 	local t = {}
 	local builds = GetBuilds(PATH)

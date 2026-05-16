@@ -43,12 +43,12 @@ local function GetLatestLocalBuild(flavor)
 	return path
 end
 
-local function main(blizzres)
+local function main(blizres)
 	-- local latestWagoBuild = wago:GetLatestBuild("wow")
 	local frameXML = GetLatestLocalBuild("live")
 	system:IterateFiles(frameXML, GetStrings)
 	local framexml_cvars = {}
-	for k in pairs(blizzres[1].var) do
+	for k in pairs(blizres[1].var) do
 		if framexml_strings[k:lower()] then
 			framexml_cvars[k] = true
 		end

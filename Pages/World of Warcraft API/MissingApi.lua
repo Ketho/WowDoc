@@ -37,7 +37,7 @@ end
 function m:GetGlobalApi()
 	local global_api = request:DownloadAndRun(
 		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/GlobalAPI.lua", gethe_branch),
-		pathlib.join(PATHS.BLIZZRES, string.format("GlobalAPI_%s.lua", gethe_branch))
+		pathlib.join(PATHS.BLIZRES, string.format("GlobalAPI_%s.lua", gethe_branch))
 	)
 	return tablelib.ToMap(global_api[1])
 end

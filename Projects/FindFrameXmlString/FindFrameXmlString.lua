@@ -24,7 +24,7 @@ end
 local function GetCvars()
 	local data = request:DownloadAndRun(
 		"https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/mainline/Resources/CVars.lua",
-		pathlib.join(PATHS.BLIZZRES, "CVars_mainline.lua")
+		pathlib.join(PATHS.BLIZRES, "CVars_mainline.lua")
 	)
 	return data[1].var
 end

@@ -23,7 +23,7 @@ local gethe_branches = {
 ---|"Mixins"
 ---|"Templates"
 
-local BLIZZRES = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/%s.lua"
+local BLIZRES = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/%s.lua"
 
 local function CopyTableTrue(t, tbl)
 	for k in pairs(tbl) do
@@ -77,9 +77,9 @@ local ToMap = {
 local function GetBranchMap(branches, resource)
 	local map = {}
 	for _, branch in pairs(branches) do
-		local url = BLIZZRES:format(branch, resource)
+		local url = BLIZRES:format(branch, resource)
 		local file_branch = string.format("%s_%s.lua", resource, branch)
-		local path = pathlib.join(PATHS.BLIZZRES, file_branch)
+		local path = pathlib.join(PATHS.BLIZRES, file_branch)
 		local file_data = request:DownloadAndRun(url, path)
 		map[branch] = ToMap[resource](file_data)
 	end
