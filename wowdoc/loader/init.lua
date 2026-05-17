@@ -7,7 +7,7 @@ local products = require("wowdoc.products.branches")
 local git      = require("wowdoc.web.git")
 local enum     = require("wowdoc.web.blizres.enum")
 local cfg      = require("wowdoc.config")
-local missing_enum = require("wowdoc.stats.types.missing_enum")
+local missing_enum = require("wowdoc.loader.doc.missing_enum")
 -- local patches  = require("wowdoc.loader.doc.patches")
 local m = {}
 

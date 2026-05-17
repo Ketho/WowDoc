@@ -7,7 +7,7 @@ function m:AddMissingEnums()
 	local docTable = {Tables = {}}
 	local missing = types_api:GetMissingEnums()
 	for _, k in pairs(util_sort.SortTable(missing)) do
-		log.debug("Adding missing enum: "..k)
+		log.warn("Adding missing Enum."..k)
 		local enum = self:CreateEnumDoc(k)
 		table.insert(docTable.Tables, enum)
 	end
