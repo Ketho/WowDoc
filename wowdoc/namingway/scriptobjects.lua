@@ -1,4 +1,7 @@
-local data = {
+local log = require("wowdoc.util.log")
+local m = {}
+
+m.data = {
 	AbbreviateConfigAPI = "AbbreviateConfig",
 	AbbreviatedNumberFormatterAPI = "AbbreviatedNumberFormatter",
 	FrameAPIArchaeologyDigSiteFrame = "ArchaeologyDigSiteFrame", -- empty
@@ -75,4 +78,13 @@ local data = {
 	UnitHealPredictionCalculatorAPI = "UnitHealPredictionCalculator",
 }
 
-return data
+function m:shorten(s)
+	if m.data[s] then
+		return m.data[s]
+	else
+		log.failure(string.format("Missing short name for ScriptObject %s", s))
+		return s
+	end
+end
+
+return m

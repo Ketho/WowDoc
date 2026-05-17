@@ -6,7 +6,7 @@ function m:GetSystemName(v)
 	if v.Type == "System" then
 		return v.Name
 	elseif v.Type == "ScriptObject" then
-		return self:ShortenScriptObject(v.Name)
+		return scriptobjects:shorten(v.Name)
 	end
 end
 
@@ -19,7 +19,7 @@ function m:GetProperName(v)
 			end
 			table.insert(t, v.Name)
 		elseif v.System.Type == "ScriptObject" then
-			local proper = self:ShortenScriptObject(v.System.Name)
+			local proper = scriptobjects:shorten(v.System.Name)
 			local fullName = string.format("%s:%s", proper, v.Name)
 			table.insert(t, fullName)
 		end
@@ -35,15 +35,6 @@ function m:GetWikiPageName(v)
 	local name = self:GetProperName(v)
 	name = name:gsub(":", " ")
 	return name
-end
-
-function m:ShortenScriptObject(s)
-	if scriptobjects[s] then
-		return scriptobjects[s]
-	else
-		log.failure(string.format("Missing short name for ScriptObject %s", s))
-		return s
-	end
 end
 
 return m
