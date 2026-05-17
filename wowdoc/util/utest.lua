@@ -31,6 +31,4 @@ function m.assert_string(v, expected)
 	end
 end
 
--- m:assert_string(124, "hello")
-
 return m

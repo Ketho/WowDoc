@@ -14,8 +14,9 @@ local COMPAT_PATH = pathlib.join("wowdoc", "loader", "compat")
 local ADDONS_PATH = pathlib.join("wow-ui-source", "Interface", "AddOns")
 
 -- loads the blizzard addons from the git checkout
-function m:LoadDocumentation(product)
+function m:LoadDocumentation(product, options)
 	product = product or cfg.TACT_PRODUCT
+	options = options or {}
 	local branch = products:GetBranch(product)
 	if APIDocumentation then
 		log.warn(string.format("wowdoc: [product %s, branch %s] APIDocumentation already loaded", product, branch))
@@ -33,7 +34,9 @@ function m:LoadDocumentation(product)
 	self:LoadAddOn(ADDONS_PATH, "Blizzard_APIDocumentation")
 	self:LoadAddOn(ADDONS_PATH, "Blizzard_APIDocumentationGenerated")
 	-- missing tables
-	doctbl:LoadMissingDocumentation()
+	if not options.excludeMissing then
+		doctbl:LoadMissingDocumentation()
+	end
 	-- APIDocumentation:OutputStats()
 end
 
