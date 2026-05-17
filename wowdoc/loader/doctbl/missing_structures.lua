@@ -1,5 +1,5 @@
 -- documentation for structures in blizzard format
-local Missing =
+local doc =
 {
 	Tables =
 	{
@@ -11,6 +11,7 @@ local Missing =
 			{
 				{ Name = "applications", Type = "number" },
 				{ Name = "auraInstanceID", Type = "number" },
+				{ Name = "canActivePlayerDispel", Type = "boolean" },
 				{ Name = "canApplyAura", Type = "bool" },
 				{ Name = "charges", Type = "number" },
 				{ Name = "dispelName", Type = "string", Nilable = true },
@@ -18,12 +19,15 @@ local Missing =
 				{ Name = "expirationTime", Type = "number" },
 				{ Name = "icon", Type = "number" },
 				{ Name = "isBossAura", Type = "bool" },
+				{ Name = "isDPSRoleAura", Type = "bool" },
 				{ Name = "isFromPlayerOrPlayerPet", Type = "bool" },
 				{ Name = "isHarmful", Type = "bool" },
+				{ Name = "isHealerRoleAura", Type = "bool" },
 				{ Name = "isHelpful", Type = "bool" },
 				{ Name = "isNameplateOnly", Type = "bool" },
 				{ Name = "isRaid", Type = "bool" },
 				{ Name = "isStealable", Type = "bool" },
+				{ Name = "isTankRoleAura", Type = "bool" },
 				{ Name = "maxCharges", Type = "number" },
 				{ Name = "name", Type = "string" },
 				{ Name = "nameplateShowAll", Type = "bool" },
@@ -61,18 +65,7 @@ local Missing =
 				{ Name = "z", Type = "number", Nilable = true },
 			},
 		},
-		-- {
-		-- 	-- PvpInfoDocumentation.lua (in mainline but not in classic)
-		-- 	Name = "RoleShortageReward",
-		-- 	Type = "Structure",
-		-- 	Fields =
-		-- 	{
-		-- 		{ Name = "validRoles", Type = "table", InnerType = "cstring", Nilable = false },
-		-- 		{ Name = "rewardSpellID", Type = "number", Nilable = false },
-		-- 		{ Name = "rewardItemID", Type = "number", Nilable = false },
-		-- 	},
-		-- },
 	},
 }
 
-return Missing
+return doc

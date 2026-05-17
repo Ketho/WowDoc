@@ -4,7 +4,7 @@ require("warcraftwiki.core.functions")
 require("warcraftwiki.core.fields")
 require("warcraftwiki.core.events")
 -- require("warcraftwiki.core.tables")
-require("warcraftwiki.types.missing")
+
 local naming = require("wowdoc.namingway.naming")
 
 function WarcraftWiki:GetPageText(apiTable)

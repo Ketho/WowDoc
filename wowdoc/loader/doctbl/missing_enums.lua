@@ -3,7 +3,7 @@ local types_api = require("wowdoc.stats.types.api")
 local util_sort = require("wowdoc.util.table_sort")
 local m = {}
 
-function m:AddMissingEnums()
+function m:GetMissingEnums()
 	local docTable = {Tables = {}}
 	local missing = types_api:GetMissingEnums()
 	for _, k in pairs(util_sort.SortTable(missing)) do
@@ -11,7 +11,7 @@ function m:AddMissingEnums()
 		local enum = self:CreateEnumDoc(k)
 		table.insert(docTable.Tables, enum)
 	end
-	APIDocumentation:AddDocumentationTable(docTable)
+	return docTable
 end
 
 function m:CreateEnumDoc(name)

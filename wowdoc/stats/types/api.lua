@@ -1,5 +1,5 @@
 local get_types = require("wowdoc.stats.types.get_types")
-local TypeDoc = require("wowdoc.loader.doc.TypeDocumentation")
+local TypeDoc = require("wowdoc.loader.doctbl.TypeDocumentation")
 local enum = require("wowdoc.web.blizres.enum")
 
 local m = {}

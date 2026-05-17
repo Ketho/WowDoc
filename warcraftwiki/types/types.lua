@@ -1,6 +1,4 @@
 
--- local TYPEDOC_PATH = "wowdoc.loader.doc.TypeDocumentation"
-
 WarcraftWiki.Types = {}
 
 WarcraftWiki.Types.basic = {
@@ -14,27 +12,6 @@ WarcraftWiki.Types.basic = {
 }
 
 WarcraftWiki.Types.blizzard = {}
-
--- function WarcraftWiki.Types:LoadTypeDocumentation()
--- 	local data = require(TYPEDOC_PATH)
--- 	local Types = {Tables = data}
--- 	APIDocumentation:AddDocumentationTable(Types)
--- 	self.Types = Types
--- 	for _, v in ipairs(self.Tables) do
--- 		self.blizzardTypes[v.Name] = v
--- 	end
--- end
-
--- function WarcraftWiki.Types:GetBlizzardType(name)
--- 	if self.Types[name] then
--- 		if self.Types[name].Replace then
--- 			return self.Types[name].Type
--- 		else
--- 			return name
--- 		end
--- 	end
--- end
-
 
 function WarcraftWiki.Types:GetType(name)
 	return name
