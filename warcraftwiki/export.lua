@@ -3,8 +3,8 @@ local util_system  = require("wowdoc.util.system")
 local log          = require("wowdoc.util.log")
 local cfg          = require("wowdoc.config")
 local naming       = require("wowdoc.namingway.naming")
-local emptySystems = require("wowdoc.analyse.systems.system_empty"):get()
-local ghostSystems = require("wowdoc.analyse.systems.system_ghost"):get()
+local emptySystems = require("wowdoc.stats.systems.system_empty"):get()
+local ghostSystems = require("wowdoc.stats.systems.system_ghost"):get()
 local page = require("warcraftwiki.page")
 local m = {}
 

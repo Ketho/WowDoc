@@ -15,16 +15,6 @@ local function HasMiddleOptionals(paramTbl)
 	end
 end
 
-local function GetBlizzardType(name)
-	if WarcraftWiki.blizzardTypes[name] then
-		if WarcraftWiki.blizzardTypes[name].Replace then
-			return WarcraftWiki.blizzardTypes[name].Type
-		else
-			return name
-		end
-	end
-end
-
 function WarcraftWiki:GetSignature(paramTbl)
 	local tbl = {}
 	if HasMiddleOptionals(paramTbl) then
@@ -67,69 +57,13 @@ function WarcraftWiki:GetParameters(params, isArgument)
 			table.insert(tbl, format("(Variable %s)", isArgument and "arguments" or "returns"))
 		end
 		local r = {}
-		table.insert(r, paramFs:format(param.Name, self:GetPrettyType(param, isArgument)))
+		table.insert(r, paramFs:format(param.Name, self.Types:GetPrettyType(param, isArgument)))
 		if param.Documentation and #param.Documentation > 0 then
 			table.insert(r, self:GetDocumentationField(param))
 		end
 		table.insert(tbl, table.concat(r, " - "))
-		local complexTable, isTransclude = self:GetComplexTypeInfo(param)
-		if complexTable then
-			if isTransclude then
-				local transclude = format("{{:%s|nocaption=1}}", self:GetTranscludeBase(complexTable))
-				table.insert(tbl, transclude)
-			else
-				table.insert(tbl, self:GetTableText(complexTable))
-			end
-		end
 	end
 	return table.concat(tbl, "\n")
-end
-
-function WarcraftWiki:GetPrettyType(apiTable, isArgument)
-	local complexType = self.complexTypes[apiTable.Type]
-	local apiText
-	if apiTable.Type == "table" then
-		if apiTable.Mixin then
-			apiText = apiTable.Mixin
-		elseif apiTable.InnerType then
-			local complexInnertype = self.complexTypes[apiTable.InnerType]
-			if self.basicTypes[apiTable.InnerType] then
-				apiText = self.basicTypes[apiTable.InnerType].."[]"
-			elseif self.blizzardTypes[apiTable.InnerType] then
-				apiText = GetBlizzardType(apiTable.InnerType).."[]"
-			elseif complexInnertype then
-				apiText = complexInnertype:GetFullName(false, false).."[]"
-			else
-				log.failure("Unknown InnerType: "..apiTable.InnerType)
-				apiText = "Unknown"
-			end
-		else
-			apiText = "Unknown"
-		end
-	elseif self.basicTypes[apiTable.Type] then
-		apiText = self.basicTypes[apiTable.Type]
-	elseif self.blizzardTypes[apiTable.Type] then
-		apiText = GetBlizzardType(apiTable.Type)
-	elseif complexType then
-		apiText = complexType:GetFullName(false, false)
-	else
-		log.failure("Unknown Type: "..apiTable.Type)
-		apiText = "Unknown"
-	end
-	-- `Default` implies `Nilable`, even if nilable is false
-	if apiTable.Nilable or apiTable.Default ~= nil then
-		apiText = apiText.."?"
-	end
-	if apiTable.Default ~= nil then
-		apiText = apiText..format("|default=%s", tostring(apiTable.Default))
-	end
-	if apiTable.NeverSecret then
-		apiText = apiText.."|secret=NeverSecret"
-	elseif apiTable.ConditionalSecret then
-		apiText = apiText.."|secret=ConditionalSecret"
-	end
-	local str = string.format("{{apitype|%s}}", apiText)
-	return str
 end
 
 function WarcraftWiki:GetDocumentationField(apiTable)

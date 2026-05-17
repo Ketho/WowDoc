@@ -7,6 +7,7 @@ local products = require("wowdoc.products.branches")
 local git      = require("wowdoc.web.git")
 local enum     = require("wowdoc.web.blizres.enum")
 local cfg      = require("wowdoc.config")
+local missing_enum = require("wowdoc.stats.types.missing_enum")
 -- local patches  = require("wowdoc.loader.doc.patches")
 local m = {}
 
@@ -32,6 +33,8 @@ function m:LoadDocumentation(product)
 	-- load blizzard addons
 	self:LoadAddOn(ADDONS_PATH, "Blizzard_APIDocumentation")
 	self:LoadAddOn(ADDONS_PATH, "Blizzard_APIDocumentationGenerated")
+	-- missing tables
+	missing_enum:AddMissingEnums()
 	-- APIDocumentation:OutputStats()
 end
 

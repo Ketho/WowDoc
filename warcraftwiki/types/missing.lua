@@ -1,5 +1,6 @@
 local log = require("wowdoc.util.log")
-
+local types_api = require("wowdoc.stats.types.api")
+--[[
 function WarcraftWiki:FindMissingTypes()
 	local missingTypes = {}
 	for _, field in ipairs(APIDocumentation.fields) do
@@ -27,7 +28,7 @@ function WarcraftWiki:PullMissingTypes(missingTypes)
 		-- only fetch a type if its missing so as to not overwrite any Blizzard docs if they appear
 		if Enum[complexType] then
 			log.debug("Fetching missing: Enum."..complexType)
-			table.insert(missingDocs.Tables, self:GetMissingEnum(complexType))
+			table.insert(missingDocs.Tables, self:CreateMissingEnum(complexType))
 		elseif missingStructures[complexType] then
 			log.debug("Fetching missing: struct "..complexType)
 			table.insert(missingDocs.Tables, missingStructures[complexType])
@@ -38,16 +39,5 @@ function WarcraftWiki:PullMissingTypes(missingTypes)
 	end
 	APIDocumentation:AddDocumentationTable(missingDocs)
 end
+]]
 
-function WarcraftWiki:GetMissingEnum(name)
-	local t = {
-		Name = name,
-		Type = "Enumeration",
-		Fields = {},
-	}
-	for k, v in pairs(Enum[name]) do
-		table.insert(t.Fields, { Name = k, Type = name, EnumValue = v })
-	end
-	table.sort(t.Fields, function(a, b) return a.EnumValue < b.EnumValue end)
-	return t
-end

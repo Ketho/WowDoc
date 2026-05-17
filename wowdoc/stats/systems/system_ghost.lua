@@ -1,8 +1,8 @@
 -- C_ConfigurationWarnings is a documented system with functions, but it does not exist
 -- # it has a documented namespace which does not exist
 -- # the Functions table is not empty 
-local namespace_ghost = require("wowdoc.analyse.systems.namespace_ghost")
-local system_empty = require("wowdoc.analyse.systems.system_empty")
+local namespace_ghost = require("wowdoc.stats.systems.namespace_ghost")
+local system_empty = require("wowdoc.stats.systems.system_empty")
 local m = {}
 
 -- systems that are documented with functions but do not actually exist, like C_ConfigurationWarnings

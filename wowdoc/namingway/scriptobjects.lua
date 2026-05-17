@@ -1,4 +1,4 @@
-local scriptobjects = {
+local data = {
 	AbbreviateConfigAPI = "AbbreviateConfig",
 	AbbreviatedNumberFormatterAPI = "AbbreviatedNumberFormatter",
 	FrameAPIArchaeologyDigSiteFrame = "ArchaeologyDigSiteFrame", -- empty
@@ -75,4 +75,4 @@ local scriptobjects = {
 	UnitHealPredictionCalculatorAPI = "UnitHealPredictionCalculator",
 }
 
-return scriptobjects
+return data

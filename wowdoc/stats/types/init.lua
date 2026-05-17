@@ -5,17 +5,17 @@ local m = {}
 function m:main(runTests)
     loader:LoadDocumentation()
 	if runTests then
-		local test_types = require("wowdoc.analyse.types.test_types")
+		local test_types = require("wowdoc.stats.types.test_types")
 		test_types:Run()
 	end
 
-	-- local get_types = require("wowdoc.analyse.types.get_types")
+	-- local get_types = require("wowdoc.stats.types.get_types")
 	-- local all_types = get_types:GetAllTypes()
 	-- for _, k in pairs(table_sort.SortTable(all_types)) do
 	-- 	print(k)
 	-- end
 
-	local get_doc_types = require("wowdoc.analyse.types.undoc_types")
+	local get_doc_types = require("wowdoc.stats.types.undoc_types")
 	local undoc_types = get_doc_types:GetUndocTypes()
 	if next(undoc_types) then
 		print("-- Printing undocumented types:")

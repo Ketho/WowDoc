@@ -1,33 +1,24 @@
 WarcraftWiki = {}
--- require("warcraftwiki.core.functions")
--- require("warcraftwiki.core.events")
+require("warcraftwiki.types.types")
+require("warcraftwiki.core.functions")
+require("warcraftwiki.core.fields")
+require("warcraftwiki.core.events")
 -- require("warcraftwiki.core.tables")
--- require("warcraftwiki.core.fields")
--- require("warcraftwiki.types.types")
--- require("warcraftwiki.types.missing")
+require("warcraftwiki.types.missing")
 local naming = require("wowdoc.namingway.naming")
 
 function WarcraftWiki:GetPageText(apiTable)
 	local t = {}
-	local proper = naming:GetProperName(apiTable)
-	return proper
-	-- local tbl = {}
-	-- local params
-	-- if apiTable.Type == "Function" then
-	-- 	params = self:GetFunctionText(apiTable, systemType)
-	-- elseif apiTable.Type == "Event" then
-	-- 	params = self:GetEventText(apiTable)
-	-- end
-	-- local apiTemplate = self:GetTemplateInfo(apiTable, systemType)
-	-- local sections = {
-	-- 	apiTemplate,
-	-- 	self:GetDescription(apiTable),
-	-- 	params,
-	-- }
-	-- for _, v in ipairs(sections) do
-	-- 	table.insert(tbl, v)
-	-- end
-	-- return table.concat(tbl, "\n")
+	table.insert(t, self:GetTemplateInfo(apiTable))
+	table.insert(t, self:GetDescription(apiTable))
+	local body
+	if apiTable.Type == "Function" then
+		body = self:GetFunctionText(apiTable)
+	elseif apiTable.Type == "Event" then
+		body = self:GetEventText(apiTable)
+	end
+	table.insert(t, body)
+	return table.concat(t, "\n")
 end
 
 function WarcraftWiki:GetDescription(apiTable)
@@ -37,13 +28,15 @@ function WarcraftWiki:GetDescription(apiTable)
 	return "&nbsp;"
 end
 
-function WarcraftWiki:GetTemplateInfo(apiTable, systemType)
+function WarcraftWiki:GetTemplateInfo(apiTable)
 	local tbl = {}
-	if systemType == "ScriptObject" then
-		table.insert(tbl, "widgetmethod")
-	elseif apiTable.Type == "Function" then
-		table.insert(tbl, "wowapi")
-		table.insert(tbl, "t=a")
+	if apiTable.Type == "Function" then
+		if apiTable.System.Type == "ScriptObject" then
+			table.insert(tbl, "widgetmethod")
+		else
+			table.insert(tbl, "wowapi")
+			table.insert(tbl, "t=a")
+		end
 	elseif apiTable.Type == "Event" then
 		table.insert(tbl, "wowapievent")
 		table.insert(tbl, "t=e")

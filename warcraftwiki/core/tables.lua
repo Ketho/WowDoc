@@ -59,28 +59,3 @@ function WarcraftWiki:GetTableText(apiTable, isTemplate, isSubTable)
 	local apiTemplate = self:GetTemplateInfo(apiTable)
 	return isTemplate and format("%s\n<onlyinclude>%s</onlyinclude>", apiTemplate, text) or text
 end
-
-function WarcraftWiki:GetIncludedTables(apiTable)
-	local tbl, tblHash = {}, {}
-	if apiTable.Type == "Structure" then
-		for _, field in ipairs(apiTable.Fields) do
-			local complexTable, isTransclude = self:GetComplexTypeInfo(field)
-			if complexTable and not tblHash[complexTable] then
-				tblHash[complexTable] = true
-				if isTransclude then
-					local transclude = format("{{:%s}}", self:GetTranscludeBase(complexTable))
-					table.insert(tbl, transclude)
-				else
-					table.insert(tbl, self:GetTableText(complexTable, false, true))
-				end
-			end
-		end
-	end
-	return tbl
-end
-
-function WarcraftWiki:GetTranscludeBase(complexTable)
-	local shortType = shortComplex[complexTable.Type] or complexTable.Type or ""
-	local divider = shortType == "Enum" and "." or " "
-	return shortType..divider..complexTable.Name, shortType
-end

@@ -1,4 +1,4 @@
-local widgets = require("wowdoc.namingway.scriptobjects")
+local scriptobjects = require("wowdoc.namingway.scriptobjects")
 
 local function FormatApisig(s)
 	return string.format("{{apisig|%s}}", s)
@@ -21,7 +21,7 @@ function WarcraftWiki:GetWidgetSignature(func)
 	if func.Returns and #func.Returns > 0 then
 		table.insert(t, string.format("%s {{=}} ", self:GetSignature(func.Returns)))
 	end
-	local widget = widgets[func.System.Name]
+	local widget = scriptobjects[func.System.Name]
 	table.insert(t, string.format("%s:%s", widget, func.Name))
 	table.insert(t, string.format("(%s)", self:GetSignature(func.Arguments)))
 	return table.concat(t)
