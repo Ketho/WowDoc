@@ -7,10 +7,11 @@ local cjsonutil = require("cjson.util")
 
 local log = require("wowdoc.util.log")
 local csv = require("wowdoc.util.csv")
+local cfg = require("wowdoc.config")
 local products = require("wowdoc.products.branches")
 
 ---@diagnostic disable-next-line: undefined-global
-local cache_folder = PATHS and PATHS.WAGO or "wago"
+local cache_folder = cfg.path.wago
 local listfile_path = pathlib.join(cache_folder, "community-listfile.csv")
 
 local wago_builds_latest_url = "https://wago.tools/api/builds/%s/latest"
@@ -124,14 +125,14 @@ end
 function m:ReadCSV(name, options, callback)
 	log.info(string.format('Reading CSV "%s"', name))
 	local iter = self:GetCSV(name, options)
-	local tbl = {} -- optional table
-	for line in iter:lines() do
-		local ID = tonumber(line[1])
-		if ID then
-			callback(tbl, ID, line) -- maybe bad code
-		end
-	end
-	return tbl
+	-- local tbl = {} -- optional table
+	-- for line in iter:lines() do
+	-- 	local ID = tonumber(line[1])
+	-- 	if ID then
+	-- 		callback(tbl, ID, line) -- maybe bad code
+	-- 	end
+	-- end
+	return iter
 end
 
 function m:ReadListfile()

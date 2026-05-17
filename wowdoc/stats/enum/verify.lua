@@ -36,11 +36,9 @@ function m:CompareFromDocs()
 	end
 end
 -- not equals, CooldownViewerCategory, CooldownViewerConstantsDocumentation.lua
--- not equals, DamageMeterCombineSessionType, DamageMeterConstantsDocumentation.lua
 -- missing, CharCreateAnimTurnType, CharacterCreationConstantsDocumentation.lua
 -- missing, CharSectionCondition, CharacterCreationConstantsDocumentation.lua
 -- missing, ConfigurationWarning, ConfigurationWarningConstantsDocumentation.lua
--- missing, TrackedSpellsResult, CommentatorFrame
 -- missing, VasTransactionPurchaseResult, BattlepayConstantsDocumentation.lua
 -- missing, WarbandEventState, CharacterSelectionConstantsDocumentation.lua
 -- missing, WarbandGroupFlags, CharacterSelectionConstantsDocumentation.lua
@@ -66,7 +64,6 @@ function m:CompareFromEnumTable()
 	end
 end
 -- not equals, CooldownViewerCategory
--- not equals, DamageMeterCombineSessionType
 -- missing, AccountStateFlags
 -- missing, AccountStateLoadedFlags
 -- missing, AccountStoreCategoryType

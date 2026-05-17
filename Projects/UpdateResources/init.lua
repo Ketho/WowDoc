@@ -2,6 +2,7 @@ local log = require("wowdoc.util.log")
 local git = require("wowdoc.web.git")
 local products = require("wowdoc.products.branches")
 local wago = require("wowdoc.web.wago")
+local cfg = require("wowdoc.config")
 
 OUT_GLOBALSTRINGS = "/mnt/d/Repo/wow-api/BlizzardInterfaceResources/Resources/GlobalStrings/%s.lua"
 OUT_ATLAS = "/mnt/d/Repo/wow-api/BlizzardInterfaceResources/Resources/AtlasInfo.lua"
@@ -12,7 +13,7 @@ local globalstrings = require("Projects.UpdateResources.GlobalStrings")
 local atlasinfo = require("Projects.UpdateResources.AtlasInfo")
 local dumbparser = require("Projects.DumbXmlParser")
 
-local PRODUCT = CONFIG.TACT_PRODUCT
+local PRODUCT = cfg.TACT_PRODUCT
 local branch = products:GetBranch(PRODUCT)
 git:checkout("https://github.com/Gethe/wow-ui-source", branch)
 

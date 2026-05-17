@@ -6,7 +6,6 @@ config.TACT_PRODUCT = "wow"
 
 local root = ".wow"
 config.path = {
-	WAGO       = pathlib.join(root, "wago"),
 	CACHE      = pathlib.join(root, "cache"),
 	DIFF       = pathlib.join(root, "diff"),
 	BLIZRES    = pathlib.join(root, "blizres"),
@@ -16,6 +15,7 @@ config.path = {
 	WIKI_CLASSIC_COMPARE = pathlib.join(root, "wiki_page", "classic_compare"),
 	WIKI_DIFF  = pathlib.join(root, "wiki_page", "diff"),
 	WIKI_CATEGORIES = pathlib.join(root, "wiki_categories"),
+	wago       = pathlib.join(root, "wago"),
 	warcraftwiki = pathlib.join(".wiki"),
 }
 
