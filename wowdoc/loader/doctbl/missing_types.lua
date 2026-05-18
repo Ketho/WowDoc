@@ -164,7 +164,7 @@ local data = {
 	{ Name = "PlayerLocation", Mixin = "PlayerLocationMixin", W_Link = "PlayerLocationMixin" },
 	{ Name = "ReportInfo", Mixin = "ReportInfoMixin", W_Link = "ReportInfoMixin" },
 	{ Name = "TransmogLocation", Mixin = "TransmogLocationMixin", W_Link = "TransmogLocationMixin" },
-	{ Name = "TransmogPendingInfo", Mixin = "TransmogPendingInfoMixin", W_Link = "TransmogPendingInfoMixin" },
+	-- { Name = "TransmogPendingInfo", Mixin = "TransmogPendingInfoMixin", W_Link = "TransmogPendingInfoMixin" }, -- removed
 	{ Name = "vector2", Mixin = "Vector2DMixin", W_Link = "Vector2DMixin" },
 	{ Name = "vector3", Mixin = "Vector3DMixin", W_Link = "Vector3DMixin" },
 	-- framexml mixins

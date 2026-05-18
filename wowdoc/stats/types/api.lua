@@ -1,5 +1,5 @@
 local get_types = require("wowdoc.stats.types.get_types")
-local TypeDoc = require("wowdoc.loader.doctbl.TypeDocumentation")
+local TypeDoc = require("wowdoc.loader.doctbl.missing_types")
 local enum = require("wowdoc.web.blizres.enum")
 
 local m = {}
@@ -15,7 +15,7 @@ function m:GetDocTypes()
 	return self.types.doc
 end
 
-function m:GetUndocTypes()
+function m:api_GetUndocTypes()
 	if not self.types.undoc then
 		self.types.undoc = {}
 		local all_types = self:GetAllTypes()
@@ -33,7 +33,7 @@ end
 -- referenced in docs but not defined
 function m:GetMissingEnums()
 	if not self.types.missing_enums then
-		local undoc = self:GetUndocTypes()
+		local undoc = self:api_GetUndocTypes()
 		self.types.missing_enums = {}
 		for k in pairs(undoc) do
 			if Enum[k] then

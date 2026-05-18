@@ -9,7 +9,7 @@ function m:test()
 	loader:LoadDocumentation(nil, {excludeMissing = true})
 
 	self:CompareFromDocs()
-	-- self:CompareFromEnumTable()
+	self:CompareFromEnumTable()
 end
 
 local function ConvertFromDoc(v)
@@ -21,6 +21,7 @@ local function ConvertFromDoc(v)
 end
 
 function m:CompareFromDocs()
+	print("-- CompareFromDocs")
 	for k, v in pairs(APIDocumentation.tables) do
 		if v.Type == "Enumeration" then
 			if not Enum[v.Name] then
@@ -50,6 +51,7 @@ end
 -- missing, WarbandScenePlacementType, CharacterSelectionConstantsDocumentation.lua
 
 function m:CompareFromEnumTable()
+	print("\n-- CompareFromEnumTable")
 	for k, v in pairs(Enum) do
 		local doc = APIDocumentation:FindAPIByName("table", k)
 		if not doc then

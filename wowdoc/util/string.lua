@@ -9,7 +9,6 @@ function m.strsplit(input, sep)
 	return t
 end
 
-local fs = "\27[%dm%s\27[0m"
 m.style = {
 	bold = 1,
 	italic = 3,
@@ -43,7 +42,7 @@ m.style = {
 }
 
 function m.color(msg, color_id)
-	return fs:format(color_id, msg)
+	return string.format("\27[%dm%s\27[0m", color_id, msg)
 end
 
 return m

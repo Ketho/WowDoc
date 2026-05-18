@@ -22,8 +22,8 @@ function m:LoadDocumentation(product, options)
 		log.warn(string.format("wowdoc: [product %s, branch %s] APIDocumentation already loaded", product, branch))
 		return
 	else
-		local pretty_product = strlib.colorize(product, 32)
-		local pretty_branch = strlib.colorize(branch, 32)
+		local pretty_product = strlib.color(product, strlib.style.clear_green)
+		local pretty_branch = strlib.color(branch, strlib.style.clear_blue)
 		log.info(string.format("wowdoc: [product %s, branch %s] Loading APIDocumentation", pretty_product, pretty_branch))
 	end
 	git:checkout("https://github.com/Gethe/wow-ui-source", branch)
@@ -34,7 +34,8 @@ function m:LoadDocumentation(product, options)
 	self:LoadAddOn(ADDONS_PATH, "Blizzard_APIDocumentation")
 	self:LoadAddOn(ADDONS_PATH, "Blizzard_APIDocumentationGenerated")
 	-- missing tables
-	if not options.excludeMissing then
+	if options.getMissingDocs then
+		doctbl:VerifyMissingTypes()
 		doctbl:LoadMissingDocumentation()
 	end
 	-- APIDocumentation:OutputStats()

@@ -16,7 +16,7 @@ local function IsSystemEmpty(tbl)
 end
 
 -- only care about functions and events
-local function IsSystemNonRelevant(tbl)
+local function IsSystemIrrelevant(tbl)
 	return not next(tbl.Functions) and not next(tbl.Events)
 end
 
@@ -37,7 +37,7 @@ function m:get()
 			t.empty[systemTbl.Name] = true
 			-- print(systemTbl.Name)
 		end
-		if IsSystemNonRelevant(systemTbl) then
+		if IsSystemIrrelevant(systemTbl) then
 			t.irrelevant[systemTbl.Name] = true
 			-- print(systemTbl.Name)
 		end
@@ -63,7 +63,7 @@ return m
 -- SimpleMaskTextureAPI
 -- TraitConfig
 
--- # IsSystemNonRelevant
+-- # IsSystemIrrelevant
 -- AccessibilityOptions
 -- BagIndexConstants
 -- CursorUtil
