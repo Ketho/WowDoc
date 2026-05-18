@@ -10,6 +10,16 @@ function m.success(msg)
 	print_msg(symbol, msg)
 end
 
+function m.warn(msg)
+	local symbol = strlib.color("!", strlib.style.yellow)
+	print_msg(symbol, msg)
+end
+
+function m.failure(msg)
+	local symbol = strlib.color("-", strlib.style.red)
+	print_msg(symbol, msg)
+end
+
 function m.important(msg)
 	local symbol = strlib.color("#", strlib.style.purple)
 	print_msg(symbol, msg)
@@ -22,16 +32,6 @@ end
 
 function m.debug(msg)
 	local symbol = strlib.color("D", strlib.style.teal)
-	print_msg(symbol, msg)
-end
-
-function m.warn(msg)
-	local symbol = strlib.color("!", strlib.style.yellow)
-	print_msg(symbol, msg)
-end
-
-function m.failure(msg)
-	local symbol = strlib.color("-", strlib.style.red)
 	print_msg(symbol, msg)
 end
 

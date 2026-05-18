@@ -1,69 +1,61 @@
-local log = require("wowdoc.util.log")
-
-local paramFs = ":;%s:%s"
-
-local function HasMiddleOptionals(paramTbl)
-	local optional
-	for _, param in ipairs(paramTbl) do
+-- find first non-optional after optional param
+-- might have to do it in reverse but this works for now
+local function HasWeirdOptionals(paramTbl)
+	local foundOptional
+	for idx, param in ipairs(paramTbl) do
 		if param:IsOptional() then
-			optional = true
+			foundOptional = true
 		else
-			if optional then
-				return true
+			if foundOptional then
+				return idx
 			end
 		end
 	end
 end
 
 function WarcraftWiki:GetSignature(paramTbl)
-	local tbl = {}
-	if HasMiddleOptionals(paramTbl) then
-		for _, param in ipairs(paramTbl) do
-			local name = param.Name
-			if param:IsOptional() then
-				name = format("%s?", name)
-			end
-			table.insert(tbl, name)
-		end
-		return table.concat(tbl, ", ")
-	else
-		local numOptionals = 0
-		for _, param in ipairs(paramTbl) do
-			local name = param.Name
-			if param:IsOptional() then
-				numOptionals = numOptionals + 1
-				name = format("[%s", name)
+	local t = {}
+	local numOptionals = 0
+	local nonWeirdIdx = HasWeirdOptionals(paramTbl) or 0
+	for idx, param in pairs(paramTbl) do
+		local r = {}
+		if param:IsOptional() then
+			if idx < nonWeirdIdx then
+				table.insert(r, string.format("<%s>", param.Name)) -- placeholder symbol
 			else
-				name = format("%s", name)
+				numOptionals = numOptionals + 1
+				table.insert(r, string.format("[%s", param.Name))
 			end
-			table.insert(tbl, name)
-		end
-		local str = table.concat(tbl, ", ")
-		local result
-		if numOptionals > 0 then
-			result = str..string.rep("]", numOptionals)
-			result = result:gsub(", %[", " [, ")
 		else
-			result = str
+			table.insert(r, param.Name)
 		end
-		return result
+		if idx == #paramTbl and numOptionals > 0 then
+			table.insert(r, string.rep("]", numOptionals))
+		end
+		table.insert(t, table.concat(r, ""))
 	end
+	local res = table.concat(t, ", ")
+	res = res:gsub(", %[", " [, ") -- fix comma placement
+	res = res:gsub("<(%w-)>", "[%1]") -- fix weird optionals
+	return res
 end
 
 function WarcraftWiki:GetParameters(params, isArgument)
-	local tbl = {}
+	local t = {}
 	for _, param in ipairs(params) do
 		if param:GetStrideIndex() == 1 then
-			table.insert(tbl, format("(Variable %s)", isArgument and "arguments" or "returns"))
+			table.insert(t, format("(Variable %s)", isArgument and "arguments" or "returns"))
 		end
 		local r = {}
-		table.insert(r, paramFs:format(param.Name, self.Types:GetPrettyType(param, isArgument)))
+		local pretty = self.Types:GetPrettyType(param, isArgument)
+		local line = string.format(":;%s:%s", param.Name, pretty)
+		table.insert(r, line)
 		if param.Documentation and #param.Documentation > 0 then
 			table.insert(r, self:GetDocumentationField(param))
 		end
-		table.insert(tbl, table.concat(r, " - "))
+		table.insert(t, table.concat(r, " - "))
 	end
-	return table.concat(tbl, "\n")
+	return table.concat(t, "\n")
 end
 
 function WarcraftWiki:GetDocumentationField(apiTable)
