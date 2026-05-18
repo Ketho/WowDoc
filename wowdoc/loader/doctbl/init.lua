@@ -20,7 +20,7 @@ function m:VerifyMissingTypes()
 			print("- "..pretty)
 		end
 	else
-		log.success("No undocumented types found")
+		log.success("No remaining undocumented types found")
 	end
 end
 
