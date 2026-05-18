@@ -1,28 +1,38 @@
 local m = {}
-local fs = "[\27[%dm%s\27[0m] %s"
+local strlib = require("wowdoc.util.string")
 
-function m.success(msg) -- green
-	print(fs:format(32, "+", msg))
+local function print_msg(symbol, msg)
+	print(string.format("[%s] %s", symbol, msg))
 end
 
-function m.important(msg) -- purple
-	print(fs:format(35, "#", msg))
+function m.success(msg)
+	local symbol = strlib.color("+", strlib.style.green)
+	print_msg(symbol, msg)
 end
 
-function m.info(msg) -- blue
-	print(fs:format(34, "*", msg))
+function m.important(msg)
+	local symbol = strlib.color("#", strlib.style.purple)
+	print_msg(symbol, msg)
 end
 
-function m.debug(msg) -- teal
-	print(fs:format(36, "D", msg))
+function m.info(msg)
+	local symbol = strlib.color("*", strlib.style.blue)
+	print_msg(symbol, msg)
 end
 
-function m.warn(msg) -- yellow
-	print(fs:format(33, "!", msg))
+function m.debug(msg)
+	local symbol = strlib.color("D", strlib.style.teal)
+	print_msg(symbol, msg)
 end
 
-function m.failure(msg) -- red
-	print(fs:format(31, "-", msg))
+function m.warn(msg)
+	local symbol = strlib.color("!", strlib.style.yellow)
+	print_msg(symbol, msg)
+end
+
+function m.failure(msg)
+	local symbol = strlib.color("-", strlib.style.red)
+	print_msg(symbol, msg)
 end
 
 return m
