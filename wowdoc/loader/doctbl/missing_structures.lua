@@ -11,7 +11,7 @@ local doc =
 			{
 				{ Name = "applications", Type = "number" },
 				{ Name = "auraInstanceID", Type = "number" },
-				{ Name = "canActivePlayerDispel", Type = "boolean" },
+				{ Name = "canActivePlayerDispel", Type = "bool" },
 				{ Name = "canApplyAura", Type = "bool" },
 				{ Name = "charges", Type = "number" },
 				{ Name = "dispelName", Type = "string", Nilable = true },
