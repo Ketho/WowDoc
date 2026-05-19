@@ -1,4 +1,4 @@
-function WarcraftWiki:GetEventText(event)
+function WarcraftWiki:GetEventPage(event)
 	local t = {}
 	local signature = string.format("{{apisig|%s}}\n", self:GetEventSignature(event))
 	table.insert(t, signature)

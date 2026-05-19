@@ -13,9 +13,9 @@ function WarcraftWiki:GetPageText(apiTable)
 	table.insert(t, self:GetDescription(apiTable))
 	local body
 	if apiTable.Type == "Function" then
-		body = self:GetFunctionText(apiTable)
+		body = self:GetFunctionPage(apiTable)
 	elseif apiTable.Type == "Event" then
-		body = self:GetEventText(apiTable)
+		body = self:GetEventPage(apiTable)
 	end
 	table.insert(t, body)
 	return table.concat(t, "\n")
