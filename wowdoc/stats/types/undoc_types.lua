@@ -1,7 +1,7 @@
 local tablelib = require("wowdoc.util.table")
 local cfg = require("wowdoc.config")
 local missing_structures = require("wowdoc.loader.doctbl.missing_structures")
-local missing_types = require("wowdoc.loader.doctbl.missing_types")
+local TypeDocumentation = require("wowdoc.loader.doctbl.TypeDocumentation")
 local types_api = require("wowdoc.stats.types.api")
 local enum = require("wowdoc.web.blizres.enum")
 local get_types = require("wowdoc.stats.types.get_types")
@@ -27,7 +27,7 @@ function m:types_GetUndocTypes()
 	for _, v in pairs(missing_structures.Tables) do
 		t[v.Name] = nil
 	end
-	for k, v in pairs(missing_types) do
+	for k, v in pairs(TypeDocumentation) do
 		t[v.Name] = nil
 	end
 	return t

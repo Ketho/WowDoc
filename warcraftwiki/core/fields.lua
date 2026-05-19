@@ -5,7 +5,7 @@ function WarcraftWiki:GetParameters(params, isArgument)
 			table.insert(t, format("(Variable %s)", isArgument and "arguments" or "returns"))
 		end
 		local r = {}
-		local pretty = self.Types:GetPrettyType(param, isArgument)
+		local pretty = self.Types:GetTypeTemplate(param)
 		local line = string.format(":;%s:%s", param.Name, pretty)
 		table.insert(r, line)
 		if param.Documentation and #param.Documentation > 0 then
