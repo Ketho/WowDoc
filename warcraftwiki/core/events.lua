@@ -2,8 +2,9 @@ function WarcraftWiki:GetEventPage(event)
 	local t = {}
 	local signature = string.format("{{apisig|%s}}\n", self:GetEventSignature(event))
 	table.insert(t, signature)
+	table.insert(t, string.format("==Payload==", payload))
 	local payload = self:GetEventPayload(event)
-	table.insert(t, string.format("==Payload==\n%s\n", payload))
+	table.insert(t, payload)
 	return table.concat(t, "\n")
 end
 

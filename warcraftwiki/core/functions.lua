@@ -3,7 +3,7 @@ local scriptobjects = require("wowdoc.namingway.scriptobjects")
 function WarcraftWiki:GetFunctionPage(func)
 	local t = {}
 	local signature = self:GetFunctionSignature(func)
-	table.insert(t, string.format("{{apisig|%s}}", signature))
+	table.insert(t, string.format("{{apisig|%s}}\n", signature))
 	if func.Arguments and #func.Arguments>0 then
 		local arguments = string.format("==Arguments==\n%s\n", self:GetParameters(func.Arguments, true))
 		table.insert(t, arguments)

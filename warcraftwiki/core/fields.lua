@@ -1,5 +1,3 @@
-
-
 function WarcraftWiki:GetParameters(params, isArgument)
 	local t = {}
 	for _, param in ipairs(params) do
