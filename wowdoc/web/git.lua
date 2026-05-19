@@ -13,7 +13,9 @@ function m:checkout(url, branch)
 	system:run_command(string.format("git -C %s pull", repo, repo))
 	-- show latest commit
 	local msg = system:run_command(string.format("git -C %s log -1", repo))
-	print("commit:", msg:match("%d-%.%d-%.%d- %(%d-%)"))
+	print("Patch:", msg:match("%d+%.%d+%.%d+ %(%d+%)"))
+	print("Date:", msg:match("Date:%s+(.-)\n"))
+	print("Commit:", msg:match("commit (%w+)"))
 end
 
 return m
