@@ -22,9 +22,9 @@ function m:LoadDocumentation(product, options)
 		log.warn(string.format("wowdoc: [product %s, branch %s] APIDocumentation already loaded", product, branch))
 		return
 	else
-		local pretty_product = strlib.color(product, strlib.style.clear_green)
-		local pretty_branch = strlib.color(branch, strlib.style.clear_blue)
-		log.info(string.format("wowdoc: [product %s, branch %s] Loading APIDocumentation", pretty_product, pretty_branch))
+		local color_product = strlib.color(product, strlib.style.clear_green)
+		local color_branch = strlib.color(branch, strlib.style.clear_blue)
+		log.info(string.format("wowdoc: [product %s, branch %s] Loading APIDocumentation", color_product, color_branch))
 	end
 	git:checkout("https://github.com/Gethe/wow-ui-source", branch)
 	-- compat code

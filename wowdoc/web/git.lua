@@ -1,6 +1,7 @@
 
 
 local system = require("wowdoc.util.system")
+local strlib = require("wowdoc.util.string")
 local m = {}
 
 function m:checkout(url, branch)
@@ -13,7 +14,10 @@ function m:checkout(url, branch)
 	system:run_command(string.format("git -C %s pull", repo, repo))
 	-- show latest commit
 	local msg = system:run_command(string.format("git -C %s log -1", repo))
-	print("Patch:", msg:match("%d+%.%d+%.%d+ %(%d+%)"))
+	local patch, build = msg:match("(%d+%.%d+%.%d+) %((%d+)%)")
+	local color_patch = strlib.color(patch, strlib.style.green)
+	local color_build = strlib.color(build, strlib.style.blue)
+	print("Patch:", string.format("%s (%s)", color_patch, color_build))
 	print("Date:", msg:match("Date:%s+(.-)\n"))
 	print("Commit:", msg:match("commit (%w+)"))
 end
