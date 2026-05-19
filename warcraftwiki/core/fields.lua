@@ -9,17 +9,21 @@ function WarcraftWiki:GetParameters(params, isArgument)
 		local line = string.format(":;%s:%s", param.Name, pretty)
 		table.insert(r, line)
 		if param.Documentation and #param.Documentation > 0 then
-			table.insert(r, self:GetDocumentationField(param))
+			table.insert(r, self:GetDocumentation(param))
 		end
 		table.insert(t, table.concat(r, " - "))
 	end
 	return table.concat(t, "\n")
 end
 
-function WarcraftWiki:GetDocumentationField(apiTable)
+function WarcraftWiki:GetDocumentation(apiTable)
 	if apiTable.Documentation then
 		return table.concat(apiTable.Documentation, "; ")
 	else
-		return ""
+		if apiTable.Type == "Function" or apiTable.Type == "Event" then
+			return "&nbsp;"
+		else
+			return ""
+		end
 	end
 end

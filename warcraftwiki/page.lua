@@ -1,49 +1,49 @@
 WarcraftWiki = {}
 require("warcraftwiki.types.types")
 require("warcraftwiki.core.functions")
-require("warcraftwiki.core.fields")
 require("warcraftwiki.core.events")
--- require("warcraftwiki.core.tables")
+require("warcraftwiki.core.fields")
+require("warcraftwiki.core.tables")
 
-local naming = require("wowdoc.namingway.naming")
+local TableTypes = {
+	Enumeration = true,
+	Structure = true,
+	Constants = true,
+}
 
 function WarcraftWiki:GetPageText(apiTable)
 	local t = {}
-	table.insert(t, self:GetTemplateInfo(apiTable))
-	table.insert(t, self:GetDescription(apiTable))
-	local body
-	if apiTable.Type == "Function" then
-		body = self:GetFunctionPage(apiTable)
-	elseif apiTable.Type == "Event" then
-		body = self:GetEventPage(apiTable)
-	end
-	table.insert(t, body)
+	table.insert(t, self:GetPageTemplate(apiTable))
+	table.insert(t, self:GetPageContents(apiTable))
 	return table.concat(t, "\n")
 end
 
-function WarcraftWiki:GetDescription(apiTable)
-	if apiTable.Documentation then
-		return table.concat(apiTable.Documentation, "; ")
-	end
-	return "&nbsp;"
-end
-
-function WarcraftWiki:GetTemplateInfo(apiTable)
-	local tbl = {}
+function WarcraftWiki:GetPageTemplate(apiTable)
+	local t = {}
 	if apiTable.Type == "Function" then
 		if apiTable.System.Type == "ScriptObject" then
-			table.insert(tbl, "widgetmethod")
+			table.insert(t, "widgetmethod")
 		else
-			table.insert(tbl, "wowapi")
-			table.insert(tbl, "t=a")
+			table.insert(t, "wowapi")
+			table.insert(t, "t=a")
 		end
 	elseif apiTable.Type == "Event" then
-		table.insert(tbl, "wowapievent")
-		table.insert(tbl, "t=e")
-	elseif apiTable.Type == "Enumeration" or apiTable.Type == "Structure" then
-		table.insert(tbl, "wowapitype")
+		table.insert(t, "wowapievent")
+		table.insert(t, "t=e")
+	elseif TableTypes[apiTable.Type] then
+		table.insert(t, "wowapitype")
 	end
-	return format("{{%s}}", table.concat(tbl, "|"))
+	return string.format("{{%s}}", table.concat(t, "|"))
+end
+
+function WarcraftWiki:GetPageContents(apiTable)
+	if apiTable.Type == "Function" then
+		return self:GetFunctionPage(apiTable)
+	elseif apiTable.Type == "Event" then
+		return self:GetEventPage(apiTable)
+	elseif TableTypes[apiTable.Type] then
+		return self:GetTablePage(apiTable)
+	end
 end
 
 return WarcraftWiki

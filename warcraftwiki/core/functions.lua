@@ -2,15 +2,17 @@ local scriptobjects = require("wowdoc.namingway.scriptobjects")
 
 function WarcraftWiki:GetFunctionPage(func)
 	local t = {}
+	table.insert(t, self:GetDocumentation(func))
 	local signature = self:GetFunctionSignature(func)
 	table.insert(t, string.format("{{apisig|%s}}\n", signature))
 	if func.Arguments and #func.Arguments>0 then
-		local arguments = string.format("==Arguments==\n%s\n", self:GetParameters(func.Arguments, true))
-		table.insert(t, arguments)
+		table.insert(t, "==Arguments==")
+		table.insert(t, self:GetParameters(func.Arguments, true))
+		table.insert(t, "")
 	end
 	if func.Returns and #func.Returns>0 then
-		local returns = string.format("==Returns==\n%s\n", self:GetParameters(func.Returns))
-		table.insert(t, returns)
+		table.insert(t, "==Returns==")
+		table.insert(t, self:GetParameters(func.Returns))
 	end
 	return table.concat(t, "\n")
 end
@@ -22,9 +24,10 @@ function WarcraftWiki:GetFunctionSignature(func)
 		table.insert(t, string.format("%s {{=}} ", returns))
 	end
 	if func.System.Type == "ScriptObject" then
-		table.insert(t, string.format("%s:", scriptobjects:shorten(func.System.Name)))
+		local name = scriptobjects:shorten(func.System.Name)
+		table.insert(t, string.format("%s:", name))
 	elseif func.System.Type == "System" and func.System.Namespace then
-		local namespace = format("%s.", func.System.Namespace)
+		local namespace = string.format("%s.", func.System.Namespace)
 		table.insert(t, namespace)
 	end
 	table.insert(t, func.Name)
@@ -78,4 +81,3 @@ function WarcraftWiki:GetFunctionArguments(paramTbl)
 	res = res:gsub("<(%w-)>", "[%1]") -- fix weird optionals
 	return res
 end
-

@@ -50,7 +50,7 @@ function m:ExportSystem(system)
 end
 
 function m:ExportTables()
-	for _, folder in pairs({"Enumeration", "Structure"}) do
+	for _, folder in pairs({"Enumeration", "Structure", "Constants"}) do
 		util_system:mkdir(cfg.path.warcraftwiki, folder)
 	end
 	for _, tbl in pairs(APIDocumentation.tables) do
@@ -70,6 +70,8 @@ function m:ExportFile(tbl, folder)
 		file = string.format("Enum.%s.txt", proper_name)
 	elseif tbl.Type == "Structure" then
 		file = string.format("Structure %s.txt", proper_name)
+	elseif tbl.Type == "Constants" then
+		file = string.format("Constants %s.txt", proper_name)
 	end
 	if file then
 		local path = pathlib.join(folder, file)

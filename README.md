@@ -85,14 +85,14 @@ git clone https://github.com/Ketho/WowDoc
 ```
 
 ## Usage
-Exports wikitext to the `out/` folder. This is also available as the `Lua Documenter` VS Code task.
+Exports wikitext to the `/.wiki` folder. This is also available as the `Lua Documenter` VS Code task.
 ```sh
 # wherever the repo is
 cd ~/WowDoc
 # if using hererocks
 source .lua/bin/activate
 
-lua Documenter/init.lua
+lua warcraftwiki/init.lua
 ```
 
 ![](https://i.imgur.com/MqdgasV.png)
