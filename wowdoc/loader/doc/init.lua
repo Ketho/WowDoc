@@ -1,5 +1,5 @@
-local missing_enum       = require("wowdoc.loader.doctbl.missing_enums")
-local missing_structures = require("wowdoc.loader.doctbl.missing_structures")
+local missing_enum       = require("wowdoc.loader.doc.missing_enums")
+local missing_structures = require("wowdoc.loader.doc.missing_structures")
 local undoc_types = require("wowdoc.stats.types.undoc_types")
 local log = require("wowdoc.util.log")
 local strlib = require("wowdoc.util.string")

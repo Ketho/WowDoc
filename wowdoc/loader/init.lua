@@ -1,13 +1,12 @@
-local lfs      = require("lfs")
 local pathlib  = require("path")
 local strlib   = require("wowdoc.util.string")
 local system   = require("wowdoc.util.system")
 local log      = require("wowdoc.util.log")
+local cfg      = require("wowdoc.config")
+local doc      = require("wowdoc.loader.doc")
 local products = require("wowdoc.products.branches")
 local git      = require("wowdoc.web.git")
 local enum     = require("wowdoc.web.blizres.enum")
-local cfg      = require("wowdoc.config")
-local doctbl   = require("wowdoc.loader.doctbl")
 local m = {}
 
 local COMPAT_PATH = pathlib.join("wowdoc", "loader", "compat")
@@ -35,8 +34,8 @@ function m:LoadDocumentation(product, options)
 	self:LoadAddOn(ADDONS_PATH, "Blizzard_APIDocumentationGenerated")
 	-- missing tables
 	if options.getMissingDocs then
-		doctbl:VerifyMissingTypes()
-		doctbl:LoadMissingDocumentation()
+		doc:VerifyMissingTypes()
+		doc:LoadMissingDocumentation()
 	end
 	-- APIDocumentation:OutputStats()
 end
@@ -47,7 +46,7 @@ function m:LoadAddOn(framexml_path, addon_name)
 	local toc_path   = pathlib.join(addon_path, addon_name..".toc")
 	local toc_file = system:OpenFile(toc_path)
 	for line in toc_file:lines() do
-		local lua_filename = line:match(".-%.lua") -- trim the newline char
+		local lua_filename = line:match(".-%.lua") -- avoid matching the newline
 		if lua_filename then
 			dofile(pathlib.join(addon_path, lua_filename))
 		end

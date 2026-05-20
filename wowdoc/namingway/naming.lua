@@ -10,7 +10,7 @@ function m:GetSystemName(v)
 	end
 end
 
-function m:GetProperName(v)
+function m:GetProperName(v, isWiki)
 	local t = {}
 	if v.Type == "Function" then
 		if v.System.Type == "System" then
@@ -20,7 +20,8 @@ function m:GetProperName(v)
 			table.insert(t, v.Name)
 		elseif v.System.Type == "ScriptObject" then
 			local proper = scriptobjects:shorten(v.System.Name)
-			local fullName = string.format("%s:%s", proper, v.Name)
+			local fs = isWiki and "%s %s" or "%s:%s"
+			local fullName = string.format(fs, proper, v.Name)
 			table.insert(t, fullName)
 		end
 	elseif v.Type == "Event" then
@@ -29,12 +30,6 @@ function m:GetProperName(v)
 		table.insert(t, v.Name)
 	end
 	return table.concat(t)
-end
-
-function m:GetWikiPageName(v)
-	local name = self:GetProperName(v)
-	name = name:gsub(":", " ")
-	return name
 end
 
 return m

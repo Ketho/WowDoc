@@ -1,23 +1,21 @@
-
-WarcraftWiki.Types = {}
-
-WarcraftWiki.Types.basic = {
+local lua_types = {
 	bool = "boolean",
-	number = "number",
-	luaIndex = "number",
-	string = "string",
 	cstring = "string",
-	table = "table",
-	["function"] = "function",
 }
+
+local function GetTypeName(apiTable)
+	local name
+	if apiTable.Type == "table" and apiTable.InnerType then
+		name = apiTable.InnerType
+	else
+		name = apiTable.Type
+	end
+	return lua_types[name] or name
+end
 
 local function GetTypeText(apiTable)
 	local t = {}
-	if apiTable.Type == "table" and apiTable.InnerType then
-		table.insert(t, apiTable.InnerType)
-	else
-		table.insert(t, apiTable.Type)
-	end
+	table.insert(t, GetTypeName(apiTable))
 	if apiTable.InnerType then
 		table.insert(t, "[]")
 	end
@@ -28,7 +26,7 @@ local function GetTypeText(apiTable)
 	return table.concat(t, "")
 end
 
-function WarcraftWiki.Types:GetTypeTemplate(apiTable)
+function WarcraftWiki:GetTypeTemplate(apiTable)
 	local t = {}
 	table.insert(t, "apitype")
 	table.insert(t, GetTypeText(apiTable))

@@ -1,4 +1,4 @@
-local table_util = require("wowdoc.util.table")
+local tablelib = require("wowdoc.util.table")
 
 function WarcraftWiki:GetTablePage(apiTable)
 	local contents = self:GetTableContents(apiTable)
@@ -40,7 +40,7 @@ end
 
 function WarcraftWiki:GetEnumerationTable(apiTable)
 	local t = {}
-	local isBitEnum = table_util.IsBitEnum(apiTable)
+	local isBitEnum = tablelib.IsBitEnum(apiTable)
 	table.insert(t, "! Value !! Field !! Description")
 	for _, field in pairs(apiTable.Fields) do
 		local enumValue = isBitEnum and string.format("0x%X", field.EnumValue) or field.EnumValue
@@ -54,9 +54,9 @@ function WarcraftWiki:GetStructureTable(apiTable)
 	local t = {}
 	table.insert(t, "! Field !! Type !! Description")
 	for _, field in pairs(apiTable.Fields) do
-		-- local prettyType = self:GetPrettyType(field)
+		local apitype = self:GetTypeTemplate(field)
 		local doc = self:GetDocumentation(field)
-		table.insert(t, string.format('|-\n| {{apiname|%s}} || {{apitype|%s}} || %s', field.Name, field.Type, doc))
+		table.insert(t, string.format('|-\n| {{apiname|%s}} || {{apitype|%s}} || %s', field.Name, apitype, doc))
 	end
 	return table.concat(t, "\n")
 end
@@ -65,9 +65,9 @@ function WarcraftWiki:GetConstantsTable(apiTable)
 	local t = {}
 	table.insert(t, "! Constant !! Type !! Value !! Description")
 	for _, field in pairs(apiTable.Values) do
-		-- local prettyType = self:GetPrettyType(field)
+		local apitype = self:GetTypeTemplate(field)
 		local doc = self:GetDocumentation(field)
-		table.insert(t, string.format('|-\n| {{apiname|%s}} || {{apitype|%s}} || %s || %s', field.Name, field.Type, field.Value, doc))
+		table.insert(t, string.format('|-\n| {{apiname|%s}} || {{apitype|%s}} || %s || %s', field.Name, apitype, field.Value, doc))
 	end
 	return table.concat(t, "\n")
 end

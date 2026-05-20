@@ -60,7 +60,7 @@ function m:ExportTables()
 end
 
 function m:ExportFile(tbl, folder)
-	local proper_name = naming:GetWikiPageName(tbl)
+	local proper_name = naming:GetProperName(tbl, true)
 	local file
 	if tbl.Type == "Function" then
 		file = string.format("API %s.txt", proper_name)
