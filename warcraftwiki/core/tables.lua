@@ -56,7 +56,7 @@ function WarcraftWiki:GetStructureTable(apiTable)
 	for _, field in pairs(apiTable.Fields) do
 		local apitype = self:GetTypeTemplate(field)
 		local doc = self:GetDocumentation(field)
-		table.insert(t, string.format('|-\n| {{apiname|%s}} || {{apitype|%s}} || %s', field.Name, apitype, doc))
+		table.insert(t, string.format('|-\n| {{apiname|%s}} || %s || %s', field.Name, apitype, doc))
 	end
 	return table.concat(t, "\n")
 end
@@ -67,7 +67,7 @@ function WarcraftWiki:GetConstantsTable(apiTable)
 	for _, field in pairs(apiTable.Values) do
 		local apitype = self:GetTypeTemplate(field)
 		local doc = self:GetDocumentation(field)
-		table.insert(t, string.format('|-\n| {{apiname|%s}} || {{apitype|%s}} || %s || %s', field.Name, apitype, field.Value, doc))
+		table.insert(t, string.format('|-\n| {{apiname|%s}} || %s || %s || %s', field.Name, apitype, field.Value, doc))
 	end
 	return table.concat(t, "\n")
 end
