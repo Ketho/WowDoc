@@ -1,9 +1,9 @@
 WarcraftWiki = {}
-require("warcraftwiki.types.types")
 require("warcraftwiki.core.functions")
 require("warcraftwiki.core.events")
-require("warcraftwiki.core.fields")
 require("warcraftwiki.core.tables")
+require("warcraftwiki.core.params")
+require("warcraftwiki.core.types")
 
 local TableTypes = {
 	Enumeration = true,
@@ -15,6 +15,7 @@ function WarcraftWiki:GetPageText(apiTable)
 	local t = {}
 	table.insert(t, self:GetPageTemplate(apiTable))
 	table.insert(t, self:GetPageContents(apiTable))
+	table.insert(t, "") -- final newline
 	return table.concat(t, "\n")
 end
 

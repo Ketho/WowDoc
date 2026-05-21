@@ -1,6 +1,7 @@
 local get_types = require("wowdoc.stats.types.get_types")
 local TypeDoc = require("wowdoc.loader.doc.TypeDocumentation")
 local enum = require("wowdoc.web.blizres.enum")
+local missing_structures = require("wowdoc.loader.doc.missing_structures")
 
 local m = {}
 m.types = {}
@@ -148,6 +149,66 @@ function m:GetTypeDocTable()
 		t[v.Name] = v
 	end
 	return t
+end
+
+-- blizres Enum might not be updated yet so check both ways
+function m:GetEnumTypes()
+	if not self.types.enum then
+		local t = {}
+		for _, v in pairs(APIDocumentation.tables) do
+			if v.Type == "Enumeration" then
+				t[v.Name] = true
+			end
+		end
+		for k in pairs(Enum) do
+			t[k] = true
+		end
+		self.types.enum = t
+	end
+	return self.types.enum
+end
+
+function m:GetStructureTypes()
+	if not self.types.structure then
+		local t = {}
+		for _, v in pairs(APIDocumentation.tables) do
+			if v.Type == "Structure" then
+				t[v.Name] = true
+			end
+		end
+		for _, v in pairs(missing_structures.Tables) do
+			if v.Type == "Structure" then
+				t[v.Name] = true
+			end
+		end
+		self.types.structure = t
+	end
+	return self.types.structure
+end
+
+function m:GetConstantTypes()
+	if not self.types.constant then
+		local t = {}
+		for _, v in pairs(APIDocumentation.tables) do
+			if v.Type == "Constants" then
+				t[v.Name] = true
+			end
+		end
+		self.types.constant = t
+	end
+	return self.types.constant
+end
+
+function m:FindTypeCat(name)
+	if self:GetEnumTypes()[name] then
+		return "Enumeration"
+	end
+	if self:GetStructureTypes()[name] then
+		return "Structure"
+	end
+	if self:GetConstantTypes()[name] then
+		return "Constants"
+	end
 end
 
 return m
