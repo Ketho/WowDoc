@@ -1,11 +1,11 @@
 -- https://wowpedia.fandom.com/wiki/Module:API_info/elink/event
 local pathlib = require("path")
 local loader = require("wowdoc.loader")
-local PRODUCT = CONFIG.TACT_PRODUCT
-local OUT = pathlib.join(PATHS.SCRIBUNTO, "API_info.elink.event.lua")
+local cfg = require("wowdoc.config")
+local OUT = pathlib.join(cfg.path.scribunto, "API_info.elink.event.lua")
 
 local function main()
-	loader:LoadDocumentation(PRODUCT)
+	loader:LoadDocumentation(cfg.TACT_PRODUCT)
 	table.sort(APIDocumentation.events, function(a, b)
 		return a.LiteralName < b.LiteralName
 	end)

@@ -1,7 +1,7 @@
 local pathlib = require("path")
 local tablelib = require("wowdoc.util.table")
-local request = require("wowdoc.web.request")
-
+local dl = require("wowdoc.web.download")
+local cfg = require("wowdoc.config")
 local m = {}
 
 ---@type GetheBranch[]
@@ -23,7 +23,7 @@ local gethe_branches = {
 ---|"Mixins"
 ---|"Templates"
 
-local BLIZRES = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/%s.lua"
+local BLIZRES_URL = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/%s.lua"
 
 local function CopyTableTrue(t, tbl)
 	for k in pairs(tbl) do
@@ -77,10 +77,10 @@ local ToMap = {
 local function GetBranchMap(branches, resource)
 	local map = {}
 	for _, branch in pairs(branches) do
-		local url = BLIZRES:format(branch, resource)
+		local url = BLIZRES_URL:format(branch, resource)
 		local file_branch = string.format("%s_%s.lua", resource, branch)
-		local path = pathlib.join(PATHS.BLIZRES, file_branch)
-		local file_data = request:DownloadAndRun(url, path)
+		local path = pathlib.join(cfg.path.blizres, file_branch)
+		local file_data = dl:DownloadAndRun(url, path)
 		map[branch] = ToMap[resource](file_data)
 	end
 	return map

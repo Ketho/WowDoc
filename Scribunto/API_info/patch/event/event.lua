@@ -2,25 +2,24 @@
 -- https://wowpedia.fandom.com/wiki/Module:API_info/patch/event_classic
 local lfs = require("lfs")
 local pathlib = require("path")
-
 local table_write = require("wowdoc.util.table_write")
-local util = require("wowdoc")
-local enum = require("wowdoc.web.enum")
+local enum = require("wowdoc.web.blizres.enum")
 local products = require("wowdoc.products.branches")
+local cfg = require("wowdoc.config")
 
-local BRANCH = products:GetBranch(CONFIG.TACT_PRODUCT)
-enum:LoadLuaEnums(BRANCH)
+local BRANCH = products:GetBranch(cfg.TACT_PRODUCT)
+enum:LoadEnumTable(BRANCH)
 
 local flavors = {
 	mainline = {
 		id = "mainline",
 		input = "FrameXML/live",
-		out = pathlib.join(PATHS.SCRIBUNTO, "API_info.patch.event_retail.lua"),
+		out = pathlib.join(cfg.path.scribunto, "API_info.patch.event_retail.lua"),
 	},
 	classic = {
 		id = "classic",
 		input = "FrameXML/classic",
-		out = pathlib.join(PATHS.SCRIBUNTO, "API_info.patch.event_classic.lua"),
+		out = pathlib.join(cfg.path.scribunto, "API_info.patch.event_classic.lua"),
 	},
 }
 

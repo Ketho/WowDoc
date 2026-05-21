@@ -1,25 +1,23 @@
-local Path = require("path")
-local wowdoc = require("wowdoc")
-local enum = require("wowdoc.web.enum")
+local pathlib = require("path")
+local enum = require("wowdoc.web.blizres.enum")
 local products = require("wowdoc.products.branches")
 local log = require("wowdoc.util.log")
+local cfg = require("wowdoc.config")
 
-local PRODUCT = CONFIG.TACT_PRODUCT
-local gethe_branch = products:GetBranch(PRODUCT)
-
-local SUMMARY = "12.0.1 (65893)"
+local branch = products:GetBranch(cfg.TACT_PRODUCT)
+local SUMMARY = "12.0.5 (67602)"
 
 local function WriteFiles()
-    local scribunto = Path.join("Scribunto", "API_info")
+    local scribunto = pathlib.join("Scribunto", "API_info")
     local files = {
-        Path.join(scribunto, "flavor", "flavor"),
-        Path.join(scribunto, "elink", "api"),
-        Path.join(scribunto, "elink", "event"),
-        Path.join(scribunto, "patch", "api", "api"),
-        Path.join(scribunto, "patch", "event", "event"),
-        Path.join(scribunto, "systems", "get_full_list"),
-        Path.join(scribunto, "systems", "categories", "get_systems"),
-        Path.join(scribunto, "predicates"),
+        pathlib.join(scribunto, "flavor", "flavor"),
+        pathlib.join(scribunto, "elink", "api"),
+        pathlib.join(scribunto, "elink", "event"),
+        pathlib.join(scribunto, "patch", "api", "api"),
+        pathlib.join(scribunto, "patch", "event", "event"),
+        pathlib.join(scribunto, "systems", "get_full_list"),
+        pathlib.join(scribunto, "systems", "categories", "get_systems"),
+        pathlib.join(scribunto, "predicates"),
     }
     for _, v in pairs(files) do
         log.important(string.format("require: %s", v))
@@ -33,7 +31,7 @@ local function UploadFiles()
 end
 
 local function main()
-    enum:LoadLuaEnums(gethe_branch)
+    enum:LoadEnumTable(branch)
     WriteFiles()
     UploadFiles()
 end

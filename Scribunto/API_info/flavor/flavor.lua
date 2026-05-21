@@ -3,15 +3,16 @@
 -- https://warcraft.wiki.gg/wiki/Module:API_info/flavor/event
 local pathlib = require("path")
 local table_sort = require("wowdoc.util.table_sort")
-local branch_flags = require("wowdoc.web.blizres.bitflags")
+local branch_flags = require("wowdoc.web.blizres.bitfield")
+local cfg = require("wowdoc.config")
 
 ---@type table<ResourceType, table>
 local sources = {
 	GlobalAPI = {
-		out = pathlib.join(PATHS.SCRIBUNTO, "API_info.flavor.api.lua"),
+		out = pathlib.join(cfg.path.scribunto, "API_info.flavor.api.lua"),
 	},
 	Events = {
-		out = pathlib.join(PATHS.SCRIBUNTO, "API_info.flavor.event.lua"),
+		out = pathlib.join(cfg.path.scribunto, "API_info.flavor.event.lua"),
 	},
 }
 
