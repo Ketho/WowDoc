@@ -40,9 +40,14 @@ end
 function WarcraftWiki:GetTransclude(param)
 	local param_type = self:GetActualType(param)
 	local cat = types_api:FindTypeCat(param_type)
-	if cat == "Enumeration" then
-		return string.format("{{:Enum.%s}}", param_type)
-	elseif cat == "Structure" or cat == "Constants" then
-		return string.format("{{:%s %s}}", cat, param_type)
+	if cat then
+		local t = {}
+		if cat == "Enumeration" then
+			table.insert(t, string.format("Enum.%s", param_type))
+		elseif cat == "Structure" or cat == "Constants" then
+			table.insert(t, string.format("%s %s", cat, param_type))
+		end
+		table.insert(t, "nocaption=1")
+		return string.format("{{:%s}}", table.concat(t, "|"))
 	end
 end
