@@ -32,7 +32,7 @@ function WarcraftWiki:GetWikiTable(apiTable, contents)
 	local t = {}
 	local attributes = GetClassAttributes(apiTable)
 	table.insert(t, string.format('{| class="%s" style="margin-left: 3.9em"', attributes))
-	table.insert(t, string.format('|+ {{#if:{{{nocaption|}}}||%s}}', apiTable:GetFullName()))
+	table.insert(t, string.format('|+ {{apicaption}} | {{#if:{{{nocaption|}}}||%s}}', apiTable:GetFullName()))
 	table.insert(t, contents)
 	table.insert(t, "|}")
 	return table.concat(t, "\n")
