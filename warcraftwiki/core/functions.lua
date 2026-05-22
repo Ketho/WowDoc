@@ -1,16 +1,20 @@
 local scriptobjects = require("wowdoc.namingway.scriptobjects")
 
+local function IsValidTable(tbl)
+	return tbl and #tbl > 0
+end
+
 function WarcraftWiki:GetFunctionPage(func)
 	local t = {}
 	table.insert(t, self:GetDocumentation(func))
 	local signature = self:GetFunctionSignature(func)
 	table.insert(t, string.format("{{apisig|%s}}\n", signature))
-	if func.Arguments and #func.Arguments>0 then
+	if IsValidTable(func.Arguments) then
 		table.insert(t, "==Arguments==")
 		table.insert(t, self:GetParameters(func.Arguments, true))
-		table.insert(t, "")
 	end
-	if func.Returns and #func.Returns>0 then
+	if IsValidTable(func.Returns) then
+		if IsValidTable(func.Arguments) then table.insert(t, "") end -- spacing
 		table.insert(t, "==Returns==")
 		table.insert(t, self:GetParameters(func.Returns))
 	end
@@ -19,7 +23,7 @@ end
 
 function WarcraftWiki:GetFunctionSignature(func)
 	local t = {}
-	if func.Returns and #func.Returns > 0 then
+	if IsValidTable(func.Returns) then
 		local returns = func:GetReturnString(false, false)
 		table.insert(t, string.format("%s {{=}} ", returns))
 	end
@@ -31,7 +35,7 @@ function WarcraftWiki:GetFunctionSignature(func)
 		table.insert(t, namespace)
 	end
 	table.insert(t, func.Name)
-	if func.Arguments and #func.Arguments > 0 then
+	if IsValidTable(func.Arguments) then
 		local arguments = self:GetFunctionArguments(func.Arguments)
 		table.insert(t, string.format("(%s)", arguments))
 	else
