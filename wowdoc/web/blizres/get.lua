@@ -8,7 +8,7 @@ local URL = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/
 function m:GetResource(name, branch, path)
 	local url = URL:format(branch, name)
 	local fs = string.format("%s_%s.lua", name, branch)
-	local dest = pathlib.join(cfg.path.BLIZRES, fs)
+	local dest = pathlib.join(cfg.path.blizres, fs)
 	return dl:DownloadAndRun(url, dest)
 end
 

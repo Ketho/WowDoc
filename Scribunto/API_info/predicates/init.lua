@@ -1,18 +1,15 @@
 ---@diagnostic disable: need-check-nil
 local pathlib = require("path")
 
-require("wowdoc.config")
-local widget_docs = require("wowdoc.namingway.scriptobjects")
 local log = require("wowdoc.util.log")
-local PATH_PREDICATES = pathlib.join(".wow", "predicates")
+local loader = require("wowdoc.loader")
+local cfg = require("wowdoc.config")
+local widget_docs = require("wowdoc.namingway.scriptobjects")
 
-local PRODUCT = CONFIG.TACT_PRODUCT
-local wowdoc = require("wowdoc.loader")
-
+-- need to do a reverse lookup
+-- so gonna apply hack and make them unique /shrug
 local function EditEnum()
-	Enum.SecretAspect = {
-		-- need to do a reverse lookup
-		-- so gonna apply hack and make them unique /shrug
+	local t = {
 		Attributes = 0x10a,
 		Hierarchy = 0x10b,
 		ObjectDebug = 0x10c,
@@ -20,29 +17,15 @@ local function EditEnum()
 		ObjectSecrets = 0x10e,
 		ObjectSecurity = 0x10f,
 		ObjectType = 0x11,
-		ID = 0x2,
-		Toplevel = 0x4,
-		Text = 0x8,
-		SecureText = 0x10,
-		Shown = 0x20,
-		Scale = 0x40,
-		Alpha = 0x80,
-		FrameLevel = 0x100,
-		ScrollRange = 0x200,
-		Cursor = 0x400,
-		VertexColor = 0x800,
-		Desaturation = 0x1000,
-		TexCoords = 0x2000,
-		BarValue = 0x4000,
-		Cooldown = 0x8000,
-		Rotation = 0x10000,
-		MinimumWidth = 0x20000,
-		Padding = 0x40000,
-		CooldownStyle = 0x80000,
 	}
+	for k, v in pairs(t) do
+		Enum.SecretAspect[k] = v
+	end
 end
 
-wowdoc:main(PRODUCT, nil, true, EditEnum)
+APIDocumentation = nil
+loader:LoadDocumentation()
+EditEnum()
 
 local function GetFullName(apiTable)
 	if apiTable.Type == "Event" then
@@ -100,7 +83,7 @@ local function ProcessDocs()
 end
 
 local function WritePredicates()
-	local output = pathlib.join(PATH_PREDICATES, "API_info.predicates.lua")
+	local output = pathlib.join(cfg.path.wiki_predicates, "API_info.predicates.lua")
 	log.info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
@@ -123,7 +106,7 @@ m.description = {
 end
 
 local function WriteSecretArguments()
-	local output = pathlib.join(PATH_PREDICATES, "API_info.SecretArguments.lua")
+	local output = pathlib.join(cfg.path.wiki_predicates, "API_info.SecretArguments.lua")
 	log.info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
@@ -165,7 +148,7 @@ for k, v in pairs(Enum.SecretAspect) do
 end
 
 local function WriteSecretAspects()
-	local output = pathlib.join(PATH_PREDICATES, "API_info.SecretAspects.lua")
+	local output = pathlib.join(cfg.path.wiki_predicates, "API_info.SecretAspects.lua")
 	log.info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
@@ -225,7 +208,6 @@ end
 end
 
 local function main()
-	pathlib.mkdir(PATH_PREDICATES)
 	WritePredicates()
 	WriteSecretArguments()
 	WriteSecretAspects()

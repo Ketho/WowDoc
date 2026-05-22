@@ -16,29 +16,35 @@ local ADDONS_PATH = pathlib.join("wow-ui-source", "Interface", "AddOns")
 function m:LoadDocumentation(options)
 	options = options or {}
 	options.product = options.product or cfg.TACT_PRODUCT
-	local branch = products:GetBranch(options.product)
+	options.branch = options.branch or products:GetBranch(options.product)
 	if APIDocumentation then
-		log.warn(string.format("wowdoc: [product %s, branch %s] APIDocumentation already loaded", options.product, branch))
+		log.warn(string.format("wowdoc: [product %s, branch %s] APIDocumentation already loaded", options.product, options.branch))
 		return
 	else
-		local color_product = strlib.color(options.product, strlib.style.clear_green)
-		local color_branch = strlib.color(branch, strlib.style.clear_blue)
-		log.info(string.format("wowdoc: [product %s, branch %s] Loading APIDocumentation", color_product, color_branch))
+		if options.path then
+			color_path = strlib.color(options.path, strlib.style.green)
+			log.info(string.format("wowdoc: [path %s]", color_path))
+		else
+			local color_product = strlib.color(options.product, strlib.style.clear_green)
+			local color_branch = strlib.color(options.branch, strlib.style.clear_blue)
+			log.info(string.format("wowdoc: [product %s, branch %s] Loading APIDocumentation", color_product, color_branch))
+		end
 	end
 	-- compat code
 	require(COMPAT_PATH)
-	enum:LoadEnumTable(branch)
-	if options.path then
-		log.info(string.format("wowdoc: path set to %s", options.path))
-	else
+	enum:LoadEnumTable(options)
+	if not options.path then
 		options.path = ADDONS_PATH
-		git:checkout("https://github.com/Gethe/wow-ui-source", branch)
+		git:checkout("https://github.com/Gethe/wow-ui-source", options.branch)
 	end
-	-- load blizzard addons
+	-- load blizzard addons, also support legacy docs
 	self:LoadAddOn(options.path, "Blizzard_APIDocumentation")
-	self:LoadAddOn(options.path, "Blizzard_APIDocumentationGenerated")
+	local generated = pathlib.join(options.path, "Blizzard_APIDocumentationGenerated")
+	if pathlib.exists(generated) then
+		self:LoadAddOn(options.path, "Blizzard_APIDocumentationGenerated")
+	end
 	-- missing tables
-	if options.getMissingDocs then
+	if options.missing then
 		doc:VerifyMissingTypes()
 		doc:LoadMissingDocumentation()
 	end
@@ -48,12 +54,12 @@ end
 -- parses the TOC file of an addon
 function m:LoadAddOn(framexml_path, addon_name)
 	local addon_path = pathlib.join(framexml_path, addon_name)
-	local toc_path   = pathlib.join(addon_path, addon_name..".toc")
+	local toc_path = pathlib.join(addon_path, addon_name..".toc")
 	local toc_file = system:OpenFile(toc_path)
 	for line in toc_file:lines() do
 		local lua_filename = line:match(".-%.lua") -- avoid matching the newline
 		if lua_filename then
-			dofile(pathlib.join(addon_path, lua_filename))
+			system:RunFile(pathlib.join(addon_path, lua_filename))
 		end
 	end
 	toc_file:close()

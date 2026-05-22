@@ -7,15 +7,17 @@ local m = {}
 
 local URL = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/LuaEnum.lua"
 
-function m:LoadEnumTable(branch)
+function m:LoadEnumTable(options)
 	if Enum then
-		log.warn(string.format("wowdoc: [branch %s] Enum table already loaded", branch))
+		if not options.silent then
+			log.warn(string.format("wowdoc: [branch %s] Enum table already loaded", options.branch))
+		end
 		return
 	else
-		log.info(string.format("wowdoc: [branch %s] Loading Enum table", branch))
+		log.info(string.format("wowdoc: [branch %s] Loading Enum table", options.branch))
 	end
-	local url = URL:format(branch)
-	local path = pathlib.join(cfg.path.blizres, string.format("LuaEnum_%s.lua", branch))
+	local url = URL:format(options.branch)
+	local path = pathlib.join(cfg.path.blizres, string.format("LuaEnum_%s.lua", options.branch))
 	dl:DownloadAndRun(url, path)
 	self:FixEnumTable()
 end
@@ -24,18 +26,6 @@ function m:FixEnumTable()
 	if not Enum.LFGRoleMeta then -- Meta fields are not written to LuaEnum.lua
 		Enum.LFGRoleMeta = {NumValue = 0} -- 10.2.5 LFGConstantsDocumentation.lua
 	end
-	-- if not Constants.PetConsts_PreWrath then
-	-- 	Constants.PetConsts_PreWrath = { -- 12.0.0 PetConstantsDocumentation.lua
-	-- 		MAX_STABLE_SLOTS = 0,
-	-- 		NUM_PET_SLOTS_THAT_NEED_LEARNED_SPELL = 0,
-	-- 	}
-	-- end
-	-- if not Constants.PetConsts_Wrath then
-	-- 	Constants.PetConsts_Wrath = {
-	-- 		MAX_STABLE_SLOTS = 0,
-	-- 		NUM_PET_SLOTS_THAT_NEED_LEARNED_SPELL = 0,
-	-- 	}
-	-- end
 end
 
 return m

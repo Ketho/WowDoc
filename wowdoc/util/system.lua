@@ -7,7 +7,7 @@ local m = {}
 --- Runs a commmand in the shell
 ---@param cmd string
 ---@return string result
-function m:run_command(cmd)
+function m:RunCommand(cmd)
 	log.important("Running command: "..cmd)
 	local handle = io.popen(cmd)
 	local result = handle:read("a")
@@ -43,6 +43,7 @@ end
 
 ---@param path string
 ---@param text string
+---@param silent boolean
 function m:WriteFile(path, text, silent)
 	if not silent then
 		log.info(string.format('Writing "%s"', path))
@@ -58,6 +59,20 @@ end
 function m:WriteFileMeta(path, text)
 	text = "---@meta _\n"..text
 	self:WriteFile(path, text)
+end
+
+function m:RunFile(path)
+	local chunk, err = loadfile(path)
+	if not chunk then
+		log.failure(string.format("load error: %s", err))
+		return
+	end
+	local ok, res = pcall(chunk)
+	if not ok then
+		log.failure(string.format("runtime error: %s", res))
+		return
+	end
+	return res
 end
 
 m.RelativePath = {

@@ -8,7 +8,7 @@ local products = require("wowdoc.products.branches")
 local cfg = require("wowdoc.config")
 
 local BRANCH = products:GetBranch(cfg.TACT_PRODUCT)
-enum:LoadEnumTable(BRANCH)
+enum:LoadEnumTable({branch = BRANCH})
 
 local flavors = {
 	mainline = {

@@ -12,10 +12,11 @@ config.path = {
 	WIKI_PAGE  = pathlib.join(root, "wiki_page"),
 	WIKI_CLASSIC_COMPARE = pathlib.join(root, "wiki_page", "classic_compare"),
 	WIKI_DIFF  = pathlib.join(root, "wiki_page", "diff"),
-	WIKI_CATEGORIES = pathlib.join(root, "wiki_categories"),
 	blizres    = pathlib.join(root, "blizres"),
 	scribunto  = pathlib.join(root, "scribunto"),
 	wago       = pathlib.join(root, "wago"),
+	wiki_cats  = pathlib.join(root, "wiki", "cats"),
+	wiki_predicates = pathlib.join(root, "wiki", "predicates"),
 	warcraftwiki = pathlib.join(".wiki"),
 }
 

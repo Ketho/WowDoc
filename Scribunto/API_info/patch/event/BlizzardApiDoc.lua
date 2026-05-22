@@ -3,16 +3,12 @@ local pathlib = require("path")
 local system = require("wowdoc.util.system")
 local table_sort = require("wowdoc.util.table_sort")
 local log = require("wowdoc.util.log")
--- local apidoc_nontoc = require("wowdoc.loader.nontoc.old")
+local loader = require("wowdoc.loader")
 
 local function GetEventMap(data)
 	local t = {}
-	for _, info in pairs(data) do
-		if info.Events then
-			for _, event in pairs(info.Events) do
-				t[event.LiteralName] = true
-			end
-		end
+	for _, event in pairs(data.events) do
+		t[event.LiteralName] = true
 	end
 	return t
 end
@@ -30,16 +26,12 @@ local function FindApiDocFolder(path)
 	-- log.debug(string.format("FindApiDocFolder: %s", path))
 	local major = path:match("(%d+%.%d+%.%w+)")
 	local name_tag = string.format("wow-ui-source-%s", major)
-	local new_path = pathlib.join(path, name_tag)
-	new_path = GetSubfolder(new_path, "Interface") or new_path
-	new_path = GetSubfolder(new_path, "AddOns") or new_path
-	new_path = GetSubfolder(new_path, "Blizzard_APIDocumentationGenerated") or new_path
-	if new_path:find("Blizzard_APIDocumentationGenerated") then
-		return new_path
-	end
-	new_path = GetSubfolder(new_path, "Blizzard_APIDocumentation") or new_path
-	if new_path:find("Blizzard_APIDocumentation") then
-		return new_path
+	local p = pathlib.join(path, name_tag)
+	p = GetSubfolder(p, "Interface") or p
+	p = GetSubfolder(p, "AddOns") or p
+	local apidoc = GetSubfolder(p, "Blizzard_APIDocumentation")
+	if apidoc then
+		return p
 	end
 end
 
@@ -55,7 +47,10 @@ function m:GetDocEvents(info)
 				local build = folder:match("%((%d+)%)$") or folder:match("%d+$")
 				-- Blizzard_APIDocumentation did not have events until patch 8.0
 				if not version:find("^7%.") then
-					local apiDocs = apidoc_nontoc:LoadBlizzardDocs(path)
+					APIDocumentation = nil
+					loader:LoadDocumentation({path = path, silent = true})
+					local apiDocs = APIDocumentation
+					APIDocumentation = nil
 					-- sort this by version/build later
 					t[build] = {
 						folder = folder,

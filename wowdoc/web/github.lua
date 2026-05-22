@@ -10,7 +10,7 @@ local GITHUB_TOKEN
 
 function m:GitHubHttpsRequest(url)
 	-- apparently need to trim newlines or it sometimes returns HTTP 400/403
-	GITHUB_TOKEN = GITHUB_TOKEN or system:run_command("gh auth token"):gsub("\n", "")
+	GITHUB_TOKEN = GITHUB_TOKEN or system:RunCommand("gh auth token"):gsub("\n", "")
 	local headers = {
 		["Authorization"] = string.format("Bearer %s", GITHUB_TOKEN),
 		["User-Agent"] = "WowDoc"

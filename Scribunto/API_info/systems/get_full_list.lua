@@ -1,13 +1,14 @@
 ---@diagnostic disable: need-check-nil
 local pathlib = require("path")
-local loader = require("wowdoc.loader")
-local wowdoc = require("wowdoc")
 local serpent = require("serpent")
+local loader = require("wowdoc.loader")
+local naming = require("wowdoc.namingway.naming")
+local cfg = require("wowdoc.config")
 
 local m = {}
 
-function m:main(product)
-	loader:main(product, nil, true)
+function m:main()
+	loader:LoadDocumentation()
 	self:GetFunctionList()
 	self:GetEventList()
 	print("Done")
@@ -37,11 +38,11 @@ end
 function m:GetFunctionList()
 	local t = {}
 	for _, v in pairs(APIDocumentation.functions) do
-		local name = wowdoc:api_func_GetFullName(v)
+		local name = naming:GetProperName(v)
 		t[v.System.Name] = t[v.System.Name] or {}
 		table.insert(t[v.System.Name], name)
 	end
-	local path = pathlib.join(PATHS.WIKI_CATEGORIES, "functions_systems.lua")
+	local path = pathlib.join(cfg.path.wiki_cats, "functions_systems.lua")
 	WriteScribuntoData(path, t)
 end
 
@@ -51,8 +52,8 @@ function m:GetEventList()
 		t[v.System.Name] = t[v.System.Name] or {}
 		table.insert(t[v.System.Name], v.LiteralName)
 	end
-	local path = pathlib.join(PATHS.WIKI_CATEGORIES, "events_systems.lua")
+	local path = pathlib.join(cfg.path.wiki_cats, "events_systems.lua")
 	WriteScribuntoData(path, t)
 end
 
-m:main(CONFIG.TACT_PRODUCT)
+m:main()

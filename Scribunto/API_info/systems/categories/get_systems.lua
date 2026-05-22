@@ -1,15 +1,13 @@
 ---@diagnostic disable: need-check-nil
 local lfs = require("lfs")
 local pathlib = require("path")
-
 local products = require("wowdoc.products.branches")
 local git = require("wowdoc.web.git")
-local enum = require("wowdoc.web.enum")
+local enum = require("wowdoc.web.blizres.enum")
 local log = require("wowdoc.util.log")
-
-local PRODUCT = CONFIG.TACT_PRODUCT
-
+local cfg = require("wowdoc.config")
 local m = {}
+
 local DocGenerated = pathlib.join("wow-ui-source", "Interface", "AddOns", "Blizzard_APIDocumentationGenerated")
 local docTables = {}
 local currentFile
@@ -22,7 +20,7 @@ function m:main(product)
 	local framexml_branch = products:GetBranch(product)
 	git:checkout("https://github.com/Gethe/wow-ui-source", framexml_branch)
 	self:HookDocTable()
-	enum:LoadLuaEnums(framexml_branch)
+	enum:LoadEnumTable({branch = framexml_branch})
 	self:LoadBlizzardDocs()
 	local systems = self:GetSystems()
 	self:WriteCsv(systems)
@@ -98,7 +96,7 @@ function m:GetSystems()
 end
 
 function m:WriteCsv(tbl)
-	local filePath = pathlib.join(PATHS.WIKI_CATEGORIES, "systems.csv")
+	local filePath = pathlib.join(cfg.path.wiki_cats, "systems.csv")
 	log.info("Writing "..filePath)
 	local file = io.open(filePath, "w")
 	file:write("File,Name,Namespace,NumFunctions,NumEvents,Documentation\n")
@@ -109,7 +107,7 @@ function m:WriteCsv(tbl)
 end
 
 function m:WriteModuleData(tbl)
-	local filePath = pathlib.join(PATHS.WIKI_CATEGORIES, "systems_data.lua")
+	local filePath = pathlib.join(cfg.path.wiki_cats, "systems_data.lua")
 	log.info("Writing "..filePath)
 	local file = io.open(filePath, "w")
 	file:write("local data = {\n")
@@ -123,4 +121,4 @@ function m:WriteModuleData(tbl)
 	file:close()
 end
 
-m:main(PRODUCT)
+m:main(cfg.TACT_PRODUCT)

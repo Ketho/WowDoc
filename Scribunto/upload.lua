@@ -4,7 +4,7 @@ local products = require("wowdoc.products.branches")
 local log = require("wowdoc.util.log")
 local cfg = require("wowdoc.config")
 
-local branch = products:GetBranch(cfg.TACT_PRODUCT)
+local BRANCH = products:GetBranch(cfg.TACT_PRODUCT)
 local SUMMARY = "12.0.5 (67602)"
 
 local function WriteFiles()
@@ -31,7 +31,7 @@ local function UploadFiles()
 end
 
 local function main()
-    enum:LoadEnumTable(branch)
+    enum:LoadEnumTable({branch = BRANCH})
     WriteFiles()
     UploadFiles()
 end

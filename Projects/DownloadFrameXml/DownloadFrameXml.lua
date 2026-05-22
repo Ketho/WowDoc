@@ -72,7 +72,7 @@ function m:UnpackZip(branch, fileBaseName, zipFile)
 	local unpackFolder = pathlib.join(gameTypeFolder, fileBaseName)
 	if not pathlib.exists(unpackFolder) then
 		local command = string.format('unzip "%s" -d "%s"', zipFile, unpackFolder)
-		system:run_command(command)
+		system:RunCommand(command)
 	end
 end
 

@@ -1,4 +1,3 @@
-local log = require("wowdoc.util.log")
 local scriptobjects = require("wowdoc.namingway.scriptobjects")
 local m = {}
 

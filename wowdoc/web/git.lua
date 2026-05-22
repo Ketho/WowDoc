@@ -8,12 +8,12 @@ function m:checkout(url, branch)
 	local user, repo = url:match("https://github.com/([^/]+)/([^/]+)")
 	-- clone if it doesn't exist
 	if not system:FolderExists(repo) then
-		print(system:run_command(string.format("git clone %s", url)))
+		print(system:RunCommand(string.format("git clone %s", url)))
 	end
-	system:run_command(string.format("git -C %s checkout %s", repo, branch))
-	system:run_command(string.format("git -C %s pull", repo, repo))
+	system:RunCommand(string.format("git -C %s checkout %s", repo, branch))
+	system:RunCommand(string.format("git -C %s pull", repo, repo))
 	-- show latest commit
-	local msg = system:run_command(string.format("git -C %s log -1", repo))
+	local msg = system:RunCommand(string.format("git -C %s log -1", repo))
 	local patch, build = msg:match("(%d+%.%d+%.%d+) %((%d+)%)")
 	local color_patch = strlib.color(patch, strlib.style.green)
 	local color_build = strlib.color(build, strlib.style.blue)
