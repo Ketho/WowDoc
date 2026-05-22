@@ -49,6 +49,7 @@ function m:LoadDocumentation(options)
 		doc:LoadMissingDocumentation()
 	end
 	-- APIDocumentation:OutputStats()
+	return APIDocumentation
 end
 
 -- parses the TOC file of an addon

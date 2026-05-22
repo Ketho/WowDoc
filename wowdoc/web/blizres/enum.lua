@@ -8,6 +8,7 @@ local m = {}
 local URL = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/LuaEnum.lua"
 
 function m:LoadEnumTable(options)
+	options.branch = options.branch or "live"
 	if Enum then
 		if not options.silent then
 			log.warn(string.format("wowdoc: [branch %s] Enum table already loaded", options.branch))

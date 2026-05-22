@@ -1,17 +1,15 @@
 -- compares framexml versions
+local pathlib = require("path")
 local table_sort = require("wowdoc.util.table_sort")
 local log = require("wowdoc.util.log")
+local cfg = require("wowdoc.config")
+local loader = require("wowdoc.loader")
 local products = require("wowdoc.products.branches")
-local enum = require("wowdoc.web.enum")
-local pathlib = require("path")
 
-local PRODUCT = CONFIG.TACT_PRODUCT
-local branch = products:GetBranch(PRODUCT)
-enum:LoadLuaEnums(branch)
-local apidoc_nontoc = require("wowdoc.loader.nontoc")
+local FRAMEXML_PATH = pathlib.join("FrameXML", "live")
 
 local BUILD1 = "12.0.1 (66838)"
-local BUILD2 = "12.0.5 (67186)"
+local BUILD2 = "12.0.5 (67602)"
 
 ChangeDiff = {}
 require("Projects.ChangeDiff.Compare")
@@ -21,16 +19,14 @@ local PrintView = require("Projects.ChangeDiff.PrintView")
 
 m.apiTypes = {
 	Function = {
-		map = function(tbl)
+		map = function(v)
 			local t = {}
-			for _, system in pairs(tbl) do
-				for _, apiTable in pairs(system.Functions or {}) do
-					if system.Namespace then
-						local fullName = string.format("%s.%s", system.Namespace, apiTable.Name)
-						t[fullName] = apiTable
-					else
-						t[apiTable.Name] = apiTable
-					end
+			for _, apiTable in pairs(v.functions or {}) do
+				if apiTable.System.Namespace then
+					local fullName = string.format("%s.%s", apiTable.System.Namespace, apiTable.Name)
+					t[fullName] = apiTable
+				else
+					t[apiTable.Name] = apiTable
 				end
 			end
 			return t
@@ -38,25 +34,21 @@ m.apiTypes = {
 		params = {"Arguments", "Returns"},
 	},
 	Event = {
-		map = function(tbl)
+		map = function(v)
 			local t = {}
-			for _, system in pairs(tbl) do
-				for _, apiTable in pairs(system.Events or {}) do
-					t[apiTable.LiteralName] = apiTable
-				end
+			for _, apiTable in pairs(v.events or {}) do
+				t[apiTable.LiteralName] = apiTable
 			end
 			return t
 		end,
 		params = {"Payload"},
 	},
 	Enumeration = {
-		map = function(tbl)
+		map = function(v)
 			local t = {}
-			for _, system in pairs(tbl) do
-				for _, apiTable in pairs(system.Tables or {}) do
-					if apiTable.Type == "Enumeration" then
-						t[apiTable.Name] = apiTable
-					end
+			for _, apiTable in pairs(v.tables or {}) do
+				if apiTable.Type == "Enumeration" then
+					t[apiTable.Name] = apiTable
 				end
 			end
 			return t
@@ -64,13 +56,11 @@ m.apiTypes = {
 		params = {"Fields"},
 	},
 	Structure = {
-		map = function(tbl)
+		map = function(v)
 			local t = {}
-			for _, system in pairs(tbl) do
-				for _, apiTable in pairs(system.Tables or {}) do
-					if apiTable.Type == "Structure" then
-						t[apiTable.Name] = apiTable
-					end
+			for _, apiTable in pairs(v.tables or {}) do
+				if apiTable.Type == "Structure" then
+					t[apiTable.Name] = apiTable
 				end
 			end
 			return t
@@ -83,8 +73,11 @@ m.apiType_order = {"Function", "Event", "Enumeration", "Structure"}
 function m:LoadFrameXML(versions)
 	local t = {}
 	for _, version in pairs(versions) do
+		local patch = version:match("%d+%.%d+%.%d+")
+		local path = pathlib.join(FRAMEXML_PATH, version, "wow-ui-source-"..patch, "Interface", "AddOns")
 		t[version] = {}
-		local docs = apidoc_nontoc:LoadBlizzardDocs(version)
+		APIDocumentation = nil
+		local docs = loader:LoadDocumentation({path = path})
 		for apiType, apiTable in pairs(self.apiTypes) do
 			local map = apiTable.map(docs)
 			t[version][apiType] = map
@@ -99,7 +92,7 @@ local function CompareVersions(versions, framexml)
 	local frame_a = framexml[ver_a]
 	local frame_b = framexml[ver_b]
 	local changes = {}
-	local file = io.open(pathlib.join(PATHS.WIKI_DIFF, "changes.txt"), "w")
+	local file = io.open(pathlib.join(cfg.path.change_wiki, "changes.txt"), "w")
 	for _, v in pairs(m.apiType_order) do
 		-- print("== "..v.." ==")
 		file:write("== "..v.." ==\n")
