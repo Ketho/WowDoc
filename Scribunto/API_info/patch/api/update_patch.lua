@@ -6,7 +6,7 @@ local github = require("wowdoc.web.github")
 local URL = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/refs/tags/%s/Resources/GlobalAPI.lua"
 local BASE_PATH = "Scribunto/API_info/patch/api"
 
-local TAG = "12.0.1"
+local TAG = "12.0.5" -- need to manually update
 
 local FLAVOR = "mainline" ---@type "classic"|"classic_era"|"mainline"
 local FULL_PATH = pathlib.join(BASE_PATH, FLAVOR, TAG..".lua")
@@ -52,4 +52,5 @@ local function main()
 	end
 end
 
+-- still need to manually create the file first
 main()
