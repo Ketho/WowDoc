@@ -14,9 +14,8 @@ local pathlib = require("path")
 local https = require("ssl.https")
 local cjson = require("cjson")
 local ltn12 = require("ltn12")
-
 local system = require("wowdoc.util.system")
-local web = require("wowdoc.web")
+local dl = require("wowdoc.web.download")
 local github = require("wowdoc.web.github")
 local log = require("wowdoc.util.log")
 local products = require("wowdoc.products.branches")
@@ -45,7 +44,7 @@ function m:DownloadZip(name)
 
 	local zipFolder = pathlib.join("FrameXML", "zips")
 	local zipFile = pathlib.join(zipFolder, fileExtName)
-	web:DownloadFile(url, zipFile)
+	dl:DownloadFile(url, zipFile)
 	return fileBaseName, zipFile
 end
 

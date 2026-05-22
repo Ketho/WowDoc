@@ -16,7 +16,7 @@ local function EnumPostCall()
 		ObjectName = 0x10d,
 		ObjectSecrets = 0x10e,
 		ObjectSecurity = 0x10f,
-		ObjectType = 0x11,
+		ObjectType = 0x110,
 	}
 	for k, v in pairs(t) do
 		Enum.SecretAspect[k] = v
@@ -176,7 +176,6 @@ end
 			local name = naming:GetProperName(v, true)
 			local t2 = {}
 			for _, v2 in pairs(v.SecretReturnsForAspect) do
-				print("v2", v2)
 				table.insert(t2, string.format('"%s"', RevEnum_SecretAspect[v2]))
 			end
 			table.insert(t, line:format(name, table.concat(t2, ", ")))

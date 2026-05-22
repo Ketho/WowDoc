@@ -46,7 +46,8 @@ function m:GetDocEvents(info)
 				local version = folder:match("%d+%.%d+.%d+")
 				local build = folder:match("%((%d+)%)$") or folder:match("%d+$")
 				-- Blizzard_APIDocumentation did not have events until patch 8.0
-				if not version:find("^7%.") then
+				-- 9.2.7 has no Blizzard_APIDocumentationGenerated
+				if not version:find("^7%.") and version ~= "9.2.7" then
 					APIDocumentation = nil
 					loader:LoadDocumentation({path = path, silent = true})
 					local apiDocs = APIDocumentation
