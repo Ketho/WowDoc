@@ -13,10 +13,14 @@ function m:GetProperName(apiTable, isWiki)
 	local t = {}
 	if apiTable.Type == "Function" then
 		if apiTable.System.Type == "System" then
-			if apiTable.System.Namespace and apiTable.Namespace ~= "" then -- see InCombatLockdown
+			if apiTable.Namespace then
+				if #apiTable.Namespace > 0 then -- see C_StringUtil.GetDefaultAbbreviationBreakpoints
+					return string.format("%s.%s", apiTable.Namespace, apiTable.Name)
+				else -- see InCombatLockdown
+					return apiTable.Name
+				end
+			elseif apiTable.System.Namespace then
 				return string.format("%s.%s", apiTable.System.Namespace, apiTable.Name)
-			elseif apiTable.Namespace then -- see C_StringUtil.GetDefaultAbbreviationBreakpoints
-				return string.format("%s.%s", apiTable.Namespace, apiTable.Name)
 			else
 				return apiTable.Name
 			end

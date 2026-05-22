@@ -5,7 +5,7 @@ local log = require("wowdoc.util.log")
 local cfg = require("wowdoc.config")
 
 local BRANCH = products:GetBranch(cfg.TACT_PRODUCT)
-local SUMMARY = "fix event patch"
+local SUMMARY = "fix function namespace field"
 
 local function WriteFiles()
     local scribunto = pathlib.join("Scribunto", "API_info")
