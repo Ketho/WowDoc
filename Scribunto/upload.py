@@ -16,9 +16,9 @@ files = [
 	[".wow/scribunto/patch/API_info.patch.event_retail.lua", "Module:API_info/patch/event_retail"],
 	[".wow/scribunto/patch/API_info.patch.event_classic.lua", "Module:API_info/patch/event_classic"],
 
-	[".wow/scribunto/categories/systems_data.lua", "Module:API_info/systems/metadata"],
-	[".wow/scribunto/categories/events_systems.lua", "Module:API_info/systems/events"],
-	[".wow/scribunto/categories/functions_systems.lua", "Module:API_info/systems/functions"],
+	[".wow/scribunto/systems/systems_data.lua", "Module:API_info/systems/metadata"],
+	[".wow/scribunto/systems/events_systems.lua", "Module:API_info/systems/events"],
+	[".wow/scribunto/systems/functions_systems.lua", "Module:API_info/systems/functions"],
 
 	[".wow/scribunto/predicates/API_info.predicates.lua", "Module:API_info/predicates/predicates"],
 	[".wow/scribunto/predicates/API_info.SecretArguments.lua", "Module:API_info/predicates/secret_arguments"],
