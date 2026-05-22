@@ -25,6 +25,13 @@
 			"problemMatcher": []
 		},
 		{
+			"label": "Lua Scribunto",
+			"type": "shell",
+			"command": "source .lua/bin/activate && lua 'Scribunto/upload.lua'",
+			"presentation": {"showReuseMessage": false, "clear": true},
+			"problemMatcher": []
+		},
+		{
 			"label": "Pywikibot login",
 			"type": "shell",
 			"command": "source .venv/bin/activate && pwb login",
