@@ -7,7 +7,7 @@ local cfg = require("wowdoc.config")
 local m = {}
 
 function m:main(product)
-	loader:LoadDocumentation(product)
+	loader:LoadDocumentation()
 	local branch = products:GetBranch(product)
 	local globalApi = dl:DownloadAndRun(
 		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/GlobalAPI.lua", branch),

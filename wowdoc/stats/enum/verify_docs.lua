@@ -6,7 +6,7 @@ local m = {}
 function m:test()
 	enum:LoadEnumTable("live")
 	local loader = require("wowdoc.loader")
-	loader:LoadDocumentation(nil, {excludeMissing = true})
+	loader:LoadDocumentation()
 
 	self:CompareFromDocs()
 	self:CompareFromEnumTable()

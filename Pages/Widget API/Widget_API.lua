@@ -4,8 +4,7 @@ local log = require("wowdoc.util.log")
 local OUT = pathlib.join(PATHS.WIKI_PAGE, "Widget_API.txt")
 local doc_widgets = require("wowdoc.namingway.scriptobjects")
 
-local PRODUCT = CONFIG.TACT_PRODUCT
-loader:LoadDocumentation(PRODUCT)
+loader:LoadDocumentation()
 
 local widget_order = {
 	"Object",

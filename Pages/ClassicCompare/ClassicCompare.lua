@@ -8,8 +8,6 @@ local table_sort = require("wowdoc.util.table_sort")
 local request = require("wowdoc.web.request")
 local Signatures = require("Pages/ClassicCompare/Signatures")
 
-local PRODUCT = "wowxptr" ---@type TactProduct
-
 local m = {}
 
 local sources = {
@@ -167,7 +165,7 @@ function m:GetData(sourceType)
 end
 
 function m:GetEventPayload()
-	loader:LoadDocumentation(PRODUCT)
+	loader:LoadDocumentation()
 	local t = {}
 	for _, event in pairs(APIDocumentation.events) do
 		if event.Payload then

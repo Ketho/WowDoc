@@ -1,5 +1,5 @@
 local loader = require("wowdoc.loader")
-loader:LoadDocumentation(nil, {getMissingDocs = true})
+loader:LoadDocumentation({getMissingDocs = true})
 
 local export = require("warcraftwiki.export")
 export:ExportDocumentation()

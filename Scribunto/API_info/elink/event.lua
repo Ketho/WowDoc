@@ -5,7 +5,7 @@ local cfg = require("wowdoc.config")
 local OUT = pathlib.join(cfg.path.scribunto, "API_info.elink.event.lua")
 
 local function main()
-	loader:LoadDocumentation(cfg.TACT_PRODUCT)
+	loader:LoadDocumentation()
 	table.sort(APIDocumentation.events, function(a, b)
 		return a.LiteralName < b.LiteralName
 	end)

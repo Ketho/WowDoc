@@ -1,10 +1,10 @@
 local loader = require("wowdoc.loader")
 local products = require("wowdoc.products.branches")
+local cfg = require("wowdoc.config")
 
-PRODUCT = CONFIG.TACT_PRODUCT ---@type TactProduct
-local gethe_branch = products:GetBranch(PRODUCT)
+local gethe_branch = products:GetBranch(cfg.TACT_PRODUCT)
 BRANCH = gethe_branch -- hack
-loader:LoadDocumentation(PRODUCT)
+loader:LoadDocumentation()
 
 local WikiText = require("Pages/World of Warcraft API/WikiText")
 local Signatures_Parse = require("Pages/World of Warcraft API/Signatures_Parse")

@@ -4,11 +4,11 @@ local strlib = require("wowdoc.util.string")
 local tablelib = require("wowdoc.util.table")
 local table_sort = require("wowdoc.util.table_sort")
 local products = require("wowdoc.products.branches")
+local cfg = require("wowdoc.config")
 local WikiText = require("Pages/World of Warcraft API/WikiText")
 
-local PRODUCT = "wow" ---@type TactProduct
-loader:LoadDocumentation(PRODUCT)
-local gethe_branch = products:GetBranch(PRODUCT)
+loader:LoadDocumentation()
+local gethe_branch = products:GetBranch(cfg.TACT_PRODUCT)
 
 local Signatures_Parse = require("Pages/World of Warcraft API/Signatures_Parse")
 local signatures = Signatures_Parse:GetSignatures()
