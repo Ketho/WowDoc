@@ -20,6 +20,9 @@ function m:LoadEnumTable(options)
 	local path = pathlib.join(cfg.path.blizres, string.format("LuaEnum_%s.lua", options.branch))
 	dl:DownloadAndRun(url, path)
 	self:FixEnumTable()
+	if options.enum_postcall then
+		options.enum_postcall()
+	end
 end
 
 function m:FixEnumTable()

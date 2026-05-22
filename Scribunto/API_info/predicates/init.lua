@@ -1,14 +1,14 @@
 ---@diagnostic disable: need-check-nil
 local pathlib = require("path")
-
 local log = require("wowdoc.util.log")
 local loader = require("wowdoc.loader")
 local cfg = require("wowdoc.config")
 local widget_docs = require("wowdoc.namingway.scriptobjects")
+local naming = require("wowdoc.namingway.naming")
 
 -- need to do a reverse lookup
 -- so gonna apply hack and make them unique /shrug
-local function EditEnum()
+local function EnumPostCall()
 	local t = {
 		Attributes = 0x10a,
 		Hierarchy = 0x10b,
@@ -23,28 +23,16 @@ local function EditEnum()
 	end
 end
 
-APIDocumentation = nil
-loader:LoadDocumentation()
-EditEnum()
-
-local function GetFullName(apiTable)
-	if apiTable.Type == "Event" then
-		return apiTable.LiteralName
-	elseif apiTable.Type == "Function" then
-		if apiTable.System then
-			if apiTable.System.Type == "System" then
-				if apiTable.System.Namespace then
-					return string.format("%s.%s", apiTable.System.Namespace, apiTable.Name)
-				else
-					return apiTable.Name
-				end
-			elseif apiTable.System.Type == "ScriptObject" then
-				local widget = widget_docs[apiTable.System.Name]
-				return string.format("%s %s", widget, apiTable.Name)
-			end
-		end
+local function GetReverseEnum()
+	local t = {}
+	for k, v in pairs(Enum.SecretAspect) do
+		t[v] = k
 	end
+	return t
 end
+
+APIDocumentation = nil
+loader:LoadDocumentation({enum_postcall = EnumPostCall})
 
 local function ProcessDocTable(t0, v)
 	local t1 = {}
@@ -63,7 +51,7 @@ local function ProcessDocTable(t0, v)
 			local stringified = string.format('"%s"', t1[k2])
 			table.insert(t2, stringified)
 		end
-		local name = GetFullName(v) or v
+		local name = naming:GetProperName(v)
 		local propNames = table.concat(t2, ", ")
 		local line = string.format('\t["%s"] = { %s },\n', name, propNames)
 		table.insert(t0, line)
@@ -129,7 +117,7 @@ m.description = {
 	local t = {}
 	for _, v in pairs(APIDocumentation.functions) do
 		if v.SecretArguments then
-			local name = GetFullName(v)
+			local name = naming:GetProperName(v)
 			table.insert(t, line:format(name, v.SecretArguments))
 		end
 	end
@@ -142,14 +130,10 @@ m.description = {
 	file:close()
 end
 
-local RevEnum_SecretAspect = {}
-for k, v in pairs(Enum.SecretAspect) do
-	RevEnum_SecretAspect[v] = k
-end
-
 local function WriteSecretAspects()
 	local output = pathlib.join(cfg.path.scribunto_predicates, "API_info.SecretAspects.lua")
 	log.info(string.format("Writing %s", output))
+	RevEnum_SecretAspect = GetReverseEnum()
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
 	file:write([=[function m:GetHeaderArguments()
@@ -170,7 +154,7 @@ end
 	local t = {}
 	for _, v in pairs(APIDocumentation.functions) do
 		if v.SecretArgumentsAddAspect then
-			local name = GetFullName(v)
+			local name = naming:GetProperName(v)
 			local t2 = {}
 			for _, v2 in pairs(v.SecretArgumentsAddAspect) do
 				table.insert(t2, string.format('"%s"', RevEnum_SecretAspect[v2]))
@@ -189,9 +173,10 @@ end
 	local t = {}
 	for _, v in pairs(APIDocumentation.functions) do
 		if v.SecretReturnsForAspect then
-			local name = GetFullName(v)
+			local name = naming:GetProperName(v)
 			local t2 = {}
 			for _, v2 in pairs(v.SecretReturnsForAspect) do
+				print("v2", v2)
 				table.insert(t2, string.format('"%s"', RevEnum_SecretAspect[v2]))
 			end
 			table.insert(t, line:format(name, table.concat(t2, ", ")))
