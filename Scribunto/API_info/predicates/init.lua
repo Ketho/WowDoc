@@ -31,6 +31,7 @@ local function GetReverseEnum()
 	return t
 end
 
+Enum = nil
 APIDocumentation = nil
 loader:LoadDocumentation({enum_postcall = EnumPostCall})
 
