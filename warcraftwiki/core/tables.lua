@@ -8,7 +8,7 @@ function WarcraftWiki:GetTablePage(apiTable)
 	if apiTable.Type == "Structure" then
 		local transcludes = self:GetTranscludeTypes(apiTable)
 		for _, v in pairs(transcludes) do
-			table.insert(t, v)
+			table.insert(t, "\n"..v)
 		end
 	end
 	return string.format("<onlyinclude>%s</onlyinclude>", table.concat(t, "\n"))
