@@ -5,22 +5,18 @@ local function IsValidTable(tbl)
 end
 
 function WarcraftWiki:GetFunctionPage(func)
-	local t = {}
-	table.insert(t, self:GetDocumentation(func))
+	local t, r = {}, {}
+	table.insert(r, self:GetDocumentation(func))
 	local signature = self:GetFunctionSignature(func)
-	table.insert(t, string.format("{{apisig|%s}}", signature))
+	table.insert(r, string.format("{{apisig|%s}}", signature))
+	table.insert(t, table.concat(r, "\n"))
 	if IsValidTable(func.Arguments) then
-		table.insert(t, "==Arguments==")
-		table.insert(t, self:GetParameters(func.Arguments, true))
-	end
-	if IsValidTable(func.Arguments) and IsValidTable(func.Returns) then
-		table.insert(t, "") -- spacing
+		table.insert(t, "==Arguments==\n"..self:GetParameters(func.Arguments, true))
 	end
 	if IsValidTable(func.Returns) then
-		table.insert(t, "==Returns==")
-		table.insert(t, self:GetParameters(func.Returns))
+		table.insert(t, "==Returns==\n"..self:GetParameters(func.Returns))
 	end
-	return table.concat(t, "\n")
+	return table.concat(t, "\n\n")
 end
 
 function WarcraftWiki:GetFunctionSignature(func)
@@ -32,9 +28,16 @@ function WarcraftWiki:GetFunctionSignature(func)
 	if func.System.Type == "ScriptObject" then
 		local name = scriptobjects:shorten(func.System.Name)
 		table.insert(t, string.format("%s:%s", name, func.Name))
-	elseif func.System.Type == "System" and func.System.Namespace then
-		local namespace = string.format("%s.%s", func.System.Namespace, func.Name)
-		table.insert(t, namespace)
+	elseif func.System.Type == "System" then
+		if func.System.Namespace then
+			local name = string.format("%s.%s", func.System.Namespace, func.Name)
+			table.insert(t, name)
+		elseif func.Namespace then
+			local name = string.format("%s.%s", func.Namespace, func.Name)
+			table.insert(t, name)
+		else
+			table.insert(t, func.Name)
+		end
 	end
 	if IsValidTable(func.Arguments) then
 		local arguments = self:GetFunctionArguments(func.Arguments)
