@@ -175,6 +175,7 @@ local data = {
 	{ Name = "TickerCallback", Type = {"function", "FunctionContainer"} }, -- updated type
 	{ Name = "TimerCallback", Type = {"function", "FunctionContainer"} }, -- updated type
 	{ Name = "Enum.InventoryType", W_Link = "Enum.InventoryType" },
+	{ Name = "Enum.ItemCreationContext", W_Link = "Enum.ItemCreationContext" },
 	{ Name = "Enum.ItemQuality", W_Link = "Enum.ItemQuality" },
 	{ Name = "Enum.PowerType", W_Link = "Enum.PowerType" },
 

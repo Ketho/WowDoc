@@ -62,3 +62,18 @@ function WarcraftWiki:GetActualType(apiTable)
 		return apiTable.Type
 	end
 end
+
+function WarcraftWiki:GetTranscludeTypes(apiTable)
+	local t = {}
+	for _, field in pairs(apiTable.Fields) do
+		local actualType = self:GetActualType(field)
+		local cat = type_api:FindTypeCat(actualType)
+		if cat == "Enumeration" then
+			table.insert(t, string.format("{{:Enum.%s}}", actualType))
+		elseif cat == "Structure" then
+			table.insert(t, string.format("{{:Structure %s}}", actualType))
+		end
+	end
+	return t
+end
+

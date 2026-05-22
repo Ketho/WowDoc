@@ -1,10 +1,17 @@
 local tablelib = require("wowdoc.util.table")
 
 function WarcraftWiki:GetTablePage(apiTable)
+	local t = {}
 	local contents = self:GetTableContents(apiTable)
 	local wikiTable = self:GetWikiTable(apiTable, contents)
-	local onlyinclude = string.format("<onlyinclude>%s</onlyinclude>", wikiTable)
-	return onlyinclude
+	table.insert(t, wikiTable)
+	if apiTable.Type == "Structure" then
+		local transcludes = self:GetTranscludeTypes(apiTable)
+		for _, v in pairs(transcludes) do
+			table.insert(t, v)
+		end
+	end
+	return string.format("<onlyinclude>%s</onlyinclude>", table.concat(t, "\n"))
 end
 
 function WarcraftWiki:GetTableContents(apiTable)

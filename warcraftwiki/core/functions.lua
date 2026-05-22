@@ -12,9 +12,9 @@ function WarcraftWiki:GetFunctionPage(func)
 	if IsValidTable(func.Arguments) then
 		table.insert(t, "==Arguments==")
 		table.insert(t, self:GetParameters(func.Arguments, true))
+		if IsValidTable(func.Returns) then table.insert(t, "") end -- spacing
 	end
 	if IsValidTable(func.Returns) then
-		if IsValidTable(func.Arguments) then table.insert(t, "") end -- spacing
 		table.insert(t, "==Returns==")
 		table.insert(t, self:GetParameters(func.Returns))
 	end
