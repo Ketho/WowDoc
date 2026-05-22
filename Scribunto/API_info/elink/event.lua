@@ -2,7 +2,7 @@
 local pathlib = require("path")
 local loader = require("wowdoc.loader")
 local cfg = require("wowdoc.config")
-local OUT = pathlib.join(cfg.path.scribunto, "API_info.elink.event.lua")
+local OUT = pathlib.join(cfg.path.scribunto_elink, "API_info.elink.event.lua")
 
 local function main()
 	loader:LoadDocumentation()

@@ -42,7 +42,7 @@ function m:GetFunctionList()
 		t[v.System.Name] = t[v.System.Name] or {}
 		table.insert(t[v.System.Name], name)
 	end
-	local path = pathlib.join(cfg.path.wiki_cats, "functions_systems.lua")
+	local path = pathlib.join(cfg.path.scribunto_cats, "functions_systems.lua")
 	WriteScribuntoData(path, t)
 end
 
@@ -52,7 +52,7 @@ function m:GetEventList()
 		t[v.System.Name] = t[v.System.Name] or {}
 		table.insert(t[v.System.Name], v.LiteralName)
 	end
-	local path = pathlib.join(cfg.path.wiki_cats, "events_systems.lua")
+	local path = pathlib.join(cfg.path.scribunto_cats, "events_systems.lua")
 	WriteScribuntoData(path, t)
 end
 

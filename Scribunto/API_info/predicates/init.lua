@@ -83,7 +83,7 @@ local function ProcessDocs()
 end
 
 local function WritePredicates()
-	local output = pathlib.join(cfg.path.wiki_predicates, "API_info.predicates.lua")
+	local output = pathlib.join(cfg.path.scribunto_predicates, "API_info.predicates.lua")
 	log.info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
@@ -106,7 +106,7 @@ m.description = {
 end
 
 local function WriteSecretArguments()
-	local output = pathlib.join(cfg.path.wiki_predicates, "API_info.SecretArguments.lua")
+	local output = pathlib.join(cfg.path.scribunto_predicates, "API_info.SecretArguments.lua")
 	log.info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
@@ -148,7 +148,7 @@ for k, v in pairs(Enum.SecretAspect) do
 end
 
 local function WriteSecretAspects()
-	local output = pathlib.join(cfg.path.wiki_predicates, "API_info.SecretAspects.lua")
+	local output = pathlib.join(cfg.path.scribunto_predicates, "API_info.SecretAspects.lua")
 	log.info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
