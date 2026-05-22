@@ -28,12 +28,14 @@ function WarcraftWiki:GetFunctionSignature(func)
 		local name = scriptobjects:shorten(func.System.Name)
 		table.insert(t, string.format("%s:%s", name, func.Name))
 	elseif func.System.Type == "System" then
-		if func.System.Namespace then
-			local name = string.format("%s.%s", func.System.Namespace, func.Name)
-			table.insert(t, name)
-		elseif func.Namespace then
-			local name = string.format("%s.%s", func.Namespace, func.Name)
-			table.insert(t, name)
+		if func.Namespace then
+			if #func.Namespace > 0 then
+				table.insert(t, string.format("%s.%s", func.Namespace, func.Name))
+			else
+				table.insert(t, func.Name)
+			end
+		elseif func.System.Namespace then
+			table.insert(t, string.format("%s.%s", func.System.Namespace, func.Name))
 		else
 			table.insert(t, func.Name)
 		end
