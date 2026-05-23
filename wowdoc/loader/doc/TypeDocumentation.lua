@@ -13,10 +13,10 @@
 local data = {
 	-- basic types
 	{ Name = "bool", Type = {"boolean"} },
-	{ Name = "number", Type = {"number"} },
-	{ Name = "string", Type = {"string"} },
+	-- { Name = "number", Type = {"number"} },
+	-- { Name = "string", Type = {"string"} },
 	{ Name = "cstring", W_Replace = "string" },
-	{ Name = "table", Type = {"table"} },
+	-- { Name = "table", Type = {"table"} },
 
 	-- UI_shared.xsd
 	-- <xs:simpleType name="ALPHAMODE">, SetBlendMode
@@ -46,7 +46,7 @@ local data = {
 	-- SetButtonState
 	{ Name = "SimpleButtonStateToken", Type = {"string"}, Description = {"DISABLED", "NORMAL", "PUSHED"} },
 	-- SetFont
-	{ Name = "TBFFlags", Type = {"string"}, Description = {'""', "MONOCHROME", "OUTLINE", "THICKOUTLINE", "SLUG"} },
+	{ Name = "TBFFlags", Type = {"string"}, Description = {"(empty string)", "MONOCHROME", "OUTLINE", "THICKOUTLINE", "SLUG"} },
 
 	-- widgets
 	{ Name = "ChatBubbleFrame", Type = {"Frame"} }, -- the only InnerType not documented
@@ -119,7 +119,7 @@ local data = {
 	{ Name = "kstringLfgListSearch", Type = {"string"}, W_Link = "Kstring" },
 	{ Name = "LuaCurveEvaluatedResult", W_Replace = "CurveEvaluatedResult", Type = {"number", "colorRGBA"}, W_Link = "API_types/CurveEvaluatedResult" },
 	{ Name = "luaFunction", W_Replace = "function" },
-	{ Name = "luaIndex", W_Replace = "number" },
+	{ Name = "luaIndex", Type = {"number"} },
 	{ Name = "LuaValueReference", Type = {"any"} },
 	{ Name = "LuaValueVariant", Type = {"any"} },
 	{ Name = "ModelAsset", Type = {"string"} },

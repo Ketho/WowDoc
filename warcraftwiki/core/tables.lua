@@ -7,8 +7,12 @@ function WarcraftWiki:GetTablePage(apiTable)
 	table.insert(t, wikiTable)
 	if apiTable.Type == "Structure" then
 		local transcludes = self:GetTranscludeTypes(apiTable)
+		local unique = {}
 		for _, v in pairs(transcludes) do
-			table.insert(t, "\n"..v)
+			if not unique[v] then
+				unique[v] = true
+				table.insert(t, "\n"..v)
+			end
 		end
 	end
 	return string.format("<onlyinclude>%s</onlyinclude>", table.concat(t, "\n"))
