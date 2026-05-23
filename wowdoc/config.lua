@@ -9,6 +9,7 @@ config.path = {
 	warcraftwiki = pathlib.join(".wiki"),
 	blizres    = pathlib.join(root, "blizres"),
 	wago = pathlib.join(root, "wago"),
+	wiki_page = pathlib.join(root, "wiki", "page"),
 	wiki_scriptobject = pathlib.join(root, "wiki", "scriptobject"),
 	change_summary = pathlib.join(root, "changes", "summary"),
 	change_commit  = pathlib.join(root, "changes", "commit"),

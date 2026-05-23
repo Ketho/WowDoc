@@ -41,7 +41,7 @@ function WarcraftWiki:GetFunctionSignature(func)
 		end
 	end
 	if IsValidTable(func.Arguments) then
-		local arguments = self:GetFunctionArguments(func.Arguments)
+		local arguments = self:GetFunctionArguments(func)
 		table.insert(t, string.format("(%s)", arguments))
 	else
 		table.insert(t, "()")
@@ -67,8 +67,8 @@ end
 function WarcraftWiki:GetFunctionArguments(func)
 	local t = {}
 	local numOptionals = 0
-	local nonWeirdIdx = HasWeirdOptionals(func) or 0
-	for idx, param in pairs(func) do
+	local nonWeirdIdx = HasWeirdOptionals(func.Arguments) or 0
+	for idx, param in pairs(func.Arguments) do
 		local r = {}
 		if param:IsOptional() then
 			if idx < nonWeirdIdx then
@@ -80,12 +80,12 @@ function WarcraftWiki:GetFunctionArguments(func)
 		else
 			table.insert(r, param.Name)
 		end
-		if idx == #func and numOptionals > 0 then
+		if idx == #func.Arguments and numOptionals > 0 then
 			table.insert(r, string.rep("]", numOptionals))
 		end
 		table.insert(t, table.concat(r, ""))
 	end
-	if self:HasStrideIndex(func) then
+	if self:HasStrideIndex(func.Arguments) then
 		table.insert(t, "...")
 	end
 	local res = table.concat(t, ", ")

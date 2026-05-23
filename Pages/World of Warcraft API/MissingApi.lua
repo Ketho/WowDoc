@@ -1,5 +1,6 @@
+local pathlib = require("path")
 local loader = require("wowdoc.loader")
-local request = require("wowdoc.web.request")
+local dl = require("wowdoc.web.download")
 local strlib = require("wowdoc.util.string")
 local tablelib = require("wowdoc.util.table")
 local table_sort = require("wowdoc.util.table_sort")
@@ -35,9 +36,9 @@ function m:ParseWikitext(wikitext)
 end
 
 function m:GetGlobalApi()
-	local global_api = request:DownloadAndRun(
+	local global_api = dl:DownloadAndRun(
 		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/GlobalAPI.lua", gethe_branch),
-		pathlib.join(PATHS.BLIZRES, string.format("GlobalAPI_%s.lua", gethe_branch))
+		pathlib.join(cfg.path.blizres, string.format("GlobalAPI_%s.lua", gethe_branch))
 	)
 	return tablelib.ToMap(global_api[1])
 end

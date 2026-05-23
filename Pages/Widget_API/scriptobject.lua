@@ -11,7 +11,7 @@ local function GetTemplate(name, func)
 	table.insert(t, "t=w")
 	table.insert(t, name)
 	if func.Arguments and #func.Arguments > 0 then
-		table.insert(t, "arg="..WarcraftWiki:GetFunctionArguments(func.Arguments))
+		table.insert(t, "arg="..WarcraftWiki:GetFunctionArguments(func))
 	end
 	if func.Returns and #func.Returns > 0 then
 		table.insert(t, "ret="..WarcraftWiki:GetFunctionReturns(func))
