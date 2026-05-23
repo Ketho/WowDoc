@@ -21,7 +21,7 @@ end
 function WarcraftWiki:GetFunctionSignature(func)
 	local t = {}
 	if IsValidTable(func.Returns) then
-		local returns = func:GetReturnString(false, false)
+		local returns = self:GetFunctionReturns(func)
 		table.insert(t, string.format("%s {{=}} ", returns))
 	end
 	if func.System.Type == "ScriptObject" then
@@ -64,11 +64,11 @@ local function HasWeirdOptionals(paramTbl)
 	end
 end
 
-function WarcraftWiki:GetFunctionArguments(paramTbl)
+function WarcraftWiki:GetFunctionArguments(func)
 	local t = {}
 	local numOptionals = 0
-	local nonWeirdIdx = HasWeirdOptionals(paramTbl) or 0
-	for idx, param in pairs(paramTbl) do
+	local nonWeirdIdx = HasWeirdOptionals(func) or 0
+	for idx, param in pairs(func) do
 		local r = {}
 		if param:IsOptional() then
 			if idx < nonWeirdIdx then
@@ -80,13 +80,32 @@ function WarcraftWiki:GetFunctionArguments(paramTbl)
 		else
 			table.insert(r, param.Name)
 		end
-		if idx == #paramTbl and numOptionals > 0 then
+		if idx == #func and numOptionals > 0 then
 			table.insert(r, string.rep("]", numOptionals))
 		end
 		table.insert(t, table.concat(r, ""))
+	end
+	if self:HasStrideIndex(func) then
+		table.insert(t, "...")
 	end
 	local res = table.concat(t, ", ")
 	res = res:gsub(", %[", " [, ") -- fix comma placement
 	res = res:gsub("<(%w-)>", "[%1]") -- fix weird optionals
 	return res
+end
+
+function WarcraftWiki:GetFunctionReturns(func)
+	local returns = func:GetReturnString(false, false)
+	if self:HasStrideIndex(func.Returns) then
+		returns = returns..", ..."
+	end
+	return returns
+end
+
+function WarcraftWiki:HasStrideIndex(paramTbl)
+	for _, param in pairs(paramTbl) do
+		if param.StrideIndex then
+			return true
+		end
+	end
 end

@@ -8,11 +8,12 @@ local root = ".wow"
 config.path = {
 	warcraftwiki = pathlib.join(".wiki"),
 	blizres    = pathlib.join(root, "blizres"),
+	wago = pathlib.join(root, "wago"),
+	wiki_scriptobject = pathlib.join(root, "wiki", "scriptobject"),
 	change_summary = pathlib.join(root, "changes", "summary"),
 	change_commit  = pathlib.join(root, "changes", "commit"),
 	change_compare = pathlib.join(root, "changes", "compare"),
 	change_wiki    = pathlib.join(root, "changes", "wiki"),
-	wago       = pathlib.join(root, "wago"),
 	scribunto_flavor     = pathlib.join(root, "scribunto", "flavor"),
 	scribunto_elink      = pathlib.join(root, "scribunto", "elink"),
 	scribunto_patch      = pathlib.join(root, "scribunto", "patch"),
@@ -20,7 +21,6 @@ config.path = {
 	scribunto_predicates = pathlib.join(root, "scribunto", "predicates"),
 	CACHE      = pathlib.join(root, "cache"),
 	STRINGS    = pathlib.join(root, "strings"),
-	WIKI_PAGE  = pathlib.join(root, "wiki_page"),
 	WIKI_CLASSIC_COMPARE = pathlib.join(root, "wiki_page", "classic_compare"),
 }
 

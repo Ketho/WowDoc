@@ -1,6 +1,6 @@
 local types_api = require("wowdoc.stats.types.api")
 
-function WarcraftWiki:GetParameters(params, isArgument)
+function WarcraftWiki:GetParameters(params)
 	local t = {}
 	for _, param in pairs(params) do
 		local line = self:GetParamLine(param)
