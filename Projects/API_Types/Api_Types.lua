@@ -1,8 +1,5 @@
-local util = require("wowdoc")
-
+local table_sort = require("wowdoc.util.table_sort")
 local loader = require("wowdoc.loader")
-loader:main("mainline")
-
 local m = {}
 
 local function explode(t)
@@ -160,11 +157,12 @@ function m:GetSpecialTypes()
     local t1 = union(structures, missingStructures, enums, docNoExistEnums, basicTypes, mixins, widgets)
     local t2 = union(functions, events, fields)
     local types = difference(t2, t1)
-    local sorted = util:SortTable(types)
+    local sorted = table_sort.SortTable(types)
     return sorted
 end
 
 local function main()
+    loader:LoadDocumentation()
     local sorted = m:GetSpecialTypes()
     for k, v in pairs(sorted) do
         print(v)

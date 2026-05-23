@@ -1,7 +1,7 @@
 local loader = require("wowdoc.loader")
-loader:main(CONFIG.TACT_PRODUCT)
+loader:LoadDocumentation()
 local m_Api_Types = require("Projects.API_Types.Api_Types")
-local widgetSystems = require("wowdoc.namingway.scriptobjects")
+local scriptobjects = require("wowdoc.namingway.scriptobjects")
 
 local function explode(t)
     for k, v in pairs(t) do
@@ -96,7 +96,7 @@ local function GetFullName(api)
         return table.concat(t, "."), parent, source
     elseif system.Name then
         if system.Type == "ScriptObject" then
-            local widgetName =  widgetSystems[system.Name]
+            local widgetName =  scriptobjects:shorten(system.Name)
             table.insert(t, widgetName)
             table.insert(t, parent.Name)
             return table.concat(t, ":"), parent, source
@@ -165,4 +165,4 @@ local function main(search_name)
     end
 end
 
-main("LuaCurveEvaluatedResult")
+main("LuaColorCurveObject")
