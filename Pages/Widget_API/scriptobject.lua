@@ -5,11 +5,11 @@ local log = require("wowdoc.util.log")
 local naming = require("wowdoc.namingway.naming")
 local OUT = pathlib.join(cfg.path.wiki_scriptobject, "scriptobject.txt")
 
-local function GetTemplate(widget, func)
+local function GetTemplate(name, func)
 	local t = {}
 	table.insert(t, "apilink")
 	table.insert(t, "t=w")
-	table.insert(t, string.format("%s:%s", widget, func.Name))
+	table.insert(t, name)
 	if func.Arguments and #func.Arguments > 0 then
 		table.insert(t, "arg="..WarcraftWiki:GetFunctionArguments(func.Arguments))
 	end
