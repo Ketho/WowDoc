@@ -7,9 +7,10 @@ config.TACT_PRODUCT = "wow"
 local root = ".wow"
 config.path = {
 	warcraftwiki = pathlib.join(".wiki"),
-	blizres    = pathlib.join(root, "blizres"),
-	wago = pathlib.join(root, "wago"),
-	wiki_page = pathlib.join(root, "wiki", "page"),
+	blizres      = pathlib.join(root, "blizres"),
+	wago         = pathlib.join(root, "wago"),
+	wiki_page         = pathlib.join(root, "wiki", "page"),
+	wiki_page_classic = pathlib.join(root, "wiki", "page", "classic"),
 	wiki_scriptobject = pathlib.join(root, "wiki", "scriptobject"),
 	change_summary = pathlib.join(root, "changes", "summary"),
 	change_commit  = pathlib.join(root, "changes", "commit"),
@@ -20,9 +21,7 @@ config.path = {
 	scribunto_patch      = pathlib.join(root, "scribunto", "patch"),
 	scribunto_systems    = pathlib.join(root, "scribunto", "systems"),
 	scribunto_predicates = pathlib.join(root, "scribunto", "predicates"),
-	CACHE      = pathlib.join(root, "cache"),
-	STRINGS    = pathlib.join(root, "strings"),
-	WIKI_CLASSIC_COMPARE = pathlib.join(root, "wiki_page", "classic_compare"),
+	strings = pathlib.join(root, "strings"),
 }
 
 local function CreatePath(path)
