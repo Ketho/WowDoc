@@ -17,6 +17,9 @@ function m:LoadDocumentation(options)
 	options = options or {}
 	options.product = options.product or cfg.TACT_PRODUCT
 	options.branch = options.branch or products:GetBranch(options.product)
+	if options.force then
+		APIDocumentation = nil
+	end
 	if APIDocumentation then
 		log.warn(string.format("wowdoc: [product %s, branch %s] APIDocumentation already loaded", options.product, options.branch))
 		return

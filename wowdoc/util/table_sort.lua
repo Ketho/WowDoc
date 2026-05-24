@@ -89,4 +89,16 @@ function m.SortBuild(a, b)
 	end
 end
 
+function m.SortVersionTable(a, b)
+	if a.major ~= b.major then
+		return a.major < b.major
+	elseif a.minor ~= b.minor then
+		return a.minor < b.minor
+	elseif a.patch ~= b.patch then
+		return a.patch < b.patch
+	elseif a.build ~= b.build then
+		return a.build < b.build
+	end
+end
+
 return m
