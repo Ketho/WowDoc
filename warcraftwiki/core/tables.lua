@@ -1,5 +1,4 @@
 local tablelib = require("wowdoc.util.table")
-local archive_enum = require("warcraftwiki.archive.enum"):main()
 
 function WarcraftWiki:GetTablePage(apiTable)
 	local t = {}
@@ -50,11 +49,15 @@ function WarcraftWiki:GetWikiTable(apiTable, contents)
 	return table.concat(t, "\n")
 end
 
-function WarcraftWiki:GetEnumDocumentation(field)
+function WarcraftWiki:GetTableDocumentation(field)
 	local t = {}
-	local archive_field = archive_enum[field.Table.Name][field.Name]
-	if type(archive_field) == "string" then
-		table.insert(t, string.format("{{apiname.added|%s}}", archive_field))
+	-- it chokes on pulled missing enums
+	local archive_table = DOC_TABLES_ARCHIVE[field.Table.Name]
+	if archive_table then
+		local archive_field = DOC_TABLES_ARCHIVE[field.Table.Name][field.Name]
+		if type(archive_field) == "string" then
+			table.insert(t, string.format("{{apiname.added|%s}}", archive_field))
+		end
 	end
 	local documentation = self:GetDocumentation(field)
 	if documentation ~= "" then
@@ -69,7 +72,7 @@ function WarcraftWiki:GetEnumerationTable(apiTable)
 	table.insert(t, "! Value !! Field !! Description")
 	for _, field in pairs(apiTable.Fields) do
 		local enumValue = isBitEnum and string.format("0x%X", field.EnumValue) or field.EnumValue
-		local doc = self:GetEnumDocumentation(field)
+		local doc = self:GetTableDocumentation(field)
 		table.insert(t, string.format('|-\n| %s || {{apiname|%s}} || %s', enumValue, field.Name, doc))
 	end
 	return table.concat(t, "\n")
@@ -80,7 +83,7 @@ function WarcraftWiki:GetStructureTable(apiTable)
 	table.insert(t, "! Field !! Type !! Description")
 	for _, field in pairs(apiTable.Fields) do
 		local apitype = self:GetTypeTemplate(field)
-		local doc = self:GetDocumentation(field)
+		local doc = self:GetTableDocumentation(field)
 		table.insert(t, string.format('|-\n| {{apiname|%s}} || %s || %s', field.Name, apitype, doc))
 	end
 	return table.concat(t, "\n")
