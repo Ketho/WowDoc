@@ -9,12 +9,21 @@ function m.SortTable(tbl, func)
 	return t
 end
 
-function m.SortTableCustom(tbl, func)
+function m.SortTableValue(tbl, func)
+	local t = {}
+	for k, v in pairs(tbl) do
+		table.insert(t, v)
+	end
+	table.sort(t, func)
+	return t
+end
+
+function m.SortTableKeyValue(tbl, func)
 	local t = {}
 	for k, v in pairs(tbl) do
 		table.insert(t, {
-			key = k,
-			value = v
+			k = k,
+			v = v
 		})
 	end
 	table.sort(t, func)

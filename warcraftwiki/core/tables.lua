@@ -1,4 +1,5 @@
 local tablelib = require("wowdoc.util.table")
+local archive_enum = require("warcraftwiki.archive.enum"):main()
 
 function WarcraftWiki:GetTablePage(apiTable)
 	local t = {}
@@ -49,13 +50,26 @@ function WarcraftWiki:GetWikiTable(apiTable, contents)
 	return table.concat(t, "\n")
 end
 
+function WarcraftWiki:GetEnumDocumentation(field)
+	local t = {}
+	local archive_field = archive_enum[field.Table.Name][field.Name]
+	if type(archive_field) == "string" then
+		table.insert(t, string.format("{{apiname.added|%s}}", archive_field))
+	end
+	local documentation = self:GetDocumentation(field)
+	if documentation ~= "" then
+		table.insert(t, documentation)
+	end
+	return table.concat(t, " - ")
+end
+
 function WarcraftWiki:GetEnumerationTable(apiTable)
 	local t = {}
 	local isBitEnum = tablelib.IsBitEnum(apiTable)
 	table.insert(t, "! Value !! Field !! Description")
 	for _, field in pairs(apiTable.Fields) do
 		local enumValue = isBitEnum and string.format("0x%X", field.EnumValue) or field.EnumValue
-		local doc = self:GetDocumentation(field)
+		local doc = self:GetEnumDocumentation(field)
 		table.insert(t, string.format('|-\n| %s || {{apiname|%s}} || %s', enumValue, field.Name, doc))
 	end
 	return table.concat(t, "\n")
