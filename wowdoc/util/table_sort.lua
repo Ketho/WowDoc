@@ -18,7 +18,7 @@ function m.SortTableValue(tbl, func)
 	return t
 end
 
-function m.SortTableKeyValue(tbl, func)
+function m.SortTableKV(tbl, func)
 	local t = {}
 	for k, v in pairs(tbl) do
 		table.insert(t, {

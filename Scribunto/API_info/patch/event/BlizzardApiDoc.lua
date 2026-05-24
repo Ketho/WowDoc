@@ -89,8 +89,8 @@ end
 -- apparently this goes through all patches of both classic and retail
 function m:GetPatchData(tbl)
 	local added, removed = {}, {}
-	for _, v in pairs(table_sort.SortTableCustom(tbl, SortMajor)) do -- todo: sorting here goes wrong
-		local version, data = v.value.version, v.value.events
+	for _, v in pairs(table_sort.SortTableKV(tbl, SortMajor)) do -- todo: sorting here goes wrong
+		local version, data = v.v.version, v.v.events
 		for name in pairs(data) do
 			if not added[name] then
 				added[name] = version

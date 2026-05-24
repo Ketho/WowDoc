@@ -90,31 +90,31 @@ function m:PrintParamChanges(param, a, b, isWiki)
 		for k, v in pairs(b) do
 			t_b[v.Name] = {id=k, info=v}
 		end
-		for _, tbl in pairs(table_sort.SortTableCustom(t_b, SortIndex)) do
+		for _, tbl in pairs(table_sort.SortTableKV(t_b, SortIndex)) do
 			local left = t_a[tbl.key]
-			local right = tbl.value.info
+			local right = tbl.v.info
 			if not left then
-				print(string.format(fs.add, label, tbl.value.id, tbl.key))
+				print(string.format(fs.add, label, tbl.v.id, tbl.key))
 			else
 				if right.Type ~= left.info.Type then
-					print(string.format(fs.modified_type, label, tbl.value.id, tbl.key, left.info.Type, right.Type))
+					print(string.format(fs.modified_type, label, tbl.v.id, tbl.key, left.info.Type, right.Type))
 				end
 				if right.InnerType ~= left.info.InnerType then
-					print(string.format(fs.modified_innertype, label, tbl.value.id, tbl.key, left.info.InnerType, right.InnerType))
+					print(string.format(fs.modified_innertype, label, tbl.v.id, tbl.key, left.info.InnerType, right.InnerType))
 				end
 				if right.Nilable ~= left.info.Nilable then
-					print(string.format(fs.modified_nilable, label, tbl.value.id, tbl.key, left.info.Nilable, right.Nilable))
+					print(string.format(fs.modified_nilable, label, tbl.v.id, tbl.key, left.info.Nilable, right.Nilable))
 				end
 				local rightDoc = table.concat(right.Documentation or {})
 				local leftDoc = table.concat(left.info.Documentation or {})
 				if rightDoc ~= leftDoc then
-					print(string.format(fs.modified_doc, label, tbl.value.id, tbl.key, leftDoc, rightDoc))
+					print(string.format(fs.modified_doc, label, tbl.v.id, tbl.key, leftDoc, rightDoc))
 				end
 			end
 		end
-		for _, tbl in pairs(table_sort.SortTableCustom(t_a, SortIndex)) do
+		for _, tbl in pairs(table_sort.SortTableKV(t_a, SortIndex)) do
 			if not t_b[tbl.key] then
-				print(string.format(fs.remove, label, tbl.value.id, tbl.key))
+				print(string.format(fs.remove, label, tbl.v.id, tbl.k))
 			end
 		end
 	end
