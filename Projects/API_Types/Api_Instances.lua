@@ -165,4 +165,4 @@ local function main(search_name)
     end
 end
 
-main("LuaColorCurveObject")
+main("DurationTextBinding")
