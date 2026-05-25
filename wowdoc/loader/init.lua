@@ -40,8 +40,17 @@ function m:LoadDocumentation(options)
 		options.path = ADDONS_PATH
 		git:checkout("https://github.com/Gethe/wow-ui-source", options.branch)
 	end
-	-- load blizzard addons, also support legacy docs
-	self:LoadAddOn(options.path, "Blizzard_APIDocumentation")
+	if not options.plain then
+		self:LoadAddOn(options.path, "Blizzard_APIDocumentation")
+	else -- plain docs for easier comparing
+		APIDocumentation = {
+			AddDocumentationTable = function(_self, apiTable)
+				table.insert(APIDocumentation.systemTables, apiTable)
+			end,
+			systemTables = {},
+		}
+	end
+	-- Blizzard_APIDocumentationGenerated was added in 10.x but we still need to support older versions
 	local generated = pathlib.join(options.path, "Blizzard_APIDocumentationGenerated")
 	if pathlib.exists(generated) then
 		self:LoadAddOn(options.path, "Blizzard_APIDocumentationGenerated")

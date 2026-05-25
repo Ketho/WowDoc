@@ -69,7 +69,7 @@ local fs_info = {
 }
 
 local function SortIndex(a, b)
-	return a.value.id < b.value.id
+	return a.v.id < b.v.id
 end
 
 function m:PrintParamChanges(param, a, b, isWiki)

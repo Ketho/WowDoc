@@ -98,5 +98,5 @@ local function main(_tag, _branch)
 	log.success("Done")
 end
 
-main("12.0.5", "live")
+main("12.0.7", "live")
 -- main()

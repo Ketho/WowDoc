@@ -25,8 +25,8 @@ function m:GetFieldAdded(archives)
 				else
 					for _, field in pairs(apiTable.Fields) do
 						if not t[apiTable.Name][field.Name] then
-							local semantic = naming_version:GetSemanticVersion(docInfo.version)
-							t[apiTable.Name][field.Name] = semantic
+							local release = naming_version:GetReleaseVersion(docInfo.version)
+							t[apiTable.Name][field.Name] = release
 						end
 					end
 				end

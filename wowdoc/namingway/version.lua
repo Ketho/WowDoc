@@ -14,8 +14,8 @@ function m:ParseVersion(v)
 	return major, minor, patch, build
 end
 
-function m:GetSemanticVersion(v)
-	local major, minor, patch, build = self:ParseVersion(v)
+function m:GetReleaseVersion(v)
+	local major, minor, patch = self:ParseVersion(v)
 	return string.format("%d.%d.%d", major, minor, patch)
 end
 
