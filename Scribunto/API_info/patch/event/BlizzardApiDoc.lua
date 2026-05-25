@@ -67,8 +67,8 @@ function m:GetDocEvents(info)
 end
 
 local function SortMajor(a, b)
-	local _a = a.value.folder
-	local _b = b.value.folder
+	local _a = a.v.folder
+	local _b = b.v.folder
 	local major_a, minor_a, patch_a, build_a = _a:match("(%d+)%.(%d+)%.(%d+)%s%((%d+)%)")
 	local major_b, minor_b, patch_b, build_b = _b:match("(%d+)%.(%d+)%.(%d+)%s%((%d+)%)")
 	major_a = tonumber(major_a); major_b = tonumber(major_b)

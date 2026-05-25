@@ -13,6 +13,15 @@ local gethe_branches = {
 	"classic_era", -- vanilla
 }
 
+local ptr_products = {
+	wowt = "ptr",
+	wowxptr = "ptr2"
+}
+
+if ptr_products[cfg.TACT_PRODUCT] then
+	gethe_branches[1] = ptr_products[cfg.TACT_PRODUCT]
+end
+
 ---@alias ResourceType
 ---|"CVars"
 ---|"Events"
