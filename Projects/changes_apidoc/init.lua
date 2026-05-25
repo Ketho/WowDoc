@@ -19,16 +19,17 @@ local DocGroups = {
 	"Functions",
 	"ScriptObjects",
 	"Events",
-	"Structures",
 	"Enumerations",
+	"Structures",
 }
 
 function m:main(versions)
 	local docs = m:LoadVersionDocs(versions)
 	log.info(string.format("Comparing %s to %s", versions[1], versions[2]))
-	local file = io.open(pathlib.join(cfg.path.changes_apidoc, "apidoc.txt"), "w")
+	local file = io.open(pathlib.join(cfg.path.changes_apidoc, "apidoc1.txt"), "w")
 	for _, v in pairs(DocGroups) do
 		log.info("Comparing "..v)
+		file:write(string.format("\n===%s===\n", v))
 		self:CompareDocs(file, docs, v)
 	end
 	file:close()
@@ -92,20 +93,20 @@ function m:CompareDocs(file, docs, group)
 	for _, k in pairs(table_sort.SortTable(a[group])) do
 		if not b[group][k] then
 			print(string.format(strlib.color("- %s", strlib.style.red), k))
-			file:write(string.format("- %s\n", k))
+			-- file:write(string.format("- %s\n", k))
 		end
 	end
 	for _, k in pairs(table_sort.SortTable(b[group])) do
 		if not a[group][k] then
 			print(string.format(strlib.color("+ %s", strlib.style.green), k))
-			file:write(string.format("+ %s\n", k))
+			-- file:write(string.format("+ %s\n", k))
 		end
 	end
 	for _, k in pairs(table_sort.SortTable(b[group])) do
 		local v = b[group][k]
 		if a[group][k] and not tablelib.equals(v, a[group][k])then
-			print(string.format(strlib.color("# %s", strlib.style.yellow), k))
-			file:write(string.format("# %s\n", k))
+			print(string.format(strlib.color("@ %s", strlib.style.yellow), k))
+			file:write(string.format("@ %s\n", k))
 			local changes = table_compare.print_table_diff(a[group][k], v)
 			m:PrintChanges(file, changes)
 		end
@@ -122,3 +123,4 @@ function m:PrintChanges(file, changes)
 end
 
 m:main({BUILD1, BUILD2})
+return m

@@ -53,18 +53,18 @@ local function diff_internal(x, y, path, t)
 	if tx == "table" and ty == "table" then
 		for k, vx in pairs(x) do
 			if y[k] == nil then
-				table.insert(t[base], string.format("  - %s = %s", pathtostring(append_path(path, k)), vtostring(vx)))
+				table.insert(t[base], string.format("- %s = %s", pathtostring(append_path(path, k)), vtostring(vx)))
 			else
 				diff_internal(vx, y[k], append_path(path, k), t)
 			end
 		end
 		for k, vy in pairs(y) do
 			if x[k] == nil then
-				table.insert(t[base], string.format("  + %s = %s", pathtostring(append_path(path, k)), vtostring(vy)))
+				table.insert(t[base], string.format("+ %s = %s", pathtostring(append_path(path, k)), vtostring(vy)))
 			end
 		end
 	else
-		table.insert(t[base], string.format("  # %s %s -> %s", pathtostring(path), vtostring(x), vtostring(y)))
+		table.insert(t[base], string.format("# %s %s -> %s", pathtostring(path), vtostring(x), vtostring(y)))
 	end
 	return t
 end
