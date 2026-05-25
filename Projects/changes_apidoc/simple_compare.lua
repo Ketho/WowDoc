@@ -5,7 +5,7 @@ local m = {}
 local BUILD1 = "12.0.5 (67602)"
 local BUILD2 = "12.0.7 (67669)"
 
-local function GetEnumNames(apiTable)
+local function GetFieldNames(apiTable)
 	local t = {}
 	for _, v in pairs(apiTable.Fields) do
 		t[v.Name] = true
@@ -13,10 +13,18 @@ local function GetEnumNames(apiTable)
 	return t
 end
 
-function m:main(versions, name)
-	local docs = changes_apidoc:LoadVersionDocs(versions)
-	local a = GetEnumNames(docs[1].Enumerations[name])
-	local b = GetEnumNames(docs[2].Enumerations[name])
+function m:main()
+	local docs = changes_apidoc:LoadVersionDocs({BUILD1, BUILD2})
+	m:CompareTypes(docs, "Enumerations", "FragmentID")
+	m:CompareTypes(docs, "Structures", "CatalogShopProductInfo")
+	m:CompareTypes(docs, "Structures", "EncounterTimelineEventInfo")
+	m:CompareTypes(docs, "Structures", "PlayerChoiceInfo")
+end
+
+function m:CompareTypes(docs, group, name)
+	print("\n-- "..name)
+	local a = GetFieldNames(docs[1][group][name])
+	local b = GetFieldNames(docs[2][group][name])
 	for k in pairs(a) do
 		if not b[k] then
 			print(string.format(strlib.color("- %s", strlib.style.red), k))
@@ -29,4 +37,4 @@ function m:main(versions, name)
 	end
 end
 
-m:main({BUILD1, BUILD2}, "FragmentID")
+m:main()
