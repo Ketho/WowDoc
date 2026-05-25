@@ -1,6 +1,6 @@
 -- synced to:
--- https://github.com/Ketho/WowDoc/blob/master/wowdoc/loader/TypeDocumentation.lua
--- https://github.com/Ketho/vscode-wow-api/blob/master/wowdoc/loader/TypeDocumentation.lua
+-- https://github.com/Ketho/WowDoc/blob/master/wowdoc/loader/doc/TypeDocumentation.lua
+-- https://github.com/Ketho/vscode-wow-api/blob/master/wowdoc/loader/doc/TypeDocumentation.lua
 -- https://warcraft.wiki.gg/wiki/Module:Apitype/data
 -- https://warcraft.wiki.gg/wiki/API_types
 
@@ -13,10 +13,10 @@
 local data = {
 	-- basic types
 	{ Name = "bool", Type = {"boolean"} },
-	-- { Name = "number", Type = {"number"} },
-	-- { Name = "string", Type = {"string"} },
+	{ Name = "number" },
+	{ Name = "string" },
 	{ Name = "cstring", W_Replace = "string" },
-	-- { Name = "table", Type = {"table"} },
+	{ Name = "table" },
 
 	-- UI_shared.xsd
 	-- <xs:simpleType name="ALPHAMODE">, SetBlendMode
@@ -75,12 +75,15 @@ local data = {
 	-- scriptobjects
 	{ Name = "AbbreviateConfig", W_Link = "ScriptObject_AbbreviateConfig" },
 	{ Name = "AbbreviatedNumberFormatter", W_Link = "ScriptObject_AbbreviatedNumberFormatter" },
+	{ Name = "DurationTextBinding", W_Link = "ScriptObject_DurationTextBinding" },
 	{ Name = "HousingCatalogSearcher", W_Link = "ScriptObject_HousingCatalogSearcher" },
 	{ Name = "HousingFixturePointFrame", W_Link = "ScriptObject_HousingFixturePointFrame" },
 	{ Name = "HousingLayoutPinFrame", W_Link = "ScriptObject_HousingLayoutPinFrame" },
 	{ Name = "LuaColorCurveObject", W_Alias = "ColorCurve", W_Replace = "ColorCurveObject", W_Link = "ScriptObject_ColorCurveObject" },
 	{ Name = "LuaCurveObject", W_Alias = "Curve", W_Replace = "CurveObject", W_Link = "ScriptObject_CurveObject" },
 	{ Name = "LuaCurveObjectBase", W_Replace = "CurveObjectBase", W_Link = "ScriptObject_CurveObjectBase" },
+	{ Name = "LuaDurationClock", W_Link = "ScriptObject_DurationClock" },
+	{ Name = "LuaDurationManualClock", W_Link = "ScriptObject_DurationClockObject" },
 	{ Name = "LuaDurationObject", W_Replace = "DurationObject", W_Link = "ScriptObject_DurationObject" },
 	{ Name = "NumericFormatter", W_Link = "ScriptObject_NumericFormatter" },
 	{ Name = "NumericRuleFormatter", W_Link = "ScriptObject_NumericRuleFormatter" },
@@ -96,8 +99,10 @@ local data = {
 	{ Name = "ClickButton", Type = {"string"}, Description = {"AnyUp", "AnyDown", "LeftButtonUp", "LeftButtonDown", "RightButtonUp", "RightButtonDown", "MiddleButtonUp", "MiddleButtonDown", "Button4Up", "Button4Down", "Button5Up", "Button5Down"} },
 	{ Name = "ClubId", Type = {"string"} },
 	{ Name = "ClubInvitationId", Type = {"string"} },
+	{ Name = "ClubMemberOpaqueId", Type = {"number"} },
 	{ Name = "ClubStreamId", Type = {"string"} },
 	{ Name = "ConnectionIptype", Type = {"number"}, Description = {"1=IPv4", "2=IPv6"} },
+	{ Name = "ConnectionProtocol", Type = {"number"}, Description = {"1=TCP, 2=UDP"} },
 	{ Name = "DurationMillisecondsPrimitive", Type = {"number"} },
 	{ Name = "DurationSeconds", Type = {"number"} },
 	{ Name = "DurationSecondsDouble", Type = {"number"} },
