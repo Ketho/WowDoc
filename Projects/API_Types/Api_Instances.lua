@@ -165,4 +165,4 @@ local function main(search_name)
     end
 end
 
-main("DurationTextBinding")
+main("LuaDurationManualClock")
