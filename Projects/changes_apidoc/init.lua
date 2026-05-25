@@ -1,5 +1,6 @@
 -- compares Blizzard_APIDocumentation
 local pathlib = require("path")
+local cfg = require("wowdoc.config")
 local loader = require("wowdoc.loader")
 local log = require("wowdoc.util.log")
 local strlib = require("wowdoc.util.string")
@@ -25,10 +26,12 @@ local DocGroups = {
 function m:main(versions)
 	local docs = m:LoadVersionDocs(versions)
 	log.info(string.format("Comparing %s to %s", versions[1], versions[2]))
+	local file = io.open(pathlib.join(cfg.path.changes_apidoc, "apidoc.txt"), "w")
 	for _, v in pairs(DocGroups) do
 		log.info("Comparing "..v)
-		self:CompareDocs(docs, v)
+		self:CompareDocs(file, docs, v)
 	end
+	file:close()
 	log.success("Done")
 end
 
@@ -84,32 +87,36 @@ function m:ParsePlainDocs(docs)
 	return t
 end
 
-function m:CompareDocs(docs, group)
+function m:CompareDocs(file, docs, group)
 	local a, b = docs[1], docs[2]
 	for _, k in pairs(table_sort.SortTable(a[group])) do
 		if not b[group][k] then
 			print(string.format(strlib.color("- %s", strlib.style.red), k))
+			file:write(string.format("- %s\n", k))
 		end
 	end
 	for _, k in pairs(table_sort.SortTable(b[group])) do
 		if not a[group][k] then
 			print(string.format(strlib.color("+ %s", strlib.style.green), k))
+			file:write(string.format("+ %s\n", k))
 		end
 	end
 	for _, k in pairs(table_sort.SortTable(b[group])) do
 		local v = b[group][k]
 		if a[group][k] and not tablelib.equals(v, a[group][k])then
 			print(string.format(strlib.color("# %s", strlib.style.yellow), k))
+			file:write(string.format("# %s\n", k))
 			local changes = table_compare.print_table_diff(a[group][k], v)
-			m:PrintChanges(changes)
+			m:PrintChanges(file, changes)
 		end
 	end
 end
 
-function m:PrintChanges(changes)
+function m:PrintChanges(file, changes)
 	for _, v in pairs(changes) do
 		for _, v2 in pairs(v) do
 			print(v2)
+			file:write(v2.."\n")
 		end
 	end
 end

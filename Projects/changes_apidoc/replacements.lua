@@ -1,6 +1,5 @@
-local util = require("wowdoc.util")
 local pathlib = require("path")
-require("wowdoc.config")
+local cfg = require("wowdoc.config")
 
 local category
 local sections = {}
@@ -17,12 +16,6 @@ local function replaceText(s)
 	s = s:gsub("%.Arguments", "arg1")
 	s = s:gsub("%.Returns", "ret1")
 	s = s:gsub("%.(%[%d+%])", "%1")
-	s = s:gsub("SimpleFontStringAPI ", "FontString:")
-	s = s:gsub("AbbreviateConfigAPI ", "AbbreviateConfig:")
-	s = s:gsub("HousingCatalogSearcherAPI ", "HousingCatalogSearcher:")
-	s = s:gsub("FrameAPICharacterModelBase ", "PlayerModel:")
-	s = s:gsub("FrameAPICooldown ", "Cooldown:")
-	s = s:gsub("FrameAPIModelSceneFrameActorBase ", "ModelSceneActorBase:")
 	return s
 end
 
@@ -91,22 +84,22 @@ local function parseLine(file, line)
 end
 
 local function main()
-	local file = io.open(pathlib.join(PATHS.WIKI_DIFF, "changes.txt"), "r")
-	local file2 = io.open(pathlib.join(PATHS.WIKI_DIFF, "changes2.txt"), "w")
+	local file = io.open(pathlib.join(cfg.path.changes_apidoc, "changes.txt"), "r")
+	local file2 = io.open(pathlib.join(cfg.path.changes_apidoc, "changes2.txt"), "w")
 	for line in file:lines() do
 		parseLine(file2, line)
 	end
 	file:close()
 	file2:close()
 
-	local file2 = io.open(pathlib.join(PATHS.WIKI_DIFF, "changes2.txt"), "r")
+	local file2 = io.open(pathlib.join(cfg.path.changes_apidoc, "changes2.txt"), "r")
 	local contents = file2:read("a")
 	file2:close()
 
 	for _, v in pairs(multiline_replace) do
 		contents = contents:gsub(v[1], v[2])
 	end
-	local file3 = io.open(pathlib.join(PATHS.WIKI_DIFF, "changes3.txt"), "w")
+	local file3 = io.open(pathlib.join(cfg.path.changes_apidoc, "changes3.txt"), "w")
 	file3:write(contents)
 	file3:close()
 end

@@ -5,8 +5,8 @@ local table_sort = require("wowdoc.util.table_sort")
 local log = require("wowdoc.util.log")
 local dl = require("wowdoc.web.download")
 local cfg = require("wowdoc.config")
-local cvar_module = require("Projects/ChangeSummaries/CVar")
-local widget_module = require("Projects/ChangeSummaries/Widget")
+local cvar_module = require("Projects.changes_blizres.CVar")
+local widget_module = require("Projects.changes_blizres.Widget")
 local m = {}
 -- `git diff --binary --full-index 12.0.0 12.0.1 > diff-12.0.0..12.0.1.patch`
 local BRANCH1 = "12.0.5"
@@ -16,17 +16,17 @@ local CVAR1, CVAR2 = BRANCH1, BRANCH2
 -- local DIFF = {"commit", "mainline"}
 local DIFF = {"compare", BRANCH1..".."..BRANCH2}
 
-PATH_CHANGES = pathlib.join(cfg.path.change_summary)
-local OUT_FILE = pathlib.join(PATH_CHANGES, "summaries.txt")
+PATH_CHANGES = pathlib.join(cfg.path.changes_blizres)
+local OUT_FILE = pathlib.join(PATH_CHANGES, "blizres.txt")
 
 local function GetDiff()
 	local path, url
 	if DIFF[1] == "commit" then
-		path = pathlib.join(cfg.path.change_commit, string.format("%s.diff", DIFF[2]))
+		path = pathlib.join(cfg.path.changes_diff, string.format("%s.diff", DIFF[2]))
 		url = string.format("https://github.com/Ketho/BlizzardInterfaceResources/commit/%s.diff", DIFF[2])
 	elseif DIFF[1] == "compare" then
 		local fpath = DIFF[2]:gsub("%.%.", "__")
-		path = pathlib.join(cfg.path.change_compare, string.format("%s.diff", fpath))
+		path = pathlib.join(cfg.path.changes_diff, string.format("%s.diff", fpath))
 		url = string.format("https://github.com/Ketho/BlizzardInterfaceResources/compare/%s.diff", DIFF[2])
 	end
 	dl:DownloadFile(url, path, true)
