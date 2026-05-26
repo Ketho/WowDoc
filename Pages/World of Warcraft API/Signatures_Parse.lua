@@ -1,6 +1,5 @@
 local naming = require("wowdoc.namingway.naming")
 require("warcraftwiki.page")
-
 local m = {}
 
 function m:GetSignatures()

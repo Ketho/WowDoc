@@ -55,7 +55,7 @@ local function WriteFile(path, tbl)
 	local file = io.open(path, "w")
 	file:write("local t = {\n")
 	local fs = '["%s"]=1,\n'
-	for _, k in pairs(table_sort.SortTable(tbl)) do
+	for _, k in pairs(table_sort.ByKey(tbl)) do
 		file:write(fs:format(k))
 	end
 	file:write("}\n\nreturn t\n")

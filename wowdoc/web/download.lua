@@ -1,7 +1,6 @@
 local system = require("wowdoc.util.system")
 local log = require("wowdoc.util.log")
 local request = require("wowdoc.web.request")
-
 local m = {}
 
 local INVALIDATION_TIME = 60*60

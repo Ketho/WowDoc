@@ -1,5 +1,3 @@
-
-
 local system = require("wowdoc.util.system")
 local strlib = require("wowdoc.util.string")
 local m = {}

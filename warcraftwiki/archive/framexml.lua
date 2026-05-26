@@ -47,7 +47,7 @@ function m:GetPatchFolders(path)
 			})
 		end
 	end
-	table.sort(t, table_sort.SortVersionTable)
+	table.sort(t, table_sort.VersionTable)
 	return t
 end
 

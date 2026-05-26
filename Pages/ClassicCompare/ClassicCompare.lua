@@ -7,7 +7,6 @@ local tablelib = require("wowdoc.util.table")
 local table_sort = require("wowdoc.util.table_sort")
 local request = require("wowdoc.web.request")
 local Signatures = require("Pages/ClassicCompare/Signatures")
-
 local m = {}
 
 local sources = {

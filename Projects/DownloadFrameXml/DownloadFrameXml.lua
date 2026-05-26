@@ -20,6 +20,7 @@ local github = require("wowdoc.web.github")
 local log = require("wowdoc.util.log")
 local products = require("wowdoc.products.branches")
 local tags = require("wowdoc.products.tags")
+local m = {}
 
 ---@type GetheBranch[]
 local branches = {
@@ -27,8 +28,6 @@ local branches = {
 	"classic",
 	"classic_era",
 }
-
-local m = {}
 
 ---@param name string tag name
 function m:DownloadZip(name)

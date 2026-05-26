@@ -7,6 +7,7 @@ local table_sort = require("wowdoc.util.table_sort")
 local products = require("wowdoc.products.branches")
 local cfg = require("wowdoc.config")
 local WikiText = require("Pages/World of Warcraft API/WikiText")
+local m = {}
 
 loader:LoadDocumentation()
 local gethe_branch = products:GetBranch(cfg.TACT_PRODUCT)
@@ -14,7 +15,6 @@ local gethe_branch = products:GetBranch(cfg.TACT_PRODUCT)
 local Signatures_Parse = require("Pages/World of Warcraft API/Signatures_Parse")
 local signatures = Signatures_Parse:GetSignatures()
 
-local m = {}
 
 local ignoredTags = {
 	deprecated = true,
@@ -67,7 +67,7 @@ end
 function m:FindMissing(wowpedia, wowpedia_tags, global_api)
 	local map = tablelib.ToMap(wowpedia)
 	print("\n-- to add")
-	for _, k in pairs(table_sort.SortTable(global_api)) do
+	for _, k in pairs(table_sort.ByKey(global_api)) do
 		if not map[k] then
 			if signatures[k] then
 				print(string.format(": %s", signatures[k]))

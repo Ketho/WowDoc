@@ -4,10 +4,10 @@ local tablelib = require("wowdoc.util.table")
 local Path = require("path")
 local wago_csv = require("wowdoc.web.wago")
 local output = "KethoWowpedia/patch/%s.lua"
+local m = {}
 
 system:mkdir("KethoWowpedia/patch")
 
-local m = {}
 
 -- builds that wow.tools possibly has but would get overridden by a missing wago build (404 Not Found)
 local missingWagoBuilds = {

@@ -9,17 +9,16 @@ local log = require("wowdoc.util.log")
 local csv = require("wowdoc.util.csv")
 local cfg = require("wowdoc.config")
 local products = require("wowdoc.products.branches")
+local m = {}
 
 ---@diagnostic disable-next-line: undefined-global
-local cache_folder = cfg.path.wago
-local listfile_path = pathlib.join(cache_folder, "community-listfile.csv")
+local listfile_path = pathlib.join(cfg.path.wago, "community-listfile.csv")
 
 local wago_builds_latest_url = "https://wago.tools/api/builds/%s/latest"
 local wago_builds_url = "https://wago.tools/api/builds"
 local wago_csv_url = "https://wago.tools/db2/%s/csv"
 local listfile_url = "https://github.com/wowdev/wow-listfile/releases/latest/download/community-listfile.csv"
 
-local m = {}
 
 m.INVALIDATION_TIME = 60*60
 
@@ -38,7 +37,7 @@ local function CreateFolder(path)
 		lfs.mkdir(path)
 	end
 end
-CreateFolder(cache_folder)
+CreateFolder(cfg.path.wago)
 
 local function DownloadFile(url, path)
 	log.info(string.format("Downloading %s to %s", url, path))
@@ -71,8 +70,8 @@ local function CreateCsvPath(csv_name, options)
 	else
 		file_name = string.format("%s.csv", csv_name)
 	end
-	CreateFolder(pathlib.join(cache_folder, csv_name))
-	return pathlib.join(cache_folder, csv_name, file_name)
+	CreateFolder(pathlib.join(cfg.path.wago, csv_name))
+	return pathlib.join(cfg.path.wago, csv_name, file_name)
 end
 
 local function CreateWagoUrl(name, options)
@@ -178,7 +177,7 @@ end
 
 function m:GetWagoVersions(branch)
 	local t = {}
-	local path = pathlib.join(cache_folder, "versions.json")
+	local path = pathlib.join(cfg.path.wago, "versions.json")
 	if ShouldDownload(path, true) then
 		DownloadFile(wago_builds_url, path)
 	end

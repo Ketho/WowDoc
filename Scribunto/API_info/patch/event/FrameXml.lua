@@ -1,6 +1,7 @@
 local lfs = require("lfs")
 local system = require("wowdoc.util.system")
 local table_sort = require("wowdoc.util.table_sort")
+local m = {}
 
 local non_framexml_added = {
 	UNIT_TARGET = "2.0.1",
@@ -11,7 +12,6 @@ local missing_builds = {
 	["1.10.2"] = "1.10.0",
 }
 
-local m = {}
 
 -- sort eg 1.2.0 to be before 1.10.0
 function m:GetPatches(path)

@@ -4,6 +4,7 @@ local system = require("wowdoc.util.system")
 local table_sort = require("wowdoc.util.table_sort")
 local log = require("wowdoc.util.log")
 local loader = require("wowdoc.loader")
+local m = {}
 
 local function GetEventMap(data)
 	local t = {}
@@ -34,8 +35,6 @@ local function FindApiDocFolder(path)
 		return p
 	end
 end
-
-local m = {}
 
 function m:GetDocEvents(info)
 	local t = {}
@@ -89,7 +88,7 @@ end
 -- apparently this goes through all patches of both classic and retail
 function m:GetPatchData(tbl)
 	local added, removed = {}, {}
-	for _, v in pairs(table_sort.SortTableKV(tbl, SortMajor)) do -- todo: sorting here goes wrong
+	for _, v in pairs(table_sort.ByKeyValue(tbl, SortMajor)) do -- todo: sorting here goes wrong
 		local version, data = v.v.version, v.v.events
 		for name in pairs(data) do
 			if not added[name] then

@@ -2,7 +2,6 @@ local util = require("wowdoc")
 local system = require("wowdoc.util.system")
 local request = require("wowdoc.web.request")
 local FRAMEXML = "../#FrameXML/Generate-Globals/wow-ui-source/"
-
 local m = {}
 
 local string_tbl = {}
@@ -33,7 +32,7 @@ local function WriteTable(tbl)
 	local file = io.open("KethoWowpedia/scripts/cvar_framexml.lua", "w")
 	file:write("local m = KethoWowpedia\n\nm.cvar_framexml = {\n")
 	local fs = '\t["%s"] = true,\n'
-	for _, name in pairs(util:SortTable(tbl, util.SortNocase)) do
+	for _, name in pairs(util:SortTable(tbl, util.Nocase)) do
 		file:write(fs:format(name))
 	end
 	file:write("}\n")

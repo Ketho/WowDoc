@@ -42,7 +42,7 @@ end
 local function WriteFile(path, tbl)
 	print("writing to", path)
 	local file = io.open(path, "w")
-	for _, k in pairs(table_sort.SortTable(tbl)) do
+	for _, k in pairs(table_sort.ByKey(tbl)) do
 		file:write(k.."\n")
 	end
 	file:close()
@@ -104,7 +104,7 @@ local function main()
 	print("writing to ", out_path)
 	local file = io.open(out_path, "w")
 	file:write("KethoWowpedia.patch.cvar = {\n")
-	for _, k in pairs(table_sort.SortTable(t, table_sort.SortNocase)) do
+	for _, k in pairs(table_sort.ByKey(t, table_sort.Nocase)) do
 		file:write(string.format('\t["%s"] = "%s",\n', k, t[k]))
 	end
 	file:write("}\n")

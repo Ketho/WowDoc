@@ -45,9 +45,9 @@ function m:LoadDocumentation(options)
 	else -- plain docs for easier comparing
 		APIDocumentation = {
 			AddDocumentationTable = function(_self, apiTable)
-				table.insert(APIDocumentation.systemTables, apiTable)
+				table.insert(APIDocumentation.docTables, apiTable)
 			end,
-			systemTables = {},
+			docTables = {},
 		}
 	end
 	-- Blizzard_APIDocumentationGenerated was added in 10.x but we still need to support older versions

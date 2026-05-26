@@ -2,8 +2,8 @@ local get_types = require("wowdoc.stats.types.get_types")
 local TypeDoc = require("wowdoc.loader.doc.TypeDocumentation")
 local enum = require("wowdoc.web.blizres.enum")
 local missing_structures = require("wowdoc.loader.doc.missing_structures")
-
 local m = {}
+
 m.types = {}
 
 function m:GetAllTypes()

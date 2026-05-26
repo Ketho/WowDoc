@@ -8,6 +8,7 @@ local cfg = require("wowdoc.config")
 local cvar_module = require("Projects.changes_blizres.CVar")
 local widget_module = require("Projects.changes_blizres.Widget")
 local m = {}
+
 -- `git diff --binary --full-index 12.0.0 12.0.1 > diff-12.0.0..12.0.1.patch`
 local BRANCH1 = "12.0.5"
 local BRANCH2 = "12.0.7"
@@ -121,8 +122,8 @@ function m:GetWikiTable(info, section)
 			table.sort(info.changes["+"])
 			table.sort(info.changes["-"])
 		else
-			table.sort(info.changes["+"], table_sort.SortNocase)
-			table.sort(info.changes["-"], table_sort.SortNocase)
+			table.sort(info.changes["+"], table_sort.Nocase)
+			table.sort(info.changes["-"], table_sort.Nocase)
 		end
 	end
 	local t = {}

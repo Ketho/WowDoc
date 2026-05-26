@@ -3,9 +3,9 @@ local xml2lua = require "xml2lua"
 local handler = require "xmlhandler.tree"
 local dl = require("wowdoc.web.download")
 local cfg = require("wowdoc.config")
+local m = {}
 
 local OUTPUT = pathlib.join(cfg.path.wiki_page, "World_of_Warcraft_API.xml")
-local m = {}
 
 function m:SaveExport()
 	local url = "https://warcraft.wiki.gg/wiki/Special:Export"

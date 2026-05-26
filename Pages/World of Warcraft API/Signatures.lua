@@ -1,6 +1,7 @@
 local pathlib = require("path")
 local cfg = require("wowdoc.config")
 local loader = require("wowdoc.loader")
+local m = {}
 
 loader:LoadDocumentation()
 
@@ -13,7 +14,6 @@ local WikiText = require("Pages/World of Warcraft API/WikiText")
 -- local updated_desc = require("wow-api-descriptions/updated")
 
 local OUTPUT = pathlib.join(cfg.path.wiki_page, "World_of_Warcraft_API.txt")
-local m = {}
 
 local function MatchLine(s)
 	local t = {}

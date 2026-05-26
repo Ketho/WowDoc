@@ -42,13 +42,13 @@ function m:LoadVersionDocs(versions)
 		local release = version:match("%d+%.%d+%.%d+")
 		local path = pathlib.join(FRAMEXML_PATH, version, "wow-ui-source-"..release, "Interface", "AddOns")
 		local docs = loader:LoadDocumentation({path = path, force = true, plain = true})
-		table.insert(t, self:ParsePlainDocs(docs.systemTables))
+		table.insert(t, self:ParsePlainDocs(docs.docTables))
 	end
 	return t
 end
 
 local function GetProperPlainName(systemTable, apiTable)
-	if systemTable.Namespace then
+	if apiTable.Namespace or systemTable.Namespace then
 		return string.format("%s.%s", apiTable.Namespace or systemTable.Namespace, apiTable.Name)
 	elseif systemTable.Type == "ScriptObject" then
 		return string.format("%s:%s", scriptobjects:shorten(systemTable.Name), apiTable.Name)
@@ -90,19 +90,19 @@ end
 
 function m:CompareDocs(file, docs, group)
 	local a, b = docs[1], docs[2]
-	for _, k in pairs(table_sort.SortTable(a[group])) do
+	for _, k in pairs(table_sort.ByKey(a[group])) do
 		if not b[group][k] then
 			print(string.format(strlib.color("- %s", strlib.style.red), k))
 			-- file:write(string.format("- %s\n", k))
 		end
 	end
-	for _, k in pairs(table_sort.SortTable(b[group])) do
+	for _, k in pairs(table_sort.ByKey(b[group])) do
 		if not a[group][k] then
 			print(string.format(strlib.color("+ %s", strlib.style.green), k))
 			-- file:write(string.format("+ %s\n", k))
 		end
 	end
-	for _, k in pairs(table_sort.SortTable(b[group])) do
+	for _, k in pairs(table_sort.ByKey(b[group])) do
 		local v = b[group][k]
 		if a[group][k] and not tablelib.equals(v, a[group][k])then
 			print(string.format(strlib.color("@ %s", strlib.style.yellow), k))

@@ -2,9 +2,9 @@
 local util = require("wowdoc")
 local csv = require("wowdoc.util.csv")
 local dbc_patch = require("Projects/DBC/DBC_patch")
-local OUTPUT = "out/page/EmoteToken.txt"
-
 local m = {}
+
+local OUTPUT = "out/page/EmoteToken.txt"
 
 local wp_removed = {
 	[63] = true, -- MOAN

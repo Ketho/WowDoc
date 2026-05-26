@@ -1,6 +1,6 @@
 local m = {}
 
-function m.SortTable(tbl, func)
+function m.ByKey(tbl, func)
 	local t = {}
 	for k in pairs(tbl) do
 		table.insert(t, k)
@@ -9,7 +9,7 @@ function m.SortTable(tbl, func)
 	return t
 end
 
-function m.SortTableValue(tbl, func)
+function m.ByValue(tbl, func)
 	local t = {}
 	for k, v in pairs(tbl) do
 		table.insert(t, v)
@@ -18,7 +18,7 @@ function m.SortTableValue(tbl, func)
 	return t
 end
 
-function m.SortTableKV(tbl, func)
+function m.ByKeyValue(tbl, func)
 	local t = {}
 	for k, v in pairs(tbl) do
 		table.insert(t, {
@@ -30,8 +30,20 @@ function m.SortTableKV(tbl, func)
 	return t
 end
 
-function m.SortNocase(a, b)
+function m.Nocase(a, b)
 	return a:lower() < b:lower()
+end
+
+function m.VersionTable(a, b)
+	if a.major ~= b.major then
+		return a.major < b.major
+	elseif a.minor ~= b.minor then
+		return a.minor < b.minor
+	elseif a.patch ~= b.patch then
+		return a.patch < b.patch
+	elseif a.build ~= b.build then
+		return a.build < b.build
+	end
 end
 
 function m.SortTableByType(tbl, sortType)
@@ -95,18 +107,6 @@ function m.SortBuild(a, b)
 	local build_b = tonumber(b:match("(%d+)$"))
 	if build_a ~= build_b then
 		return build_a < build_b
-	end
-end
-
-function m.SortVersionTable(a, b)
-	if a.major ~= b.major then
-		return a.major < b.major
-	elseif a.minor ~= b.minor then
-		return a.minor < b.minor
-	elseif a.patch ~= b.patch then
-		return a.patch < b.patch
-	elseif a.build ~= b.build then
-		return a.build < b.build
 	end
 end
 

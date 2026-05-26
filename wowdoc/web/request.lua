@@ -1,6 +1,5 @@
 local https = require("ssl.https")
 local ltn12 = require("ltn12")
-
 local m = {}
 
 function m.HttpsRequest(url)

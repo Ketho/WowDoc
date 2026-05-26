@@ -3,6 +3,7 @@
 local pathlib = require("path")
 local table_sort = require("wowdoc.util.table_sort")
 local cfg = require("wowdoc.config")
+local m = {}
 
 local PATH = pathlib.join("Scribunto", "API_info", "patch", "api")
 
@@ -20,8 +21,6 @@ local flavors = {
 		out = pathlib.join(cfg.path.scribunto_patch, "API_info.patch.api_classic_era.lua"),
 	},
 }
-
-local m = {}
 
 local underscorePatterns = {
 	"^C_",
@@ -127,7 +126,7 @@ local function main()
 		local file = io.open(info.out, "w")
 		file:write("-- https://github.com/Ketho/WowpediaDoc/blob/master/Scribunto/API_info/patch/api/api.lua\n")
 		file:write("local data = {\n")
-		for _, name in pairs(table_sort.SortTable(t)) do
+		for _, name in pairs(table_sort.ByKey(t)) do
 			local tbl = t[name]
 			file:write(string.format('\t["%s"] = {', name))
 			if tbl[1] then

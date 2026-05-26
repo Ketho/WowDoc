@@ -1,6 +1,5 @@
 local table_sort = require("wowdoc.util.table_sort")
 local wago = require("wowdoc.web.wago")
-
 local m = {}
 
 local flavorInfo = {

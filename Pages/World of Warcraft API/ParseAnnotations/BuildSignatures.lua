@@ -1,8 +1,7 @@
 local ParseAnnotations = require("Pages/World of Warcraft API/ParseAnnotations/ParseAnnotations")
+local m = {}
 
 local wiki_data = ParseAnnotations:main()
-
-local m = {}
 
 function m:BuildSignature()
     local t = {}

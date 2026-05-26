@@ -11,7 +11,7 @@ function m:main(runTests)
 
 	-- local get_types = require("wowdoc.stats.types.get_types")
 	-- local all_types = get_types:GetAllTypes()
-	-- for _, k in pairs(table_sort.SortTable(all_types)) do
+	-- for _, k in pairs(table_sort.ByKey(all_types)) do
 	-- 	print(k)
 	-- end
 
@@ -19,7 +19,7 @@ function m:main(runTests)
 	local undoc_types = get_doc_types:types_GetUndocTypes()
 	if next(undoc_types) then
 		print("-- Printing undocumented types:")
-		for _, k in pairs(table_sort.SortTable(undoc_types)) do
+		for _, k in pairs(table_sort.ByKey(undoc_types)) do
 			print(k)
 		end
 	else

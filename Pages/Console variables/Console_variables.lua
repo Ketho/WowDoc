@@ -3,13 +3,12 @@ local pathlib = require("path")
 local wowdoc = require("wowdoc")
 local table_sort = require("wowdoc.util.table_sort")
 local products = require("wowdoc.products.branches")
+local m = {}
 
 PRODUCT = "wow" ---@type TactProduct
 GETHE_BRANCH = products:GetBranch(PRODUCT)
 OUTPUT_CVAR = pathlib.join(PATHS.WIKI_PAGE, "Console_variables_cvar.txt")
 OUTPUT_COMMAND = pathlib.join(PATHS.WIKI_PAGE, "Console_variables_command.txt")
-
-local m = {}
 
 function m:main()
 	local base_folder = pathlib.join("Pages", "Console variables")
@@ -51,7 +50,7 @@ function m:WriteCVarList(blizres_cvars, framexml_strings, binary_strings)
 	file:write("! !! !! !! Name !! Default !! Category !! Scope !! Description\n")
 	local githubLink = "{{framexml_search|t=icon|%s}}"
 	local fs = "|-\n| %s || %s || %s || %s\n| %s || %s || %s\n| %s\n"
-	for _, cvar in pairs(table_sort.SortTable(blizres_cvars, table_sort.SortNocase)) do
+	for _, cvar in pairs(table_sort.ByKey(blizres_cvars, table_sort.Nocase)) do
 		local v = blizres_cvars[cvar]
 		local default, category, server, character, secure, desc = table.unpack(v)
 		local default_text
@@ -88,7 +87,7 @@ function m:WriteCommandList(blizres_commands)
 	file:write('{| class="sortable darktable zebra col2-center"\n')
 	file:write("! Name !! Category !! Description\n")
 	local fs = "|-\n| %s\n| %s\n| %s\n"
-	for _, command in pairs(table_sort.SortTable(blizres_commands, table_sort.SortNocase)) do
+	for _, command in pairs(table_sort.ByKey(blizres_commands, table_sort.Nocase)) do
 		local v = blizres_commands[command]
 		local category, desc = table.unpack(v)
 		local name = string.format("[[CVar %s|%s]]", command, command)

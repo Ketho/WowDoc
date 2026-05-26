@@ -4,6 +4,7 @@ local cfg = require("wowdoc.config")
 local tablelib = require("wowdoc.util.table")
 local dl = require("wowdoc.web.download")
 local m = {}
+
 local data = {}
 
 local ConsoleCategory = {

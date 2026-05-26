@@ -1,10 +1,10 @@
 local pathlib = require("path")
 local cfg = require("wowdoc.config")
 local dl = require("wowdoc.web.download")
+local m = {}
+
 local blizres_url = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/WidgetAPI.lua"
 local WIDGET_PATH = pathlib.join(cfg.path.blizres, "WidgetAPI_%s.lua")
-
-local m = {}
 local pos_tbl = {}
 
 local function GetWidgetFile(path, branch)

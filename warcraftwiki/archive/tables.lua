@@ -1,7 +1,6 @@
 local framexml = require("warcraftwiki.archive.framexml")
 local table_sort = require("wowdoc.util.table_sort")
 local naming_version = require("wowdoc.namingway.version")
-
 local m = {}
 
 function m:main()
@@ -33,7 +32,7 @@ function m:GetFieldAdded(archives)
 			end
 		end
 	end
-	-- for _, k in pairs(table_sort.SortTable(t)) do
+	-- for _, k in pairs(table_sort.ByKey(t)) do
 	-- 	print(k)
 	-- 	for k2, v2 in pairs(t[k]) do
 	-- 		if v2 and type(v2) == "string" then

@@ -118,7 +118,7 @@ local function WriteResource(apiType)
 	local fs = "%s,%s\n"
 	local file = io.open(string.format("Projects/TownlongWut/%s.csv", apiType), "w")
 	file:write("Count,Name\n")
-	for _, tbl in pairs(table_sort.SortTableKV(t, sortfunc)) do
+	for _, tbl in pairs(table_sort.ByKeyValue(t, sortfunc)) do
 		file:write(fs:format(tbl.v, tbl.k))
 	end
 	file:close()

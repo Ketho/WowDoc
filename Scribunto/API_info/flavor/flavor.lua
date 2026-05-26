@@ -23,7 +23,7 @@ local function main()
 		local file = io.open(info.out, "w")
 		file:write("-- https://github.com/Ketho/WowDoc/blob/master/Scribunto/API_info/flavor/flavor.lua\n")
 		file:write('local data = {\n')
-		for _, name in pairs(table_sort.SortTable(data)) do
+		for _, name in pairs(table_sort.ByKey(data)) do
 			local flavors = data[name]
 			file:write(string.format('\t["%s"] = 0x%X,\n', name, flavors))
 		end

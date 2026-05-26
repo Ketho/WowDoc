@@ -3,7 +3,6 @@ local ltn12 = require("ltn12")
 local cjson = require("cjson")
 local system = require("wowdoc.util.system")
 local log = require("wowdoc.util.log")
-
 local m = {}
 
 local GITHUB_TOKEN

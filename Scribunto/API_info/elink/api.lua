@@ -15,7 +15,7 @@ local function main()
 	local file = io.open(OUT, "w")
 	file:write("-- https://github.com/Ketho/WowpediaDoc/blob/master/Scribunto/API_info/elink/api.lua\n")
 	file:write('local data = {\n')
-	for _, name in pairs(table_sort.SortTable(full)) do
+	for _, name in pairs(table_sort.ByKey(full)) do
 		if doc[name] then
 			file:write(string.format('\t["%s"] = "%s",\n', name, doc[name]))
 		end

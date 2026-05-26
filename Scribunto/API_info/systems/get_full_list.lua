@@ -4,7 +4,6 @@ local serpent = require("serpent")
 local loader = require("wowdoc.loader")
 local naming = require("wowdoc.namingway.naming")
 local cfg = require("wowdoc.config")
-
 local m = {}
 
 function m:main()
