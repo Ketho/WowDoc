@@ -179,10 +179,10 @@ local data = {
 	{ Name = "FunctionContainer", Type = {"userdata"}, W_Link = "API_types/FunctionContainer" }, -- custom type
 	{ Name = "TickerCallback", Type = {"function", "FunctionContainer"} }, -- updated type
 	{ Name = "TimerCallback", Type = {"function", "FunctionContainer"} }, -- updated type
-	{ Name = "Enum.InventoryType", W_Link = "Enum.InventoryType" },
-	{ Name = "Enum.ItemCreationContext", W_Link = "Enum.ItemCreationContext" },
-	{ Name = "Enum.ItemQuality", W_Link = "Enum.ItemQuality" },
-	{ Name = "Enum.PowerType", W_Link = "Enum.PowerType" },
+	{ Name = "Enum.InventoryType", W_Link = "Enum.InventoryType", NoTransclude = true },
+	{ Name = "Enum.ItemCreationContext", W_Link = "Enum.ItemCreationContext", NoTransclude = true },
+	{ Name = "Enum.ItemQuality", W_Link = "Enum.ItemQuality", NoTransclude = true },
+	{ Name = "Enum.PowerType", W_Link = "Enum.PowerType", NoTransclude = true },
 
 	-- lists
 	{ Name = "uiRect", Type = {"list"}, Description = {"left", "bottom", "width", "height"} },
