@@ -5,7 +5,7 @@ local dl = require("wowdoc.web.download")
 local cfg = require("wowdoc.config")
 local m = {}
 
-local OUTPUT = pathlib.join(cfg.path.wiki_page, "World_of_Warcraft_API.xml")
+local OUTPUT = pathlib.join(cfg.path.wiki_wowapi, "World_of_Warcraft_API.xml")
 
 function m:SaveExport()
 	local url = "https://warcraft.wiki.gg/wiki/Special:Export"

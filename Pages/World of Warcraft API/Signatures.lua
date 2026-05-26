@@ -13,7 +13,7 @@ local WikiText = require("Pages/World of Warcraft API/WikiText")
 -- package.path = package.path..";../?.lua"
 -- local updated_desc = require("wow-api-descriptions/updated")
 
-local OUTPUT = pathlib.join(cfg.path.wiki_page, "World_of_Warcraft_API.txt")
+local OUTPUT = pathlib.join(cfg.path.wiki_wowapi, "World_of_Warcraft_API.txt")
 
 local function MatchLine(s)
 	local t = {}

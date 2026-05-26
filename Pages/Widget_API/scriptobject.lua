@@ -3,7 +3,7 @@ local cfg = require("wowdoc.config")
 local loader = require("wowdoc.loader")
 local log = require("wowdoc.util.log")
 local naming = require("wowdoc.namingway.naming")
-local OUT = pathlib.join(cfg.path.wiki_scriptobject, "scriptobject.txt")
+local OUT = pathlib.join(cfg.path.wiki, "scriptobject.txt")
 
 local function GetTemplate(name, func)
 	local t = {}
