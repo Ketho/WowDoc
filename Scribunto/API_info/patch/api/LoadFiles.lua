@@ -5,7 +5,7 @@ local function LoadFiles(path)
 	for fileName in lfs.dir(path) do
 		local patch = fileName:match("(.+)%.lua")
 		if patch then
-			local data = loadfile(path.."/"..fileName)()
+			local data = dofile(path.."/"..fileName)
 			local GlobalAPI = data[1]
 			local set = {}
 			for _, v in pairs(GlobalAPI) do

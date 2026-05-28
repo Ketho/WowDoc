@@ -18,6 +18,7 @@ config.path = {
 	scribunto_elink      = pathlib.join(root, "scribunto", "elink"),
 	scribunto_patch      = pathlib.join(root, "scribunto", "patch"),
 	scribunto_systems    = pathlib.join(root, "scribunto", "systems"),
+	scribunto_namespaces = pathlib.join(root, "scribunto", "namespaces"),
 	scribunto_predicates = pathlib.join(root, "scribunto", "predicates"),
 	strings = pathlib.join(root, "strings"),
 }

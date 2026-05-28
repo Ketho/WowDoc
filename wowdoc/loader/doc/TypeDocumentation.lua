@@ -152,7 +152,7 @@ local data = {
 	{ Name = "uiUnit", Type = {"number"} }, -- user interface units
 	{ Name = "UnitToken", Type = {"string"}, W_Link = "UnitToken" },
 	{ Name = "UnitTokenNamePlate", Type = {"string"}, W_Link = "UnitToken" },
-	{ Name = "UnitTokenPvPRestrictedForAddOns", Type = {"string"} },
+	{ Name = "UnitTokenPvPRestrictedForAddOns", Type = {"string"}, W_Link = "UnitToken" },
 	{ Name = "UnitTokenRestrictedForAddOns", Type = {"string"}, W_Link = "UnitToken" },
 	{ Name = "UnitTokenVariant", Type = {"string"}, W_Link = "UnitToken" },
 	{ Name = "WeeklyRewardItemDBID", Type = {"string"} }, -- in WeeklyRewardActivityRewardInfo -- /dump C_WeeklyRewards.GetActivities()[1].rewards

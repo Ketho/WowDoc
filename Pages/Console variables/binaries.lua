@@ -75,7 +75,7 @@ local function main(blizres_cvars)
 		local lua_cache = pathlib.join(PATHS.STRINGS, string.format("%s.lua", build))
 		local stringsTbl, lcstrings_tbl
 		if lfs.attributes(lua_cache) then
-			stringsTbl = loadfile(lua_cache)()
+			stringsTbl = dofile(lua_cache)
 			lcstrings_tbl = {}
 			for k in pairs(stringsTbl) do
 				lcstrings_tbl[k:lower()] = true

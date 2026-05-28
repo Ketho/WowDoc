@@ -32,7 +32,7 @@ local function GetFrameXmlData(tbl_apidoc)
 		data = FrameXML:main(flavors, tbl_apidoc)
 		table_write(data, path)
 	else
-		data = loadfile(path)()
+		data = dofile(path)
 	end
 	return data
 end

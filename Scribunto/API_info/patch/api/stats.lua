@@ -1,7 +1,7 @@
 local pathlib = require("path")
 local cfg = require("wowdoc.config")
-local patch_retail = loadfile("out/lua/API_info.patch.api_retail.lua")()
-local flavor = loadfile(pathlib.join(cfg.path.scribunto_flavor, "API_info.flavor.api.lua"))()
+local patch_retail = dofile("out/lua/API_info.patch.api_retail.lua")
+local flavor = dofile(pathlib.join(cfg.path.scribunto_flavor, "API_info.flavor.api.lua"))
 local table_sort = require("wowdoc.util.table_sort")
 
 local function GetNotExist()

@@ -25,7 +25,7 @@ function m:DownloadAndRun(url, path)
 	self:DownloadFile(url, path, true)
 	local p = path:gsub("%.lua", "")
 	if p:find("%.") then
-		return loadfile(path)()
+		return dofile(path)
 	else
 		return require(p)
 	end

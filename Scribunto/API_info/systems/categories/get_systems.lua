@@ -16,8 +16,8 @@ local filter = {
 	["BarberShopInternalDocumentation.lua"] = true,
 }
 
-function m:main(product)
-	local framexml_branch = products:GetBranch(product)
+function m:main()
+	local framexml_branch = products:GetBranch(cfg.TACT_PRODUCT)
 	git:checkout("https://github.com/Gethe/wow-ui-source", framexml_branch)
 	self:HookDocTable()
 	enum:LoadEnumTable({branch = framexml_branch})
@@ -44,7 +44,7 @@ function m:LoadBlizzardDocs()
 	for fileName in lfs.dir(DocGenerated) do
 		if fileName:match("%.lua$") then
 			currentFile = fileName
-			loadfile(pathlib.join(DocGenerated, fileName))()
+			dofile(pathlib.join(DocGenerated, fileName))
 		end
 	end
 end
@@ -121,4 +121,4 @@ function m:WriteModuleData(tbl)
 	file:close()
 end
 
-m:main(cfg.TACT_PRODUCT)
+m:main()
