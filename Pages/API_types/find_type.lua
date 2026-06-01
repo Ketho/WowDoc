@@ -90,14 +90,21 @@ local function GetStructureLine(name, t)
 	local map = {}
 	GetTypeOrigin(name, map)
 	if next(map) then
-		table.insert(t, " -> <small>")
+		table.insert(t, " -> ")
 		local sorted = table_sort.ByValue(map, apilink.SortApiLink)
 		local r = {}
 		for _, v in pairs(sorted) do
 			table.insert(r, apilink:GetWikiTemplate(v, true))
 		end
 		table.insert(t, table.concat(r, ", "))
-		table.insert(t, "</small>")
+	end
+end
+
+local function GetStructureField(name, v, t)
+	for _, field in pairs(v.Fields) do
+		if field.Type == name then
+			table.insert(t, string.format('<code><span style="color:#4ec9b0">.%s</span></code>', field.Name))
+		end
 	end
 end
 
@@ -117,7 +124,10 @@ local function PrintMainListing(name)
 		end
 		table.insert(t, apilink:GetWikiTemplate(v))
 		if v.Type == "Structure" then
+			table.insert(t, "<small>")
+			GetStructureField(name, v, t)
 			GetStructureLine(v.Name, t)
+			table.insert(t, "</small>")
 		end
 		print(table.concat(t))
 	end
