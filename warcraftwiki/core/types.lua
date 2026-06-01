@@ -59,6 +59,7 @@ function WarcraftWiki:GetTypeName(apiTable)
 end
 
 function WarcraftWiki:GetActualType(apiTable)
+	-- Type will always be "table" if there is an InnerType, but just to be safe
 	if apiTable.Type == "table" and apiTable.InnerType then
 		return apiTable.InnerType
 	else

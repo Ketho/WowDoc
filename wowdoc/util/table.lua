@@ -70,6 +70,20 @@ function m.CombineTable(...)
 	return t
 end
 
+--- combines all lists into a lists
+---@vararg table
+---@return table
+function m.CombineList(...)
+	local t = {}
+	for i = 1, select("#", ...) do
+		local tbl = select(i, ...)
+		for _, v in pairs(tbl) do
+			table.insert(t, v)
+		end
+	end
+	return t
+end
+
 function m.tInvert(a)
 	local t = {}
 	for k, v in pairs(a) do
@@ -113,7 +127,7 @@ function m.equals(a, b)
 	return true
 end
 
--- discern if a documented enum is a bitfield
+-- lazy check if a documented enum is a bitfield
 function m.IsBitEnum(apiTbl)
 	local t = {}
 	for _, v in pairs(apiTbl.Fields) do
