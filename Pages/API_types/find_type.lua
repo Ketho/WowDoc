@@ -73,6 +73,7 @@ local function main(name)
         FindEventTypes(name),
         FindTableTypes(name)
     )
+    table.sort(locations, apilink.SortApiLink)
     for k, v in pairs(locations) do
         print(string.format(": %s", apilink:GetWikiTemplate(v)))
     end
