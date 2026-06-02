@@ -44,7 +44,8 @@ end
 local type_priority = {
 	Function = 1,
 	Event = 2,
-	Structure = 3
+	Enumeration = 3,
+	Structure = 4,
 }
 
 local system_priority = {

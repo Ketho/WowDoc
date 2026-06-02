@@ -38,7 +38,7 @@ function WarcraftWiki:GetDocumentation(apiTable)
 end
 
 function WarcraftWiki:GetTransclude(param)
-	local param_type = self:GetActualType(param)
+	local param_type = naming:GetActualType(param)
 	local cat = types_api:FindTypeCat(param_type)
 	if cat then
 		local t = {}

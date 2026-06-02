@@ -1,4 +1,5 @@
 local scriptobjects = require("wowdoc.namingway.scriptobjects")
+local naming = require("wowdoc.namingway.naming")
 
 local function IsValidTable(tbl)
 	return tbl and #tbl > 0
@@ -66,7 +67,7 @@ end
 
 function WarcraftWiki:AddColorParam(doc, options)
 	for idx, param in pairs(doc) do
-		if self:GetActualType(param) == options.color_param then
+		if naming:GetActualType(param) == options.color_param then
 			doc[idx].Name = string.format("#%s", param.Name)
 		end
 	end

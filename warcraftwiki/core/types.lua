@@ -1,5 +1,6 @@
 local type_api = require("wowdoc.stats.types.api")
 local type_doc = require("wowdoc.loader.doc.TypeDocumentation")
+local naming = require("wowdoc.namingway.naming")
 
 local lua_types = {
 	bool = "boolean",
@@ -47,7 +48,7 @@ function WarcraftWiki:GetTypeText(apiTable)
 end
 
 function WarcraftWiki:GetTypeName(apiTable)
-	local name = self:GetActualType(apiTable)
+	local name = naming:GetActualType(apiTable)
 	if lua_types[name] then
 		name = lua_types[name]
 	end
@@ -58,20 +59,11 @@ function WarcraftWiki:GetTypeName(apiTable)
 	return name
 end
 
-function WarcraftWiki:GetActualType(apiTable)
-	-- Type will always be "table" if there is an InnerType, but just to be safe
-	if apiTable.Type == "table" and apiTable.InnerType then
-		return apiTable.InnerType
-	else
-		return apiTable.Type
-	end
-end
-
 function WarcraftWiki:GetTranscludeTypes(apiTable)
 	local exceptions = self:GetTranscludeExceptions()
 	local t = {}
 	for _, field in pairs(apiTable.Fields) do
-		local actualType = self:GetActualType(field)
+		local actualType = naming:GetActualType(field)
 		local cat = type_api:FindTypeCat(actualType)
 		if not exceptions[actualType] then
 			if cat == "Enumeration" then

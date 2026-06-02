@@ -8,6 +8,8 @@ local tablelib = require("wowdoc.util.table")
 local table_sort = require("wowdoc.util.table_sort")
 local table_compare = require("wowdoc.util.table_compare")
 local scriptobjects = require("wowdoc.namingway.scriptobjects")
+local recursive_type = require("Pages.API_types.recursive_type")
+local apilink = require("wowdoc.namingway.wiki.apilink")
 local m = {}
 
 local BUILD1 = "12.0.5 (67602)"
@@ -25,6 +27,7 @@ local DocGroups = {
 
 function m:main(versions)
 	local docs = m:LoadVersionDocs(versions)
+	loader:LoadDocumentation({force = true}) -- for looking up types recursively
 	log.info(string.format("Comparing %s to %s", versions[1], versions[2]))
 	local file = io.open(pathlib.join(cfg.path.changes_apidoc, "apidoc1.txt"), "w")
 	for _, v in pairs(DocGroups) do
@@ -105,8 +108,25 @@ function m:CompareDocs(file, docs, group)
 	for _, k in pairs(table_sort.ByKey(b[group])) do
 		local v = b[group][k]
 		if a[group][k] and not tablelib.equals(v, a[group][k])then
-			print(string.format(strlib.color("@ %s", strlib.style.yellow), k))
-			file:write(string.format("@ %s\n", k))
+			-- print(string.format(strlib.color("@ %s", strlib.style.yellow), k))
+			local t = {}
+			-- cant use system lookup on plain tables; links are added in replacements.lua
+			table.insert(t, string.format("@ %s", k))
+			if v.Type == "Enumeration" or v.Type == "Structure" then
+				local map = {}
+				recursive_type:GetTypeOrigin(k, map)
+				if next(map) then
+					table.insert(t, " - ")
+					local sorted = table_sort.ByValue(map, apilink.SortApiLink)
+					local r = {}
+					for _, v2 in pairs(sorted) do
+						table.insert(r, apilink:GetWikiTemplate(v2, {plain = true}))
+					end
+					table.insert(t, table.concat(r, ", "))
+				end
+			end
+			print(table.concat(t))
+			file:write(table.concat(t).."\n")
 			local changes = table_compare.print_table_diff(a[group][k], v)
 			m:PrintChanges(file, changes)
 		end

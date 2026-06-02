@@ -22,12 +22,9 @@ local function vtostring(v)
 	if type(v) == "table" then
 		if v.Name then
 			return string.format("<table> %s", v.Name)
-		elseif #v > 0 then
-			local t = {}
-			for k, v in pairs(v) do
-				table.insert(t, v.Name)
-			end
-			return string.format("<table> %s", table.concat(t, ", "))
+		-- e.g. SecretReturnsForAspect predicate table which we dont care about the values
+		-- elseif #v > 0 then
+		-- 	return string.format("<table> %s", table.concat(v, ", "))
 		else
 			return "<table> {}"
 		end

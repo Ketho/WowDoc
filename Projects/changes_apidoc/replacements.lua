@@ -43,9 +43,15 @@ local function parseLine(file, line)
 		category = line:match("===(.+)===")
 		file:write(string.format("\n===%s===\n", category))
 	elseif symbol == "@" then
-		local name = line:sub(3)
+		local t = {}
+		local name = line:match("@ ([%w_]+)")
 		local link = CreateLink(category, name)
-		file:write(string.format(" %s\n", link))
+		table.insert(t, link)
+		local parents = line:match(" %- (.+)")
+		if parents then
+			table.insert(t, string.format(" <small>(%s)</small>", parents))
+		end
+		file:write(string.format(" %s\n", table.concat(t)))
 	elseif symbol == "-" or symbol == "+" or symbol == "#" then
 		local change = line:sub(3)
 		change = ReplaceText(change)

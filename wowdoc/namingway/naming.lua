@@ -1,6 +1,16 @@
 local scriptobjects = require("wowdoc.namingway.scriptobjects")
 local m = {}
 
+function m:GetActualType(apiTable)
+	-- Type will always be "table" if there is an InnerType, but just to be safe
+	if apiTable.Type == "table" and apiTable.InnerType then
+		return apiTable.InnerType
+	else
+		return apiTable.Type
+	end
+end
+
+-- expects system apitables
 function m:GetSystemName(apiTable)
 	if apiTable.Type == "System" then
 		return apiTable.Name
