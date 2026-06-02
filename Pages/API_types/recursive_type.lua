@@ -1,6 +1,5 @@
 local tablelib = require("wowdoc.util.table")
 local naming = require("wowdoc.namingway.naming")
-local apilink = require("wowdoc.namingway.wiki.apilink")
 local m = {}
 
 function m:FindFunctionTypes(name)
