@@ -2,13 +2,26 @@ local naming = require("wowdoc.namingway.naming")
 require("warcraftwiki.page")
 local m = {}
 
-function m:GetWikiTemplate(doc, plain)
+local function GetEventPayload(doc, options)
+	local t = {}
+	for _, param in pairs(doc.Payload) do
+		if param.Type == options.color_param then
+			table.insert(t, string.format('#%s', param.Name))
+		else
+			table.insert(t, param.Name)
+		end
+	end
+	return table.concat(t, ", ")
+end
+
+function m:GetWikiTemplate(doc, options)
+	options = options or {}
 	local t = {}
 	table.insert(t, "apilink")
 	table.insert(t, "t="..doc.Type)
 	table.insert(t, naming:GetProperName(doc))
 	if doc.Type == "Function" then -- also includes ScriptObject methods
-		if not plain then
+		if not options.plain then
 			if doc.Arguments and #doc.Arguments > 0 then
 				table.insert(t, "arg="..WarcraftWiki:GetFunctionArguments(doc))
 			end
@@ -19,9 +32,9 @@ function m:GetWikiTemplate(doc, plain)
 			table.insert(t, "noparens=1")
 		end
 	elseif doc.Type == "Event" then
-		if not plain then
+		if not options.plain then
 			if doc.Payload then
-				table.insert(t, "payload="..doc:GetPayloadString(false, false))
+				table.insert(t, "payload="..GetEventPayload(doc, options))
 			end
 		end
 	end
