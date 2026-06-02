@@ -1,4 +1,5 @@
 local types_api = require("wowdoc.stats.types.api")
+local naming = require("wowdoc.namingway.naming")
 
 function WarcraftWiki:GetParameters(params)
 	local t = {}
