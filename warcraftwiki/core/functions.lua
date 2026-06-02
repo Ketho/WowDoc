@@ -64,10 +64,22 @@ local function HasWeirdOptionals(paramTbl)
 	end
 end
 
-function WarcraftWiki:GetFunctionArguments(func)
+function WarcraftWiki:AddColorParam(doc, options)
+	for idx, param in pairs(doc) do
+		if self:GetActualType(param) == options.color_param then
+			doc[idx].Name = string.format("#%s", param.Name)
+		end
+	end
+end
+
+function WarcraftWiki:GetFunctionArguments(func, options)
+	options = options or {}
 	local t = {}
 	local numOptionals = 0
 	local nonWeirdIdx = HasWeirdOptionals(func.Arguments) or 0
+	if options.color_param then
+		self:AddColorParam(func.Arguments, options)
+	end
 	for idx, param in pairs(func.Arguments) do
 		local r = {}
 		if param:IsOptional() then
@@ -94,12 +106,19 @@ function WarcraftWiki:GetFunctionArguments(func)
 	return res
 end
 
-function WarcraftWiki:GetFunctionReturns(func)
-	local returns = func:GetReturnString(false, false)
-	if self:HasStrideIndex(func.Returns) then
-		returns = returns..", ..."
+function WarcraftWiki:GetFunctionReturns(func, options)
+	options = options or {}
+	local t = {}
+	if options.color_param then
+		self:AddColorParam(func.Returns, options)
 	end
-	return returns
+	for _, param in pairs(func.Returns) do
+		table.insert(t, param.Name)
+	end
+	if self:HasStrideIndex(func.Returns) then
+		table.insert(t, "...")
+	end
+	return table.concat(t, ", ")
 end
 
 function WarcraftWiki:HasStrideIndex(paramTbl)

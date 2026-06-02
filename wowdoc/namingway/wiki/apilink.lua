@@ -23,10 +23,10 @@ function m:GetWikiTemplate(doc, options)
 	if doc.Type == "Function" then -- also includes ScriptObject methods
 		if not options.plain then
 			if doc.Arguments and #doc.Arguments > 0 then
-				table.insert(t, "arg="..WarcraftWiki:GetFunctionArguments(doc))
+				table.insert(t, "arg="..WarcraftWiki:GetFunctionArguments(doc, options))
 			end
 			if doc.Returns and #doc.Returns > 0 then
-				table.insert(t, "ret="..WarcraftWiki:GetFunctionReturns(doc))
+				table.insert(t, "ret="..WarcraftWiki:GetFunctionReturns(doc, options))
 			end
 		else
 			table.insert(t, "noparens=1")

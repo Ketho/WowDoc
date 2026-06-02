@@ -70,11 +70,11 @@ local function FindTableTypes(name)
 	return t
 end
 
-local function GetTypeOrigin(name, map)
+local function GetTypeOrigin(type_name, map)
 	local locations = tablelib.CombineList(
-		FindFunctionTypes(name),
-		FindEventTypes(name),
-		FindTableTypes(name)
+		FindFunctionTypes(type_name),
+		FindEventTypes(type_name),
+		FindTableTypes(type_name)
 	)
 	for _, v in pairs(locations) do
 		if v.Type ~= "Structure" then
@@ -86,9 +86,9 @@ local function GetTypeOrigin(name, map)
 	end
 end
 
-local function GetStructureLine(name, t)
+local function GetStructureLine(type_name, t)
 	local map = {}
-	GetTypeOrigin(name, map)
+	GetTypeOrigin(type_name, map)
 	if next(map) then
 		table.insert(t, " -> ")
 		local sorted = table_sort.ByValue(map, apilink.SortApiLink)
@@ -100,19 +100,19 @@ local function GetStructureLine(name, t)
 	end
 end
 
-local function GetStructureField(name, v, t)
+local function GetStructureField(type_name, v, t)
 	for _, field in pairs(v.Fields) do
-		if field.Type == name then
+		if GetActualType(field) == type_name then
 			table.insert(t, string.format('<code><span style="color:#4ec9b0">.%s</span></code>', field.Name))
 		end
 	end
 end
 
-local function PrintMainListing(name)
+local function PrintMainListing(type_name)
 	local locations = tablelib.CombineList(
-		FindFunctionTypes(name),
-		FindEventTypes(name),
-		FindTableTypes(name)
+		FindFunctionTypes(type_name),
+		FindEventTypes(type_name),
+		FindTableTypes(type_name)
 	)
 	table.sort(locations, apilink.SortApiLink)
 	for _, v in pairs(locations) do
@@ -122,10 +122,10 @@ local function PrintMainListing(name)
 		else
 			table.insert(t, ": ")
 		end
-		table.insert(t, apilink:GetWikiTemplate(v, {color_param = name}))
+		table.insert(t, apilink:GetWikiTemplate(v, {color_param = type_name}))
 		if v.Type == "Structure" then
 			table.insert(t, "<small>")
-			GetStructureField(name, v, t)
+			GetStructureField(type_name, v, t)
 			GetStructureLine(v.Name, t)
 			table.insert(t, "</small>")
 		end
@@ -133,9 +133,9 @@ local function PrintMainListing(name)
 	end
 end
 
-local function main(name)
+local function main(type_name)
 	loader:LoadDocumentation()
-	PrintMainListing(name)
+	PrintMainListing(type_name)
 end
 
-main("WOWGUID")
+main("LuaDurationObject")
