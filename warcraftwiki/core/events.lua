@@ -14,6 +14,9 @@ function WarcraftWiki:GetEventSignature(event)
 	if event.Payload then
 		local payload = event:GetPayloadString(false, false)
 		table.insert(t, string.format(": %s", payload))
+		if self:HasStrideIndex(event.Payload) then
+			table.insert(t, ", ...")
+		end
 	end
 	return table.concat(t)
 end
