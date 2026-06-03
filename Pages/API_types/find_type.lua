@@ -3,7 +3,8 @@ local table_sort = require("wowdoc.util.table_sort")
 local loader = require("wowdoc.loader")
 local apilink = require("wowdoc.namingway.wiki.apilink")
 local naming = require("wowdoc.namingway.naming")
-local recursive_type = require("Pages.API_types.recursive_type")
+local recursive_type = require("Pages.API_types.find_type_recursive")
+local m = {}
 
 local function GetStructureField(type_name, v, t)
 	for _, field in pairs(v.Fields) do
@@ -48,9 +49,9 @@ local function PrintMainListing(type_name)
 	end
 end
 
-local function main(type_name)
+function m:main(type_name)
 	loader:LoadDocumentation()
 	PrintMainListing(type_name)
 end
 
-main("SecretAspect")
+-- m:main("SecretAspect")
