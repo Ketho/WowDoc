@@ -1,4 +1,3 @@
-local tablelib = require("wowdoc.util.table")
 local table_sort = require("wowdoc.util.table_sort")
 local loader = require("wowdoc.loader")
 local apilink = require("wowdoc.namingway.wiki.apilink")
@@ -62,7 +61,7 @@ local function PrintTables(t, table_type)
 	end
 end
 
-function m:PrintList(type_name)
+function m:PrintList()
 	local t = {}
 	self:FillFunctionTypes(t)
 	self:FillEventTypes(t)
@@ -75,9 +74,9 @@ function m:PrintList(type_name)
 	PrintTables(t, "Structure")
 end
 
-function m:main(type_name)
+function m:main()
 	loader:LoadDocumentation()
-	self:PrintList(type_name)
+	self:PrintList()
 end
 
 m:main()
