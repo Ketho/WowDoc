@@ -5,7 +5,7 @@ local apilink = require("wowdoc.namingway.wiki.apilink")
 local naming = require("wowdoc.namingway.naming")
 local m = {}
 
-function m:GetFunctionTypes(t)
+function m:FillFunctionTypes(t)
 	for _, v in pairs(APIDocumentation.functions) do
 		for _, v2 in pairs(v.Arguments or {}) do
 			local name = naming:GetActualType(v2)
@@ -20,7 +20,7 @@ function m:GetFunctionTypes(t)
 	end
 end
 
-function m:GetEventTypes(t)
+function m:FillEventTypes(t)
 	for _, v in pairs(APIDocumentation.events) do
 		for _, v2 in pairs(v.Payload or {}) do
 			local name = naming:GetActualType(v2)
@@ -30,7 +30,7 @@ function m:GetEventTypes(t)
 	end
 end
 
-function m:GetTableTypes(t)
+function m:FillTableTypes(t)
 	for _, v in pairs(APIDocumentation.tables) do
 		if v.Type == "Structure" then
 			for _, v2 in pairs(v.Fields) do
@@ -41,13 +41,6 @@ function m:GetTableTypes(t)
 		end
 	end
 end
-
-local ignored = {
-	["string"] = true,
-	["cstring"] = true,
-	["number"] = true,
-	["bool"] = true,
-}
 
 local function PrintTables(t, table_type)
 	print(string.format("==%s==", table_type))
@@ -71,12 +64,9 @@ end
 
 function m:PrintList(type_name)
 	local t = {}
-	self:GetFunctionTypes(t)
-	self:GetEventTypes(t)
-	self:GetTableTypes(t)
-	for k in pairs(ignored) do
-		t[k] = nil
-	end
+	self:FillFunctionTypes(t)
+	self:FillEventTypes(t)
+	self:FillTableTypes(t)
 	table.sort(APIDocumentation.tables, function(a, b)
 		return a.Name < b.Name
 	end)
