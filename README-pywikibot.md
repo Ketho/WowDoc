@@ -24,6 +24,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install requests wikitextparser
 pip install pywikibot
+pip install beautifulsoup4
 ```
 
 ## Configuration

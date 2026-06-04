@@ -3,8 +3,8 @@ import pywikibot
 import export.parse_html as parse_html
 
 site = pywikibot.Site("en", "warcraftwiki")
-PATH = "out/export"
-EditSummary = "up to 10.2.6"
+PATH = ".wiki/Enumeration"
+EditSummary = "upload enums"
 
 def getFileText(p):
 	f = open(p)

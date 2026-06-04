@@ -183,6 +183,10 @@ local data = {
 	{ Name = "Enum.ItemCreationContext", W_Link = "Enum.ItemCreationContext", NoTransclude = true },
 	{ Name = "Enum.ItemQuality", W_Link = "Enum.ItemQuality", NoTransclude = true },
 	{ Name = "Enum.PowerType", W_Link = "Enum.PowerType", NoTransclude = true },
+	{ Name = "Enum.RafLinkType", W_Link = "Enum.RafLinkType", NoTransclude = true },
+	{ Name = "Enum.CovenantType", W_Link = "Enum.CovenantType", NoTransclude = true }, -- seems to be just covenantID in docs
+	{ Name = "Enum.TransmogCollectionType", W_Link = "Enum.TransmogCollectionType", NoTransclude = true },
+	{ Name = "Enum.UnitTokenType", W_Link = "Enum.UnitTokenType", NoTransclude = true },
 
 	-- lists
 	{ Name = "uiRect", Type = {"list"}, Description = {"left", "bottom", "width", "height"} },
