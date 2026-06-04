@@ -1,5 +1,4 @@
 local type_api = require("wowdoc.stats.types.api")
-local type_doc = require("wowdoc.loader.doc.TypeDocumentation")
 local naming = require("wowdoc.namingway.naming")
 
 local lua_types = {
@@ -14,8 +13,6 @@ local secrets = {
 	ConditionalSecret = true,
 	ConditionalSecretContents = true,
 }
-
-local notranscludeTbl
 
 function WarcraftWiki:GetTypeTemplate(apiTable)
 	local t = {}
@@ -57,35 +54,4 @@ function WarcraftWiki:GetTypeName(apiTable)
 		name = string.format("Enum.%s", name)
 	end
 	return name
-end
-
-function WarcraftWiki:GetTranscludeTypes(apiTable)
-	local exceptions = self:GetTranscludeExceptions()
-	local t = {}
-	for _, field in pairs(apiTable.Fields) do
-		local actualType = naming:GetActualType(field)
-		local cat = type_api:FindTypeCat(actualType)
-		if not exceptions[actualType] then
-			if cat == "Enumeration" then
-				table.insert(t, string.format("{{:Enum.%s}}", actualType))
-			elseif cat == "Structure" then
-				table.insert(t, string.format("{{:Structure %s}}", actualType))
-			end
-		end
-	end
-	return t
-end
-
-function WarcraftWiki:GetTranscludeExceptions()
-	if not notranscludeTbl then
-		local t = {}
-		for _, v in pairs(type_doc) do
-			if v.NoTransclude then
-				local name = v.Name:gsub("Enum%.", "") or name
-				t[name] = true
-			end
-		end
-		notranscludeTbl = t
-	end
-	return notranscludeTbl
 end

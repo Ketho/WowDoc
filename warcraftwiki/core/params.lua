@@ -1,14 +1,15 @@
 local types_api = require("wowdoc.stats.types.api")
 local naming = require("wowdoc.namingway.naming")
+local transclude = require("wowdoc.namingway.wiki.transclude")
 
 function WarcraftWiki:GetParameters(params)
 	local t = {}
 	for _, param in pairs(params) do
 		local line = self:GetParamLine(param)
 		table.insert(t, line)
-		local transclude = self:GetTransclude(param)
-		if transclude then
-			table.insert(t, transclude)
+		local transcl = transclude:GetTranscludeTemplate(param, true)
+		if transcl then
+			table.insert(t, transcl)
 		end
 	end
 	return table.concat(t, "\n")
@@ -35,20 +36,5 @@ function WarcraftWiki:GetDocumentation(apiTable)
 		else
 			return "" -- needs to return a fallback string
 		end
-	end
-end
-
-function WarcraftWiki:GetTransclude(param)
-	local param_type = naming:GetActualType(param)
-	local cat = types_api:FindTypeCat(param_type)
-	if cat then
-		local t = {}
-		if cat == "Enumeration" then
-			table.insert(t, string.format("Enum.%s", param_type))
-		elseif cat == "Structure" or cat == "Constants" then
-			table.insert(t, string.format("%s %s", cat, param_type))
-		end
-		table.insert(t, "nocaption=1")
-		return string.format("{{:%s}}", table.concat(t, "|"))
 	end
 end

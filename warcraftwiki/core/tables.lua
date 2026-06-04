@@ -1,4 +1,5 @@
 local tablelib = require("wowdoc.util.table")
+local transclude = require("wowdoc.namingway.wiki.transclude")
 
 function WarcraftWiki:GetTablePage(apiTable)
 	local t = {}
@@ -6,13 +7,9 @@ function WarcraftWiki:GetTablePage(apiTable)
 	local wikiTable = self:GetWikiTable(apiTable, contents)
 	table.insert(t, wikiTable)
 	if apiTable.Type == "Structure" then
-		local transcludes = self:GetTranscludeTypes(apiTable)
-		local unique = {}
-		for _, v in pairs(transcludes) do
-			if not unique[v] then
-				unique[v] = true
-				table.insert(t, "\n"..v)
-			end
+		local list = transclude:GetTranscludeList(apiTable.Fields)
+		for _, v in pairs(list) do
+			table.insert(t, "\n"..v)
 		end
 	end
 	return string.format("<onlyinclude>%s</onlyinclude>", table.concat(t, "\n"))
@@ -98,4 +95,16 @@ function WarcraftWiki:GetConstantsTable(apiTable)
 		table.insert(t, string.format('|-\n| {{apiname|%s}} || %s || %s || %s', field.Name, apitype, field.Value, doc))
 	end
 	return table.concat(t, "\n")
+end
+
+function WarcraftWiki:GetTableTranscludes(apiTable)
+	local exceptions = transclude:GetTranscludeExceptions()
+	local t = {}
+	for _, field in pairs(apiTable.Fields) do
+		local name = naming:GetActualType(field)
+		if not exceptions[name] then
+			table.insert(t, transclude:GetTranscludeTemplate(field))
+		end
+	end
+	return t
 end
