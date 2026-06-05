@@ -103,7 +103,7 @@ function WarcraftWiki:GetFunctionArguments(func, options)
 	end
 	local res = table.concat(t, ", ")
 	res = res:gsub(", %[", " [, ") -- fix comma placement
-	res = res:gsub("<(%w-)>", "[%1]") -- fix weird optionals
+	res = res:gsub("<(#?%w-)>", "[%1]") -- fix weird optionals
 	return res
 end
 

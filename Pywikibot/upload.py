@@ -1,6 +1,7 @@
 import os
 import pywikibot
-import export.parse_html as parse_html
+# import export.parse_html as parse_html
+import time
 
 site = pywikibot.Site("en", "warcraftwiki")
 PATH = ".wiki/Enumeration"
@@ -13,15 +14,17 @@ def getFileText(p):
 
 def saveFile(path, fileName):
 	name = fileName.replace(".txt", "")
-	# print(name)
 	page = pywikibot.Page(site, name)
-	text = getFileText(path)
+	time.sleep(3)
 	if not page.exists():
+		text = getFileText(path)
 		page.text = text
 		page.save(summary = EditSummary)
+	else:
+		print("- "+name)
 
 def recursiveFiles(path):
-	for base in os.listdir(path):
+	for base in sorted(os.listdir(path)):
 		newPath = path+"/"+base
 		if os.path.isdir(newPath):
 			if base != "widget":
