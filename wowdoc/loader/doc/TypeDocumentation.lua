@@ -185,7 +185,7 @@ local data = {
 	{ Name = "Enum.PowerType", W_Link = "Enum.PowerType", NoTransclude = true },
 	{ Name = "Enum.RafLinkType", W_Link = "Enum.RafLinkType", NoTransclude = true },
 	{ Name = "Enum.CovenantType", W_Link = "Enum.CovenantType", NoTransclude = true }, -- seems to be just covenantID in docs
-	{ Name = "Enum.TransmogCollectionType", W_Link = "Enum.TransmogCollectionType", NoTransclude = true },
+	{ Name = "Enum.TransmogCollectionType", W_Link = "Enum.TransmogCollectionType" }, -- it depends
 	{ Name = "Enum.UnitTokenType", W_Link = "Enum.UnitTokenType", NoTransclude = true },
 
 	-- lists

@@ -54,4 +54,4 @@ function m:main(type_name)
 	PrintMainListing(type_name)
 end
 
--- m:main("SecretAspect")
+m:main("textureAtlas")

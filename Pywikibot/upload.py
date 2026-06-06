@@ -4,8 +4,8 @@ import pywikibot
 import time
 
 site = pywikibot.Site("en", "warcraftwiki")
-PATH = ".wiki/Enumeration"
-EditSummary = "upload enums"
+PATH = ".wiki/Structure"
+EditSummary = "upload structures"
 
 def getFileText(p):
 	f = open(p)
@@ -15,11 +15,11 @@ def getFileText(p):
 def saveFile(path, fileName):
 	name = fileName.replace(".txt", "")
 	page = pywikibot.Page(site, name)
-	time.sleep(3)
 	if not page.exists():
 		text = getFileText(path)
 		page.text = text
 		page.save(summary = EditSummary)
+		time.sleep(3)
 	else:
 		print("- "+name)
 
