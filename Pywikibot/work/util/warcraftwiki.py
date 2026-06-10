@@ -5,7 +5,7 @@ from pathlib import Path
 from time import time, sleep
 import glob
 
-EXPORT_PATH = Path(".wow", "wiki_export")
+EXPORT_PATH = Path(".wow", "wiki", "export")
 
 xmlns = "{http://www.mediawiki.org/xml/export-0.11/}"
 categories = [
@@ -14,7 +14,7 @@ categories = [
 	"Widget methods",
 	"Widget script handlers",
 	"API events",
-	"Structs",
+	"Structures",
 	"Enums",
 ]
 

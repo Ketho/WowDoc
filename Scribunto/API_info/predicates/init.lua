@@ -10,13 +10,13 @@ local naming = require("wowdoc.namingway.naming")
 -- so gonna apply hack and make them unique /shrug
 local function EnumPostCall()
 	local t = {
-		Attributes = 0x10a,
-		Hierarchy = 0x10b,
-		ObjectDebug = 0x10c,
-		ObjectName = 0x10d,
-		ObjectSecrets = 0x10e,
+		Attributes     = 0x10a,
+		Hierarchy      = 0x10b,
+		ObjectDebug    = 0x10c,
+		ObjectName     = 0x10d,
+		ObjectSecrets  = 0x10e,
 		ObjectSecurity = 0x10f,
-		ObjectType = 0x110,
+		ObjectType     = 0x110,
 	}
 	for k, v in pairs(t) do
 		Enum.SecretAspect[k] = v
@@ -76,14 +76,6 @@ local function WritePredicates()
 	log.info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
-	file:write([=[
-m.description = {
-	SynchronousEvent = "Dispatch of event is immediate and will complete before the function call returns",
-	UniqueEvent = "Event gets queued and dispatched toward the end of a frame",
-	CallbackEvent = "Can be registered with RegisterEventCallback()",
-}
-
-]=])
 	file:write("m.data = {\n")
 	local t = ProcessDocs()
 	for _, v in pairs(t) do
@@ -99,20 +91,6 @@ local function WriteSecretArguments()
 	log.info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
-	file:write([=[function m:GetHeader()
-	return '<div style="font-family:monospace">[[Patch_12.0.0/API_changes#Secret_values|SecretArguments]]</div>'
-end
-
-function m:GetAttributes()
-	return 'title="%s" style="font-family: monospace; text-decoration: underline dotted;"'
-end
-
-m.description = {
-	AllowedWhenUntainted = "Only accepts secret values if execution isn't tainted",
-	AllowedWhenTainted = "Always accepts secret values",
-	NotAllowed = "Never accepts secret values, even from untainted callers",
-}
-]=])
 	file:write("m.data = {\n")
 	local line = '\t["%s"] = "%s",\n'
 	local t = {}
@@ -137,19 +115,6 @@ local function WriteSecretAspects()
 	RevEnum_SecretAspect = GetReverseEnum()
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
-	file:write([=[function m:GetHeaderArguments()
-	return '<div style="font-family:monospace">[[Patch_12.0.0/API_changes#Secret_aspects|SecretArgumentsAddAspect]]</div>'
-end
-
-function m:GetHeaderReturns()
-	return '<div style="font-family:monospace">[[Patch_12.0.0/API_changes#Secret_aspects|SecretReturnsForAspect]]</div>'
-end
-
-function m:GetAttributes()
-	return 'class="apitype" title="%s" style="font-family:monospace;"'
-end
-
-]=])
 	file:write("m.SecretArgumentsAddAspect = {\n")
 	local line = '\t["%s"] = {%s},\n'
 	local t = {}

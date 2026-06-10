@@ -6,7 +6,7 @@ import time
 from pathlib import Path
 
 url = 'https://warcraft.wiki.gg/'
-EXPORT_PATH = Path(".wow", "wiki_export")
+EXPORT_PATH = Path(".wow", "wiki", "export")
 
 headers = { # https://foundation.wikimedia.org/wiki/Policy:Wikimedia_Foundation_User-Agent_Policy
     'User-Agent': 'KethoBot/1.0 (https://warcraft.wiki.gg/wiki/User:KethoBot)'
@@ -14,12 +14,12 @@ headers = { # https://foundation.wikimedia.org/wiki/Policy:Wikimedia_Foundation_
 
 categories = [
 	"API functions",
-	"Lua functions",
-	"Widget methods",
-	"Widget script handlers",
-	"API events",
-	"Structs",
-	"Enums",
+	# "Lua functions",
+	# "Widget methods",
+	# "Widget script handlers",
+	# "API events",
+	# "Structures",
+	# "Enums",
 ]
 
 def category_members(catname):
@@ -69,8 +69,8 @@ def main(catname):
 	dir_path.mkdir(parents=True, exist_ok=True)
 
 	xml = export(catname)
-	now = dt.datetime.utcnow().strftime('%Y%m%d%H%M%S')
-	filename = f'{catname}-{now}.xml'
+	# now = dt.datetime.utcnow().strftime('%Y%m%d%H%M%S')
+	filename = f'{catname}.xml'
 	fullpath = Path(dir_path, filename).absolute()
 	print(f'Dumping to "{fullpath}"')
 	with open(fullpath, 'wb') as f:
