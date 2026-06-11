@@ -7,7 +7,7 @@ APIDocumentation = {
 require("wow-ui-source/Interface/AddOns/Blizzard_APIDocumentationGenerated/SecretPredicatesDocumentation")
 local m = {}
 
-function m:main()
+function m:PrintWikiTable()
 	local t = {}
 	table.insert(t, "! Type !! Predicate !! Description")
 	local fs = "|-\n| %s || %s || %s"
@@ -24,5 +24,12 @@ function m:main()
 	end
 	print(table.concat(t, "\n"))
 end
+-- m:PrintWikiTable()
 
-m:main()
+function m:PrintLuaTable()
+	local t = {}
+	for _, v in pairs(APIDocumentation.data[1].Predicates) do
+		print(string.format('\t%s = "%s",', v.Name, table.concat(v.Documentation or {}, "; ")))
+	end
+end
+m:PrintLuaTable()

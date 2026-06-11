@@ -4,39 +4,25 @@ local apilink = require("wowdoc.namingway.wiki.apilink")
 local naming = require("wowdoc.namingway.naming")
 local m = {}
 
-function m:FillFunctionTypes(t)
+local function GetParamTypes(t, parent, params)
+	for _, apiTable in pairs(params or {}) do
+		local name = naming:GetActualType(apiTable)
+		t[name] = t[name] or {}
+		t[name][parent] = parent
+	end
+end
+
+function m:GetAllTypes(t)
 	for _, v in pairs(APIDocumentation.functions) do
-		for _, v2 in pairs(v.Arguments or {}) do
-			local name = naming:GetActualType(v2)
-			t[name] = t[name] or {}
-			t[name][v] = v
-		end
-		for _, v2 in pairs(v.Returns or {}) do
-			local name = naming:GetActualType(v2)
-			t[name] = t[name] or {}
-			t[name][v] = v
-		end
+		GetParamTypes(t, v, v.Arguments)
+		GetParamTypes(t, v, v.Returns)
 	end
-end
-
-function m:FillEventTypes(t)
 	for _, v in pairs(APIDocumentation.events) do
-		for _, v2 in pairs(v.Payload or {}) do
-			local name = naming:GetActualType(v2)
-			t[name] = t[name] or {}
-			t[name][v] = v
-		end
+		GetParamTypes(t, v, v.Payload)	
 	end
-end
-
-function m:FillTableTypes(t)
 	for _, v in pairs(APIDocumentation.tables) do
 		if v.Type == "Structure" then
-			for _, v2 in pairs(v.Fields) do
-				local name = naming:GetActualType(v2)
-				t[name] = t[name] or {}
-				t[name][v] = v
-			end
+			GetParamTypes(t, v, v.Fields)
 		end
 	end
 end
@@ -63,9 +49,7 @@ end
 
 function m:PrintList()
 	local t = {}
-	self:FillFunctionTypes(t)
-	self:FillEventTypes(t)
-	self:FillTableTypes(t)
+	self:GetAllTypes(t)
 	table.sort(APIDocumentation.tables, function(a, b)
 		return a.Name < b.Name
 	end)
