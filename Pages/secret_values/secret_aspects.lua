@@ -106,8 +106,16 @@ function m:main()
 		local hex = string.format("0x%x", field.EnumValue)
 		local patch = GetAddedPatch(secret_aspect_doc, field)
 		local patch_template = patch and string.format("{{apiname.added|%s}}", patch) or ""
-		local arg = aspects_wiki.SecretArgumentsAddAspect[field.Name] or ""
-		local ret = aspects_wiki.SecretReturnsForAspect[field.Name] or ""
+		local arg = ""
+		local arg_name = aspects_wiki.SecretArgumentsAddAspect[field.Name]
+		if arg_name then
+			arg = string.format("{{tlydoc|s:AddsSecretAspect:%s}} %s", field.Name, arg_name)
+		end
+		local ret = ""
+		local ret_name = aspects_wiki.SecretReturnsForAspect[field.Name]
+		if ret_name then
+			ret = string.format("{{tlydoc|s:^SecretAspect:%s}} %s", field.Name, ret_name)
+		end
 		print(fs:format(hex, field.Name, patch_template, arg, ret))
 	end
 end
