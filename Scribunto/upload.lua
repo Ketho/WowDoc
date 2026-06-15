@@ -5,7 +5,7 @@ local log = require("wowdoc.util.log")
 local cfg = require("wowdoc.config")
 
 local BRANCH = products:GetBranch(cfg.TACT_PRODUCT)
-local SUMMARY = "rework secret values"
+local SUMMARY = "5.5.4"
 
 local function WriteFiles()
     local scribunto = pathlib.join("Scribunto", "API_info")
