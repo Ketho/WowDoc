@@ -34,7 +34,7 @@ function m:main()
 	local file = io.open(out, "w")
 	print("Writing to "..out)
 	for _, k in pairs(table_sort.ByKey(flags)) do
-		if not lua_map[k] or filter[k] then
+		if not lua_map[k] or lua_filter[k] then
 			local apilink = string.format("{{apilink.api|%s}}", k)
 			file:write(fs:format(flags[k], apilink))
 		end
