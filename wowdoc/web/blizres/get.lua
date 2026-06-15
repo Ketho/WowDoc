@@ -5,7 +5,7 @@ local m = {}
 
 local URL = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/%s.lua"
 
-function m:GetResource(name, branch, path)
+function m:GetResource(name, branch)
 	local url = URL:format(branch, name)
 	local fs = string.format("%s_%s.lua", name, branch)
 	local dest = pathlib.join(cfg.path.blizres, fs)

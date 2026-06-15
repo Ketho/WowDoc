@@ -70,6 +70,17 @@ function m.CombineTable(...)
 	return t
 end
 
+--- child maps to map
+function m.CombineChildMaps(tbl)
+	local t = {}
+	for _, v in pairs(tbl) do
+		for k, v2 in pairs(v) do
+			t[k] = v2
+		end
+	end
+	return t
+end
+
 --- combines all lists into a lists
 ---@vararg table
 ---@return table

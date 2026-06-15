@@ -2,12 +2,12 @@ local pathlib = require("path")
 local tablelib = require("wowdoc.util.table")
 local dl = require("wowdoc.web.download")
 local cfg = require("wowdoc.config")
+local blizres = require("wowdoc.web.blizres.get")
 local m = {}
 
 ---@type GetheBranch[]
 local gethe_branches = {
 	"live", -- mainline
-	-- "beta", -- mainline beta
 	"classic", -- mists
 	"classic_anniversary", -- bc anniversary
 	"classic_era", -- vanilla
@@ -31,8 +31,6 @@ end
 ---|"LuaEnum"
 ---|"Mixins"
 ---|"Templates"
-
-local BLIZRES_URL = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/%s.lua"
 
 local function CopyTableTrue(t, tbl)
 	for k in pairs(tbl) do
@@ -59,14 +57,26 @@ local ToMap = {
 		end
 		return t
 	end,
-	Frames = function(tbl)
-		return tablelib.ToMap(table.unpack(tbl)) -- include loadondemand
+	Frames = function(tbl, options)
+		if options.combine then
+			return tablelib.ToMap(table.unpack(tbl)) -- include loadondemand
+		else
+			return tablelib.ToMap(tbl[1])
+		end
 	end,
-	FrameXML = function(tbl)
-		return tablelib.ToMap(table.unpack(tbl)) -- include loadondemand
+	FrameXML = function(tbl, options)
+		if options.combine then
+			return tablelib.ToMap(table.unpack(tbl)) -- include loadondemand
+		else
+			return tablelib.ToMap(tbl[1])
+		end
 	end,
-	GlobalAPI = function(tbl)
-		return tablelib.ToMap(table.unpack(tbl)) -- include lua api
+	GlobalAPI = function(tbl, options)
+		if options.combine then
+			return tablelib.ToMap(table.unpack(tbl)) -- include lua api
+		else
+			return tablelib.ToMap(tbl[1])
+		end
 	end,
 	LuaEnum = function()
 		local t = {}
@@ -83,14 +93,11 @@ local ToMap = {
 	end,
 }
 
-local function GetBranchMap(branches, resource)
+local function GetBranchMap(branches, resource, options)
 	local map = {}
 	for _, branch in pairs(branches) do
-		local url = BLIZRES_URL:format(branch, resource)
-		local file_branch = string.format("%s_%s.lua", resource, branch)
-		local path = pathlib.join(cfg.path.blizres, file_branch)
-		local file_data = dl:DownloadAndRun(url, path)
-		map[branch] = ToMap[resource](file_data)
+		local data = blizres:GetResource(resource, branch)
+		map[branch] = ToMap[resource](data, options)
 	end
 	return map
 end
@@ -118,8 +125,9 @@ local function GetBitFlags(unified, branches, map)
 end
 
 ---@param resource ResourceType
-function m:main(resource)
-	local map = GetBranchMap(gethe_branches, resource)
+function m:main(resource, options)
+	options = options or {}
+	local map = GetBranchMap(gethe_branches, resource, options)
 	local unified = GetUnifiedTable(map)
 	local bitflags = GetBitFlags(unified, gethe_branches, map)
 	return bitflags
