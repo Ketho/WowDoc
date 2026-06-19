@@ -70,9 +70,9 @@ local data = {
 	{ Name = "SimplePathAnim", W_Replace = "Path", W_Link = "UIOBJECT_Path" },
 	{ Name = "SimpleRegion", Type = {"Region"} },
 	{ Name = "SimpleTexture", W_Replace = "Texture", W_Link = "UIOBJECT_Texture" },
+	{ Name = "SimpleVectorGraphics", W_Replace = "VectorGraphics", W_Link = "UIOBJECT_VectorGraphics" },
 	{ Name = "SimpleWindow", Type = {"nil"} },
 	{ Name = "Tooltip", W_Link = "UIOBJECT_GameTooltip" },
-	{ Name = "SimpleVectorGraphics", W_Link = "UIOBJECT_VectorGraphics" },
 	-- scriptobjects
 	{ Name = "AbbreviateConfig", W_Link = "ScriptObject_AbbreviateConfig" },
 	{ Name = "AbbreviatedNumberFormatter", W_Link = "ScriptObject_AbbreviatedNumberFormatter" },
