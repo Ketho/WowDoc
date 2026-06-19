@@ -55,7 +55,7 @@ local data = {
 	{ Name = "FrameScriptObject", Type = {"UIObject"} },
 	{ Name = "ModelSceneFrame", Type = {"ModelScene"}, W_Replace = "ModelScene", W_Link = "UIOBJECT_ModelScene" },
 	{ Name = "ModelSceneFrameActor", W_Replace = "ModelSceneActor", W_Link = "UIOBJECT_ModelSceneActor" },
-	{ Name = "NamePlateFrame", Mixin = "NamePlateBaseMixin" },
+	{ Name = "NamePlateFrame", Mixin = "NamePlateBaseMixin", W_Link = "UIOBJECT_NamePlate" },
 	{ Name = "ScriptRegion", Type = {"Region"} },
 	{ Name = "SimpleAnim", W_Replace = "Animation", W_Link = "UIOBJECT_Animation" },
 	{ Name = "SimpleAnimGroup", W_Replace = "AnimationGroup", W_Link = "UIOBJECT_AnimationGroup" },
@@ -72,6 +72,7 @@ local data = {
 	{ Name = "SimpleTexture", W_Replace = "Texture", W_Link = "UIOBJECT_Texture" },
 	{ Name = "SimpleWindow", Type = {"nil"} },
 	{ Name = "Tooltip", W_Link = "UIOBJECT_GameTooltip" },
+	{ Name = "SimpleVectorGraphics", W_Link = "UIOBJECT_VectorGraphics" },
 	-- scriptobjects
 	{ Name = "AbbreviateConfig", W_Link = "ScriptObject_AbbreviateConfig" },
 	{ Name = "AbbreviatedNumberFormatter", W_Link = "ScriptObject_AbbreviatedNumberFormatter" },
@@ -103,6 +104,7 @@ local data = {
 	{ Name = "ClubStreamId", Type = {"string"} },
 	{ Name = "ConnectionIptype", Type = {"number"}, Description = {"1=IPv4", "2=IPv6"} },
 	{ Name = "ConnectionProtocol", Type = {"number"}, Description = {"1=TCP, 2=UDP"} },
+	{ Name = "DiscordID", Type = {"unknown"} }, -- cant check if a number or a string
 	{ Name = "DurationMillisecondsPrimitive", Type = {"number"} },
 	{ Name = "DurationSeconds", Type = {"number"} },
 	{ Name = "DurationSecondsDouble", Type = {"number"} },
@@ -118,12 +120,14 @@ local data = {
 	{ Name = "IDOrLink", Type = {"number", "string"} },
 	{ Name = "InventorySlots", Type = {"number"}, W_Link = "InventorySlotId" },
 	{ Name = "ItemInfo", Type = {"number", "string"}, W_Link = "API_types/ItemInfo" }, -- item id, link, name
+	{ Name = "kstringAuroraName", Type = {"string"}, W_Link = "Kstring" },
 	{ Name = "kstringClubMessage", Type = {"string"}, W_Link = "Kstring" },
 	{ Name = "kstringLfgListApplicant", Type = {"string"}, W_Link = "Kstring" },
 	{ Name = "kstringLfgListChat", Type = {"string"}, W_Link = "Kstring" },
 	{ Name = "kstringLfgListSearch", Type = {"string"}, W_Link = "Kstring" },
 	{ Name = "LuaCurveEvaluatedResult", W_Replace = "CurveEvaluatedResult", Type = {"number", "colorRGBA"}, W_Link = "API_types/CurveEvaluatedResult" },
 	{ Name = "luaFunction", W_Replace = "function" },
+	{ Name = "LuaFunctionReference", Type = {"function"} },
 	{ Name = "luaIndex", Type = {"number"} },
 	{ Name = "LuaValueReference", Type = {"any"} },
 	{ Name = "LuaValueVariant", Type = {"any"} },
@@ -134,6 +138,7 @@ local data = {
 	{ Name = "NotificationDbId", Type = {"string"} },
 	{ Name = "QuestObjectiveType", Type = {"number"} },
 	{ Name = "RecruitAcceptanceID", Type = {"string"} },
+	{ Name = "ScriptTypeName", Type = {"string"} }, -- OnShow, OnEvent, etc
 	{ Name = "SendChatMessageType", Type = {"string"} }, -- transcluded as a table
 	{ Name = "SingleColorValue", Type = {"number"} }, -- [0.0 - 1.0], used mainly for alpha
 	{ Name = "size", Type = {"number"} }, -- only used for Texture:GetNumMaskTextures

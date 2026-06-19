@@ -2,8 +2,8 @@ local changes_apidoc = require("Projects.changes_apidoc")
 local strlib = require("wowdoc.util.string")
 local m = {}
 
-local BUILD1 = "12.0.5 (67602)"
-local BUILD2 = "12.0.7 (67669)"
+local BUILD1 = "12.0.7 (68256)"
+local BUILD2 = "12.1.0 (68209)"
 
 local function GetFieldNames(apiTable)
 	local t = {}
@@ -16,9 +16,17 @@ end
 function m:main()
 	local docs = changes_apidoc:LoadVersionDocs({BUILD1, BUILD2})
 	m:CompareTypes(docs, "Enumerations", "FragmentID")
-	m:CompareTypes(docs, "Structures", "CatalogShopProductInfo")
-	m:CompareTypes(docs, "Structures", "EncounterTimelineEventInfo")
+	m:CompareTypes(docs, "Enumerations", "HousingResult")
+	m:CompareTypes(docs, "Structures", "AddPrivateAuraAnchorArgs")
+	m:CompareTypes(docs, "Structures", "BNetAccountInfo")
+	m:CompareTypes(docs, "Structures", "BNetGameAccountInfo")
+	m:CompareTypes(docs, "Structures", "CooldownViewerCooldown")
+	m:CompareTypes(docs, "Structures", "HousingDecorInstanceInfo")
+	m:CompareTypes(docs, "Structures", "LfgEntryData")
+	m:CompareTypes(docs, "Structures", "LfgSearchResultData")
 	m:CompareTypes(docs, "Structures", "PlayerChoiceInfo")
+	m:CompareTypes(docs, "Structures", "TieredEntranceTierInfo")
+	m:CompareTypes(docs, "Structures", "UnitPrivateAuraAnchorInfo")
 end
 
 function m:CompareTypes(docs, group, name)

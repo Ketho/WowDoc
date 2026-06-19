@@ -8,12 +8,12 @@ local tablelib = require("wowdoc.util.table")
 local table_sort = require("wowdoc.util.table_sort")
 local table_compare = require("wowdoc.util.table_compare")
 local scriptobjects = require("wowdoc.namingway.scriptobjects")
-local recursive_type = require("Pages.API_types.recursive_type")
+local recursive_type = require("Pages.API_types.find_type_recursive")
 local apilink = require("wowdoc.namingway.wiki.apilink")
 local m = {}
 
-local BUILD1 = "12.0.5 (67602)"
-local BUILD2 = "12.0.7 (67669)"
+local BUILD1 = "12.0.7 (68256)"
+local BUILD2 = "12.1.0 (68209)"
 
 local FRAMEXML_PATH = pathlib.join("FrameXML", "live")
 

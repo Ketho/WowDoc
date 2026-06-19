@@ -44,7 +44,7 @@ local function parseLine(file, line)
 		file:write(string.format("\n===%s===\n", category))
 	elseif symbol == "@" then
 		local t = {}
-		local name = line:match("@ ([%w_]+)")
+		local name = line:match("@ ([%w_%.:]+)")
 		local link = CreateLink(category, name)
 		table.insert(t, link)
 		local parents = line:match(" %- (.+)")
