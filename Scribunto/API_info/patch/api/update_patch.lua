@@ -51,7 +51,7 @@ local function ShouldUpdateFile(path, github_version, file_version)
 end
 
 local function main()
-	local tag = wago:GetLatestRelease(cfg.TACT_PRODUCT)
+	local _, tag = wago:GetLatestBuild(cfg.TACT_PRODUCT)
 	local FULL_PATH = pathlib.join(BASE_PATH, FLAVOR, tag..".lua")
 	local github_version = GetCommit(tag)
 	local file_version = GetFileVersion(FULL_PATH)

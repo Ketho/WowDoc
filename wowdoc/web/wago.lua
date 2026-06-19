@@ -164,12 +164,8 @@ function m:GetLatestBuild(product)
 	local url = wago_builds_latest_url:format(product)
 	local json = https.request(url)
 	local data = cjson.decode(json)
-	return data.version
-end
-
-function m:GetLatestRelease(product)
-	local build = self:GetLatestBuild(product)
-	return build:match("%d+%.%d+%.%d+")
+	local release = data.version:match("%d+%.%d+%.%d+")
+	return data.version, release
 end
 
 local function IsValidBuild(branch, version)

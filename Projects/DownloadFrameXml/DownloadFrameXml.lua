@@ -88,6 +88,6 @@ function m:main(_tag)
 	log.success("Done")
 end
 
-local release = wago:GetLatestRelease(cfg.TACT_PRODUCT)
+local _, release = wago:GetLatestBuild(cfg.TACT_PRODUCT)
 m:main(release)
 -- main()
