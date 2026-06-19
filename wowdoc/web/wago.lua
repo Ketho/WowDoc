@@ -167,6 +167,11 @@ function m:GetLatestBuild(product)
 	return data.version
 end
 
+function m:GetLatestRelease(product)
+	local build = self:GetLatestBuild(product)
+	return build:match("%d+%.%d+%.%d+")
+end
+
 local function IsValidBuild(branch, version)
 	if branch == "wow_classic_era_ptr" then
 		return not version:find("10.0.7") and not version:find("10.1.5")

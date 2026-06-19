@@ -1,15 +1,3 @@
---[[
-sudo apt update
-sudo apt install gh
-gh auth login
-- set and read the token in `GITHUB_TOKEN`
-	- or just assign a variable with the token in `gho_*` format
-
-remember to
-- delete `(int)MAX_SUMMONABLE_HUNTER_PETS` from uhh some patch
-- delete 9.2.7 apidocs as those dont contain anything
-]]
-
 local pathlib = require("path")
 local https = require("ssl.https")
 local cjson = require("cjson")
@@ -18,8 +6,10 @@ local system = require("wowdoc.util.system")
 local dl = require("wowdoc.web.download")
 local github = require("wowdoc.web.github")
 local log = require("wowdoc.util.log")
-local products = require("wowdoc.products.branches")
 local tags = require("wowdoc.products.tags")
+local cfg = require("wowdoc.config")
+local wago = require("wowdoc.web.wago")
+local products = require("wowdoc.products.branches")
 local m = {}
 
 ---@type GetheBranch[]
@@ -79,13 +69,14 @@ local function DownLoadUnpack(tag, branch)
 	m:UnpackZip(branch, fileBaseName, zipFile)
 end
 
-local function main(_tag, _branch)
+function m:main(_tag)
 	pathlib.mkdir(pathlib.join("FrameXML", "zips"))
 	for _, v in pairs(branches) do
 		pathlib.mkdir(pathlib.join("FrameXML", v))
 	end
 	if _tag then
-		DownLoadUnpack(_tag, _branch)
+		local folder_name = products.product_branch[cfg.TACT_PRODUCT]
+		DownLoadUnpack(_tag, folder_name)
 	else
 		for _, branch in pairs(branches) do
 			pathlib.mkdir(pathlib.join("FrameXML", branch))
@@ -97,5 +88,6 @@ local function main(_tag, _branch)
 	log.success("Done")
 end
 
-main("12.0.7", "live")
+local release = wago:GetLatestRelease(cfg.TACT_PRODUCT)
+m:main(release)
 -- main()

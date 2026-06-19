@@ -70,4 +70,16 @@ function m:GetBranch(product)
 	return branch
 end
 
+---@type table<TactProduct, GetheBranch>
+m.product_branch = {
+	wow = "live",
+	wowt = "live",
+	wowxptr = "live",
+	wow_beta = "live",
+	wow_classic = "classic",
+	wow_classic_ptr = "classic",
+	wow_classic_era = "classic_era",
+	wow_classic_era_ptr = "classic_era",
+}
+
 return m

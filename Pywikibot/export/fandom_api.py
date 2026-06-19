@@ -14,12 +14,12 @@ headers = { # https://foundation.wikimedia.org/wiki/Policy:Wikimedia_Foundation_
 
 categories = [
 	"API functions",
-	# "Lua functions",
-	# "Widget methods",
-	# "Widget script handlers",
-	# "API events",
-	# "Structures",
-	# "Enums",
+	"Lua functions",
+	"Widget methods",
+	"Widget script handlers",
+	"API events",
+	"Structures",
+	"Enums",
 ]
 
 def category_members(catname):

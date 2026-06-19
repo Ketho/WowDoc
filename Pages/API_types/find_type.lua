@@ -54,4 +54,4 @@ function m:main(type_name)
 	PrintMainListing(type_name)
 end
 
-m:main("textureAtlas")
+m:main("NamePlateFrame")

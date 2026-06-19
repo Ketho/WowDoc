@@ -2,15 +2,12 @@ local pathlib = require("path")
 local dl = require("wowdoc.web.download")
 local log = require("wowdoc.util.log")
 local github = require("wowdoc.web.github")
-local tags = require("wowdoc.products.tags")
+local wago = require("wowdoc.web.wago")
+local cfg = require("wowdoc.config")
 
 local URL = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/refs/tags/%s/Resources/GlobalAPI.lua"
 local BASE_PATH = "Scribunto/API_info/patch/api"
-
-local TAG = tags.live[#tags.live] -- carelessly use latest known tag
-
 local FLAVOR = "mainline" ---@type "classic"|"classic_era"|"mainline"
-local FULL_PATH = pathlib.join(BASE_PATH, FLAVOR, TAG..".lua")
 
 local function GetCommit(tag)
 	local version = github:GetCommitVersion(tag)
@@ -39,19 +36,29 @@ local function AppendVersion(path, version)
 	end
 end
 
-local function main()
-	local github_version = GetCommit(TAG)
-	if github_version and pathlib.exists(FULL_PATH) then
-		local file_version = GetFileVersion(FULL_PATH)
-		if not file_version or file_version ~= github_version then
-			log.info(string.format("versions %s and %s don't match; updating...", file_version, github_version))
-			dl:DownloadFile(URL:format(TAG), FULL_PATH, 1) -- always redownload
-			AppendVersion(FULL_PATH, github_version)
-		else
-			log.info(string.format("version %s of tag %s is up-to-date", file_version, TAG))
-		end
+local function ShouldUpdateFile(path, github_version, file_version)
+	if not pathlib.exists(path) then
+		log.info(string.format("path %s does not exist", path))
+		return true
+	end
+	if not file_version or file_version ~= github_version then
+		log.info(string.format("versions %s and %s don't match; updating...", file_version, github_version))
+		return true
+	else
+		log.info(string.format("file version %s matches github version %s", file_version, github_version))
+		return false
 	end
 end
 
--- still need to manually create the file first
+local function main()
+	local tag = wago:GetLatestRelease(cfg.TACT_PRODUCT)
+	local FULL_PATH = pathlib.join(BASE_PATH, FLAVOR, tag..".lua")
+	local github_version = GetCommit(tag)
+	local file_version = GetFileVersion(FULL_PATH)
+	if ShouldUpdateFile(FULL_PATH, github_version, file_version) then
+		dl:DownloadFile(URL:format(tag), FULL_PATH, 1) -- always redownload
+		AppendVersion(FULL_PATH, github_version)
+	end
+end
+
 main()

@@ -1,3 +1,8 @@
+--[[
+sudo apt update
+sudo apt install gh
+gh auth login
+]]
 local https = require("ssl.https")
 local ltn12 = require("ltn12")
 local cjson = require("cjson")

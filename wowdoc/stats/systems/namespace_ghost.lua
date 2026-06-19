@@ -2,7 +2,6 @@
 local cfg = require("wowdoc.config")
 local tablelib = require("wowdoc.util.table")
 local blizres = require("wowdoc.web.blizres.get")
-local products = require("wowdoc.products.branches")
 local m = {}
 
 if not APIDocumentation then
@@ -20,8 +19,7 @@ function m:GetDocNamespaces()
 end
 
 function m:GetDefinedNamespaces()
-	local branch = products:GetBranch(cfg.TACT_PRODUCT)
-	local globalapi = blizres:GetResource("GlobalAPI", branch)
+	local globalapi = blizres:GetResource("GlobalAPI")
 	local t = {}
 	for _, v in pairs(globalapi[1]) do
 		if v:find("%.") then

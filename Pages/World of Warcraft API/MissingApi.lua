@@ -1,4 +1,3 @@
-local pathlib = require("path")
 local loader = require("wowdoc.loader")
 local dl = require("wowdoc.web.download")
 local strlib = require("wowdoc.util.string")
@@ -7,20 +6,8 @@ local table_sort = require("wowdoc.util.table_sort")
 local products = require("wowdoc.products.branches")
 local cfg = require("wowdoc.config")
 local WikiText = require("Pages/World of Warcraft API/WikiText")
+local blizres = require("wowdoc.web.blizres.get")
 local m = {}
-
-loader:LoadDocumentation()
-local gethe_branch = products:GetBranch(cfg.TACT_PRODUCT)
-
-local Signatures_Parse = require("Pages/World of Warcraft API/Signatures_Parse")
-local signatures = Signatures_Parse:GetSignatures()
-
-
-local ignoredTags = {
-	deprecated = true,
-	framexml = true,
-	lua = true,
-}
 
 function m:ParseWikitext(wikitext)
 	local api_names, tag_data = {}, {}
@@ -35,14 +22,6 @@ function m:ParseWikitext(wikitext)
 	return api_names, tag_data
 end
 
-function m:GetGlobalApi()
-	local global_api = dl:DownloadAndRun(
-		string.format("https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/GlobalAPI.lua", gethe_branch),
-		pathlib.join(cfg.path.blizres, string.format("GlobalAPI_%s.lua", gethe_branch))
-	)
-	return tablelib.ToMap(global_api[1])
-end
-
 function m:FindDuplicates(wowpedia)
 	print("-- duplicates")
 	local t = {}
@@ -55,6 +34,11 @@ function m:FindDuplicates(wowpedia)
 	end
 end
 
+local ignoredTags = {
+	deprecated = true,
+	framexml = true,
+}
+
 function m:HasIgnoredTag(str)
 	local tags = strlib.strsplit(str, ", ")
 	for _, tag in pairs(tags) do
@@ -65,6 +49,8 @@ function m:HasIgnoredTag(str)
 end
 
 function m:FindMissing(wowpedia, wowpedia_tags, global_api)
+	local signatures_parse = require("Pages.World of Warcraft API.signatures.parse")
+	local signatures = signatures_parse:GetSignatures()
 	local map = tablelib.ToMap(wowpedia)
 	print("\n-- to add")
 	for _, k in pairs(table_sort.ByKey(global_api)) do
@@ -86,14 +72,15 @@ function m:FindMissing(wowpedia, wowpedia_tags, global_api)
 	end
 end
 
-local function main()
+function m:main()
+	loader:LoadDocumentation()
 	WikiText:SaveExport()
 	local text = WikiText:GetWikitext(true)
 	local api, tags = m:ParseWikitext(text)
 	m:FindDuplicates(api)
-	local global_api = m:GetGlobalApi()
-	m:FindMissing(api, tags, global_api)
+	local global_api = blizres:GetResource("GlobalAPI")
+	local global_api_map = tablelib.ToMap(global_api[1])
+	m:FindMissing(api, tags, global_api_map)
+	print("done")
 end
-
-main()
-print("done")
+m:main()
