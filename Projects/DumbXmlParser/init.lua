@@ -82,11 +82,6 @@ local filterMixinArgs = {
 	["subSystemMixin"] = true,
 	["pinFrameLevel"] = true,
 	["C_TooltipInfo or {}"] = true,
-	["DefaultAuraBorderOptions"] = true,
-	["DefaultAuraSymbolOptions"] = true,
-	["securecopy"] = true,
-	["options"] = true,
-	["or"] = true,
 }
 
 local filterTemplates = {
@@ -186,12 +181,17 @@ function m:FindAttribute(line, name)
 end
 
 local bl = {
-	GetMaxPinLevel = true,
-	PIN_LEVEL_RANGE = true,
-	settings = true,
-	self = true,
-	pinFrameLevel = true,
-	orientationData = true,
+	["GetMaxPinLevel"] = true,
+	["PIN_LEVEL_RANGE"] = true,
+	["settings"] = true,
+	["self"] = true,
+	["pinFrameLevel"] = true,
+	["orientationData"] = true,
+	["DefaultAuraBorderOptions"] = true,
+	["DefaultAuraSymbolOptions"] = true,
+	["securecopy"] = true,
+	["options"] = true,
+	["or"] = true,
 }
 
 function m:HandleCommaString(tbl, str)
