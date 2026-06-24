@@ -82,6 +82,11 @@ local filterMixinArgs = {
 	["subSystemMixin"] = true,
 	["pinFrameLevel"] = true,
 	["C_TooltipInfo or {}"] = true,
+	["DefaultAuraBorderOptions"] = true,
+	["DefaultAuraSymbolOptions"] = true,
+	["securecopy"] = true,
+	["options"] = true,
+	["or"] = true,
 }
 
 local filterTemplates = {
