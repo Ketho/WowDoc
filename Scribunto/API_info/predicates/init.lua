@@ -91,6 +91,7 @@ local function WriteSecretArguments()
 	log.info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
+	file:write('m.info = require("Module:API info/predicates/secret arguments/info")\n')
 	file:write("m.data = {\n")
 	local line = '\t["%s"] = "%s",\n'
 	local t = {}
@@ -115,7 +116,6 @@ local function WriteSecretAspects()
 	RevEnum_SecretAspect = GetReverseEnum()
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
-	file:write('m.info = require("Module:API info/predicates/secret arguments/info")\n')
 	file:write("m.SecretArgumentsAddAspect = {\n")
 	local line = '\t["%s"] = {%s},\n'
 	local t = {}

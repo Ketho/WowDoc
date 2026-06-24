@@ -60,7 +60,7 @@ function WarcraftWiki:GetTableDocumentation(field)
 	if documentation ~= "" then
 		table.insert(t, documentation)
 	end
-	return table.concat(t, " - ")
+	return table.concat(t, " ")
 end
 
 function WarcraftWiki:GetEnumerationTable(apiTable)
