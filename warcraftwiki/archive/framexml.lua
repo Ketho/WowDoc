@@ -6,6 +6,10 @@ local naming_version = require("wowdoc.namingway.version")
 local m = {}
 
 local PATH_FRAMEXML = "FrameXML"
+system:mkdir(PATH_FRAMEXML)
+for _, v in pairs({"live", "classic", "classic_era"}) do
+	system:mkdir(PATH_FRAMEXML, v)
+end
 
 ---@alias FrameXmlArchiveBranch
 ---|"live"
