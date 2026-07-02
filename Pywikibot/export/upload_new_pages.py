@@ -1,3 +1,4 @@
+# to do: incorporate upload_system.py
 import requests
 import pywikibot
 import os
@@ -77,7 +78,7 @@ def main():
 			page = pywikibot.Page(site, v)
 			if not page.exists():
 				page.text = docApi[v]
-				page.save(summary="12.1.0 (68301)")
+				page.save(summary="12.1.0 (68412)")
 				time.sleep(3)
 			else: # probably a redirect page
 				print(f"- {v}")

@@ -19,7 +19,7 @@ def main():
 		if title in category_members:
 			continue
 		text = get_system_page(file, system, namespace)
-		save_page(title, text, "12.1.0 (68209)")
+		save_page(title, text, "12.1.0 (68412)")
 	print("done")
 
 def get_category_members(catname):

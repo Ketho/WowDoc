@@ -3,6 +3,7 @@ local loader = require("wowdoc.loader")
 local system = require("wowdoc.util.system")
 local table_sort = require("wowdoc.util.table_sort")
 local naming_version = require("wowdoc.namingway.version")
+local products_version = require("wowdoc.products.version")
 local m = {}
 
 local PATH_FRAMEXML = "FrameXML"
@@ -51,7 +52,7 @@ function m:GetPatchFolders(path)
 			})
 		end
 	end
-	table.sort(t, table_sort.VersionTable)
+	table.sort(t, products_version.SortOldest)
 	return t
 end
 

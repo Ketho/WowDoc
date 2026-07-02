@@ -1,9 +1,10 @@
 local framexml = require("warcraftwiki.archive.framexml")
-local table_sort = require("wowdoc.util.table_sort")
+-- local table_sort = require("wowdoc.util.table_sort")
 local naming_version = require("wowdoc.namingway.version")
 local m = {}
 
 function m:main()
+	require("Projects.DownloadFrameXml.DownloadFrameXml") -- im lazy, so get the latest framexml
 	if not self.data then
 		local archives = framexml:GetDocArchive("live")
 		self.data = self:GetFieldAdded(archives)

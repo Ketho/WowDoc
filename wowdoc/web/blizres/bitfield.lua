@@ -3,24 +3,9 @@ local tablelib = require("wowdoc.util.table")
 local dl = require("wowdoc.web.download")
 local cfg = require("wowdoc.config")
 local blizres = require("wowdoc.web.blizres.get")
+local m_branches = require("wowdoc.products.branches")
+local m_latest_product = require("wowdoc.products.latest_product")
 local m = {}
-
----@type GetheBranch[]
-local gethe_branches = {
-	"live", -- mainline
-	"classic", -- mists
-	"classic_anniversary", -- bc anniversary
-	"classic_era", -- vanilla
-}
-
-local ptr_products = {
-	wowt = "ptr",
-	wowxptr = "ptr2"
-}
-
-if ptr_products[cfg.TACT_PRODUCT] then
-	gethe_branches[1] = ptr_products[cfg.TACT_PRODUCT]
-end
 
 ---@alias ResourceType
 ---|"CVars"
@@ -93,6 +78,17 @@ local ToMap = {
 	end,
 }
 
+local function GetLatestBranches()
+	local products = m_latest_product:GetLatestProducts()
+	local t = {
+		m_branches.product_gethe[products.wow.product],
+		m_branches.product_gethe[products.wow_classic.product],
+		m_branches.product_gethe[products.wow_anniversary.product],
+		m_branches.product_gethe[products.wow_classic_era.product],
+	}
+	return t
+end
+
 local function GetBranchMap(branches, resource, options)
 	local map = {}
 	for _, branch in pairs(branches) do
@@ -127,6 +123,7 @@ end
 ---@param resource ResourceType
 function m:main(resource, options)
 	options = options or {}
+	local gethe_branches = GetLatestBranches()
 	local map = GetBranchMap(gethe_branches, resource, options)
 	local unified = GetUnifiedTable(map)
 	local bitflags = GetBitFlags(unified, gethe_branches, map)

@@ -1,10 +1,7 @@
 local loader = require("wowdoc.loader")
-local dl = require("wowdoc.web.download")
 local strlib = require("wowdoc.util.string")
 local tablelib = require("wowdoc.util.table")
 local table_sort = require("wowdoc.util.table_sort")
-local products = require("wowdoc.products.branches")
-local cfg = require("wowdoc.config")
 local WikiText = require("Pages/World of Warcraft API/WikiText")
 local blizres = require("wowdoc.web.blizres.get")
 local m = {}

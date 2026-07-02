@@ -104,7 +104,7 @@ local data = {
 	{ Name = "ClubStreamId", Type = {"string"} },
 	{ Name = "ConnectionIptype", Type = {"number"}, Description = {"1=IPv4", "2=IPv6"} },
 	{ Name = "ConnectionProtocol", Type = {"number"}, Description = {"1=TCP, 2=UDP"} },
-	{ Name = "DiscordID", Type = {"unknown"} }, -- cant check if a number or a string
+	{ Name = "DiscordID", Type = {"string"} },
 	{ Name = "DurationMillisecondsPrimitive", Type = {"number"} },
 	{ Name = "DurationSeconds", Type = {"number"} },
 	{ Name = "DurationSecondsDouble", Type = {"number"} },

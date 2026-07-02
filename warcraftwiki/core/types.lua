@@ -12,6 +12,7 @@ local secrets = {
 	AlwaysSecret = true,
 	ConditionalSecret = true,
 	ConditionalSecretContents = true,
+	SecretValue = true,
 }
 
 function WarcraftWiki:GetTypeTemplate(apiTable)

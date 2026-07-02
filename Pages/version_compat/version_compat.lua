@@ -29,7 +29,7 @@ function m:main()
 	local flags = bitfield:main("GlobalAPI", {combine = true})
 	local lua_api = blizres:GetResource("GlobalAPI", "live")[2]
 	local lua_map = tablelib:ToMap(lua_api)
-	local fs = "|-\n| {{apicompat|%s}} || %s\n"
+	local fs = "|-\n| {{apicompat|0x%x}} || %s\n"
 	local out = pathlib.join(cfg.path.wiki, "globalapi_compat.txt")
 	local file = io.open(out, "w")
 	print("Writing to "..out)
