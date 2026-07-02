@@ -44,6 +44,15 @@ local data_table = {
 		class = "mw-customtoggle-global-c",
 		id = "mw-customcollapsible-global-c",
 	},
+	FrameXML = {
+		label = "FrameXML",
+		text = ": {{tlygo|%s}}",
+		parseName = function(innerLine)
+			return innerLine:match('\t"(.+)",')
+		end,
+		class = "mw-customtoggle-framexml",
+		id = "mw-customcollapsible-framexml",
+	},
 	WidgetAPI = {
 		label = "Widgets",
 		textfunc = function(name, line_number)
@@ -78,7 +87,7 @@ local data_table = {
 	},
 }
 
-local api_order = {"GlobalAPI", "WidgetAPI", "Events", "CVars"}
+local api_order = {"GlobalAPI", "FrameXML", "WidgetAPI", "Events", "CVars"}
 
 for _, v in pairs(data_table) do
 	v.changes = {
