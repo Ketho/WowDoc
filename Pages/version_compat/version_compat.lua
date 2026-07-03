@@ -35,11 +35,20 @@ local function GetGameTypes(v)
 	return t
 end
 
+local function IsMainlineOnly(t)
+	return t.mainline and not t.classic and not t.bcc_anniversary and not t.classic_era
+end
+
 local function SortGameTypes(a, b)
 	local a1 = GetGameTypes(a.v)
 	local b1 = GetGameTypes(b.v)
 	if a1.mainline ~= b1.mainline then
 		return not a1.mainline
+	end
+	local a_mainline_only = IsMainlineOnly(a1)
+	local b_mainline_only = IsMainlineOnly(b1)
+	if a_mainline_only ~= b_mainline_only then
+		return not a_mainline_only
 	end
 	return a.k < b.k
 end
