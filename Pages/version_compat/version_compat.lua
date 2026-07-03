@@ -35,17 +35,66 @@ local function GetGameTypes(v)
 	return t
 end
 
+local classic_types = {
+	"classic",
+	"bcc_anniversary",
+	"classic_era",
+}
+
+local classic_type_order = {
+	classic_era = 1,
+	bcc_anniversary = 2,
+	classic = 3
+}
+
+
+local function CountClassicTypes(v)
+	local t = GetGameTypes(v)
+	local count = 0
+	for _, name in pairs(classic_types) do
+		if t[name] then
+			count = count + 1
+		end
+	end
+	return count
+end
+
+-- vibed
+local function ClassicTypeRank(v)
+	local t = GetGameTypes(v)
+	local count = CountClassicTypes(v)
+	if count == 1 then
+		for name, rank in pairs(classic_type_order) do
+			if t[name] then
+				return rank
+			end
+		end
+	elseif count == 2 then
+		return 4
+	end
+	return 5
+end
+
+-- could probably optimize this by a lot
 local function SortGameTypes(a, b)
 	local a1 = GetGameTypes(a.v)
 	local b1 = GetGameTypes(b.v)
 	if a1.mainline ~= b1.mainline then
 		return not a1.mainline
 	end
+
+	local a_rank = ClassicTypeRank(a.v)
+	local b_rank = ClassicTypeRank(b.v)
+	if a_rank ~= b_rank then
+		return a_rank < b_rank
+	end
+
 	local a_mainline_only = a.v == 0x1
 	local b_mainline_only = b.v == 0x1
 	if a_mainline_only ~= b_mainline_only then
 		return not a_mainline_only
 	end
+
 	return a.k < b.k
 end
 
