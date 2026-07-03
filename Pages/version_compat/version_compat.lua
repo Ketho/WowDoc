@@ -25,6 +25,25 @@ local lua_filter = {
 	["table.wipe"] = true,
 }
 
+local function GetGameTypes(v)
+	local t = {
+		mainline = v & 0x1 > 0,
+		classic = v & 0x2 > 0,
+		bcc_anniversary = v & 0x4 > 0,
+		classic_era = v & 0x8 > 0,
+	}
+	return t
+end
+
+local function SortGameTypes(a, b)
+	local a1 = GetGameTypes(a.v)
+	local b1 = GetGameTypes(b.v)
+	if a1.mainline ~= b1.mainline then
+		return not a1.mainline
+	end
+	return a.k < b.k
+end
+
 function m:main()
 	local flags = bitfield:main("GlobalAPI", {combine = true})
 	local lua_api = blizres:GetResource("GlobalAPI", "live")[2]
@@ -33,10 +52,10 @@ function m:main()
 	local out = pathlib.join(cfg.path.wiki, "globalapi_compat.txt")
 	local file = io.open(out, "w")
 	print("Writing to "..out)
-	for _, k in pairs(table_sort.ByKey(flags)) do
-		if not lua_map[k] or lua_filter[k] then
-			local apilink = string.format("{{apilink.api|%s}}", k)
-			file:write(fs:format(flags[k], apilink))
+	for _, tbl in pairs(table_sort.ByKeyValue(flags, SortGameTypes)) do
+		if not lua_map[tbl.k] or lua_filter[tbl.k] then
+			local apilink = string.format("{{apilink.api|%s}}", tbl.k)
+			file:write(fs:format(flags[tbl.k], apilink))
 		end
 	end
 	file:close()
