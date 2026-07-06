@@ -5,6 +5,8 @@ local table_sort = require("wowdoc.util.table_sort")
 local blizres = require("wowdoc.web.blizres.get")
 local bitfield = require("wowdoc.web.blizres.bitfield")
 local cfg = require("wowdoc.config")
+local latest_product = require("wowdoc.products.latest_product")
+local m_version = require("wowdoc.namingway.version")
 local m = {}
 
 local lua_filter = {
@@ -91,7 +93,7 @@ end
 
 function m:main()
 	local flags = bitfield:main("GlobalAPI", {combine = true})
-	local lua_api = blizres:GetResource("GlobalAPI", "live")[2]
+	local lua_api = blizres:GetResource("GlobalAPI", {branch = "live"})[2]
 	local lua_map = tablelib:ToMap(lua_api)
 	local fs = "|-\n| {{apicompat|0x%x}} || %s\n"
 	local out = pathlib.join(cfg.path.wiki, "globalapi_compat.txt")
@@ -105,5 +107,60 @@ function m:main()
 	end
 	file:close()
 end
+-- m:main()
 
-m:main()
+local function GetClassicTlyBuild(flags)
+	local game_types = GetGameTypes(flags)
+	if game_types.classic then
+		return "classic"
+	elseif game_types.bcc_anniversary then
+		return "bcc_anniversary"
+	elseif game_types.classic_era then
+		return "classic_era"
+	end
+end
+
+local function GetLatestPatches()
+	local latest_products = latest_product:GetLatestProducts()
+	local t = {
+		classic = m_version:GetReleaseVersion(latest_products.wow_classic.version),
+		bcc_anniversary = m_version:GetReleaseVersion(latest_products.wow_anniversary.version),
+		classic_era = m_version:GetReleaseVersion(latest_products.wow_classic_era.version),
+	}
+	return t
+end
+
+local function TemplateBuilder(latest_classic_patches, flags, name)
+	local game_types = GetGameTypes(flags[name])
+	local t = {}
+	table.insert(t, "tlygo")
+	local build
+	if game_types.classic then
+		build = latest_classic_patches.classic
+	elseif game_types.bcc_anniversary then
+		build = latest_classic_patches.bcc_anniversary
+	elseif game_types.classic_era then
+		build = latest_classic_patches.classic_era
+	end
+	if build then
+		table.insert(t, string.format("build=%s", build))
+	end
+	table.insert(t, name)
+	return string.format("{{%s}}", table.concat(t, "|"))
+end
+
+-- need to refactor everything, this is horrible
+function m:WriteTemplates()
+	local latest_classic_patches = GetLatestPatches()
+	local flags, unified = bitfield:main("Templates", {combine = true})
+	local fs = "|-\n| {{apicompat|0x%x}} || %s || %s\n"
+	local out = pathlib.join(cfg.path.wiki, "templates_compat.txt")
+	local file = io.open(out, "w")
+	print("Writing to "..out)
+	for _, tbl in pairs(table_sort.ByKeyValue(flags, SortGameTypes)) do
+		local apilink = TemplateBuilder(latest_classic_patches, flags, tbl.k)
+		file:write(fs:format(flags[tbl.k], apilink, unified[tbl.k]))
+	end
+	file:close()
+end
+m:WriteTemplates()

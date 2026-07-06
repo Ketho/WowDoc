@@ -14,14 +14,14 @@ m.game_type = {
 		"wowt",
 		"wowxptr",
 	},
-	wow_anniversary = {
-		"wow_anniversary",
-		"wow_classic_era_ptr", -- seems to be interchanged with classic era
-	},
 	wow_classic = {
 		"wow_classic",
 		"wow_classic_ptr",
 		"wow_classic_beta",
+	},
+	wow_anniversary = {
+		"wow_anniversary",
+		"wow_classic_era_ptr", -- seems to be interchanged with classic era
 	},
 	wow_classic_era = {
 		"wow_classic_era",

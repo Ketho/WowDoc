@@ -2,7 +2,12 @@ local log = require("wowdoc.util.log")
 local m = {}
 
 function m:ParseVersion(v)
-	local major, minor, patch, build = v:match("^(%d+)%.(%d+)%.(%w+) %((%d+)%)$")
+	local major, minor, patch, build
+	if v:find("%(") then
+		major, minor, patch, build = v:match("^(%d+)%.(%d+)%.(%w+) %((%d+)%)$")
+	else
+		major, minor, patch, build = v:match("^(%d+)%.(%d+)%.(%w+)%.(%d+)$")
+	end
 	major = tonumber(major)
 	minor = tonumber(minor)
 	patch = patch:match("%d+") -- 4.2.0a (14480)

@@ -23,6 +23,12 @@ local function CopyTableTrue(t, tbl)
 	end
 end
 
+local function CopyTableTemplate(t, tbl)
+	for k, v in pairs(tbl) do
+		t[k] = v.type
+	end
+end
+
 ---@type table<ResourceType, function>
 local ToMap = {
 	CVars = function(tbl)
@@ -73,7 +79,7 @@ local ToMap = {
 	end,
 	Templates = function(tbl)
 		local t = {}
-		CopyTableTrue(t, tbl)
+		CopyTableTemplate(t, tbl)
 		return t
 	end,
 }
@@ -92,7 +98,7 @@ end
 local function GetBranchMap(branches, resource, options)
 	local map = {}
 	for _, branch in pairs(branches) do
-		local data = blizres:GetResource(resource, branch)
+		local data = blizres:GetResource(resource, {branch = branch})
 		map[branch] = ToMap[resource](data, options)
 	end
 	return map
@@ -101,8 +107,8 @@ end
 local function GetUnifiedTable(tbl)
 	local t = {}
 	for _, branch in pairs(tbl) do
-		for k in pairs(branch) do
-			t[k] = true
+		for k, v in pairs(branch) do
+			t[k] = v
 		end
 	end
 	return t
@@ -127,7 +133,7 @@ function m:main(resource, options)
 	local map = GetBranchMap(gethe_branches, resource, options)
 	local unified = GetUnifiedTable(map)
 	local bitflags = GetBitFlags(unified, gethe_branches, map)
-	return bitflags
+	return bitflags, unified
 end
 
 return m
