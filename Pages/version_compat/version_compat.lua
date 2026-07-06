@@ -109,17 +109,6 @@ function m:main()
 end
 -- m:main()
 
-local function GetClassicTlyBuild(flags)
-	local game_types = GetGameTypes(flags)
-	if game_types.classic then
-		return "classic"
-	elseif game_types.bcc_anniversary then
-		return "bcc_anniversary"
-	elseif game_types.classic_era then
-		return "classic_era"
-	end
-end
-
 local function GetLatestPatches()
 	local latest_products = latest_product:GetLatestProducts()
 	local t = {
@@ -135,7 +124,9 @@ local function TemplateBuilder(latest_classic_patches, flags, name)
 	local t = {}
 	table.insert(t, "tlygo")
 	local build
-	if game_types.classic then
+	if game_types.mainline then
+		-- noop
+	elseif game_types.classic then
 		build = latest_classic_patches.classic
 	elseif game_types.bcc_anniversary then
 		build = latest_classic_patches.bcc_anniversary
