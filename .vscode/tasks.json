@@ -11,23 +11,9 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "1. Lua warcraftwiki",
+			"label": "Python",
 			"type": "shell",
-			"command": "source .lua/bin/activate && lua 'warcraftwiki/init.lua'",
-			"presentation": {"showReuseMessage": false, "clear": true},
-			"problemMatcher": []
-		},
-		{
-			"label": "Lua UpdateResources",
-			"type": "shell",
-			"command": "source .lua/bin/activate && lua 'Projects/UpdateResources/init.lua'",
-			"presentation": {"showReuseMessage": false, "clear": true},
-			"problemMatcher": []
-		},
-		{
-			"label": "2. Lua update wiki tables",
-			"type": "shell",
-			"command": "source .lua/bin/activate && lua 'Scribunto/upload.lua'",
+			"command": "source .venv/bin/activate && python '${file}'",
 			"presentation": {"showReuseMessage": false, "clear": true},
 			"problemMatcher": []
 		},
@@ -39,16 +25,23 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Python",
+			"label": "0. Lua BlizzardInterfaceResources",
 			"type": "shell",
-			"command": "source .venv/bin/activate && python '${file}'",
+			"command": "source .lua/bin/activate && lua 'Projects/UpdateResources/init.lua'",
 			"presentation": {"showReuseMessage": false, "clear": true},
 			"problemMatcher": []
 		},
 		{
-			"label": "Python parse_html",
+			"label": "1. Lua warcraftwiki",
 			"type": "shell",
-			"command": "source .venv/bin/activate && python Pywikibot/export/parse_html.py",
+			"command": "source .lua/bin/activate && lua 'warcraftwiki/init.lua'",
+			"presentation": {"showReuseMessage": false, "clear": true},
+			"problemMatcher": []
+		},
+		{
+			"label": "2. Lua update wiki tables",
+			"type": "shell",
+			"command": "source .lua/bin/activate && lua 'Scribunto/upload.lua'",
 			"presentation": {"showReuseMessage": false, "clear": true},
 			"problemMatcher": []
 		},
@@ -56,6 +49,13 @@
 			"label": "3. Python upload new pages",
 			"type": "shell",
 			"command": "source .venv/bin/activate && pwb login && python 'Pywikibot/export/upload_new_pages.py'",
+			"presentation": {"showReuseMessage": false, "clear": true},
+			"problemMatcher": []
+		},
+		{
+			"label": "Python parse_html",
+			"type": "shell",
+			"command": "source .venv/bin/activate && python Pywikibot/export/parse_html.py",
 			"presentation": {"showReuseMessage": false, "clear": true},
 			"problemMatcher": []
 		},
