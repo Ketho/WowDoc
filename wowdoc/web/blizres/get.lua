@@ -7,6 +7,7 @@ local m = {}
 local URL = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/%s/Resources/%s.lua"
 
 function m:GetResource(name, options)
+	options = options or {}
 	if not options.product then
 		options.product = cfg.TACT_PRODUCT
 	end

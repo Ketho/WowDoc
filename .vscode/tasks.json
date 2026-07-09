@@ -11,7 +11,7 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Lua warcraftwiki",
+			"label": "1. Lua warcraftwiki",
 			"type": "shell",
 			"command": "source .lua/bin/activate && lua 'warcraftwiki/init.lua'",
 			"presentation": {"showReuseMessage": false, "clear": true},
@@ -25,7 +25,7 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Lua Scribunto",
+			"label": "2. Lua update wiki tables",
 			"type": "shell",
 			"command": "source .lua/bin/activate && lua 'Scribunto/upload.lua'",
 			"presentation": {"showReuseMessage": false, "clear": true},
@@ -49,6 +49,13 @@
 			"label": "Python parse_html",
 			"type": "shell",
 			"command": "source .venv/bin/activate && python Pywikibot/export/parse_html.py",
+			"presentation": {"showReuseMessage": false, "clear": true},
+			"problemMatcher": []
+		},
+		{
+			"label": "3. Python upload new pages",
+			"type": "shell",
+			"command": "source .venv/bin/activate && pwb login && python 'Pywikibot/export/upload_new_pages.py'",
 			"presentation": {"showReuseMessage": false, "clear": true},
 			"problemMatcher": []
 		},

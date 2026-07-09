@@ -46,7 +46,13 @@ local data_table = {
 	},
 	FrameXML = {
 		label = "FrameXML",
-		text = ": {{tlygo|%s}}",
+		textfunc = function(name, sign)
+			if sign == "-" then
+				return string.format(": {{tlygo|build=%s|%s}}", BRANCH1, name)
+			else
+				return string.format(": {{tlygo|%s}}", name)
+			end
+		end,
 		parseName = function(innerLine)
 			return innerLine:match('\t"(.+)",')
 		end,
@@ -112,7 +118,7 @@ function m:ParseDiff(diff_path)
 				if name then
 					local text
 					if info.textfunc then
-						text = info.textfunc(name)
+						text = info.textfunc(name, sign)
 					else
 						text = info.text:format(name)
 					end

@@ -129,6 +129,7 @@ local data = {
 	{ Name = "luaFunction", W_Replace = "function" },
 	{ Name = "LuaFunctionReference", Type = {"function"} },
 	{ Name = "luaIndex", Type = {"number"} },
+	{ Name = "LuaInventorySlot", Type = {"number"} },
 	{ Name = "LuaValueReference", Type = {"any"} },
 	{ Name = "LuaValueVariant", Type = {"any"} },
 	{ Name = "ModelAsset", Type = {"string"} },
