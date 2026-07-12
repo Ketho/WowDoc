@@ -91,12 +91,12 @@ local function SortGameTypes(a, b)
 	return a.k < b.k
 end
 
-function m:main()
-	local flags = bitfield:main("GlobalAPI", {combine = true})
-	local lua_api = blizres:GetResource("GlobalAPI", {branch = "live"})[2]
+function m:main(resource)
+	local flags = bitfield:main(resource, {combine = true})
+	local lua_api = blizres:GetResource(resource, {branch = "live"})[2]
 	local lua_map = tablelib:ToMap(lua_api)
 	local fs = "|-\n| {{apicompat|0x%x}} || %s\n"
-	local out = pathlib.join(cfg.path.wiki, "globalapi_compat.txt")
+	local out = pathlib.join(cfg.path.wiki, string.format("compat_%s.txt", resource))
 	local file = io.open(out, "w")
 	print("Writing to "..out)
 	for _, tbl in pairs(table_sort.ByKeyValue(flags, SortGameTypes)) do
@@ -141,11 +141,16 @@ local function TemplateBuilder(latest_classic_patches, flags, name)
 end
 
 -- need to refactor everything, this is horrible
-function m:WriteTemplates()
+function m:WriteTlyResource(resource)
 	local latest_classic_patches = GetLatestPatches()
-	local flags, unified = bitfield:main("Templates", {combine = true})
-	local fs = "|-\n| {{apicompat|0x%x}} || %s || %s\n"
-	local out = pathlib.join(cfg.path.wiki, "templates_compat.txt")
+	local flags, unified = bitfield:main(resource, {combine = true})
+	local fs
+	if resource == "Templates" then
+		fs = "|-\n| {{apicompat|0x%x}} || %s || %s\n"
+	else
+		fs = "|-\n| {{apicompat|0x%x}} || %s\n"
+	end
+	local out = pathlib.join(cfg.path.wiki, string.format("compat_%s.txt", resource))
 	local file = io.open(out, "w")
 	print("Writing to "..out)
 	for _, tbl in pairs(table_sort.ByKeyValue(flags, SortGameTypes)) do
@@ -154,4 +159,4 @@ function m:WriteTemplates()
 	end
 	file:close()
 end
-m:WriteTemplates()
+m:WriteTlyResource("FrameXML")
