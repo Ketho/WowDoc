@@ -111,7 +111,7 @@ local function GetLatestPatches()
 	return t
 end
 
-local function TemplateBuilder(latest_classic_patches, flags, name)
+local function TemplateBuilder(flags, name)
 	local game_types = GetGameTypes(flags[name])
 	local t = {}
 	table.insert(t, "tlygo")
@@ -119,11 +119,11 @@ local function TemplateBuilder(latest_classic_patches, flags, name)
 	if game_types.mainline then
 		-- noop
 	elseif game_types.classic then
-		build = latest_classic_patches.classic
+		build = "classic"
 	elseif game_types.bcc_anniversary then
-		build = latest_classic_patches.bcc_anniversary
+		build = "anniversary"
 	elseif game_types.classic_era then
-		build = latest_classic_patches.classic_era
+		build = "era"
 	end
 	if build then
 		table.insert(t, string.format("build=%s", build))
@@ -134,7 +134,7 @@ end
 
 -- need to refactor everything, this is horrible
 function m:WriteTlyResource(resource)
-	local latest_classic_patches = GetLatestPatches()
+	-- local latest_classic_patches = GetLatestPatches()
 	local flags, unified = bitfield:main(resource, {combine = true})
 	local fs
 	if resource == "Templates" then
@@ -146,7 +146,7 @@ function m:WriteTlyResource(resource)
 	local file = io.open(out, "w")
 	print("Writing to "..out)
 	for _, tbl in pairs(table_sort.ByKeyValue(flags, SortGameTypes)) do
-		local apilink = TemplateBuilder(latest_classic_patches, flags, tbl.k)
+		local apilink = TemplateBuilder(flags, tbl.k)
 		file:write(fs:format(flags[tbl.k], apilink, unified[tbl.k]))
 	end
 	file:close()
