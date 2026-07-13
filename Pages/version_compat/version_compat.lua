@@ -38,56 +38,48 @@ local function GetGameTypes(v)
 end
 
 local classic_types = {
-	"classic",
-	"bcc_anniversary",
 	"classic_era",
+	"bcc_anniversary",
+	"classic",
 }
 
-local classic_type_order = {
-	classic_era = 1,
-	bcc_anniversary = 2,
-	classic = 3
-}
-
--- vibed
+-- more vibing
 local function GetClassicRank(t)
 	local count = 0
-	for _, name in pairs(classic_types) do
+	local value = 0
+	for i, name in ipairs(classic_types) do
 		if t[name] then
 			count = count + 1
+			value = value * 4 + i
 		end
 	end
-	if count == 1 then
-		for name, rank in pairs(classic_type_order) do
-			if t[name] then
-				return rank
-			end
+	return count * 100 + value
+end
+
+local function GetSortRank(v)
+	local game_types = GetGameTypes(v)
+	local tier = 0
+	if game_types.mainline then
+		if v == 0x1 then
+			tier = 3
+		elseif v == 0xf then
+			tier = 2
+		else
+			tier = 1
 		end
-	elseif count == 2 then
-		return 4
 	end
-	return 5
+	return tier, GetClassicRank(game_types)
 end
 
 local function SortGameTypes(a, b)
-	local a1 = GetGameTypes(a.v)
-	local b1 = GetGameTypes(b.v)
-	if a1.mainline ~= b1.mainline then
-		return not a1.mainline
+	local a_tier, a_rank = GetSortRank(a.v)
+	local b_tier, b_rank = GetSortRank(b.v)
+	if a_tier ~= b_tier then
+		return a_tier < b_tier
 	end
-
-	local a_rank = GetClassicRank(a1)
-	local b_rank = GetClassicRank(b1)
 	if a_rank ~= b_rank then
 		return a_rank < b_rank
 	end
-
-	local a_mainline_only = a.v == 0x1
-	local b_mainline_only = b.v == 0x1
-	if a_mainline_only ~= b_mainline_only then
-		return not a_mainline_only
-	end
-
 	return a.k < b.k
 end
 
