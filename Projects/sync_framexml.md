@@ -39,7 +39,7 @@ git push ketho classic_anniversary:classic_anniversary
 ```
 
 ## update
-- for on windows instead of WSL
+- windows
 ```sh
 cd "D:\Repo\wow\wow-framexml\wow-ui-source midnight-ptr"
 git pull origin ptr
@@ -56,5 +56,23 @@ git push ketho classic_anniversary
 cd "D:\Repo\wow\wow-framexml\wow-ui-source vanilla"
 git pull origin classic_era
 git push ketho classic_era:classic_era
+```
 
+- WSL
+```sh
+cd "/mnt/d/Repo/wow/wow-framexml/wow-ui-source midnight-ptr"
+git pull origin ptr
+git push ketho ptr
+
+cd "/mnt/d/Repo/wow/wow-framexml/wow-ui-source mists"
+git pull origin classic
+git push ketho classic
+
+cd "/mnt/d/Repo/wow/wow-framexml/wow-ui-source bcc"
+git pull origin classic_anniversary
+git push ketho classic_anniversary
+
+cd "/mnt/d/Repo/wow/wow-framexml/wow-ui-source vanilla"
+git pull origin classic_era
+git push ketho classic_era:classic_era
 ```

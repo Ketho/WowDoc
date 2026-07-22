@@ -53,6 +53,44 @@
 			"problemMatcher": []
 		},
 		{
+			"label": "4. Update framexml mirrors",
+			"dependsOn": [
+				"4.1 Update framexml midnight-ptr",
+				"4.2 Update framexml mists",
+				"4.3 Update framexml bcc",
+				"4.4 Update framexml vanilla"
+			],
+			"dependsOrder": "sequence"
+		},
+		{
+			"label": "4.1 Update framexml midnight-ptr",
+			"type": "shell",
+			"command": "cd \"/mnt/d/Repo/wow/wow-framexml/wow-ui-source midnight-ptr\" && git pull origin ptr && git push ketho ptr",
+			"presentation": {"showReuseMessage": false, "clear": true},
+			"problemMatcher": []
+		},
+		{
+			"label": "4.2 Update framexml mists",
+			"type": "shell",
+			"command": "cd \"/mnt/d/Repo/wow/wow-framexml/wow-ui-source mists\" && git pull origin classic && git push ketho classic",
+			"presentation": {"showReuseMessage": false, "clear": true},
+			"problemMatcher": []
+		},
+		{
+			"label": "4.3 Update framexml bcc",
+			"type": "shell",
+			"command": "cd \"/mnt/d/Repo/wow/wow-framexml/wow-ui-source bcc\" && git pull origin classic_anniversary && git push ketho classic_anniversary",
+			"presentation": {"showReuseMessage": false, "clear": true},
+			"problemMatcher": []
+		},
+		{
+			"label": "4.4 Update framexml vanilla",
+			"type": "shell",
+			"command": "cd \"/mnt/d/Repo/wow/wow-framexml/wow-ui-source vanilla\" && git pull origin classic_era && git push ketho classic_era",
+			"presentation": {"showReuseMessage": false, "clear": true},
+			"problemMatcher": []
+		},
+		{
 			"label": "Python parse_html",
 			"type": "shell",
 			"command": "source .venv/bin/activate && python Pywikibot/export/parse_html.py",
