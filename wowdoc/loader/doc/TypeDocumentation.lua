@@ -57,6 +57,7 @@ local data = {
 	{ Name = "ModelSceneFrameActor", W_Replace = "ModelSceneActor", W_Link = "UIOBJECT_ModelSceneActor" },
 	{ Name = "NamePlateFrame", Mixin = "NamePlateBaseMixin", W_Link = "UIOBJECT_NamePlate" },
 	{ Name = "ScriptRegion", Type = {"Region"} },
+	{ Name = "EditBox", W_Link = "UIOBJECT_EditBox" },
 	{ Name = "SimpleAnim", W_Replace = "Animation", W_Link = "UIOBJECT_Animation" },
 	{ Name = "SimpleAnimGroup", W_Replace = "AnimationGroup", W_Link = "UIOBJECT_AnimationGroup" },
 	{ Name = "SimpleButton", W_Replace = "Button", W_Link = "UIOBJECT_Button" },
@@ -93,7 +94,7 @@ local data = {
 	-- types
 	{ Name = "AnimationDataEnum", Type = {"number"} },
 	{ Name = "ArtifactTiers", Type = {"number"} },
-	{ Name = "AuraFilters", Type = {"string"}, Description = {"A list of filters separated by pipe chars or spaces"}, --[[W_Link = "API_type/AuraFilters"]] },
+	{ Name = "AuraFilters", Type = {"string"}, Description = {"A list of filters separated by pipe chars"}, --[[W_Link = "API_type/AuraFilters"]] },
 	{ Name = "BigInteger", Type = {"number"} }, -- in RecruitingClubInfo.lastUpdatedTime (unix time) -- /dump C_ClubFinder.GetRecruitingClubInfoFromFinderGUID(C_ClubFinder.ReturnMatchingGuildList()[1].clubFinderGUID)
 	{ Name = "BigUInteger", Type = {"number"} },
 	{ Name = "CalendarEventID", Type = {"number"} }, -- (used to be a string according to previous docs?)

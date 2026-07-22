@@ -1,11 +1,14 @@
+-- todo: need to run this twice for `Module:API info/patch/api retail` to update properly. why?
 local pathlib = require("path")
 local enum = require("wowdoc.web.blizres.enum")
 local products = require("wowdoc.products.branches")
 local log = require("wowdoc.util.log")
 local cfg = require("wowdoc.config")
+local latest_product = require("wowdoc.products.latest_product")
 
 local BRANCH = products:GetBranch(cfg.TACT_PRODUCT)
-local SUMMARY = "12.1.0 (68412)"
+local products = latest_product:GetLatestProducts()
+local SUMMARY = products.wow.version
 
 local function WriteFiles()
     local scribunto = pathlib.join("Scribunto", "API_info")

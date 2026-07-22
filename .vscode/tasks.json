@@ -34,7 +34,7 @@
 		{
 			"label": "1. Lua warcraftwiki",
 			"type": "shell",
-			"command": "source .lua/bin/activate && lua 'warcraftwiki/init.lua'",
+			"command": "rm -r .wiki; source .lua/bin/activate && lua 'warcraftwiki/init.lua'",
 			"presentation": {"showReuseMessage": false, "clear": true},
 			"problemMatcher": []
 		},

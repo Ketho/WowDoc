@@ -67,6 +67,7 @@ def main():
 		'Structures',
 		'Enums',
 	]
+	print("Querying wiki pages...")
 	cats = []
 	for v in catNames:
 		for member in category_members(v):
@@ -82,7 +83,7 @@ def main():
 				time.sleep(3)
 			else: # probably a redirect page
 				print(f"- {v}")
-				time.sleep(.2)
+				time.sleep(.3)
 	print("done")
 
 if __name__ == "__main__":
