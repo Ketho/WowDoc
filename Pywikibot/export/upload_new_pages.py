@@ -7,6 +7,7 @@ from pathlib import Path
 
 site = pywikibot.Site("en", "warcraftwiki")
 url = 'https://warcraft.wiki.gg'
+SUMMARY = "12.1.0 (68569)" # to do: get latest build in python
 
 headers = { # https://foundation.wikimedia.org/wiki/Policy:Wikimedia_Foundation_User-Agent_Policy
     'User-Agent': 'KethoBot/1.0 (https://warcraft.wiki.gg/wiki/User:KethoBot)'
@@ -79,7 +80,7 @@ def main():
 			page = pywikibot.Page(site, v)
 			if not page.exists():
 				page.text = docApi[v]
-				page.save(summary="12.1.0 (68569)")
+				page.save(summary=SUMMARY)
 				time.sleep(3)
 			else: # probably a redirect page
 				print(f"- {v}")

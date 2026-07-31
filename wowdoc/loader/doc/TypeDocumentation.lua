@@ -94,7 +94,7 @@ local data = {
 	-- types
 	{ Name = "AnimationDataEnum", Type = {"number"} },
 	{ Name = "ArtifactTiers", Type = {"number"} },
-	{ Name = "AuraFilters", Type = {"string"}, Description = {"A list of filters separated by pipe chars"}, --[[W_Link = "API_type/AuraFilters"]] },
+	{ Name = "AuraFilters", Type = {"string"}, --[[W_Link = "API_type/AuraFilters"]] },
 	{ Name = "BigInteger", Type = {"number"} }, -- in RecruitingClubInfo.lastUpdatedTime (unix time) -- /dump C_ClubFinder.GetRecruitingClubInfoFromFinderGUID(C_ClubFinder.ReturnMatchingGuildList()[1].clubFinderGUID)
 	{ Name = "BigUInteger", Type = {"number"} },
 	{ Name = "CalendarEventID", Type = {"number"} }, -- (used to be a string according to previous docs?)
@@ -186,6 +186,7 @@ local data = {
 	{ Name = "FunctionContainer", Type = {"userdata"}, W_Link = "API_types/FunctionContainer" }, -- custom type
 	{ Name = "TickerCallback", Type = {"function", "FunctionContainer"} }, -- updated type
 	{ Name = "TimerCallback", Type = {"function", "FunctionContainer"} }, -- updated type
+	{ Name = "UiMapPoint", W_Link = "UiMapPoint" },
 	{ Name = "Enum.InventoryType", W_Link = "Enum.InventoryType", NoTransclude = true },
 	{ Name = "Enum.ItemCreationContext", W_Link = "Enum.ItemCreationContext", NoTransclude = true },
 	{ Name = "Enum.ItemQuality", W_Link = "Enum.ItemQuality", NoTransclude = true },

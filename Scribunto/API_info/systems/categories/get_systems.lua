@@ -70,22 +70,21 @@ function m:GetSystems()
 		if v.system.Name then
 			local numFunctions = v.system.Functions and #v.system.Functions
 			local numEvents = v.system.Events and #v.system.Events
-			if v.system.Type == "System" then
-				if not filter[v.file] then
-					local line = BuildCsvLine(v.file, v.system.Name, v.system.Namespace, numFunctions, numEvents)
-					local data = {
-						file = v.file,
-						system = v.system.Name,
-						namespace = v.system.Namespace,
-						numFunctions = numFunctions,
-						numEvents = numEvents,
-						documentation = FormatDocumentation(v.system.Documentation),
-					}
-					table.insert(t, {
-						line = line,
-						data = data,
-					})
-				end
+			if not filter[v.file] then
+				local line = BuildCsvLine(v.system.Name)
+				local data = {
+					file = v.file,
+					systemType = v.system.Type,
+					systemName = v.system.Name,
+					namespace = v.system.Namespace,
+					numFunctions = numFunctions,
+					numEvents = numEvents,
+					documentation = FormatDocumentation(v.system.Documentation),
+				}
+				table.insert(t, {
+					line = line,
+					data = data,
+				})
 			end
 		end
 	end
@@ -99,7 +98,7 @@ function m:WriteCsv(tbl)
 	local filePath = pathlib.join(cfg.path.scribunto_systems, "systems.csv")
 	log.info("Writing "..filePath)
 	local file = io.open(filePath, "w")
-	file:write("File,Name,Namespace,NumFunctions,NumEvents,Documentation\n")
+	file:write("Name\n")
 	for _, v in pairs(tbl) do
 		file:write(v.line.."\n")
 	end
@@ -111,11 +110,11 @@ function m:WriteModuleData(tbl)
 	log.info("Writing "..filePath)
 	local file = io.open(filePath, "w")
 	file:write("local data = {\n")
-	local fs = '\t%s = {"%s", %s, %d, %d, %s},\n'
+	local fs = '\t%s = {"%s", "%s", %s, %d, %d, %s},\n'
 	for _, v in pairs(tbl) do
 		local data = v.data
 		local namespace = data.namespace and string.format('"%s"', data.namespace)
-		file:write(fs:format(data.system, data.file, namespace, data.numFunctions, data.numEvents, data.documentation))
+		file:write(fs:format(data.systemName, data.systemType, data.file, namespace, data.numFunctions, data.numEvents, data.documentation))
 	end
 	file:write("}\n\nreturn data")
 	file:close()

@@ -5,6 +5,7 @@ import time
 
 site = pywikibot.Site("en", "warcraftwiki")
 url = 'https://warcraft.wiki.gg'
+SUMMARY = "wowsystem template"
 
 headers = { # https://foundation.wikimedia.org/wiki/Policy:Wikimedia_Foundation_User-Agent_Policy
     'User-Agent': 'KethoBot/1.0 (https://warcraft.wiki.gg/wiki/User:KethoBot)'
@@ -12,14 +13,15 @@ headers = { # https://foundation.wikimedia.org/wiki/Policy:Wikimedia_Foundation_
 
 def main():
 	systems = read_csv('.wow/scribunto/systems/systems.csv')
-	category_members = get_category_members('API systems')
+	# category_members = get_category_members('API systems')
 	for row in systems:
-		file, system, namespace, *_ = row
+		system = row[0]
 		title = f"Category:API systems/{system}"
-		if title in category_members:
-			continue
-		text = get_system_page(file, system, namespace)
-		save_page(title, text, "12.1.0 (68412)")
+		# if title in category_members:
+		# 	continue
+		# text = get_system_page(file, system, namespace)
+		text = "{{wowsystem}}"
+		save_page(title, text, SUMMARY)
 	print("done")
 
 def get_category_members(catname):
