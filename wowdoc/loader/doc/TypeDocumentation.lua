@@ -94,7 +94,7 @@ local data = {
 	-- types
 	{ Name = "AnimationDataEnum", Type = {"number"} },
 	{ Name = "ArtifactTiers", Type = {"number"} },
-	{ Name = "AuraFilters", Type = {"string"}, --[[W_Link = "API_type/AuraFilters"]] },
+	{ Name = "AuraFilters", Type = {"string"}, W_Link = "API_types/AuraFilters" },
 	{ Name = "BigInteger", Type = {"number"} }, -- in RecruitingClubInfo.lastUpdatedTime (unix time) -- /dump C_ClubFinder.GetRecruitingClubInfoFromFinderGUID(C_ClubFinder.ReturnMatchingGuildList()[1].clubFinderGUID)
 	{ Name = "BigUInteger", Type = {"number"} },
 	{ Name = "CalendarEventID", Type = {"number"} }, -- (used to be a string according to previous docs?)
