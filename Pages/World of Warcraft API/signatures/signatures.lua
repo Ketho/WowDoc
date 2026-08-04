@@ -6,12 +6,8 @@ local m = {}
 loader:LoadDocumentation()
 
 local WikiText = require("Pages/World of Warcraft API/WikiText")
--- local Signatures_Parse = require("Pages/World of Warcraft API/Signatures_Parse")
--- local signatures = Signatures_Parse:GetSignatures()
--- local wiki_signatures = require("Pages/World of Warcraft API/ParseAnnotations/BuildSignatures"):main()
-
--- package.path = package.path..";../?.lua"
--- local updated_desc = require("wow-api-descriptions/updated")
+local Signatures_Parse = require("Pages/World of Warcraft API/signatures/parse")
+local signatures = Signatures_Parse:GetSignatures()
 
 local OUTPUT = pathlib.join(cfg.path.wiki_wowapi, "World_of_Warcraft_API.txt")
 
@@ -19,10 +15,10 @@ local function MatchLine(s)
 	local t = {}
 	t.tags = s:match("{{apitag|(.-)}}")
 	t.name = s:match("%[%[API (.-)|")
-	-- t.signature = signatures[t.name]
+	t.signature = signatures[t.name]
 	t.args = s:match("%((.-)%)")
 	t.returns = s:match("%) : (.+</span>)")
-	t.desc = --[[updated_desc[t.name] or]] s:match("[%)%}] %- (.+)") or s:match("%</span> %- (.+)")
+	t.desc = s:match("[%)%}] %- (.+)") or s:match("%</span> %- (.+)")
 	return t
 end
 
@@ -31,8 +27,6 @@ function m:StringBuilder(info)
 	table.insert(t, ": ")
 	if info.signature then
 		table.insert(t, info.signature)
-	-- elseif wiki_signatures[info.name] then
-	-- 	table.insert(t, wiki_signatures[info.name])
 	else
 		table.insert(t, string.format("[[API %s|%s]]", info.name, info.name))
 		table.insert(t, string.format("(%s)", info.args or ""))
