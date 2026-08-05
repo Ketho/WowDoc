@@ -1,18 +1,17 @@
 -- https://warcraft.wiki.gg/wiki/Console_variables/Complete_list
 local pathlib = require("path")
-local wowdoc = require("wowdoc")
 local table_sort = require("wowdoc.util.table_sort")
 local products = require("wowdoc.products.branches")
+local cfg = require("wowdoc.config")
+local blizres = require("wowdoc.web.blizres.get")
 local m = {}
 
-PRODUCT = "wow" ---@type TactProduct
-GETHE_BRANCH = products:GetBranch(PRODUCT)
-OUTPUT_CVAR = pathlib.join(PATHS.WIKI_PAGE, "Console_variables_cvar.txt")
-OUTPUT_COMMAND = pathlib.join(PATHS.WIKI_PAGE, "Console_variables_command.txt")
+OUTPUT_CVAR = pathlib.join(cfg.path.wiki, "Console_variables_cvar.txt")
+OUTPUT_COMMAND = pathlib.join(cfg.path.wiki, "Console_variables_command.txt")
 
 function m:main()
 	local base_folder = pathlib.join("Pages", "Console variables")
-	local blizres_cvars = require(pathlib.join(base_folder, "blizres"))()
+	local blizres_cvars = blizres:GetResource("CVars")
 	local framexml_strings = require(pathlib.join(base_folder, "framexml"))(blizres_cvars)
 	local binary_strings = require(pathlib.join(base_folder, "binaries"))(blizres_cvars)
 	self:WriteCVarList(blizres_cvars[1].var, framexml_strings, binary_strings)
@@ -42,6 +41,22 @@ local false_positives = {
 	AreaTriggers = true, -- 11.2.0 ptr
 }
 
+local function GetDataSortValue(v)
+	local major, minor, patch
+	if v:find("%.x") then
+		major, minor = v:match("(%d+)%.(%a+)")
+		if minor == "x" then
+			minor = 99
+			patch = 0
+		end
+	else
+		major, minor, patch = v:match("(%d+)%.(%d+)%.(%d+)")
+	end
+	if major and minor and patch then
+		return string.format("%02d%02d%02d", major, minor, patch)
+	end
+end
+
 function m:WriteCVarList(blizres_cvars, framexml_strings, binary_strings)
 	print("writing to "..OUTPUT_CVAR)
 	local file = io.open(OUTPUT_CVAR, "w")
@@ -49,8 +64,15 @@ function m:WriteCVarList(blizres_cvars, framexml_strings, binary_strings)
 	file:write('{| class="sortable darktable zebra col2-center col3-center"\n')
 	file:write("! !! !! !! Name !! Default !! Category !! Scope !! Description\n")
 	local githubLink = "{{framexml_search|t=icon|%s}}"
-	local fs = "|-\n| %s || %s || %s || %s\n| %s || %s || %s\n| %s\n"
+	local fs = '|-\n| %s || %s || %s || %s\n| %s || %s || %s\n| %s\n'
 	for _, cvar in pairs(table_sort.ByKey(blizres_cvars, table_sort.Nocase)) do
+		local patch = not false_positives[cvar] and binary_strings[cvar]
+		local patch_arg
+		if patch then
+			local dsv = patch and GetDataSortValue(patch)
+			patch_args = string.format('data-sort-value="%s" | %s', dsv, patch)
+		end
+
 		local v = blizres_cvars[cvar]
 		local default, category, server, character, secure, desc = table.unpack(v)
 		local default_text
@@ -67,7 +89,7 @@ function m:WriteCVarList(blizres_cvars, framexml_strings, binary_strings)
 		local name = string.format("[[CVar %s|%s]]", cvar, cvar)
 		desc = desc and desc:gsub("|", "&#124;")
 		file:write(fs:format(
-			not false_positives[cvar] and binary_strings[cvar] or "",
+			patch and patch_args or "",
 			framexml_strings[cvar] and githubLink:format(cvar) or "",
 			secure and "<span title=secure>🛡️</span>" or "",
 			name,

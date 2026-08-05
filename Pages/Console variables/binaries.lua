@@ -1,5 +1,7 @@
 -- note that "AreaTriggers" is in the string table for PTR binaries
 local lfs = require("lfs")
+local pathlib = require("path")
+local cfg = require("wowdoc.config")
 local table_sort = require("wowdoc.util.table_sort")
 
 local PATH = [[/mnt/d/Prog/World of Warcraft/Binaries]]
@@ -72,7 +74,7 @@ local function main(blizres_cvars)
 		print("reading", build)
 		local exe_path = PATH.."/%s.exe"
 		local path = exe_path:format(build)
-		local lua_cache = pathlib.join(PATHS.STRINGS, string.format("%s.lua", build))
+		local lua_cache = pathlib.join(cfg.path.strings, string.format("%s.lua", build))
 		local stringsTbl, lcstrings_tbl
 		if lfs.attributes(lua_cache) then
 			stringsTbl = dofile(lua_cache)

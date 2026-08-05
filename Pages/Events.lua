@@ -1,10 +1,10 @@
 -- https://warcraft.wiki.gg/wiki/Events
 local pathlib = require("path")
+local cfg = require("wowdoc.config")
 local wowdoc = require("wowdoc.loader")
 
-local PRODUCT = "wow" ---@type TactProduct
-wowdoc:main(PRODUCT)
-local OUTPUT = pathlib.join(PATHS.WIKI_PAGE, "Events.txt")
+wowdoc:LoadDocumentation()
+local OUTPUT = pathlib.join(cfg.path.wiki, "Events.txt")
 
 table.sort(APIDocumentation.systems, function(a, b)
 	return a.Name < b.Name
@@ -15,7 +15,8 @@ local file = io.open(OUTPUT, "w")
 
 for _, system in pairs(APIDocumentation.systems) do
 	if system.Events and #system.Events > 0 then
-		file:write(format("==%s==\n", system.Name))
+		local systemLink = string.format("{{api.system|%s}}", system.Name)
+		file:write(format("==%s==\n", systemLink))
 		for _, event in pairs(system.Events) do
 			local link = format("{{api|t=e|%s}}", event.LiteralName)
 			local payload = event:GetPayloadString(false, false)

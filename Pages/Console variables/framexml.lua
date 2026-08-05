@@ -1,4 +1,5 @@
-local util = require("wowdoc")
+local pathlib = require("path")
+local log = require("wowdoc.util.log")
 local system = require("wowdoc.util.system")
 local wago = require("wowdoc.web.wago")
 
