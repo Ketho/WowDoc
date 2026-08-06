@@ -111,7 +111,15 @@ local function GetLatestPatches()
 	return t
 end
 
-local function TemplateBuilder(flags, name)
+local function TemplateBuilderGlobalAPI(flags, name)
+	local game_types = GetGameTypes(flags[name])
+	local t = {}
+	table.insert(t, "apilink.api")
+	table.insert(t, name)
+	return string.format("{{%s}}", table.concat(t, "|"))
+end
+
+local function TemplateBuilderFrameXML(flags, name)
 	local game_types = GetGameTypes(flags[name])
 	local t = {}
 	table.insert(t, "tlygo")
@@ -146,9 +154,14 @@ function m:WriteTlyResource(resource)
 	local file = io.open(out, "w")
 	print("Writing to "..out)
 	for _, tbl in pairs(table_sort.ByKeyValue(flags, SortGameTypes)) do
-		local apilink = TemplateBuilder(flags, tbl.k)
+		local apilink
+		if resource == "GlobalAPI" then
+			apilink = TemplateBuilderGlobalAPI(flags, tbl.k)
+		elseif source == "FrameXML" then
+			apilink = TemplateBuilderFrameXML(flags, tbl.k)
+		end
 		file:write(fs:format(flags[tbl.k], apilink, unified[tbl.k]))
 	end
 	file:close()
 end
-m:WriteTlyResource("FrameXML")
+m:WriteTlyResource("GlobalAPI")
