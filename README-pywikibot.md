@@ -6,15 +6,25 @@
 - https://help.fandom.com/wiki/Bots
 - https://en.wikipedia.org/wiki/Help:Creating_a_bot
 
-## Creating a bot account
-Create a new user account (e.g. [KethoBot](https://warcraft.wiki.gg/wiki/Special:Contributions/KethoBot)) and request the admins to give it the [bot role](https://warcraft.wiki.gg/wiki/Special:ListUsers?group=bot). Note that you need a certain amount of trust to request a bot account. You can still set up pywikibot but will not be able to edit and create pages without logging in.
-
-### Bot passwords
-Pywikibot requires a bot password which can be set in `user-password.py`
-- https://warcraft.wiki.gg/wiki/Special:BotPassword
+### Application passwords
+Pywikibot requires an application password (also known as bot password) which can be set in `user-password.py`
+- https://warcraft.wiki.gg/wiki/Special:ApplicationPasswords
 - https://www.mediawiki.org/wiki/Manual:Pywikibot/BotPasswords
 
-There you will also be able to set grants (user rights) for it, like editing and creating pages.
+First you create an application name.
+
+![](media/wiki/create-application.png)
+
+Afterwards you will be able to set grants (user rights) for it. You minimally require the `Create, edit, and rename pages` grant. Having higher API limits would also be nice but is not required.
+
+![](media/wiki/grants.png)
+
+Here I created an application password for my own user account.
+
+![](media/wiki/bot-pw.png)
+
+### Bot account (optional)
+Bot accounts are only really required for high volume editing and is actually the preferred way by the wiki admins. You'd create a new user account (e.g. [KethoBot](https://warcraft.wiki.gg/wiki/Special:Contributions/KethoBot)), request the admins to give it the [bot role](https://warcraft.wiki.gg/wiki/Special:ListUsers?group=bot) and set up an application password for it.
 
 ## Setup
 Create a virtual environment and install pywikibot.
@@ -28,21 +38,19 @@ pip install beautifulsoup4
 ```
 
 ## Configuration
-I put `user-config.py` and `user-password.py` in the root of the repository and gitignored them but there probably is a more proper way to do this. The `put_throttle` needs to be at least 3 to avoid hitting the API rate limits.
+I put `user-config.py` and `user-password.py` in the root of the repository and gitignored them but there probably is a more proper way to do this.
 
 ### `user-config.py`
 ```py
 family = 'warcraftwiki'
 mylang = 'en'
-usernames['warcraftwiki']['en'] = 'KethoBot'
+usernames['warcraftwiki']['en'] = 'Ketho'
 password_file = "user-password.py"
-
-put_throttle = 3
 ```
 
 ### `user-password.py`
 ```py
-('KethoBot', BotPassword('Hatsune', '<snip>'))
+('Ketho', BotPassword('ketho-test', '<snip>'))
 ```
 
 ### `warcraftwiki_family.py`
@@ -90,7 +98,7 @@ python 'Pywikibot/hello-save.py'
 import pywikibot
 
 site = pywikibot.Site("en", "warcraftwiki")
-page = pywikibot.Page(site, "User:Ketho/Sandbox")
+page = pywikibot.Page(site, "User:Ketho/Sandbox/bot")
 
 page.text = "hello pywikibot"
 page.save(summary = "Some test")
