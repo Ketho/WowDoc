@@ -24,7 +24,9 @@ Here I created an application password for my own user account.
 ![](media/wiki/bot-pw.png)
 
 ### Bot account (optional)
-Bot accounts are only really required for high volume editing and is actually the preferred way by the wiki admins. You'd create a new user account (e.g. [KethoBot](https://warcraft.wiki.gg/wiki/Special:Contributions/KethoBot)), request the admins to give it the [bot role](https://warcraft.wiki.gg/wiki/Special:ListUsers?group=bot) and set up an application password for it.
+If you're going to do a lot of edits (or even fully automated with github workflows) then you should really create a bot account since edits will be tagged as such, which reduces the work for wiki patrollers.
+
+You'd create a new user account (e.g. [KethoBot](https://warcraft.wiki.gg/wiki/Special:Contributions/KethoBot)), request the admins to give it the [bot role](https://warcraft.wiki.gg/wiki/Special:ListUsers?group=bot) and set up an application password for it.
 
 ## Setup
 Create a virtual environment and install pywikibot.
