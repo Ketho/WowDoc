@@ -65,6 +65,7 @@ class Family(family.FandomFamily):
 ```
 
 ## Usage
+### Reading pages
 Test if it works by printing a page, for example [API_UnitLevel](https://warcraft.wiki.gg/wiki/API_UnitLevel)
 ```sh
 python 'Pywikibot/hello-read.py'
@@ -89,7 +90,8 @@ Returns the level of the unit.
 :;level:{{apitype|number}} - The unit level. Returns <code>-1</code> for boss units or hostile units 10 levels above the player (Level ??).
 ```
 
-Login and try editing a page, for example https://warcraft.wiki.gg/wiki/User:Ketho/Sandbox
+### Creating/editing pages
+Login and try editing a page, for example https://warcraft.wiki.gg/wiki/User:Ketho/Sandbox/bot
 ```sh
 pwb login
 python 'Pywikibot/hello-save.py'
