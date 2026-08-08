@@ -10,6 +10,7 @@ function m:main()
 	loader:LoadDocumentation()
 	self:GetFunctionList()
 	self:GetEventList()
+	self:GetTableList()
 	print("Done")
 end
 
@@ -18,6 +19,7 @@ local function WriteScribuntoData(path, tbl)
 		comment = false,
 		indent = "\t",
 	}
+	print("writing", path)
 	local file = io.open(path, "w")
 	file:write("local t = ", serpent.block(tbl, options), "\n\n")
 	file:write([[
@@ -52,6 +54,27 @@ function m:GetEventList()
 		table.insert(t[v.System.Name], v.LiteralName)
 	end
 	local path = pathlib.join(cfg.path.scribunto_systems, "events_systems.lua")
+	WriteScribuntoData(path, t)
+end
+
+function m:GetTableList()
+	local t = {}
+	for _, v in pairs(APIDocumentation.tables) do
+		local systemName
+		if v.System then
+			systemName = v.System.Name
+		else
+			systemName = "Systemless"
+		end
+		t[systemName] = t[systemName] or {}
+
+		local tableName = string.format("%s:%s", v.Type, v.Name)
+		table.insert(t[systemName], tableName)
+	end
+	for _, v in pairs(t) do
+		table.sort(v)
+	end
+	local path = pathlib.join(cfg.path.scribunto_systems, "tables_system.lua")
 	WriteScribuntoData(path, t)
 end
 
