@@ -16,6 +16,7 @@ local m = {}
 ---|"LuaEnum"
 ---|"Mixins"
 ---|"Templates"
+---|"Widgets
 
 local function CopyTableTrue(t, tbl)
 	for k in pairs(tbl) do
@@ -80,6 +81,16 @@ local ToMap = {
 	Templates = function(tbl)
 		local t = {}
 		CopyTableTemplate(t, tbl)
+		return t
+	end,
+	WidgetAPI = function(tbl)
+		local t = {}
+		for widget, v in pairs(tbl) do
+			for _, method in pairs(v.methods) do
+				local name = string.format("%s:%s", widget, method)
+				t[name] = true
+			end
+		end
 		return t
 	end,
 }

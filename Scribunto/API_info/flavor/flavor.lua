@@ -14,6 +14,9 @@ local sources = {
 	Events = {
 		out = pathlib.join(cfg.path.scribunto_flavor, "API_info.flavor.event.lua"),
 	},
+	WidgetAPI = {
+		out = pathlib.join(cfg.path.scribunto_flavor, "API_info.flavor.widget.lua"),
+	},
 }
 
 local function main()
