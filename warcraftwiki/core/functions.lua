@@ -78,11 +78,15 @@ function WarcraftWiki:GetFunctionArguments(func, options)
 	local t = {}
 	local numOptionals = 0
 	local nonWeirdIdx = HasWeirdOptionals(func.Arguments) or 0
+	local multiStride = self:IsMultiStride(func.Arguments)
 	if options.color_param then
 		self:AddColorParam(func.Arguments, options)
 	end
 	for idx, param in pairs(func.Arguments) do
 		local r = {}
+		if param.StrideIndex and not multiStride then
+			table.insert(r, "...")
+		end
 		if param:IsOptional() then
 			if idx < nonWeirdIdx then
 				table.insert(r, string.format("<%s>", param.Name)) -- placeholder symbol
@@ -96,9 +100,9 @@ function WarcraftWiki:GetFunctionArguments(func, options)
 		if idx == #func.Arguments and numOptionals > 0 then
 			table.insert(r, string.rep("]", numOptionals))
 		end
-		table.insert(t, table.concat(r, ""))
+		table.insert(t, table.concat(r))
 	end
-	if self:HasStrideIndex(func.Arguments) then
+	if multiStride then
 		table.insert(t, "...")
 	end
 	local res = table.concat(t, ", ")
@@ -113,18 +117,24 @@ function WarcraftWiki:GetFunctionReturns(func, options)
 	if options.color_param then
 		self:AddColorParam(func.Returns, options)
 	end
+	local multiStride = self:IsMultiStride(func.Returns)
 	for _, param in pairs(func.Returns) do
-		table.insert(t, param.Name)
+		local r = {}
+		if param.StrideIndex and not multiStride then
+			table.insert(r, "...")
+		end
+		table.insert(r, param.Name)
+		table.insert(t, table.concat(r))
 	end
-	if self:HasStrideIndex(func.Returns) then
+	if multiStride then
 		table.insert(t, "...")
 	end
 	return table.concat(t, ", ")
 end
 
-function WarcraftWiki:HasStrideIndex(paramTbl)
+function WarcraftWiki:IsMultiStride(paramTbl)
 	for _, param in pairs(paramTbl) do
-		if param.StrideIndex then
+		if param.StrideIndex and param.StrideIndex >= 2 then
 			return true
 		end
 	end

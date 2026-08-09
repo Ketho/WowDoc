@@ -12,9 +12,18 @@ function WarcraftWiki:GetEventSignature(event)
 	local t = {}
 	table.insert(t, event.LiteralName)
 	if event.Payload then
-		local payload = event:GetPayloadString(false, false)
+		local multiStride = self:IsMultiStride(event.Payload)
+		for _, param in pairs(event.Payload) do
+			local r = {}
+			if event.StrideIndex and not multiStride then
+				table.insert(r, "...")
+			end
+			table.insert(r, param.Name)
+			table.insert(t, table.concat(r))
+		end
+		local payload = table.concat(t, ", ")
 		table.insert(t, string.format(": %s", payload))
-		if self:HasStrideIndex(event.Payload) then
+		if multiStride then
 			table.insert(t, ", ...")
 		end
 	end
