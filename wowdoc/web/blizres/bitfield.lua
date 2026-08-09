@@ -5,6 +5,7 @@ local cfg = require("wowdoc.config")
 local blizres = require("wowdoc.web.blizres.get")
 local m_branches = require("wowdoc.products.branches")
 local m_latest_product = require("wowdoc.products.latest_product")
+local naming = require("wowdoc.namingway.scriptobjects")
 local m = {}
 
 ---@alias ResourceType
@@ -88,6 +89,17 @@ local ToMap = {
 		for widget, v in pairs(tbl) do
 			for _, method in pairs(v.methods) do
 				local name = string.format("%s:%s", widget, method)
+				t[name] = true
+			end
+		end
+		return t
+	end,
+	ScriptObjectAPI = function(tbl)
+		local t = {}
+		for scriptobject, v in pairs(tbl) do
+			short_name = naming:shorten(scriptobject)
+			for _, method in pairs(v) do
+				local name = string.format("%s:%s", short_name, method)
 				t[name] = true
 			end
 		end
