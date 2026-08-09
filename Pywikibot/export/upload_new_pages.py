@@ -65,6 +65,7 @@ def main():
 		'API functions',
 		'API events',
 		'Widget methods',
+		'ScriptObject methods',
 		'Structures',
 		'Enums',
 	]

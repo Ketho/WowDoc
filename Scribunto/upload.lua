@@ -16,11 +16,11 @@ local function WriteFiles()
         pathlib.join(scribunto, "flavor", "flavor"),
         pathlib.join(scribunto, "elink", "api"),
         pathlib.join(scribunto, "elink", "event"),
-        pathlib.join(scribunto, "patch", "api", "api"),
-        pathlib.join(scribunto, "patch", "event", "event"),
-        pathlib.join(scribunto, "systems", "get_full_list"),
+        -- pathlib.join(scribunto, "patch", "api", "api"),
+        -- pathlib.join(scribunto, "patch", "event", "event"),
+        pathlib.join(scribunto, "systems", "system"),
         pathlib.join(scribunto, "systems", "categories", "get_systems"),
-        pathlib.join(scribunto, "predicates"),
+        -- pathlib.join(scribunto, "predicates"),
     }
     for _, v in pairs(files) do
         log.important(string.format("require: %s", v))

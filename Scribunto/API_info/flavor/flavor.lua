@@ -9,16 +9,16 @@ local cfg = require("wowdoc.config")
 ---@type table<ResourceType, table>
 local sources = {
 	GlobalAPI = {
-		out = pathlib.join(cfg.path.scribunto_flavor, "API_info.flavor.api.lua"),
+		out = pathlib.join(cfg.path.scribunto_gametype, "function.lua"),
 	},
 	Events = {
-		out = pathlib.join(cfg.path.scribunto_flavor, "API_info.flavor.event.lua"),
+		out = pathlib.join(cfg.path.scribunto_gametype, "event.lua"),
 	},
 	WidgetAPI = {
-		out = pathlib.join(cfg.path.scribunto_flavor, "API_info.flavor.widget.lua"),
+		out = pathlib.join(cfg.path.scribunto_gametype, "widget.lua"),
 	},
 	ScriptObjectAPI = {
-		out = pathlib.join(cfg.path.scribunto_flavor, "API_info.flavor.scriptobject.lua"),
+		out = pathlib.join(cfg.path.scribunto_gametype, "scriptobject.lua"),
 	},
 }
 

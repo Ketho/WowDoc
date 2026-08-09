@@ -22,17 +22,6 @@ local function WriteScribuntoData(path, tbl)
 	print("writing", path)
 	local file = io.open(path, "w")
 	file:write("local t = ", serpent.block(tbl, options), "\n\n")
-	file:write([[
-local r = {}
-
-for system, v in pairs(t) do
-	for _, name in pairs(v) do
-		r[name] = system
-	end
-end
-
-return r
-]])
 	file:close()
 end
 
@@ -43,7 +32,7 @@ function m:GetFunctionList()
 		t[v.System.Name] = t[v.System.Name] or {}
 		table.insert(t[v.System.Name], name)
 	end
-	local path = pathlib.join(cfg.path.scribunto_systems, "functions_systems.lua")
+	local path = pathlib.join(cfg.path.scribunto_system, "function.lua")
 	WriteScribuntoData(path, t)
 end
 
@@ -53,7 +42,7 @@ function m:GetEventList()
 		t[v.System.Name] = t[v.System.Name] or {}
 		table.insert(t[v.System.Name], v.LiteralName)
 	end
-	local path = pathlib.join(cfg.path.scribunto_systems, "events_systems.lua")
+	local path = pathlib.join(cfg.path.scribunto_system, "event.lua")
 	WriteScribuntoData(path, t)
 end
 
@@ -74,7 +63,7 @@ function m:GetTableList()
 	for _, v in pairs(t) do
 		table.sort(v)
 	end
-	local path = pathlib.join(cfg.path.scribunto_systems, "tables_system.lua")
+	local path = pathlib.join(cfg.path.scribunto_system, "table.lua")
 	WriteScribuntoData(path, t)
 end
 

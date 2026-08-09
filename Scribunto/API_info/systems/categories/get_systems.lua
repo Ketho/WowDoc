@@ -95,7 +95,7 @@ function m:GetSystems()
 end
 
 function m:WriteCsv(tbl)
-	local filePath = pathlib.join(cfg.path.scribunto_systems, "systems.csv")
+	local filePath = pathlib.join(cfg.path.scribunto_system, "systems.csv")
 	log.info("Writing "..filePath)
 	local file = io.open(filePath, "w")
 	file:write("Name\n")
@@ -106,7 +106,7 @@ function m:WriteCsv(tbl)
 end
 
 function m:WriteModuleData(tbl)
-	local filePath = pathlib.join(cfg.path.scribunto_systems, "systems_data.lua")
+	local filePath = pathlib.join(cfg.path.scribunto_system, "system.lua")
 	log.info("Writing "..filePath)
 	local file = io.open(filePath, "w")
 	file:write("local data = {\n")
