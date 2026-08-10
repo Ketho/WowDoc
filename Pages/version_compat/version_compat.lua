@@ -111,8 +111,7 @@ local function GetLatestPatches()
 	return t
 end
 
-local function TemplateBuilderGlobalAPI(flags, name)
-	local game_types = GetGameTypes(flags[name])
+local function TemplateBuilderGlobalAPI(_, name)
 	local t = {}
 	table.insert(t, "apilink.api")
 	table.insert(t, name)
@@ -140,6 +139,20 @@ local function TemplateBuilderFrameXML(flags, name)
 	return string.format("{{%s}}", table.concat(t, "|"))
 end
 
+local cvar_enum = {
+	[0] = "Debug",
+	[1] = "Graphics",
+	[2] = "Console",
+	[3] = "Combat",
+	[4] = "Game",
+	[5] = "", -- "Default",
+	[6] = "Net",
+	[7] = "Sound",
+	[8] = "Gm",
+	[9] = "Reveal",
+	[10] = "None",
+}
+
 -- need to refactor everything, this is horrible
 function m:WriteTlyResource(resource)
 	-- local latest_classic_patches = GetLatestPatches()
@@ -147,6 +160,8 @@ function m:WriteTlyResource(resource)
 	local fs
 	if resource == "Templates" then
 		fs = "|-\n| {{apicompat|0x%x}} || %s || %s\n"
+	elseif resource == "CVars" then
+		fs = "|-\n| {{apicompat|0x%x}} || %s || %s || %s || %s || %s || %s\n"
 	else
 		fs = "|-\n| {{apicompat|0x%x}} || %s\n"
 	end
@@ -156,12 +171,39 @@ function m:WriteTlyResource(resource)
 	for _, tbl in pairs(table_sort.ByKeyValue(flags, SortGameTypes)) do
 		local apilink
 		if resource == "GlobalAPI" then
-			apilink = TemplateBuilderGlobalAPI(flags, tbl.k)
-		elseif source == "FrameXML" then
+			apilink = TemplateBuilderGlobalAPI(nil, tbl.k)
+			file:write(fs:format(flags[tbl.k], apilink))
+		elseif resource == "FrameXML" then
 			apilink = TemplateBuilderFrameXML(flags, tbl.k)
+			file:write(fs:format(flags[tbl.k], apilink))
+		elseif resource == "Events" then
+			apilink = string.format("[[%s]]", tbl.k)
+			file:write(fs:format(flags[tbl.k], apilink))
+		elseif resource == "CVars" then
+			apilink = string.format("[[CVar %s|%s]]", tbl.k, tbl.k)
+			if #tbl.k >= 40 then
+				apilink = string.format("<small>%s</small>", apilink)
+			end
+			local default, cat, char, account, secure, desc = table.unpack(unified[tbl.k])
+			local secure_icon = secure and "🛡️" or ""
+			if #tostring(default) > 30 then
+				default = "..."
+			elseif #tostring(default) > 20 then
+				default = string.format("<small>%s</small>", default)
+			end
+			local scope = ""
+			if char then
+				scope = "Character"
+			elseif account then
+				scope = "Account"
+			end
+			local cat_name = cvar_enum[cat]
+			file:write(fs:format(flags[tbl.k], secure_icon, apilink, default, cat_name, scope, desc))
+		elseif resource == "Templates" then
+			apilink = string.format("[[%s]]", tbl.k, unified[tbl.k])
+			file:write(fs:format(flags[tbl.k], apilink))
 		end
-		file:write(fs:format(flags[tbl.k], apilink, unified[tbl.k]))
 	end
 	file:close()
 end
-m:WriteTlyResource("GlobalAPI")
+m:WriteTlyResource("CVars")

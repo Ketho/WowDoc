@@ -31,14 +31,20 @@ local function CopyTableTemplate(t, tbl)
 	end
 end
 
+local function CopyTableCVar(t, tbl)
+	for k, v in pairs(tbl) do
+		t[k] = v
+	end
+end
+
 ---@type table<ResourceType, function>
 local ToMap = {
 	CVars = function(tbl)
 		local t = {}
-		CopyTableTrue(t, tbl[1].var)
-		CopyTableTrue(t, tbl[1].command)
-		CopyTableTrue(t, tbl[2].var)
-		CopyTableTrue(t, tbl[2].command)
+		CopyTableCVar(t, tbl[1].var)
+		-- CopyTableCVar(t, tbl[1].command)
+		CopyTableCVar(t, tbl[2].var)
+		-- CopyTableCVar(t, tbl[2].command)
 		return t
 	end,
 	Events = function(tbl)
