@@ -14,7 +14,7 @@ function m:GetSignatures()
 			local returnString = WarcraftWiki:GetFunctionReturns(func)
 			returns = string.format(' : <span class="apiret">%s</span>', returnString)
 		end
-		t[name] = string.format('[[API %s|%s]](%s)%s', name, name, args, returns)
+		t[name] = string.format('[[API:%s|%s]](%s)%s', name, name, args, returns)
 	end
 	return t
 end

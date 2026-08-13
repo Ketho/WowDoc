@@ -14,7 +14,7 @@ local OUTPUT = pathlib.join(cfg.path.wiki_wowapi, "World_of_Warcraft_API.txt")
 local function MatchLine(s)
 	local t = {}
 	t.tags = s:match("{{apitag|(.-)}}")
-	t.name = s:match("%[%[API (.-)|")
+	t.name = s:match("%[%[API:(.-)|")
 	t.signature = signatures[t.name]
 	t.args = s:match("%((.-)%)")
 	t.returns = s:match("%) : (.+</span>)")
@@ -28,7 +28,7 @@ function m:StringBuilder(info)
 	if info.signature then
 		table.insert(t, info.signature)
 	else
-		table.insert(t, string.format("[[API %s|%s]]", info.name, info.name))
+		table.insert(t, string.format("[[API:%s|%s]]", info.name, info.name))
 		table.insert(t, string.format("(%s)", info.args or ""))
 		if info.returns then
 			table.insert(t, string.format(" : %s", info.returns or ""))

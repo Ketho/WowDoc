@@ -9,7 +9,7 @@ local m = {}
 function m:ParseWikitext(wikitext)
 	local api_names, tag_data = {}, {}
 	for line in string.gmatch(wikitext, "[^\r\n]+") do
-		local name = line:match(": %[%[API (.-)|")
+		local name = line:match(": %[%[API:(.-)|")
 		local tag = line:match("{{apitag|(.-)}}")
 		table.insert(api_names, name) -- allow finding duplicates
 		if name and tag then
@@ -55,7 +55,7 @@ function m:FindMissing(wowpedia, wowpedia_tags, global_api)
 			if signatures[k] then
 				print(string.format(": %s", signatures[k]))
 			else
-				print(string.format(": [[API %s|%s]]()", k, k))
+				print(string.format(": [[API:%s|%s]]()", k, k))
 			end
 		end
 	end
