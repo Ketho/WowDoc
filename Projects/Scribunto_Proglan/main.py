@@ -1,5 +1,5 @@
 import os
-import AtlasInfo
+import Projects.Scribunto_Proglan.AtlasInfo as AtlasInfo
 from pathlib import Path
 from PIL import Image
 
