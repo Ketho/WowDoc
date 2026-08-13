@@ -56,7 +56,7 @@ local data = {
 	{ Name = "ModelSceneFrame", Type = {"ModelScene"}, W_Replace = "ModelScene", W_Link = "UIOBJECT_ModelScene" },
 	{ Name = "ModelSceneFrameActor", W_Replace = "ModelSceneActor", W_Link = "UIOBJECT_ModelSceneActor" },
 	{ Name = "NamePlateFrame", Mixin = "NamePlateBaseMixin", W_Link = "UIOBJECT_NamePlate" },
-	{ Name = "ScriptRegion", Type = {"Region"} },
+	{ Name = "ScriptRegion", W_Link = "UIOBJECT_ScriptRegion" },
 	{ Name = "EditBox", W_Link = "UIOBJECT_EditBox" },
 	{ Name = "SimpleAnim", W_Replace = "Animation", W_Link = "UIOBJECT_Animation" },
 	{ Name = "SimpleAnimGroup", W_Replace = "AnimationGroup", W_Link = "UIOBJECT_AnimationGroup" },
@@ -69,7 +69,7 @@ local data = {
 	{ Name = "SimpleLine", W_Replace = "Line", W_Link = "UIOBJECT_Line" },
 	{ Name = "SimpleMaskTexture", W_Replace = "MaskTexture", W_Link = "UIOBJECT_MaskTexture" },
 	{ Name = "SimplePathAnim", W_Replace = "Path", W_Link = "UIOBJECT_Path" },
-	{ Name = "SimpleRegion", Type = {"Region"} },
+	{ Name = "SimpleRegion", W_Replace = "Region", W_Link = "UIOBJECT_Region" },
 	{ Name = "SimpleTexture", W_Replace = "Texture", W_Link = "UIOBJECT_Texture" },
 	{ Name = "SimpleVectorGraphics", W_Replace = "VectorGraphics", W_Link = "UIOBJECT_VectorGraphics" },
 	{ Name = "SimpleWindow", Type = {"nil"} },
@@ -99,10 +99,10 @@ local data = {
 	{ Name = "BigUInteger", Type = {"number"} },
 	{ Name = "CalendarEventID", Type = {"number"} }, -- (used to be a string according to previous docs?)
 	{ Name = "ClickButton", Type = {"string"}, Description = {"AnyUp", "AnyDown", "LeftButtonUp", "LeftButtonDown", "RightButtonUp", "RightButtonDown", "MiddleButtonUp", "MiddleButtonDown", "Button4Up", "Button4Down", "Button5Up", "Button5Down"} },
-	{ Name = "ClubId", Type = {"string"} },
+	{ Name = "ClubId", Type = {"number"} }, -- tested from discord message edits to be a number
 	{ Name = "ClubInvitationId", Type = {"string"} },
 	{ Name = "ClubMemberOpaqueId", Type = {"number"} },
-	{ Name = "ClubStreamId", Type = {"string"} },
+	{ Name = "ClubStreamId", Type = {"number"} }, -- tested from discord message edits to be a number
 	{ Name = "ConnectionIptype", Type = {"number"}, Description = {"1=IPv4", "2=IPv6"} },
 	{ Name = "ConnectionProtocol", Type = {"number"}, Description = {"1=TCP, 2=UDP"} },
 	{ Name = "DiscordID", Type = {"string"} },
@@ -123,6 +123,7 @@ local data = {
 	{ Name = "ItemInfo", Type = {"number", "string"}, W_Link = "API_types/ItemInfo" }, -- item id, link, name
 	{ Name = "kstringAuroraName", Type = {"string"}, W_Link = "Kstring" },
 	{ Name = "kstringClubMessage", Type = {"string"}, W_Link = "Kstring" },
+	{ Name = "KStringDiscordUserName", Type = {"string"}, W_Link = "Kstring" },
 	{ Name = "kstringLfgListApplicant", Type = {"string"}, W_Link = "Kstring" },
 	{ Name = "kstringLfgListChat", Type = {"string"}, W_Link = "Kstring" },
 	{ Name = "kstringLfgListSearch", Type = {"string"}, W_Link = "Kstring" },
