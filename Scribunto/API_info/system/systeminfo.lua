@@ -23,7 +23,7 @@ function m:main()
 	enum:LoadEnumTable({branch = framexml_branch})
 	self:LoadBlizzardDocs()
 	local systems = self:GetSystems()
-	self:WriteCsv(systems)
+	-- self:WriteCsv(systems)
 	self:WriteModuleData(systems)
 	print("Done")
 end

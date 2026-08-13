@@ -1,26 +1,26 @@
 import sys
 import pywikibot
+from pathlib import Path
 
 site = pywikibot.Site("en", "warcraftwiki")
+root = Path(".wow")
 
 files = [
-	[".wow/scribunto/gametype/function.lua",     "Module:Wowapi/data/gametype/function"],
-	[".wow/scribunto/gametype/event.lua",        "Module:Wowapi/data/gametype/event"],
-	[".wow/scribunto/gametype/scriptobject.lua", "Module:Wowapi/data/gametype/scriptobject"],
-	[".wow/scribunto/gametype/widget.lua",       "Module:Wowapi/data/gametype/widget"],
+	[root / "scribunto" / "gametype" / "function.lua",     "Module:Wowapi/data/gametype/function"],
+	[root / "scribunto" / "gametype" / "event.lua",        "Module:Wowapi/data/gametype/event"],
+	[root / "scribunto" / "gametype" / "scriptobject.lua", "Module:Wowapi/data/gametype/scriptobject"],
+	[root / "scribunto" / "gametype" / "widget.lua",       "Module:Wowapi/data/gametype/widget"],
 
-	# [".wow/scribunto/elink/API_info.elink.api.lua", "Module:API_info/elink/api"],
-	# [".wow/scribunto/elink/API_info.elink.event.lua", "Module:API_info/elink/event"],
+	[root / "scribunto" / "system" / "system.lua",         "Module:Wowapi/data/system"],
+	[root / "scribunto" / "system" / "function.lua",       "Module:Wowapi/data/system/function"],
+	[root / "scribunto" / "system" / "event.lua",          "Module:Wowapi/data/system/event"],
+	[root / "scribunto" / "system" / "table.lua",          "Module:Wowapi/data/system/table"],
 
 	# [".wow/scribunto/patch/API_info.patch.api_retail.lua", "Module:API_info/patch/api_retail"],
 	# [".wow/scribunto/patch/API_info.patch.api_classic.lua", "Module:API_info/patch/api_classic"],
 	# [".wow/scribunto/patch/API_info.patch.api_classic_era.lua", "Module:API_info/patch/api_classic_era"],
 	# [".wow/scribunto/patch/API_info.patch.event_retail.lua", "Module:API_info/patch/event_retail"],
 	# [".wow/scribunto/patch/API_info.patch.event_classic.lua", "Module:API_info/patch/event_classic"],
-
-	# [".wow/scribunto/systems/systems_data.lua", "Module:API_info/systems/metadata"],
-	# [".wow/scribunto/systems/events_systems.lua", "Module:API_info/systems/events"],
-	# [".wow/scribunto/systems/functions_systems.lua", "Module:API_info/systems/functions"],
 
 	# [".wow/scribunto/predicates/API_info.predicates.lua", "Module:API_info/predicates/predicates"],
 	# [".wow/scribunto/predicates/API_info.SecretArguments.lua", "Module:API_info/predicates/secret_arguments"],
@@ -34,7 +34,13 @@ def getFileText(p):
 
 def saveFile(text, wikipath):
 	page = pywikibot.Page(site, wikipath)
-	page.text = text
+	# only update the data section
+	end_marker = "-- <END DATA>"
+	end_index = page.text.find(end_marker)
+	if end_index != -1:
+		page.text = text + page.text[end_index:]
+	else:
+		page.text = text
 	page.save(summary = sys.argv[1])
 
 def main():

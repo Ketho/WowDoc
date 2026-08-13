@@ -13,13 +13,11 @@ local SUMMARY = products.wow.version
 local function WriteFiles()
     local scribunto = pathlib.join("Scribunto", "API_info")
     local files = {
-        pathlib.join(scribunto, "flavor", "flavor"),
-        pathlib.join(scribunto, "elink", "api"),
-        pathlib.join(scribunto, "elink", "event"),
+        pathlib.join(scribunto, "gametype"),
+        pathlib.join(scribunto, "system"),
+        pathlib.join(scribunto, "system", "systeminfo"),
         -- pathlib.join(scribunto, "patch", "api", "api"),
         -- pathlib.join(scribunto, "patch", "event", "event"),
-        pathlib.join(scribunto, "systems", "system"),
-        pathlib.join(scribunto, "systems", "categories", "get_systems"),
         -- pathlib.join(scribunto, "predicates"),
     }
     for _, v in pairs(files) do
