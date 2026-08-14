@@ -16,8 +16,8 @@ local function WriteFiles()
         pathlib.join(scribunto, "gametype"),
         pathlib.join(scribunto, "system"),
         pathlib.join(scribunto, "system", "systeminfo"),
-        -- pathlib.join(scribunto, "patch", "api", "api"),
-        -- pathlib.join(scribunto, "patch", "event", "event"),
+        pathlib.join(scribunto, "patch", "api"), -- for some reason need to run this twice
+        pathlib.join(scribunto, "patch", "event"),
         -- pathlib.join(scribunto, "predicates"),
     }
     for _, v in pairs(files) do

@@ -10,16 +10,16 @@ files = [
 	[root / "scribunto" / "gametype" / "event.lua",        "Module:Wowapi/data/gametype/event"],
 	[root / "scribunto" / "gametype" / "scriptobject.lua", "Module:Wowapi/data/gametype/scriptobject"],
 	[root / "scribunto" / "gametype" / "widget.lua",       "Module:Wowapi/data/gametype/widget"],
-
+  
 	[root / "scribunto" / "system" / "system.lua",         "Module:Wowapi/data/system"],
 	[root / "scribunto" / "system" / "function.lua",       "Module:Wowapi/data/system/function"],
 	[root / "scribunto" / "system" / "event.lua",          "Module:Wowapi/data/system/event"],
 	[root / "scribunto" / "system" / "table.lua",          "Module:Wowapi/data/system/table"],
 
-	# [".wow/scribunto/patch/API_info.patch.api_retail.lua", "Module:API_info/patch/api_retail"],
+	[root / "scribunto" / "patch" / "mainline_function.lua", "Module:Wowapi/data/patch/mainline/function"],
+	[root / "scribunto" / "patch" / "mainline_event.lua",    "Module:Wowapi/data/patch/mainline/event"],
 	# [".wow/scribunto/patch/API_info.patch.api_classic.lua", "Module:API_info/patch/api_classic"],
 	# [".wow/scribunto/patch/API_info.patch.api_classic_era.lua", "Module:API_info/patch/api_classic_era"],
-	# [".wow/scribunto/patch/API_info.patch.event_retail.lua", "Module:API_info/patch/event_retail"],
 	# [".wow/scribunto/patch/API_info.patch.event_classic.lua", "Module:API_info/patch/event_classic"],
 
 	# [".wow/scribunto/predicates/API_info.predicates.lua", "Module:API_info/predicates/predicates"],
