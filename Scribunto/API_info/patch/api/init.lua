@@ -3,22 +3,32 @@
 local pathlib = require("path")
 local table_sort = require("wowdoc.util.table_sort")
 local cfg = require("wowdoc.config")
+local system = require("wowdoc.util.system")
 local m = {}
 
 local PATH = pathlib.join("Scribunto", "API_info", "patch", "api")
+-- meh cba to refactor
+system:mkdir(pathlib.join(cfg.path.scribunto_patch, "mainline"))
+system:mkdir(pathlib.join(cfg.path.scribunto_patch, "classic"))
+system:mkdir(pathlib.join(cfg.path.scribunto_patch, "bcc"))
+system:mkdir(pathlib.join(cfg.path.scribunto_patch, "vanilla"))
 
 local flavors = {
 	mainline = {
 		data = require(PATH.."/LoadFiles")(PATH.."/mainline"),
-		out = pathlib.join(cfg.path.scribunto_patch, "mainline_function.lua"),
+		out = pathlib.join(cfg.path.scribunto_patch, "mainline", "function.lua"),
 	},
 	classic = {
 		data = require(PATH.."/LoadFiles")(PATH.."/classic"),
-		out = pathlib.join(cfg.path.scribunto_patch, "classic_function.lua"),
+		out = pathlib.join(cfg.path.scribunto_patch, "classic", "function.lua"),
+	},
+	bcc = {
+		data = require(PATH.."/LoadFiles")(PATH.."/bcc"),
+		out = pathlib.join(cfg.path.scribunto_patch, "bcc", "function.lua"),
 	},
 	classic_era = {
 		data = require(PATH.."/LoadFiles")(PATH.."/classic_era"),
-		out = pathlib.join(cfg.path.scribunto_patch, "classic_era_function.lua"),
+		out = pathlib.join(cfg.path.scribunto_patch, "vanilla", "function.lua"),
 	},
 }
 

@@ -14,12 +14,12 @@ local flavors = {
 	mainline = {
 		id = "mainline",
 		input = "FrameXML/live",
-		out = pathlib.join(cfg.path.scribunto_patch, "mainline_event.lua"),
+		out = pathlib.join(cfg.path.scribunto_patch, "mainline", "event.lua"),
 	},
 	classic = {
 		id = "classic",
 		input = "FrameXML/classic",
-		out = pathlib.join(cfg.path.scribunto_patch, "classic_event.lua"),
+		out = pathlib.join(cfg.path.scribunto_patch, "classic", "event.lua"),
 	},
 }
 
@@ -64,3 +64,4 @@ local function main()
 end
 
 main()
+print("done")

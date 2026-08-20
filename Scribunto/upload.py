@@ -16,11 +16,15 @@ files = [
 	[root / "scribunto" / "system" / "event.lua",          "Module:Wowapi/data/system/event"],
 	[root / "scribunto" / "system" / "table.lua",          "Module:Wowapi/data/system/table"],
 
-	[root / "scribunto" / "patch" / "mainline_function.lua", "Module:Wowapi/data/patch/mainline/function"],
-	[root / "scribunto" / "patch" / "mainline_event.lua",    "Module:Wowapi/data/patch/mainline/event"],
-	# [".wow/scribunto/patch/API_info.patch.api_classic.lua", "Module:API_info/patch/api_classic"],
-	# [".wow/scribunto/patch/API_info.patch.api_classic_era.lua", "Module:API_info/patch/api_classic_era"],
-	# [".wow/scribunto/patch/API_info.patch.event_classic.lua", "Module:API_info/patch/event_classic"],
+	[root / "scribunto" / "patch" / "mainline" / "function.lua", "Module:Wowapi/data/patch/mainline/function"],
+	[root / "scribunto" / "patch" / "mainline" / "event.lua",    "Module:Wowapi/data/patch/mainline/event"],
+
+	[root / "scribunto" / "patch" / "bcc" / "function.lua", "Module:Wowapi/data/patch/bcc/function"],
+
+	[root / "scribunto" / "patch" / "classic" / "function.lua", "Module:Wowapi/data/patch/mists/function"],
+	[root / "scribunto" / "patch" / "classic" / "event.lua",    "Module:Wowapi/data/patch/mists/event"],
+
+	[root / "scribunto" / "patch" / "vanilla" / "function.lua", "Module:Wowapi/data/patch/vanilla/function"],
 
 	# [".wow/scribunto/predicates/API_info.predicates.lua", "Module:API_info/predicates/predicates"],
 	# [".wow/scribunto/predicates/API_info.SecretArguments.lua", "Module:API_info/predicates/secret_arguments"],
