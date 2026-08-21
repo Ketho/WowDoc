@@ -23,9 +23,9 @@ local function EnumPostCall()
 	end
 end
 
-local function GetReverseEnum()
+local function GetReverseEnum(enum)
 	local t = {}
-	for k, v in pairs(Enum.SecretAspect) do
+	for k, v in pairs(enum) do
 		t[v] = k
 	end
 	return t
@@ -72,7 +72,7 @@ local function ProcessDocs()
 end
 
 local function WritePredicates()
-	local output = pathlib.join(cfg.path.scribunto_predicates, "API_info.predicates.lua")
+	local output = pathlib.join(cfg.path.scribunto_predicates, "predicates.lua")
 	log.info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
@@ -87,7 +87,7 @@ local function WritePredicates()
 end
 
 local function WriteSecretArguments()
-	local output = pathlib.join(cfg.path.scribunto_predicates, "API_info.SecretArguments.lua")
+	local output = pathlib.join(cfg.path.scribunto_predicates, "SecretArguments.lua")
 	log.info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
@@ -111,9 +111,9 @@ local function WriteSecretArguments()
 end
 
 local function WriteSecretAspects()
-	local output = pathlib.join(cfg.path.scribunto_predicates, "API_info.SecretAspects.lua")
+	local output = pathlib.join(cfg.path.scribunto_predicates, "SecretAspects.lua")
 	log.info(string.format("Writing %s", output))
-	RevEnum_SecretAspect = GetReverseEnum()
+	local revEnum = GetReverseEnum(Enum.SecretAspect)
 	local file = io.open(output, "w")
 	file:write("local m = {}\n\n")
 	file:write("m.SecretArgumentsAddAspect = {\n")
@@ -124,7 +124,7 @@ local function WriteSecretAspects()
 			local name = naming:GetProperName(v)
 			local t2 = {}
 			for _, v2 in pairs(v.SecretArgumentsAddAspect) do
-				table.insert(t2, string.format('"%s"', RevEnum_SecretAspect[v2]))
+				table.insert(t2, string.format('"%s"', revEnum[v2]))
 			end
 			table.insert(t, line:format(name, table.concat(t2, ", ")))
 		end
@@ -143,7 +143,7 @@ local function WriteSecretAspects()
 			local name = naming:GetProperName(v)
 			local t2 = {}
 			for _, v2 in pairs(v.SecretReturnsForAspect) do
-				table.insert(t2, string.format('"%s"', RevEnum_SecretAspect[v2]))
+				table.insert(t2, string.format('"%s"', revEnum[v2]))
 			end
 			table.insert(t, line:format(name, table.concat(t2, ", ")))
 		end
@@ -158,10 +158,39 @@ local function WriteSecretAspects()
 	file:close()
 end
 
+local function WriteForbiddenAspects()
+	local output = pathlib.join(cfg.path.scribunto_predicates, "ForbiddenAspects.lua")
+	log.info(string.format("Writing %s", output))
+	local revEnum = GetReverseEnum(Enum.ForbiddenAspect)
+	local file = io.open(output, "w")
+	file:write("local data = {\n")
+	local line = '\t["%s"] = {%s},\n'
+	local t = {}
+	for _, v in pairs(APIDocumentation.functions) do
+		if v.ChecksForbiddenAspects then
+			local name = naming:GetProperName(v)
+			local r = {}
+			for _, v2 in pairs(v.ChecksForbiddenAspects) do
+				table.insert(r, string.format('"%s"', revEnum[v2.Aspect]))
+			end
+			table.insert(t, line:format(name, table.concat(r, ", ")))
+		end
+	end
+	table.sort(t)
+	for _, v in pairs(t) do
+		file:write(v)
+	end
+	file:write("}\n\n")
+	file:write("return data\n")
+	file:close()
+end
+
+
 local function main()
 	WritePredicates()
 	WriteSecretArguments()
 	WriteSecretAspects()
+	WriteForbiddenAspects()
 	log.success("Done")
 end
 
