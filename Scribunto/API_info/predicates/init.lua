@@ -52,9 +52,9 @@ local function ProcessDocTable(t0, v)
 			local stringified = string.format('"%s"', t1[k2])
 			table.insert(t2, stringified)
 		end
-		local name = naming:GetProperName(v, true)
+		local name = naming:GetProperName(v)
 		local propNames = table.concat(t2, ", ")
-		local line = string.format('\t["%s"] = { %s },\n', name, propNames)
+		local line = string.format('\t["%s"] = {%s},\n', name, propNames)
 		table.insert(t0, line)
 	end
 end
@@ -97,7 +97,7 @@ local function WriteSecretArguments()
 	local t = {}
 	for _, v in pairs(APIDocumentation.functions) do
 		if v.SecretArguments then
-			local name = naming:GetProperName(v, true)
+			local name = naming:GetProperName(v)
 			table.insert(t, line:format(name, v.SecretArguments))
 		end
 	end
@@ -121,7 +121,7 @@ local function WriteSecretAspects()
 	local t = {}
 	for _, v in pairs(APIDocumentation.functions) do
 		if v.SecretArgumentsAddAspect then
-			local name = naming:GetProperName(v, true)
+			local name = naming:GetProperName(v)
 			local t2 = {}
 			for _, v2 in pairs(v.SecretArgumentsAddAspect) do
 				table.insert(t2, string.format('"%s"', RevEnum_SecretAspect[v2]))
@@ -140,7 +140,7 @@ local function WriteSecretAspects()
 	local t = {}
 	for _, v in pairs(APIDocumentation.functions) do
 		if v.SecretReturnsForAspect then
-			local name = naming:GetProperName(v, true)
+			local name = naming:GetProperName(v)
 			local t2 = {}
 			for _, v2 in pairs(v.SecretReturnsForAspect) do
 				table.insert(t2, string.format('"%s"', RevEnum_SecretAspect[v2]))
