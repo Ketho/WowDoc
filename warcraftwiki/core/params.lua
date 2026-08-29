@@ -22,7 +22,9 @@ function WarcraftWiki:GetParamLine(param)
 	table.insert(t, line)
 	if param.Documentation then
 		local doc = self:GetDocumentation(param)
-		table.insert(t, string.format(" - %s", doc))
+		if doc then
+			table.insert(t, string.format(" - %s", doc))
+		end
 	end
 	return table.concat(t)
 end
@@ -30,11 +32,5 @@ end
 function WarcraftWiki:GetDocumentation(apiTable)
 	if apiTable.Documentation then
 		return table.concat(apiTable.Documentation, "; ")
-	else
-		if apiTable.Type == "Function" or apiTable.Type == "Event" then
-			return "&nbsp;"
-		else
-			return "" -- needs to return a fallback string
-		end
 	end
 end

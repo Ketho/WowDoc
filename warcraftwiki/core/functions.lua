@@ -6,10 +6,15 @@ local function IsValidTable(tbl)
 end
 
 function WarcraftWiki:GetFunctionPage(func)
-	local t = {}
+	local t, r = {}, {}
 	local doc = self:GetDocumentation(func)
+	if doc then
+		table.insert(r, doc)
+	end
 	local signature = string.format("{{apisig|%s}}", self:GetFunctionSignature(func))
-	table.insert(t, string.format("%s\n%s", doc, signature))
+	table.insert(r, signature)
+	table.insert(t, table.concat(r, "\n"))
+
 	if IsValidTable(func.Arguments) then
 		table.insert(t, "==Arguments==\n"..self:GetParameters(func.Arguments, true))
 	end

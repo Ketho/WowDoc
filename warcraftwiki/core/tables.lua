@@ -56,8 +56,8 @@ function WarcraftWiki:GetTableDocumentation(field)
 			table.insert(t, string.format("{{apiname.added|%s}}", archive_field))
 		end
 	end
-	local documentation = self:GetDocumentation(field)
-	if documentation ~= "" then
+	local doc = self:GetDocumentation(field)
+	if doc then
 		table.insert(t, documentation)
 	end
 	return table.concat(t, " ")
@@ -91,7 +91,7 @@ function WarcraftWiki:GetConstantsTable(apiTable)
 	table.insert(t, "! Constant !! Type !! Value !! Description")
 	for _, field in pairs(apiTable.Values) do
 		local apitype = self:GetTypeTemplate(field)
-		local doc = self:GetDocumentation(field)
+		local doc = self:GetDocumentation(field) or ""
 		table.insert(t, string.format('|-\n| {{apiname|%s}} || %s || %s || %s', field.Name, apitype, field.Value, doc))
 	end
 	return table.concat(t, "\n")
