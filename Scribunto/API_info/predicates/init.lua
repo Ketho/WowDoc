@@ -164,8 +164,8 @@ local function WriteForbiddenAspects()
 	local revEnum = GetReverseEnum(Enum.ForbiddenAspect)
 	local file = io.open(output, "w")
 	file:write("local data = {\n")
-	local line = '\t["%s"] = {%s},\n'
-	local t = {}
+	local line = '\t\t["%s"] = {%s},\n'
+	file:write("\tChecksForbiddenAspects = {\n")
 	for _, v in pairs(APIDocumentation.functions) do
 		if v.ChecksForbiddenAspects then
 			local name = naming:GetProperName(v)
@@ -173,13 +173,22 @@ local function WriteForbiddenAspects()
 			for _, v2 in pairs(v.ChecksForbiddenAspects) do
 				table.insert(r, string.format('"%s"', revEnum[v2.Aspect]))
 			end
-			table.insert(t, line:format(name, table.concat(r, ", ")))
+			file:write(line:format(name, table.concat(r, ", ")))
 		end
 	end
-	table.sort(t)
-	for _, v in pairs(t) do
-		file:write(v)
+	file:write("\t},\n")
+	file:write("\tAddsForbiddenAspects = {\n")
+	for _, v in pairs(APIDocumentation.functions) do
+		if v.AddsForbiddenAspects then
+			local name = naming:GetProperName(v)
+			local r = {}
+			for _, v2 in pairs(v.AddsForbiddenAspects) do
+				table.insert(r, string.format('"%s"', revEnum[v2.Aspect]))
+			end
+			file:write(line:format(name, table.concat(r, ", ")))
+		end
 	end
+	file:write("\t},\n")
 	file:write("}\n\n")
 	file:write("return data\n")
 	file:close()

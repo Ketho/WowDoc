@@ -16,6 +16,7 @@ categories = [
 	"API functions",
 	"Lua functions",
 	"Widget methods",
+	"ScriptObject methods",
 	"Widget script handlers",
 	"API events",
 	"Structures",
