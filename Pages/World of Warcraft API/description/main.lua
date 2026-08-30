@@ -64,7 +64,7 @@ local function main(descType)
 	end
 
 	-- print("\n-- either")
-	-- for _, k in pairs(util:SortTable(mainList)) do
+	-- for _, k in pairs(table_sort.ByKey(mainList)) do
 	-- 	local desc1 = mainList[k]
 	-- 	local desc2 = pageDescriptions[k]
 	-- 	if (desc1 and not desc2) or (not desc1 and desc2) then

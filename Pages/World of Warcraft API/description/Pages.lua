@@ -11,7 +11,9 @@ local function GetDescription(text)
 		return tag
 	else
 		local t = strlib.strsplit(text, "\n")
-		return t[2]
+		if not t[2]:find("apisig") then
+			return t[2]
+		end
 	end
 end
 
