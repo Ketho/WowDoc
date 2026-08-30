@@ -10,6 +10,7 @@ config.path = {
 	blizres           = pathlib.join(root, "blizres"),
 	wago              = pathlib.join(root, "wago"),
 	wiki              = pathlib.join(root, "wiki"),
+	wiki_exportlua    = pathlib.join(root, "wiki", "exportlua"),
 	wiki_wowapi       = pathlib.join(root, "wiki", "wowapi"),
 	changes_apidoc    = pathlib.join(root, "changes", "apidoc"),
 	changes_diff      = pathlib.join(root, "changes", "diff"),

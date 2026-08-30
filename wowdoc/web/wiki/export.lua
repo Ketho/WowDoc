@@ -1,16 +1,17 @@
+local pathlib = require("path")
 local gumbo = require "gumbo"
 local xml2lua = require "xml2lua"
 local handler = require "xmlhandler.tree"
 local strlib = require("wowdoc.util.string")
 local system = require("wowdoc.util.system")
-local download = require("wowdoc.util.web.download")
-local https = require("wowdoc.util.web.https")
+local download = require("wowdoc.web.download")
+local request = require("wowdoc.web.request")
+local config = require("wowdoc.config")
 local m = {}
 
-local export_url = "https://wowpedia.fandom.com/wiki/Special:Export"
-local FOLDER = "cache_wowpedia/"
-m.OUTPUT_HTML = FOLDER.."export_%s.html"
-m.OUTPUT_XML = FOLDER.."export_%s.xml"
+local export_url = "https://warcraft.wiki.gg/wiki/Special:Export"
+m.OUTPUT_HTML = pathlib.join(config.path.wiki_exportlua, "%s.html")
+m.OUTPUT_XML = pathlib.join(config.path.wiki_exportlua, "%s.xml")
 
 -- actually supposed to use mediawiki api
 local function get_api_cat_names(catname)
@@ -30,7 +31,7 @@ local function get_api_cat_pages(catName, names)
 end
 
 function m:get_api_cat(catName)
-	system:mkdir(FOLDER)
+	system:mkdir(config.path.wiki_exportlua)
 	local names = get_api_cat_names(catName)
 	get_api_cat_pages(catName, table.concat(names, "\n"))
 end
@@ -38,7 +39,7 @@ end
 -- just a quick single page, no caching
 function m:get_api_page(pageName)
 	local form = string.format("pages=%s&curonly=1", pageName)
-	local body = https:HttpsPostRequest(export_url, form)
+	local body = request:HttpsPostRequest(export_url, form)
 	local parser = xml2lua.parser(handler)
 	parser:parse(body)
 	local page = handler.root.mediawiki.page

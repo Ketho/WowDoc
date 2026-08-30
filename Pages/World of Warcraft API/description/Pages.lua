@@ -2,7 +2,7 @@ local xml2lua = require "xml2lua"
 local handler = require "xmlhandler.tree"
 handler = handler:new()
 local strlib = require("wowdoc.util.string")
-local wowpedia_export = require("wowdoc.web.wiki_export")
+local wowpedia_export = require("wowdoc.web.wiki/export")
 local m = {}
 
 local function GetDescription(text)
@@ -23,14 +23,12 @@ function m:main()
 	parser:parse(xmlstr)
 	local t = {}
 	for _, page in pairs(handler.root.mediawiki.page) do
-		local name = page.title:match("^API (.+)")
+		local name = page.title:match("^API:(.+)")
 		if name then
 			name = name:gsub("^C ", "C_")
 			local desc = GetDescription(page.revision.text[1])
-			if desc ~= "&nbsp;" then
-				t[name] = desc
-				-- print(page.title, desc)
-			end
+			t[name] = desc
+			-- print(page.title, desc)
 		end
 	end
 	return t

@@ -1,5 +1,5 @@
-local util = require("wowdoc")
-local FOLDER = "Pages/World of Warcraft API/ApiDescription/"
+local table_sort = require("wowdoc.util.table_sort")
+local FOLDER = "Pages/World of Warcraft API/description/"
 local MainList = require(FOLDER.."MainList")
 local PageDescription = require(FOLDER.."Pages")
 
@@ -13,13 +13,9 @@ local filter_different = {
 }
 
 local function isValid(s)
-	if s == "&nbsp;" then
-		return false
-	else
-		for _, v in pairs(invalid) do
-			if s:find(v) then
-				return false
-			end
+	for _, v in pairs(invalid) do
+		if s:find(v) then
+			return false
 		end
 	end
 	return true
@@ -56,7 +52,7 @@ local function main(descType)
 	-- end
 
 	print("\n-- different")
-	for _, k in pairs(util:SortTable(mainList)) do
+	for _, k in pairs(table_sort.ByKey(mainList)) do
 		local desc1 = mainList[k]
 		local desc2 = pageDescriptions[k]
 		if desc1 and desc2 and desc1 ~= desc2 and not filter_different[k] then

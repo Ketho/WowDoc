@@ -1,11 +1,10 @@
 local WikiText = require("Pages/World of Warcraft API/WikiText")
-local util = require("wowdoc")
 local m = {}
 
 function m:ParseWikitext(wikitext)
 	local t = {}
 	for line in string.gmatch(wikitext, "(.-)\n") do
-		local name = line:match(":.-%[API (.-)|")
+		local name = line:match(":.-%[API:(.-)|")
 		local desc = line:match(" %- (.+)")
 		if name then
 			t[name] = desc or false
