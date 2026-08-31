@@ -111,6 +111,7 @@ function m:WriteModuleData(tbl)
 	log.info("Writing "..filePath)
 	local file = io.open(filePath, "w")
 	file:write("local data = {\n")
+	file:write("\t-- systemName = systemType, file, namespace, numFunctions, numEvents, objectType, documentation\n")
 	local fs = '\t%s = {"%s", "%s", %s, %d, %d, %s, %s},\n'
 	for _, v in pairs(tbl) do
 		local data = v.data
