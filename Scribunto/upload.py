@@ -4,14 +4,14 @@ from pathlib import Path
 
 site = pywikibot.Site("en", "warcraftwiki")
 root = Path(".wow")
-# SUMMARY = "update predicates"
+# SUMMARY = ""
 
 files = [
 	[root / "scribunto" / "gametype" / "function.lua",     "Module:Wowapi/data/gametype/function"],
 	[root / "scribunto" / "gametype" / "event.lua",        "Module:Wowapi/data/gametype/event"],
-	[root / "scribunto" / "gametype" / "scriptobject.lua", "Module:Wowapi/data/gametype/scriptobject"],
 	[root / "scribunto" / "gametype" / "widget.lua",       "Module:Wowapi/data/gametype/widget"],
-  
+	[root / "scribunto" / "gametype" / "scriptobject.lua", "Module:Wowapi/data/gametype/scriptobject"],
+
 	[root / "scribunto" / "system" / "system.lua",         "Module:Wowapi/data/system"],
 	[root / "scribunto" / "system" / "function.lua",       "Module:Wowapi/data/system/function"],
 	[root / "scribunto" / "system" / "event.lua",          "Module:Wowapi/data/system/event"],

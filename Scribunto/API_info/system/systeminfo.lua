@@ -79,6 +79,7 @@ function m:GetSystems()
 					namespace = v.system.Namespace,
 					numFunctions = numFunctions,
 					numEvents = numEvents,
+					objectType = v.system.ObjectType,
 					documentation = FormatDocumentation(v.system.Documentation),
 				}
 				table.insert(t, {
@@ -110,11 +111,12 @@ function m:WriteModuleData(tbl)
 	log.info("Writing "..filePath)
 	local file = io.open(filePath, "w")
 	file:write("local data = {\n")
-	local fs = '\t%s = {"%s", "%s", %s, %d, %d, %s},\n'
+	local fs = '\t%s = {"%s", "%s", %s, %d, %d, %s, %s},\n'
 	for _, v in pairs(tbl) do
 		local data = v.data
 		local namespace = data.namespace and string.format('"%s"', data.namespace)
-		file:write(fs:format(data.systemName, data.systemType, data.file, namespace, data.numFunctions, data.numEvents, data.documentation))
+		local objectType = data.objectType and string.format('"%s"', data.objectType)
+		file:write(fs:format(data.systemName, data.systemType, data.file, namespace, data.numFunctions, data.numEvents, objectType, data.documentation))
 	end
 	file:write("}\n\nreturn data")
 	file:close()
