@@ -15,12 +15,11 @@ config.path = {
 	changes_apidoc    = pathlib.join(root, "changes", "apidoc"),
 	changes_diff      = pathlib.join(root, "changes", "diff"),
 	changes_blizres   = pathlib.join(root, "changes", "blizres"),
-	scribunto_gametype   = pathlib.join(root, "scribunto", "gametype"),
-	scribunto_elink      = pathlib.join(root, "scribunto", "elink"),
-	scribunto_patch      = pathlib.join(root, "scribunto", "patch"),
-	scribunto_system     = pathlib.join(root, "scribunto", "system"),
-	scribunto_namespaces = pathlib.join(root, "scribunto", "namespaces"),
-	scribunto_predicates = pathlib.join(root, "scribunto", "predicates"),
+	scribunto_gametype  = pathlib.join(root, "scribunto", "gametype"),
+	scribunto_elink     = pathlib.join(root, "scribunto", "elink"),
+	scribunto_patch     = pathlib.join(root, "scribunto", "patch"),
+	scribunto_system    = pathlib.join(root, "scribunto", "system"),
+	scribunto_predicate = pathlib.join(root, "scribunto", "predicate"),
 	strings = pathlib.join(root, "strings"),
 }
 

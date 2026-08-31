@@ -59,40 +59,34 @@ local function ProcessDocTable(t0, v)
 	end
 end
 
-local function ProcessDocs()
+local function ProcessDocs(docType)
 	local t0 = {}
-	for _, v in pairs(APIDocumentation.functions) do
-		ProcessDocTable(t0, v)
-	end
-	for _, v in pairs(APIDocumentation.events) do
+	for _, v in pairs(APIDocumentation[docType]) do
 		ProcessDocTable(t0, v)
 	end
 	table.sort(t0)
 	return t0
 end
 
-local function WritePredicates()
-	local output = pathlib.join(cfg.path.scribunto_predicates, "predicates.lua")
+local function WritePredicates(docType, fileName)
+	local output = pathlib.join(cfg.path.scribunto_predicate, fileName)
 	log.info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
-	file:write("local m = {}\n\n")
-	file:write("m.data = {\n")
-	local t = ProcessDocs()
+	file:write("local data = {\n")
+	local t = ProcessDocs(docType)
 	for _, v in pairs(t) do
 		file:write(v)
 	end
 	file:write("}\n\n")
-	file:write("return m\n")
+	file:write("return data\n")
 	file:close()
 end
 
 local function WriteSecretArguments()
-	local output = pathlib.join(cfg.path.scribunto_predicates, "SecretArguments.lua")
+	local output = pathlib.join(cfg.path.scribunto_predicate, "secretargument.lua")
 	log.info(string.format("Writing %s", output))
 	local file = io.open(output, "w")
-	file:write("local m = {}\n\n")
-	file:write('m.info = require("Module:API info/predicates/secret arguments/info")\n')
-	file:write("m.data = {\n")
+	file:write("local data = {\n")
 	local line = '\t["%s"] = "%s",\n'
 	local t = {}
 	for _, v in pairs(APIDocumentation.functions) do
@@ -106,18 +100,18 @@ local function WriteSecretArguments()
 		file:write(v)
 	end
 	file:write("}\n\n")
-	file:write("return m\n")
+	file:write("return data\n")
 	file:close()
 end
 
 local function WriteSecretAspects()
-	local output = pathlib.join(cfg.path.scribunto_predicates, "SecretAspects.lua")
+	local output = pathlib.join(cfg.path.scribunto_predicate, "secretaspect.lua")
 	log.info(string.format("Writing %s", output))
 	local revEnum = GetReverseEnum(Enum.SecretAspect)
 	local file = io.open(output, "w")
-	file:write("local m = {}\n\n")
-	file:write("m.SecretArgumentsAddAspect = {\n")
-	local line = '\t["%s"] = {%s},\n'
+	file:write("local data = {\n")
+	file:write("\tSecretArgumentsAddAspect = {\n")
+	local line = '\t\t["%s"] = {%s},\n'
 	local t = {}
 	for _, v in pairs(APIDocumentation.functions) do
 		if v.SecretArgumentsAddAspect then
@@ -133,10 +127,10 @@ local function WriteSecretAspects()
 	for _, v in pairs(t) do
 		file:write(v)
 	end
-	file:write("}\n\n")
+	file:write("\t},\n")
 
-	file:write("m.SecretReturnsForAspect = {\n")
-	local line = '\t["%s"] = {%s},\n'
+	file:write("\tSecretReturnsForAspect = {\n")
+	local line = '\t\t["%s"] = {%s},\n'
 	local t = {}
 	for _, v in pairs(APIDocumentation.functions) do
 		if v.SecretReturnsForAspect then
@@ -150,16 +144,16 @@ local function WriteSecretAspects()
 	end
 	table.sort(t)
 	for _, v in pairs(t) do
-		file:write(v)
+		file:write(v)	
 	end
-	file:write("}\n\n")
+	file:write("\t}\n}\n\n")
 
-	file:write("return m\n")
+	file:write("return data\n")
 	file:close()
 end
 
 local function WriteForbiddenAspects()
-	local output = pathlib.join(cfg.path.scribunto_predicates, "ForbiddenAspects.lua")
+	local output = pathlib.join(cfg.path.scribunto_predicate, "forbiddenaspect.lua")
 	log.info(string.format("Writing %s", output))
 	local revEnum = GetReverseEnum(Enum.ForbiddenAspect)
 	local file = io.open(output, "w")
@@ -196,7 +190,8 @@ end
 
 
 local function main()
-	WritePredicates()
+	WritePredicates("functions", "function.lua")
+	WritePredicates("events", "event.lua")
 	WriteSecretArguments()
 	WriteSecretAspects()
 	WriteForbiddenAspects()

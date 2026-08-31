@@ -4,6 +4,7 @@ from pathlib import Path
 
 site = pywikibot.Site("en", "warcraftwiki")
 root = Path(".wow")
+# SUMMARY = "update predicates"
 
 files = [
 	[root / "scribunto" / "gametype" / "function.lua",     "Module:Wowapi/data/gametype/function"],
@@ -26,9 +27,11 @@ files = [
 
 	[root / "scribunto" / "patch" / "vanilla" / "function.lua", "Module:Wowapi/data/patch/vanilla/function"],
 
-	# [".wow/scribunto/predicates/API_info.predicates.lua", "Module:API_info/predicates/predicates"],
-	# [".wow/scribunto/predicates/API_info.SecretArguments.lua", "Module:API_info/predicates/secret_arguments"],
-	# [".wow/scribunto/predicates/API_info.SecretAspects.lua", "Module:API_info/predicates/secret_aspects"],
+	[root / "scribunto" / "predicate" / "function.lua",        "Module:Wowapi/data/predicate/function"],
+	[root / "scribunto" / "predicate" / "event.lua",           "Module:Wowapi/data/predicate/event"],
+	[root / "scribunto" / "predicate" / "secretargument.lua",  "Module:Wowapi/data/predicate/secretargument"],
+	[root / "scribunto" / "predicate" / "secretaspect.lua",    "Module:Wowapi/data/predicate/secretaspect"],
+	[root / "scribunto" / "predicate" / "forbiddenaspect.lua", "Module:Wowapi/data/predicate/forbiddenaspect"],
 ]
 
 def getFileText(p):
@@ -45,7 +48,7 @@ def saveFile(text, wikipath):
 		page.text = text + page.text[end_index:]
 	else:
 		page.text = text
-	page.save(summary = sys.argv[1])
+	page.save(summary = SUMMARY or sys.argv)
 
 def main():
 	for v in files:
