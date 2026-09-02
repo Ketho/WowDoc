@@ -4,7 +4,6 @@ from pathlib import Path
 
 site = pywikibot.Site("en", "warcraftwiki")
 root = Path(".wow")
-# SUMMARY = ""
 
 files = [
 	[root / "scribunto" / "gametype" / "function.lua",     "Module:Wowapi/data/gametype/function"],
@@ -48,7 +47,7 @@ def saveFile(text, wikipath):
 		page.text = text + page.text[end_index:]
 	else:
 		page.text = text
-	page.save(summary = SUMMARY or sys.argv) # type: ignore
+	page.save(summary = sys.argv[1])
 
 def main():
 	for v in files:

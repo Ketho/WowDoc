@@ -18,7 +18,7 @@ local function WriteFiles()
         pathlib.join(scribunto, "system", "systeminfo"),
         pathlib.join(scribunto, "patch", "api"), -- for some reason need to run this twice
         pathlib.join(scribunto, "patch", "event"),
-        -- pathlib.join(scribunto, "predicates"),
+        pathlib.join(scribunto, "predicates"),
     }
     for _, v in pairs(files) do
         log.important(string.format("require: %s", v))
