@@ -48,7 +48,7 @@ def saveFile(text, wikipath):
 		page.text = text + page.text[end_index:]
 	else:
 		page.text = text
-	page.save(summary = SUMMARY or sys.argv)
+	page.save(summary = SUMMARY or sys.argv) # type: ignore
 
 def main():
 	for v in files:
