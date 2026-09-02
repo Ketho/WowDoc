@@ -84,13 +84,13 @@ function p:GetWikiCats()
 		if cat == "Enums" then
 			for pageName, pageText in pairs(pages) do
 				local name = pageName:match("Enum%.(%w+)")
-				local tbl = self:ParseEnumPage(pageName, pageText)
+				local tbl = self:ParseEnumPage(pageText)
 				t[cat][name] = tbl
 			end
 		elseif cat == "Structures" then
 			for pageName, pageText in pairs(pages) do
 				local name = pageName:match("Structure (%w+)")
-				local tbl = self:ParseStructurePage(pageName, pageText)
+				local tbl = self:ParseStructurePage(pageText)
 				t[cat][name] = tbl
 			end
 		end
@@ -98,7 +98,7 @@ function p:GetWikiCats()
 	return t
 end
 
-function p:ParseEnumPage(pageName, text)
+function p:ParseEnumPage(text)
 	local t = {}
 	for line in text:gmatch("[^\n]+") do
 		-- account for negative numbers
@@ -111,7 +111,7 @@ function p:ParseEnumPage(pageName, text)
 	return t
 end
 
-function p:ParseStructurePage(pageName, text)
+function p:ParseStructurePage(text)
 	local t = {}
 	for line in text:gmatch("[^\n]+") do
 		local apiname, apitype = line:match("| {{apiname|([%w_]+)}} || {{apitype|([%w_%.]+).-}}")
