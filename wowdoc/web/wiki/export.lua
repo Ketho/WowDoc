@@ -14,7 +14,7 @@ local export_url = "https://warcraft.wiki.gg/wiki/Special:Export"
 
 -- actually supposed to use mediawiki api
 -- returns the page names for a category
-local function get_cat_names(catname)
+local function get_cat_members(catname)
 	local fileName = string.format("%s.html", catname)
 	local path = m.pathlib.join(m.config.path.wiki_exportlua, fileName)
 	local form = string.format("catname=%s&addcat=Add", catname)
@@ -38,7 +38,7 @@ end
 
 function p:GetCategory(catName)
 	m.system:mkdir(m.config.path.wiki_exportlua)
-	local names = get_cat_names(catName)
+	local names = get_cat_members(catName)
 	local pages = get_pages(catName, table.concat(names, "\n"))
 	return pages
 end
