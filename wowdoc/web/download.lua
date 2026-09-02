@@ -45,6 +45,7 @@ function m:DownloadFilePost(url, path, requestBody, cacheTime)
 	end
 end
 
+-- if cacheTime is true it will change to INVALIDATION_TIME
 function m:ShouldDownload(path, cacheTime)
 	local attr = lfs.attributes(path)
 	if not attr then
