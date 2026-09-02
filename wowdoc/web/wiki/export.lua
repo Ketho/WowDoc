@@ -32,10 +32,11 @@ local function get_pages(fileBase, names)
 	local path = m.pathlib.join(m.config.path.wiki_exportlua, fileName)
 	local form = string.format("pages=%s&curonly=1", names)
 	m.download:DownloadFilePost(export_url, path, form, 60)
-	return m.xml:ReadXmlFile(path, true)
+	local pages = m.xml:ReadXmlFile(path, true)
+	return pages
 end
 
-function p:get_cat(catName)
+function p:GetCategory(catName)
 	m.system:mkdir(m.config.path.wiki_exportlua)
 	local names = get_cat_names(catName)
 	local pages = get_pages(catName, table.concat(names, "\n"))
@@ -43,7 +44,7 @@ function p:get_cat(catName)
 end
 
 -- requests a single page without caching
-function p:get_page(pageName)
+function p:GetPage(pageName)
 	local form = string.format("pages=%s&curonly=1", pageName)
 	local body = m.request.HttpsPostRequest(export_url, form)
 	local text = m.xml:ReadXmlString(body)

@@ -20,26 +20,27 @@ local function GetPageText(page)
 	return text
 end
 
-function p:ReadXmlString(xmlstr, multiple)
+function p:ReadXmlString(xmlstr)
 	local handler = m.xmlhandler:new()
 	local parser = m.xml2lua.parser(handler)
 	parser:parse(xmlstr)
-	if multiple then
+	local page = handler.root.mediawiki.page
+	if #page > 0 then
 		local t = {}
-		for _, v in pairs(handler.root.mediawiki.page) do
+		for _, v in pairs(page) do
 			local text = GetPageText(v)
-			table.insert(t, text)
+			t[v.title] = text
 		end
 		return t
 	else
-		local text = GetPageText(handler.root.mediawiki.page)
+		local text = GetPageText(page)
 		return text
 	end
 end
 
-function p:ReadXmlFile(path, multiple)
+function p:ReadXmlFile(path)
 	local xmlstr = m.xml2lua.loadFile(path)
-	local text = self:ReadXmlString(xmlstr, multiple)
+	local text = self:ReadXmlString(xmlstr)
 	return text
 end
 
