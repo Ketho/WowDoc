@@ -57,21 +57,21 @@ local ToMap = {
 		return t
 	end,
 	Frames = function(tbl, options)
-		if options.combine then
+		if options.combine_frames then
 			return tablelib.ToMap(table.unpack(tbl)) -- include loadondemand
 		else
 			return tablelib.ToMap(tbl[1])
 		end
 	end,
 	FrameXML = function(tbl, options)
-		if options.combine then
+		if options.combine_framexml then
 			return tablelib.ToMap(table.unpack(tbl)) -- include loadondemand
 		else
 			return tablelib.ToMap(tbl[1])
 		end
 	end,
 	GlobalAPI = function(tbl, options)
-		if options.combine then
+		if options.combine_globalapi then
 			return tablelib.ToMap(table.unpack(tbl)) -- include lua api
 		else
 			return tablelib.ToMap(tbl[1])

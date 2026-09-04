@@ -24,7 +24,7 @@ local sources = {
 
 local function main()
 	for source, info in pairs(sources) do
-		local data = branch_flags:main(source)
+		local data = branch_flags:main(source, {combine_globalapi = true})
 		print("writing", info.out)
 		local file = io.open(info.out, "w")
 		file:write("-- https://github.com/Ketho/WowDoc/blob/master/Scribunto/API_info/flavor/flavor.lua\n")
