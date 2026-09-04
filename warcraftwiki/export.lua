@@ -65,7 +65,7 @@ function m:ExportFile(tbl, folder)
 	if tbl.Type == "Function" then
 		file = string.format("API %s.txt", proper_name)
 	elseif tbl.Type == "Event" then
-		file = string.format("%s.txt", proper_name)
+		file = string.format("Event %s.txt", proper_name)
 	elseif tbl.Type == "Enumeration" then
 		file = string.format("Enum.%s.txt", proper_name)
 	elseif tbl.Type == "Structure" then

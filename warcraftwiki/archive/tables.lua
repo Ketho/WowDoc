@@ -4,7 +4,7 @@ local naming_version = require("wowdoc.namingway.version")
 local m = {}
 
 function m:main()
-	require("Projects.DownloadFrameXml.DownloadFrameXml") -- im lazy, so get the latest framexml
+	require("projects.DownloadFrameXml.DownloadFrameXml") -- im lazy, so get the latest framexml
 	if not self.data then
 		local archives = framexml:GetDocArchive("live")
 		self.data = self:GetFieldAdded(archives)

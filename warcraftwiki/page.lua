@@ -26,11 +26,9 @@ function WarcraftWiki:GetPageTemplate(apiTable)
 			table.insert(t, "widgetmethod")
 		else
 			table.insert(t, "wowapi")
-			table.insert(t, "t=a")
 		end
 	elseif apiTable.Type == "Event" then
 		table.insert(t, "wowapievent")
-		table.insert(t, "t=e")
 	elseif TableTypes[apiTable.Type] then
 		table.insert(t, "wowapitype")
 	end

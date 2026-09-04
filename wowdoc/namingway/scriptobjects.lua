@@ -32,6 +32,7 @@ p.data = {
 	LuaDurationClockObjectAPI = "DurationClock",
 	LuaDurationManualClockAPI = "DurationManualClock",
 	LuaDurationObjectAPI = "DurationObject",
+	LuaLocaleContextAPI = "LocaleContext",
 	MinimapFrameAPI = "Minimap",
 	NumericFormatterAPI = "NumericFormatter",
 	NumericRuleFormatterAPI = "NumericRuleFormatter",
@@ -80,6 +81,7 @@ p.data = {
 	SimpleTextureAPI = "Texture",
 	SimpleTextureBaseAPI = "TextureBase",
 	SimpleVectorGraphicsAPI = "VectorGraphics",
+	TimedSignalMapAPI = "TimedSignalMap",
 	UnitHealPredictionCalculatorAPI = "UnitHealPredictionCalculator",
 }
 

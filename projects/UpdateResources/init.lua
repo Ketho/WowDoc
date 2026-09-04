@@ -9,9 +9,9 @@ OUT_ATLAS = "/mnt/d/Repo/wow-api/BlizzardInterfaceResources/Resources/AtlasInfo.
 OUT_RESOURCES = "/mnt/d/Repo/wow-api/BlizzardInterfaceResources/Resources"
 IN_FRAMEXML = "./wow-ui-source/"
 
-local globalstrings = require("Projects.UpdateResources.GlobalStrings")
-local atlasinfo = require("Projects.UpdateResources.AtlasInfo")
-local dumbparser = require("Projects.DumbXmlParser")
+local globalstrings = require("projects.UpdateResources.GlobalStrings")
+local atlasinfo = require("projects.UpdateResources.AtlasInfo")
+local dumbparser = require("projects.DumbXmlParser")
 
 local PRODUCT = cfg.TACT_PRODUCT
 local branch = products:GetBranch(PRODUCT)

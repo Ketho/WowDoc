@@ -21,11 +21,11 @@ git push ketho classic:classic
 ## init midnight
 ```sh
 cd "D:\Repo\wow\wow-framexml"
-git clone -b ptr --single-branch https://github.com/Gethe/wow-ui-source "wow-ui-source midnight-ptr"
+git clone -b ptr2 --single-branch https://github.com/Gethe/wow-ui-source "wow-ui-source midnight-ptr"
 cd "wow-ui-source midnight-ptr"
 git remote add ketho https://github.com/Ketho/wow-ui-source-midnight-ptr
-git pull origin ptr
-git push ketho ptr:ptr
+git pull origin ptr2
+git push ketho ptr2:ptr2
 ```
 
 ## init bcc

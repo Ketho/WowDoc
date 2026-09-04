@@ -7,7 +7,7 @@ from pathlib import Path
 
 site = pywikibot.Site("en", "warcraftwiki")
 url = 'https://warcraft.wiki.gg'
-SUMMARY = "12.1.0 (68914)" # to do: get latest build in python
+SUMMARY = "12.1.5 (69594)" # to do: get latest build in python
 
 headers = { # https://foundation.wikimedia.org/wiki/Policy:Wikimedia_Foundation_User-Agent_Policy
     'User-Agent': 'KethoBot/1.0 (https://warcraft.wiki.gg/wiki/User:KethoBot)'
@@ -51,6 +51,10 @@ def recursiveFiles(path, l):
 				recursiveFiles(newPath, l)
 		else:
 			name = base[:-4].replace("_", " ")
+			if name.startswith("API "):
+				name = name.replace("API ", "API:")
+			elif name.startswith("Event "):
+				name = name.replace("Event ", "Event:")
 			l.update({name: getFileText(newPath)})
 
 def get_documented_api():

@@ -27,6 +27,7 @@ function m:GetDefinedNamespaces()
 			t[namespace] = true
 		end
 	end
+	t.C_LocaleContext = true -- idek; userdata scriptobject with a namespace
 	return t
 end
 

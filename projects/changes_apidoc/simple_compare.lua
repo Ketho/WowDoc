@@ -1,4 +1,4 @@
-local changes_apidoc = require("Projects.changes_apidoc")
+local changes_apidoc = require("projects.changes_apidoc")
 local strlib = require("wowdoc.util.string")
 local m = {}
 

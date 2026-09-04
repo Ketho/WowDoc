@@ -5,13 +5,14 @@ local table_sort = require("wowdoc.util.table_sort")
 local log = require("wowdoc.util.log")
 local dl = require("wowdoc.web.download")
 local cfg = require("wowdoc.config")
-local cvar_module = require("Projects.changes_blizres.CVar")
-local widget_module = require("Projects.changes_blizres.Widget")
+local cvar_module = require("projects.changes_blizres.CVar")
+local widget_module = require("projects.changes_blizres.Widget")
+-- local scriptobject_module = require("projects.changes_blizres.ScriptObject")
 local m = {}
 
 -- `git diff --binary --full-index 12.0.0 12.0.1 > diff-12.0.0..12.0.1.patch`
-local BRANCH1 = "12.0.7"
-local BRANCH2 = "12.1.0"
+local BRANCH1 = "12.1.0"
+local BRANCH2 = "12.1.5"
 local WIDGET= BRANCH2 -- for widgets
 local CVAR1, CVAR2 = BRANCH1, BRANCH2
 -- local DIFF = {"commit", "mainline"}
@@ -59,6 +60,18 @@ local data_table = {
 		class = "mw-customtoggle-framexml",
 		id = "mw-customcollapsible-framexml",
 	},
+	ScriptObjectAPI = {
+		label = "ScriptObjects",
+		textfunc = function(name, line_number)
+			local scriptobject = scriptobject_module:GetWidgetByLine(name, line_number)
+			return string.format(": {{api|t=w|%s:%s}}", scriptobject, name)
+		end,
+		parseName = function(innerLine)
+			return innerLine:match('\t\t\t"(.+)",')
+		end,
+		class = "mw-customtoggle-scriptobjects",
+		id = "mw-customcollapsible-scriptobjects",
+	},
 	WidgetAPI = {
 		label = "Widgets",
 		textfunc = function(name, line_number)
@@ -93,7 +106,7 @@ local data_table = {
 	},
 }
 
-local api_order = {"GlobalAPI", "FrameXML", "WidgetAPI", "Events", "CVars"}
+local api_order = {"GlobalAPI", "FrameXML", --[["ScriptObjectAPI",]] "WidgetAPI", "Events", "CVars"}
 
 for _, v in pairs(data_table) do
 	v.changes = {
@@ -166,6 +179,7 @@ local function main()
 	m:ParseDiff(path) -- fill changes tbl
 	dl:DownloadFile(url, path, true)
 	widget_module.main(data_table.WidgetAPI, path, WIDGET)
+	-- scriptobject_module.main(data_table.ScriptObjectAPI, path, WIDGET)
 	cvar_module:SanitizeCVars(data_table)
 
 	print("writing", OUT_FILE)
