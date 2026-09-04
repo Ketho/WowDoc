@@ -134,7 +134,6 @@ local function main()
 
 		print("writing", info.out)
 		local file = io.open(info.out, "w")
-		file:write("-- https://github.com/Ketho/WowpediaDoc/blob/master/Scribunto/API_info/patch/api/api.lua\n")
 		file:write("local data = {\n")
 		for _, name in pairs(table_sort.ByKey(t)) do
 			local tbl = t[name]
@@ -149,7 +148,11 @@ local function main()
 			end
 			file:write("},\n")
 		end
-		file:write("}\n\nreturn data\n")
+		file:write("}\n")
+		-- have custom stuff in https://warcraft.wiki.gg/wiki/Module:Wowapi/data/patch/mainline/function
+		if flavor ~= "mainline" then
+			file:write("\nreturn data\n")
+		end
 		file:close()
 	end
 end
