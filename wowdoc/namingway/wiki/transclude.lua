@@ -28,7 +28,7 @@ function m:GetTranscludeTemplate(apiTable, nocaption)
 		elseif cat == "Structure" then
 			table.insert(t, string.format("Structure %s", actualType))
 		elseif cat == "CallbackType" then
-			table.insert(t, string.format("Structure %s", actualType))
+			table.insert(t, string.format("CallbackType %s", actualType))
 		end
 		if nocaption then
 			table.insert(t, "nocaption=1")
