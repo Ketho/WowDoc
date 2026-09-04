@@ -199,6 +199,19 @@ function m:GetConstantTypes()
 	return self.types.constant
 end
 
+function m:GetCallbackTypes()
+	if not self.types.callbacktype then
+		local t = {}
+		for _, v in pairs(APIDocumentation.tables) do
+			if v.Type == "CallbackType" then
+				t[v.Name] = true
+			end
+		end
+		self.types.callbacktype = t
+	end
+	return self.types.callbacktype
+end
+
 function m:FindTypeCat(name)
 	if self:GetEnumTypes()[name] then
 		return "Enumeration"
@@ -208,6 +221,9 @@ function m:FindTypeCat(name)
 	end
 	if self:GetConstantTypes()[name] then
 		return "Constants"
+	end
+	if self:GetCallbackTypes()[name] then
+		return "CallbackType"
 	end
 end
 

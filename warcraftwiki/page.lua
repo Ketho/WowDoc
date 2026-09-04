@@ -9,6 +9,7 @@ local TableTypes = {
 	Enumeration = true,
 	Structure = true,
 	Constants = true,
+	CallbackType = true,
 }
 
 function WarcraftWiki:GetPageText(apiTable)

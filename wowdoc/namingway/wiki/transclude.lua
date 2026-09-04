@@ -27,6 +27,8 @@ function m:GetTranscludeTemplate(apiTable, nocaption)
 			table.insert(t, string.format("Enum.%s", actualType))
 		elseif cat == "Structure" then
 			table.insert(t, string.format("Structure %s", actualType))
+		elseif cat == "CallbackType" then
+			table.insert(t, string.format("Structure %s", actualType))
 		end
 		if nocaption then
 			table.insert(t, "nocaption=1")

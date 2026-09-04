@@ -22,6 +22,8 @@ function WarcraftWiki:GetTableContents(apiTable)
 		return self:GetStructureTable(apiTable)
 	elseif apiTable.Type == "Constants" then
 		return self:GetConstantsTable(apiTable)
+	elseif apiTable.Type == "CallbackType" then
+		return self:GetCallbackTypeTable(apiTable)
 	end
 end
 
@@ -30,7 +32,7 @@ local function GetClassAttributes(apiTable)
 	table.insert(t, "sortable")
 	table.insert(t, "darktable")
 	table.insert(t, "zebra")
-	if apiTable.Type == "Enumeration" or apiTable.Type == "Constants" then
+	if apiTable.Type == "Enumeration" or apiTable.Type == "Constants" or apiTable.Type == "CallbackType" then
 		table.insert(t, "col1-center")
 	end
 	return table.concat(t, " ")
@@ -93,6 +95,17 @@ function WarcraftWiki:GetConstantsTable(apiTable)
 		local apitype = self:GetTypeTemplate(field)
 		local doc = self:GetDocumentation(field) or ""
 		table.insert(t, string.format('|-\n| {{apiname|%s}} || %s || %s || %s', field.Name, apitype, field.Value, doc))
+	end
+	return table.concat(t, "\n")
+end
+
+function WarcraftWiki:GetCallbackTypeTable(apiTable)
+	local t = {}
+	table.insert(t, "! Arg !! Name !! Type !! Description")
+	for idx, field in pairs(apiTable.Arguments or {}) do
+		local apitype = self:GetTypeTemplate(field)
+		local doc = self:GetDocumentation(field) or ""
+		table.insert(t, string.format('|-\n| %d || {{apiname|%s}} || %s || %s', idx, field.Name, apitype, doc))
 	end
 	return table.concat(t, "\n")
 end

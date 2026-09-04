@@ -59,7 +59,7 @@ end
 
 local function FormatDocumentation(t)
 	if t then
-		local s = table.concat(t, " ")
+		local s = table.concat(t, "<br>")
 		return string.format('"%s"', s)
 	end
 end
