@@ -119,7 +119,7 @@ function m:WriteModuleData(tbl)
 		local objectType = data.objectType and string.format('"%s"', data.objectType)
 		file:write(fs:format(data.systemName, data.systemType, data.file, namespace, data.numFunctions, data.numEvents, objectType, data.documentation))
 	end
-	file:write("}\n\nreturn data")
+	file:write("}\n")
 	file:close()
 end
 
