@@ -5,6 +5,14 @@ local m = {
 }
 local p = {}
 
+local filter = {
+	Enumeration = {
+		BagIndex = true, -- classic shenanigans
+		ForbiddenAspect = true, -- section transcludes
+	},
+	Structure = {},
+}
+
 function p:main()
 	local doc = m.wowdoc:LoadDocumentation()
 	local docTables = self:GetDocTables(doc)
@@ -14,7 +22,7 @@ function p:main()
 	for name, doc_enum in pairs(docTables.Enumeration) do
 		local wiki_enum = wikiTables.Enums[name]
 		local eq = m.tablelib.equals(doc_enum, wiki_enum)
-		if not eq then
+		if not eq and not filter.Enumeration[name] then
 			print("- "..name)
 		end
 	end
@@ -23,7 +31,7 @@ function p:main()
 	for name, doc_struct in pairs(docTables.Structure) do
 		local wiki_struct = wikiTables.Structures[name]
 		local eq = m.tablelib.equals(doc_struct, wiki_struct)
-		if not eq then
+		if not eq and not filter.Structure[name] then
 			print("- "..name)
 			-- self:PrintMismatch(doc_struct, wiki_struct)
 		end

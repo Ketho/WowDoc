@@ -60,7 +60,7 @@ function WarcraftWiki:GetTableDocumentation(field)
 	end
 	local doc = self:GetDocumentation(field)
 	if doc then
-		table.insert(t, documentation)
+		table.insert(t, doc)
 	end
 	return table.concat(t, " ")
 end
