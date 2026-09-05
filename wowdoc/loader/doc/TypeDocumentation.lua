@@ -17,6 +17,7 @@ local data = {
 	{ Name = "string" },
 	{ Name = "cstring", W_Replace = "string" },
 	{ Name = "table" },
+	{ Name = "any" },
 
 	-- UI_shared.xsd
 	-- <xs:simpleType name="ALPHAMODE">, SetBlendMode
@@ -87,9 +88,11 @@ local data = {
 	{ Name = "LuaDurationClock",  W_Replace = "DurationClock", W_Link = "ScriptObject_DurationClock" },
 	{ Name = "LuaDurationManualClock", W_Replace = "DurationManualClock", W_Link = "ScriptObject_DurationManualClock" },
 	{ Name = "LuaDurationObject", W_Replace = "DurationObject", W_Link = "ScriptObject_DurationObject" },
+	{ Name = "LuaLocaleContext", W_Link = "ScriptObject_LocaleContext" },
 	{ Name = "NumericFormatter", W_Link = "ScriptObject_NumericFormatter" },
 	{ Name = "NumericRuleFormatter", W_Link = "ScriptObject_NumericRuleFormatter" },
 	{ Name = "SecondsFormatter", W_Link = "ScriptObject_SecondsFormatter" },
+	{ Name = "TimedSignalMap", W_Link = "ScriptObject_TimedSignalMap " },
 	{ Name = "UnitHealPredictionCalculator", W_Link = "ScriptObject_UnitHealPredictionCalculator" },
 	-- types
 	{ Name = "AnimationDataEnum", Type = {"number"} },
@@ -106,10 +109,7 @@ local data = {
 	{ Name = "ConnectionIptype", Type = {"number"}, Description = {"1=IPv4", "2=IPv6"} },
 	{ Name = "ConnectionProtocol", Type = {"number"}, Description = {"1=TCP, 2=UDP"} },
 	{ Name = "DiscordID", Type = {"string"} },
-	{ Name = "DurationMillisecondsPrimitive", Type = {"number"} },
-	{ Name = "DurationSeconds", Type = {"number"} },
 	{ Name = "DurationSecondsDouble", Type = {"number"} },
-	{ Name = "DurationSecondsPrimitive", Type = {"number"} },
 	{ Name = "EncounterTimelineEventID", Type = {"number"} },
 	{ Name = "FileAsset", Type = {"string"} }, -- texture path
 	{ Name = "fileID", Type = {"number"}, W_Link = "FileDataID" },
@@ -119,7 +119,7 @@ local data = {
 	{ Name = "GarrisonFollower", Type = {"string"} },
 	{ Name = "HTMLTextType", Type = {"string"} },
 	{ Name = "IDOrLink", Type = {"number", "string"} },
-	{ Name = "InventorySlots", Type = {"number"}, W_Link = "InventorySlotId" },
+	{ Name = "InventorySlots", Type = {"number"}, W_Link = "InventorySlotID" },
 	{ Name = "ItemInfo", Type = {"number", "string"}, W_Link = "API_types/ItemInfo" }, -- item id, link, name
 	{ Name = "kstringAuroraName", Type = {"string"}, W_Link = "Kstring" },
 	{ Name = "kstringClubMessage", Type = {"string"}, W_Link = "Kstring" },
@@ -131,9 +131,10 @@ local data = {
 	{ Name = "luaFunction", W_Replace = "function" },
 	{ Name = "LuaFunctionReference", Type = {"function"} },
 	{ Name = "luaIndex", Type = {"number"} },
-	{ Name = "LuaInventorySlot", Type = {"number"}, W_Link = "InventorySlotId" },
+	{ Name = "LuaInventorySlot", Type = {"number"}, W_Link = "InventorySlotID" },
 	{ Name = "LuaValueReference", Type = {"any"} },
 	{ Name = "LuaValueVariant", Type = {"any"} },
+	{ Name = "Milliseconds", Type = {"number"} },
 	{ Name = "ModelAsset", Type = {"string"} },
 	{ Name = "mouseButton", Type = {"string"}, Description = {"LeftButton", "RightButton", "MiddleButton", "Button4", "Button5"} },
 	{ Name = "MouseButton", Type = {"string"}, Description = {"LeftButton", "RightButton", "MiddleButton", "Button4", "Button5"} },
@@ -142,6 +143,7 @@ local data = {
 	{ Name = "QuestObjectiveType", Type = {"number"} },
 	{ Name = "RecruitAcceptanceID", Type = {"string"} },
 	{ Name = "ScriptTypeName", Type = {"string"} }, -- OnShow, OnEvent, etc
+	{ Name = "Seconds", Type = {"number"} },
 	{ Name = "SendChatMessageType", Type = {"string"} }, -- transcluded as a table
 	{ Name = "SingleColorValue", Type = {"number"} }, -- [0.0 - 1.0], used mainly for alpha
 	{ Name = "size", Type = {"number"} }, -- only used for Texture:GetNumMaskTextures
@@ -149,7 +151,7 @@ local data = {
 	{ Name = "SpellIdentifier", Type = {"number", "string"}, W_Link = "API_types/SpellIdentifier" },
 	{ Name = "StoreError", Type = {"number"} },
 	{ Name = "stringView", Type = {"string"} },
-	{ Name = "TextureAsset", Type = {"Texture", "string", "fileID"} },
+	{ Name = "TextureAsset", Type = {"Texture", "fileID", "string"} },
 	{ Name = "TextureAssetDisk", Type = {"string", "fileID"} },
 	{ Name = "textureAtlas", Type = {"string"}, W_Link = "AtlasID" }, -- texture atlas
 	{ Name = "textureKit", Type = {"string"} }, -- W_Link = "dbc:UiTextureKit" }, -- (what happened to textureKitID as a number?)
@@ -158,6 +160,7 @@ local data = {
 	{ Name = "uiFontHeight", Type = {"number"} }, -- font height
 	{ Name = "UISoundSubType", Type = {"string"} },
 	{ Name = "uiUnit", Type = {"number"} }, -- user interface units
+	{ Name = "UnitCastBarID", Type = {"number"} },
 	{ Name = "UnitToken", Type = {"string"}, W_Link = "UnitToken" },
 	{ Name = "UnitTokenNamePlate", Type = {"string"}, W_Link = "UnitToken" },
 	{ Name = "UnitTokenPvPRestrictedForAddOns", Type = {"string"}, W_Link = "UnitToken" },
@@ -166,6 +169,28 @@ local data = {
 	{ Name = "WeeklyRewardItemDBID", Type = {"string"} }, -- in WeeklyRewardActivityRewardInfo -- /dump C_WeeklyRewards.GetActivities()[1].rewards
 	{ Name = "WOWGUID", Type = {"string"}, W_Link = "GUID" },
 	{ Name = "WOWMONEY", Type = {"number"}, Description = {"Amount in copper"} },
+	-- callbacks
+	{ Name = "CraftingOrderRequestCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "CraftingOrderRequestMyOrdersCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "EventCallbackType", Type = {"function", "FunctionContainer"} },
+	{ Name = "FixturePointUpdatedCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "FrameEventCallbackType", Type = {"function", "FunctionContainer"} },
+	{ Name = "GetTitleIconTextureCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "HousingCatalogSearchResultsUpdatedCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "InputCommandCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "MacroExecuteLineCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "PendingPingOffScreenCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "PingCooldownStartedCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "PingPinFrameAddedCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "PingPinFrameRemovedCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "PingPinFrameScreenClampStateUpdatedCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "PingRadialWheelCreatedCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "PinUpdatedCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "SendMacroPingCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "TickerCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "TimedSignalMapCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "TimerCallback", Type = {"function", "FunctionContainer"} },
+	{ Name = "TogglePingListenerCallback", Type = {"function", "FunctionContainer"} },
 	-- mixins
 	{ Name = "AzeriteEmpoweredItemLocation", Mixin = "ItemLocationMixin", W_Link = "ItemLocationMixin" },
 	{ Name = "AzeriteItemLocation", Mixin = "ItemLocationMixin", W_Link = "ItemLocationMixin" },
