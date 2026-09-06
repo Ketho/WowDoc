@@ -6,14 +6,14 @@ sys.path.append('Pywikibot/export')
 import parse_html
 
 def update_text(name: str, s: str):
-	a = '{{restrictedapi|protected|info='
-	b = '{{restrictedapi|protected|note='
+	a = '|tentative=}}'
+	b = '}}'
 	if a in s:
 		s = s.replace(a, b)
 		return s
 
 def main():
-	util.warcraftwiki.main(update_text, summary="restrictedapi note")
+	util.warcraftwiki.main(update_text, summary="trim tentative")
 	parse_html.main()
 
 if __name__ == "__main__":

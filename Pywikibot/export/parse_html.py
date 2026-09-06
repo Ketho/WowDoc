@@ -10,7 +10,7 @@ categories = [
 	"Widget methods",
 	"Widget script handlers",
 	"API events",
-	"Structs",
+	"Structures",
 	"Enums",
 ]
 

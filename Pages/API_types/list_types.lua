@@ -61,6 +61,7 @@ end
 function m:main()
 	loader:LoadDocumentation()
 	self:PrintList()
+	print("done")
 end
 
 m:main()
