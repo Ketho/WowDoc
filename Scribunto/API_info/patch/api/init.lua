@@ -1,41 +1,30 @@
 -- https://wowpedia.fandom.com/wiki/Module:API_info/patch/api_retail
 -- https://wowpedia.fandom.com/wiki/Module:API_info/patch/api_classic
-local pathlib = require("path")
-local table_sort = require("wowdoc.util.table_sort")
-local cfg = require("wowdoc.config")
-local system = require("wowdoc.util.system")
-local m = {}
+local m = {
+	pathlib = require("path"),
+	table_sort = require("wowdoc.util.table_sort"),
+	cfg = require("wowdoc.config"),
+	system = require("wowdoc.util.system"),
+	products = require("wowdoc.products.branches"),
+	update_patch = require("Scribunto.API_info.patch.api.update_patch"),
 
-local PATH = pathlib.join("Scribunto", "API_info", "patch", "api")
--- meh cba to refactor
-system:mkdir(pathlib.join(cfg.path.scribunto_patch, "mainline"))
-system:mkdir(pathlib.join(cfg.path.scribunto_patch, "classic"))
-system:mkdir(pathlib.join(cfg.path.scribunto_patch, "bcc"))
-system:mkdir(pathlib.join(cfg.path.scribunto_patch, "vanilla"))
-system:mkdir(pathlib.join(cfg.path.scribunto_patch, "forever"))
-
-local flavors = {
-	mainline = {
-		data = require(PATH.."/LoadFiles")(PATH.."/mainline"),
-		out = pathlib.join(cfg.path.scribunto_patch, "mainline", "function.lua"),
-	},
-	classic = {
-		data = require(PATH.."/LoadFiles")(PATH.."/classic"),
-		out = pathlib.join(cfg.path.scribunto_patch, "classic", "function.lua"),
-	},
-	bcc = {
-		data = require(PATH.."/LoadFiles")(PATH.."/bcc"),
-		out = pathlib.join(cfg.path.scribunto_patch, "bcc", "function.lua"),
-	},
-	classic_era = {
-		data = require(PATH.."/LoadFiles")(PATH.."/classic_era"),
-		out = pathlib.join(cfg.path.scribunto_patch, "vanilla", "function.lua"),
-	},
-	forever = {
-		data = require(PATH.."/LoadFiles")(PATH.."/forever"),
-		out = pathlib.join(cfg.path.scribunto_patch, "forever", "function.lua"),
-	},
 }
+local p = {}
+
+local game_types = {}
+local api_path = m.pathlib.join("Scribunto", "API_info", "patch", "api")
+
+for _, game in pairs(m.products.tracked_gametype) do
+	local gametype_folder = m.pathlib.join(m.cfg.path.scribunto_patch, game)
+	local loadfile_path = m.pathlib.join(api_path, "LoadFiles")
+	local gametype_path = m.pathlib.join(api_path, game)
+
+	m.system:mkdir(gametype_folder)
+	game_types[game] = {
+		data = require(loadfile_path)(gametype_path),
+		out = m.pathlib.join(m.cfg.path.scribunto_patch, game, "function.lua"),
+	}
+end
 
 local underscorePatterns = {
 	"^C_",
@@ -60,7 +49,7 @@ local isPreviouslyFrameXML = {
 
 -- 7.3.0, 7.3.2, 7.3.5, 8.0.1 dumps include framexml
 -- also try to filter lua api and C_namespace tables
-function m:IsFrameXML(s, added, removed)
+function p:IsFrameXML(s, added, removed)
 	if type(s) == "number" then
 		print(s, added, removed)
 	end
@@ -84,7 +73,7 @@ function m:IsFrameXML(s, added, removed)
 	end
 end
 
-function m:GetPatchData(tbl)
+function p:GetPatchData(tbl)
 	local added, removed = {}, {}
 	for _, patch in pairs(tbl) do
 		for name in pairs(patch.data) do
@@ -101,33 +90,32 @@ function m:GetPatchData(tbl)
 	return added, removed
 end
 
-function m:GetLatestData(flavor)
-	local info = flavors[flavor].data
+function p:GetLatestData(game)
+	local info = game_types[game].data
 	return info[#info].data
 end
 
 local function main()
-	-- update to latest commit for tag
-	require("Scribunto.API_info.patch.api.update_patch")
+	m.update_patch:main() -- download the latest GlobalAPI for a gametype
 
-	for flavor, info in pairs(flavors) do
-		local added, removed = m:GetPatchData(info.data)
-		local latest = m:GetLatestData(flavor)
+	for game, info in pairs(game_types) do
+		local added, removed = p:GetPatchData(info.data)
+		local latest = p:GetLatestData(game)
 		local t = {}
 		for name in pairs(added) do
-			if not m:IsFrameXML(name, added, removed) then
+			if not p:IsFrameXML(name, added, removed) then
 				t[name] = t[name] or {}
 				t[name][1] = added[name]
 			end
 		end
 		for name in pairs(removed) do
 			-- also verify if something was marked as removed but actually exists
-			if not m:IsFrameXML(name, added, removed) and not latest[name] then
+			if not p:IsFrameXML(name, added, removed) and not latest[name] then
 				t[name] = t[name] or {}
 				t[name][2] = removed[name]
 			end
 		end
-		if flavor == "mainline" then
+		if game == "standard" then
 			-- framexml
 			t["C_Timer.NewTimer"] = {"6.0.2"}
 			t["C_Timer.NewTicker"] = {"6.0.2"}
@@ -140,7 +128,7 @@ local function main()
 		print("writing", info.out)
 		local file = io.open(info.out, "w")
 		file:write("local data = {\n")
-		for _, name in pairs(table_sort.ByKey(t)) do
+		for _, name in pairs(m.table_sort.ByKey(t)) do
 			local tbl = t[name]
 			file:write(string.format('\t["%s"] = {', name))
 			if tbl[1] then
@@ -155,14 +143,14 @@ local function main()
 		end
 		file:write("}\n")
 		-- have custom stuff in https://warcraft.wiki.gg/wiki/Module:Wowapi/data/patch/mainline/function
-		if flavor ~= "mainline" then
+		if game ~= "standard" then
 			file:write("\nreturn data\n")
 		end
 		file:close()
 	end
 end
 
-m.LuaAPI = {
+p.LuaAPI = {
 	["abs"] = true,
 	["acos"] = true,
 	["asin"] = true,

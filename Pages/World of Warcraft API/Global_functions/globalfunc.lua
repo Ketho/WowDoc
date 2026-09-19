@@ -1,5 +1,5 @@
 local blizres = require("wowdoc.web.blizres.get")
-local latest_product = require("wowdoc/products/latest_product")
+local latest_product = require("wowdoc.roducts.latest_product")
 local m = {}
 
 function m:main()

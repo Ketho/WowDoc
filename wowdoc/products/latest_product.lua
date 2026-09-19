@@ -55,11 +55,18 @@ function m:GetLatestVersions(products)
 	return t
 end
 
----@class LatestProduct
+---@class LatestProducts.tbl
 ---@field version string
 ---@field product TactProduct
 
----@return table<GameType, LatestProduct>
+---@class LatestProducts
+---@field standard LatestProducts.tbl
+---@field camelot LatestProducts.tbl
+---@field mists LatestProducts.tbl
+---@field tbc LatestProducts.tbl
+---@field vanilla LatestProducts.tbl
+
+---@return LatestProducts
 function m:GetLatestProducts()
 	local t = {}
 	for k, v in pairs(self.game_type) do

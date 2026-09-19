@@ -28,6 +28,7 @@ end
 
 function m:FixEnumTable()
 	if not Enum.LFGRoleMeta then -- Meta fields are not written to LuaEnum.lua
+		---@diagnostic disable-next-line: inject-field
 		Enum.LFGRoleMeta = {NumValue = 0} -- 10.2.5 LFGConstantsDocumentation.lua
 	end
 end

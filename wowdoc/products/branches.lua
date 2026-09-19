@@ -1,65 +1,69 @@
--- https://wago.tools/
-local log = require("wowdoc.util.log")
-local m = {}
+local p = {}
 
 -- https://wago.tools/
----@alias TactProduct
----|"wow"
----|"wow_anniversary"
----|"wow_beta"
----|"wow_classic"
----|"wow_classic_beta"
----|"wow_classic_era"
----|"wow_classic_era_ptr"
----|"wow_classic_ptr"
----|"wow_classic_titan"
----|"wowdev"
----|"wowdev2"
----|"wowdev3"
----|"wowe1"
----|"wowe3"
----|"wowlivetest"
----|"wowlivetest2"
----|"wowt"
----|"wowv"
----|"wowv2"
----|"wowv3"
----|"wowv4"
----|"wowxptr"
----|"wowz"
+---@enum TactProduct
+p.TactProduct = {
+	wow = "wow",
+	wow_anniversary = "wow_anniversary",
+	wow_beta = "wow_beta",
+	wow_classic = "wow_classic",
+	wow_classic_beta = "wow_classic_beta",
+	wow_classic_era = "wow_classic_era",
+	wow_classic_era_ptr = "wow_classic_era_ptr",
+	wow_classic_ptr = "wow_classic_ptr",
+	wow_classic_titan = "wow_classic_titan",
+	wowdev = "wowdev",
+	wowdev2 = "wowdev2",
+	wowdev3 = "wowdev3",
+	wowe1 = "wowe1",
+	wowe3 = "wowe3",
+	wowlivetest = "wowlivetest",
+	wowlivetest2 = "wowlivetest2",
+	wowt = "wowt",
+	wowv = "wowv",
+	wowv2 = "wowv2",
+	wowv3 = "wowv3",
+	wowv4 = "wowv4",
+	wowxptr = "wowxptr",
+	wowz = "wowz",
+}
+
+-- https://warcraft.wiki.gg/wiki/TOC_format#Client-specific_TOC_files
+---@enum GameType
+p.GameType = {
+	camelot = "camelot", -- forever
+	cata = "cata",
+	classic = "classic", -- family: any classic gametype
+	mainline = "mainline", -- family: midnight, forever
+	mists = "mists",
+	plunderstorm = "plunderstorm",
+	standard = "standard", -- midnight
+	tbc = "tbc",
+	vanilla = "vanilla",
+	wowhack = "wowhack",
+	wowlabs = "wowlabs",
+	wrath = "wrath",
+}
 
 -- https://github.com/Gethe/wow-ui-source
----@alias GetheBranch
----|"beta"
----|"classic"
----|"classic_anniversary"
----|"classic_beta"
----|"classic_era"
----|"classic_era_ptr"
----|"classic_ptr"
----|"classic_titan"
----|"forever"
----|"live"
----|"ptr"
----|"ptr2"
-
--- https://warcraft.wiki.gg/wiki/TOC_format
----@alias GameType
----|"camelot" -- forever
----|"cata"
----|"classic" -- family: any classic gametype
----|"mainline" -- family: midnight, forever
----|"mists"
----|"plunderstorm"
----|"standard" -- midnight
----|"tbc"
----|"vanilla"
----|"wowhack"
----|"wowlabs"
----|"wrath"
+---@enum GetheBranch
+p.GetheBranch = {
+	beta = "beta",
+	classic = "classic",
+	classic_anniversary = "classic_anniversary",
+	classic_beta = "classic_beta",
+	classic_era = "classic_era",
+	classic_era_ptr = "classic_era_ptr",
+	classic_ptr = "classic_ptr",
+	classic_titan = "classic_titan",
+	forever = "forever",
+	live = "live",
+	ptr = "ptr",
+	ptr2 = "ptr2",
+}
 
 ---@type table<TactProduct, GetheBranch>
-m.product_gethe = {
+p.product_gethe = {
 	wow = "live",
 	wow_anniversary = "classic_anniversary",
 	wow_beta = "beta",
@@ -73,31 +77,42 @@ m.product_gethe = {
 	wowxptr = "ptr2",
 }
 
+---@type table<TactProduct, GameType>
+p.tact_gametype = {
+	wow = p.GameType.standard,
+	wow_anniversary = p.GameType.tbc,
+	wow_beta = p.GameType.standard,
+	wow_classic = p.GameType.mists,
+	wow_classic_beta = p.GameType.camelot,
+	wow_classic_era = p.GameType.vanilla,
+	wow_classic_era_ptr = p.GameType.vanilla,
+	wow_classic_ptr = p.GameType.mists,
+	wow_classic_titan = p.GameType.wrath,
+	wowt = p.GameType.standard,
+	wowxptr = p.GameType.standard,
+}
+
 ---@type table<GameType, GetheBranch|string>
-m.gametype_branch = {
-	camelot = "forever",
+p.gametype_branch = {
+	camelot = p.GetheBranch.forever,
 	cata = "4.4.2",
-	mainline = "live",
-	mists = "classic",
-	tbc = "classic_anniversary",
-	vanilla = "classic_era",
+	mainline = p.GetheBranch.live,
+	mists = p.GetheBranch.classic,
+	tbc = p.GetheBranch.classic_anniversary,
+	vanilla = p.GetheBranch.classic_era,
 	wrath = "3.4.3",
 }
 
----@type table<TactProduct, GetheBranch>
-m.product_branch = {
-	wow = "live",
-	wow_beta = "live",
-	wow_classic = "classic",
-	wow_classic_beta = "forever",
-	wow_classic_era = "classic_era",
-	wow_classic_era_ptr = "classic_era",
-	wow_classic_ptr = "classic",
-	wowt = "live",
-	wowxptr = "live",
+---@type GameType[]
+p.tracked_gametype = {
+	p.GameType.standard,
+	p.GameType.camelot,
+	p.GameType.mists,
+	p.GameType.tbc,
+	p.GameType.vanilla,
 }
 
-function m:GetBranch(product)
+function p:GetBranch(product)
 	local branch = self.product_gethe[product]
 	if not branch then
 		error(string.format("No branch found for product %s", product))
@@ -105,4 +120,4 @@ function m:GetBranch(product)
 	return branch
 end
 
-return m
+return p

@@ -1,30 +1,21 @@
-local pathlib = require("path")
-local https = require("ssl.https")
-local cjson = require("cjson")
-local ltn12 = require("ltn12")
-local system = require("wowdoc.util.system")
-local dl = require("wowdoc.web.download")
-local github = require("wowdoc.web.github")
-local log = require("wowdoc.util.log")
-local tags = require("wowdoc.products.tags")
-local cfg = require("wowdoc.config")
-local wago = require("wowdoc.web.wago")
-local products = require("wowdoc.products.branches")
-local m = {}
-
----@type GetheBranch[]
-local branches = {
-	"live",
-	"classic",
-	"classic_era",
-	"forever",
+local m = {
+	pathlib = require("path"),
+	system = require("wowdoc.util.system"),
+	dl = require("wowdoc.web.download"),
+	github = require("wowdoc.web.github"),
+	log = require("wowdoc.util.log"),
+	tags = require("wowdoc.products.tags"),
+	cfg = require("wowdoc.config"),
+	wago = require("wowdoc.web.wago"),
+	products = require("wowdoc.products.branches"),
 }
+local p = {}
 
 ---@param name string tag name
-function m:DownloadZip(name)
+function p:DownloadZip(name)
 	local url, version
 	if name:find("%d+%.%d+%.%d+") then
-		url, version = github:GetGithubTag(name)
+		url, version = m.github:GetGithubTag(name)
 	else
 		error("No valid tag found")
 	end
@@ -34,11 +25,11 @@ function m:DownloadZip(name)
 
 	local zipFolder = pathlib.join("FrameXML", "zips")
 	local zipFile = pathlib.join(zipFolder, fileExtName)
-	dl:DownloadFile(url, zipFile)
+	m.dl:DownloadFile(url, zipFile)
 	return fileBaseName, zipFile
 end
 
-function m:GetPatchBuild(name, msg)
+function p:GetPatchBuild(name, msg)
 	-- up to 5.2.0 is in "Build %d" format
 	if msg:find("Build") then -- Build 16650
 		local build = msg:match("Build (%d+)")
@@ -56,39 +47,38 @@ function m:GetPatchBuild(name, msg)
 	end
 end
 
-function m:UnpackZip(branch, fileBaseName, zipFile)
+function p:UnpackZip(branch, fileBaseName, zipFile)
 	local gameTypeFolder = pathlib.join("FrameXML", branch)
 	local unpackFolder = pathlib.join(gameTypeFolder, fileBaseName)
 	if not pathlib.exists(unpackFolder) then
 		local command = string.format('unzip "%s" -d "%s"', zipFile, unpackFolder)
-		system:RunCommand(command)
+		m.system:RunCommand(command)
 	end
 end
 
 local function DownLoadUnpack(tag, branch)
-	local fileBaseName, zipFile = m:DownloadZip(tag)
-	m:UnpackZip(branch, fileBaseName, zipFile)
+	local fileBaseName, zipFile = p:DownloadZip(tag)
+	p:UnpackZip(branch, fileBaseName, zipFile)
 end
 
-function m:main(_tag)
+function p:main(_tag)
 	pathlib.mkdir(pathlib.join("FrameXML", "zips"))
-	for _, v in pairs(branches) do
+	for _, v in pairs(m.products.tracked_gametype) do
 		pathlib.mkdir(pathlib.join("FrameXML", v))
 	end
 	if _tag then
-		local folder_name = products.product_branch[cfg.TACT_PRODUCT]
-		DownLoadUnpack(_tag, folder_name)
+		DownLoadUnpack(_tag, m.cfg.TACT_PRODUCT)
 	else
-		for _, branch in pairs(branches) do
+		for _, branch in pairs(m.products.tracked_gametype) do
 			pathlib.mkdir(pathlib.join("FrameXML", branch))
-			for _, tag in pairs(tags[branch]) do
+			for _, tag in pairs(m.tags[branch]) do
 				DownLoadUnpack(tag, branch)
 			end
 		end
 	end
-	log.success("Done")
+	m.log.success("Done")
 end
 
-local _, release = wago:GetLatestBuild(cfg.TACT_PRODUCT)
-m:main(release)
+local _, release = m.wago:GetLatestBuild(m.cfg.TACT_PRODUCT)
+p:main(release)
 -- main()

@@ -9,5 +9,8 @@
         "pathlib",
         "Constants"
     ],
-    "editor.insertSpaces": false
+    "editor.insertSpaces": false,
+    "Lua.diagnostics.disable": [
+        "need-check-nil"
+    ]
 }
