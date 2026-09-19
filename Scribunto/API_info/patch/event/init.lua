@@ -11,15 +11,15 @@ local BRANCH = products:GetBranch(cfg.TACT_PRODUCT)
 enum:LoadEnumTable({branch = BRANCH})
 
 local flavors = {
-	mainline = {
-		id = "mainline",
-		input = "FrameXML/live",
-		out = pathlib.join(cfg.path.scribunto_patch, "mainline", "event.lua"),
+	standard = {
+		id = "standard",
+		input = "FrameXML/standard",
+		out = pathlib.join(cfg.path.scribunto_patch, "standard", "event.lua"),
 	},
-	classic = {
-		id = "classic",
-		input = "FrameXML/classic",
-		out = pathlib.join(cfg.path.scribunto_patch, "classic", "event.lua"),
+	mists = {
+		id = "mists",
+		input = "FrameXML/mists",
+		out = pathlib.join(cfg.path.scribunto_patch, "mists", "event.lua"),
 	},
 }
 
@@ -43,7 +43,7 @@ local function WritePatchData(flavor)
 	print("-- reading Blizzard_APIDocumentation", flavor.id)
 	local BlizzardApiDoc = require("Scribunto/API_info/patch/event/BlizzardApiDoc")
 	local tbl_apidoc = BlizzardApiDoc:main(flavor)
-	if flavor.id == "mainline" then
+	if flavor.id == "standard" then
 		-- get older event data by looking through framexml
 		print("-- reading framexml")
 		local tbl_framexml = GetFrameXmlData(tbl_apidoc)
@@ -59,8 +59,8 @@ local function WritePatchData(flavor)
 end
 
 local function main()
-	WritePatchData(flavors.mainline)
-	WritePatchData(flavors.classic)
+	WritePatchData(flavors.standard)
+	WritePatchData(flavors.mists)
 end
 
 main()

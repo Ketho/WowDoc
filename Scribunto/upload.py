@@ -16,13 +16,15 @@ files = [
 	[root / "scribunto" / "system" / "event.lua",          "Module:Wowapi/data/system/event"],
 	[root / "scribunto" / "system" / "table.lua",          "Module:Wowapi/data/system/table"],
 
-	[root / "scribunto" / "patch" / "mainline" / "function.lua", "Module:Wowapi/data/patch/mainline/function"],
-	[root / "scribunto" / "patch" / "mainline" / "event.lua",    "Module:Wowapi/data/patch/mainline/event"],
+	[root / "scribunto" / "patch" / "standard" / "function.lua", "Module:Wowapi/data/patch/standard/function"],
+	[root / "scribunto" / "patch" / "standard" / "event.lua",    "Module:Wowapi/data/patch/standard/event"],
 
-	[root / "scribunto" / "patch" / "bcc" / "function.lua", "Module:Wowapi/data/patch/bcc/function"],
+	[root / "scribunto" / "patch" / "camelot" / "function.lua",    "Module:Wowapi/data/patch/camelot/function"],
 
-	[root / "scribunto" / "patch" / "classic" / "function.lua", "Module:Wowapi/data/patch/mists/function"],
-	[root / "scribunto" / "patch" / "classic" / "event.lua",    "Module:Wowapi/data/patch/mists/event"],
+	[root / "scribunto" / "patch" / "tbc" / "function.lua", "Module:Wowapi/data/patch/tbc/function"],
+
+	[root / "scribunto" / "patch" / "mists" / "function.lua", "Module:Wowapi/data/patch/mists/function"],
+	[root / "scribunto" / "patch" / "mists" / "event.lua",    "Module:Wowapi/data/patch/mists/event"],
 
 	[root / "scribunto" / "patch" / "vanilla" / "function.lua", "Module:Wowapi/data/patch/vanilla/function"],
 

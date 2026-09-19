@@ -10,7 +10,8 @@ local m = {
 
 local BRANCH = m.products:GetBranch(m.cfg.TACT_PRODUCT)
 local latestProducts = m.latest_product:GetLatestProducts()
-local SUMMARY = latestProducts.standard.version
+local gametype = m.products.tact_gametype[m.cfg.TACT_PRODUCT]
+local SUMMARY = latestProducts[gametype].version
 
 local function WriteFiles()
     local scribunto = m.pathlib.join("Scribunto", "API_info")
@@ -36,7 +37,7 @@ end
 local function main()
     m.enum:LoadEnumTable({branch = BRANCH})
     WriteFiles()
-    -- UploadFiles()
+    UploadFiles()
 end
 
 main()
