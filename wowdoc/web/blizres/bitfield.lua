@@ -116,10 +116,11 @@ local ToMap = {
 local function GetLatestBranches()
 	local products = m_latest_product:GetLatestProducts()
 	local t = {
-		m_branches.product_gethe[products.wow.product],
-		m_branches.product_gethe[products.wow_classic.product],
-		m_branches.product_gethe[products.wow_anniversary.product],
-		m_branches.product_gethe[products.wow_classic_era.product],
+		m_branches.product_gethe[products.standard.product],
+		m_branches.product_gethe[products.camelot.product],
+		m_branches.product_gethe[products.mists.product],
+		m_branches.product_gethe[products.tbc.product],
+		m_branches.product_gethe[products.vanilla.product],
 	}
 	return t
 end

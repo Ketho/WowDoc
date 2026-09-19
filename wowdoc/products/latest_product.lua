@@ -1,29 +1,33 @@
 local cjson = require("cjson")
 local request = require("wowdoc.web.request")
 local m_version = require("wowdoc.products.version")
-local table_sort = require("wowdoc.util.table_sort")
 local log = require("wowdoc.util.log")
 local strlib = require("wowdoc.util.string")
 local m = {}
 
 local wago_builds_latest_url = "https://wago.tools/api/builds/%s/latest"
+
+---@type table<GameType, TactProduct[]>
 m.game_type = {
-	wow = {
+	standard = {
 		"wow",
-		"wow_beta",
 		"wowt",
 		"wowxptr",
+		-- "wow_beta",
 	},
-	wow_classic = {
-		"wow_classic",
-		"wow_classic_ptr",
+	camelot = {
 		"wow_classic_beta",
 	},
-	wow_anniversary = {
-		"wow_anniversary",
-		"wow_classic_era_ptr", -- seems to be interchanged with classic era
+	mists = {
+		"wow_classic",
+		-- "wow_classic_ptr",
+		-- "wow_classic_beta",
 	},
-	wow_classic_era = {
+	tbc = {
+		"wow_anniversary",
+		-- "wow_classic_era_ptr",
+	},
+	vanilla = {
 		"wow_classic_era",
 		-- "wow_classic_era_ptr",
 	},
@@ -51,6 +55,11 @@ function m:GetLatestVersions(products)
 	return t
 end
 
+---@class LatestProduct
+---@field version string
+---@field product TactProduct
+
+---@return table<GameType, LatestProduct>
 function m:GetLatestProducts()
 	local t = {}
 	for k, v in pairs(self.game_type) do

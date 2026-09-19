@@ -17,6 +17,7 @@ local branches = {
 	"live",
 	"classic",
 	"classic_era",
+	"forever",
 }
 
 ---@param name string tag name

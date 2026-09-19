@@ -7,7 +7,7 @@ local cfg = require("wowdoc.config")
 
 local URL = "https://raw.githubusercontent.com/Ketho/BlizzardInterfaceResources/refs/tags/%s/Resources/GlobalAPI.lua"
 local BASE_PATH = "Scribunto/API_info/patch/api"
-local FLAVOR = "mainline" ---@type "classic"|"classic_era"|"mainline"
+local FLAVOR = "mainline" ---@type GameType
 
 local function GetCommit(tag)
 	local version = github:GetCommitVersion(tag)

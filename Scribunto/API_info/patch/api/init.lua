@@ -12,6 +12,7 @@ system:mkdir(pathlib.join(cfg.path.scribunto_patch, "mainline"))
 system:mkdir(pathlib.join(cfg.path.scribunto_patch, "classic"))
 system:mkdir(pathlib.join(cfg.path.scribunto_patch, "bcc"))
 system:mkdir(pathlib.join(cfg.path.scribunto_patch, "vanilla"))
+system:mkdir(pathlib.join(cfg.path.scribunto_patch, "forever"))
 
 local flavors = {
 	mainline = {
@@ -29,6 +30,10 @@ local flavors = {
 	classic_era = {
 		data = require(PATH.."/LoadFiles")(PATH.."/classic_era"),
 		out = pathlib.join(cfg.path.scribunto_patch, "vanilla", "function.lua"),
+	},
+	forever = {
+		data = require(PATH.."/LoadFiles")(PATH.."/forever"),
+		out = pathlib.join(cfg.path.scribunto_patch, "forever", "function.lua"),
 	},
 }
 
