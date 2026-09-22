@@ -67,7 +67,7 @@ function p:main(_tag)
 		m.pathlib.mkdir(m.pathlib.join("FrameXML", v))
 	end
 	if _tag then
-		DownLoadUnpack(_tag, m.cfg.TACT_PRODUCT)
+		DownLoadUnpack(_tag, m.products.tact_gametype[m.cfg.TACT_PRODUCT])
 	else
 		for _, branch in pairs(m.products.tracked_gametype) do
 			m.pathlib.mkdir(m.pathlib.join("FrameXML", branch))

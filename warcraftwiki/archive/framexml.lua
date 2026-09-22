@@ -1,23 +1,18 @@
 local pathlib = require("path")
 local loader = require("wowdoc.loader")
 local system = require("wowdoc.util.system")
-local table_sort = require("wowdoc.util.table_sort")
 local naming_version = require("wowdoc.namingway.version")
 local products_version = require("wowdoc.products.version")
+local products_branches = require("wowdoc.products.branches")
 local m = {}
 
 local PATH_FRAMEXML = "FrameXML"
 system:mkdir(PATH_FRAMEXML)
-for _, v in pairs({"live", "classic", "classic_era"}) do
+for _, v in pairs(products_branches.tracked_gametype) do
 	system:mkdir(PATH_FRAMEXML, v)
 end
 
----@alias FrameXmlArchiveBranch
----|"live"
----|"classic"
----|"classic_era"
-
----@param branch FrameXmlArchiveBranch
+---@param branch GameType
 function m:GetDocArchive(branch)
 	local t = {}
 	local branch_path = self:GetBranchFolder(branch)
@@ -43,6 +38,11 @@ function m:GetPatchFolders(path)
 	for folder in lfs.dir(path) do
 		if not system.RelativePath[folder] and folder ~= "9.2.7 (45161)" then -- empty docs
 			local major, minor, patch, build = naming_version:ParseVersion(folder)
+			--hack: 1.60.1 forever
+			if major == 1 and minor == 60 then
+				major = 12
+				minor = 2
+			end
 			table.insert(t, {
 				version = folder,
 				major = major,

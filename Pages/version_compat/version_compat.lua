@@ -157,7 +157,7 @@ function m:WriteTlyResource(resource, options)
 			apilink = TemplateBuilderFrameXML(flags, tbl.k)
 			file:write(fs:format(flags[tbl.k], apilink))
 		elseif resource == "Events" then
-			apilink = string.format("[[%s]]", tbl.k)
+			apilink = string.format("{{api|t=e|%s}}", tbl.k)
 			file:write(fs:format(flags[tbl.k], apilink))
 		elseif resource == "CVars" then
 			apilink = string.format("[[CVar %s|%s]]", tbl.k, tbl.k)

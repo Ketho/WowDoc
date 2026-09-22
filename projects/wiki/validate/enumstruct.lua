@@ -1,5 +1,6 @@
 local m = {
 	tablelib = require("wowdoc.util.table"),
+	table_sort = require("wowdoc.util.table_sort"),
 	wowdoc = require("wowdoc.loader"),
 	export = require("wowdoc.web.wiki.export"),
 }
@@ -19,7 +20,8 @@ function p:main()
 	local wikiTables = self:GetWikiCats()
 
 	print("Mismatching enums:")
-	for name, doc_enum in pairs(docTables.Enumeration) do
+	for _, name in pairs(m.table_sort.ByKey(docTables.Enumeration)) do
+		local doc_enum = docTables.Enumeration[name]
 		local wiki_enum = wikiTables.Enums[name]
 		local eq = m.tablelib.equals(doc_enum, wiki_enum)
 		if not eq and not filter.Enumeration[name] then
@@ -28,7 +30,8 @@ function p:main()
 	end
 
 	print("Mismatching structures:")
-	for name, doc_struct in pairs(docTables.Structure) do
+	for _, name in pairs(m.table_sort.ByKey(docTables.Structure)) do
+		local doc_struct = docTables.Structure[name]
 		local wiki_struct = wikiTables.Structures[name]
 		local eq = m.tablelib.equals(doc_struct, wiki_struct)
 		if not eq and not filter.Structure[name] then

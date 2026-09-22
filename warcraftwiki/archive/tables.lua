@@ -6,7 +6,7 @@ local m = {}
 function m:main()
 	require("projects.DownloadFrameXml.DownloadFrameXml") -- im lazy, so get the latest framexml
 	if not self.data then
-		local archives = framexml:GetDocArchive("live")
+		local archives = framexml:GetDocArchive("standard")
 		self.data = self:GetFieldAdded(archives)
 	end
 	return self.data
