@@ -11,8 +11,8 @@ local widget_module = require("projects.changes_blizres.Widget")
 local m = {}
 
 -- `git diff --binary --full-index 12.0.0 12.0.1 > diff-12.0.0..12.0.1.patch`
-local BRANCH1 = "12.1.0"
-local BRANCH2 = "12.1.5"
+local BRANCH1 = "12.1.5"
+local BRANCH2 = "1.60.1"
 local WIDGET= BRANCH2 -- for widgets
 local CVAR1, CVAR2 = BRANCH1, BRANCH2
 -- local DIFF = {"commit", "mainline"}

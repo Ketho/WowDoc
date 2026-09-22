@@ -23,8 +23,8 @@ function p:DownloadZip(name)
 	local fileBaseName = string.format("%s (%s)", patch, build)
 	local fileExtName = fileBaseName..".zip"
 
-	local zipFolder = pathlib.join("FrameXML", "zips")
-	local zipFile = pathlib.join(zipFolder, fileExtName)
+	local zipFolder = m.pathlib.join("FrameXML", "zips")
+	local zipFile = m.pathlib.join(zipFolder, fileExtName)
 	m.dl:DownloadFile(url, zipFile)
 	return fileBaseName, zipFile
 end
@@ -48,9 +48,9 @@ function p:GetPatchBuild(name, msg)
 end
 
 function p:UnpackZip(branch, fileBaseName, zipFile)
-	local gameTypeFolder = pathlib.join("FrameXML", branch)
-	local unpackFolder = pathlib.join(gameTypeFolder, fileBaseName)
-	if not pathlib.exists(unpackFolder) then
+	local gameTypeFolder = m.pathlib.join("FrameXML", branch)
+	local unpackFolder = m.pathlib.join(gameTypeFolder, fileBaseName)
+	if not m.pathlib.exists(unpackFolder) then
 		local command = string.format('unzip "%s" -d "%s"', zipFile, unpackFolder)
 		m.system:RunCommand(command)
 	end
@@ -62,15 +62,15 @@ local function DownLoadUnpack(tag, branch)
 end
 
 function p:main(_tag)
-	pathlib.mkdir(pathlib.join("FrameXML", "zips"))
+	m.pathlib.mkdir(m.pathlib.join("FrameXML", "zips"))
 	for _, v in pairs(m.products.tracked_gametype) do
-		pathlib.mkdir(pathlib.join("FrameXML", v))
+		m.pathlib.mkdir(m.pathlib.join("FrameXML", v))
 	end
 	if _tag then
 		DownLoadUnpack(_tag, m.cfg.TACT_PRODUCT)
 	else
 		for _, branch in pairs(m.products.tracked_gametype) do
-			pathlib.mkdir(pathlib.join("FrameXML", branch))
+			m.pathlib.mkdir(m.pathlib.join("FrameXML", branch))
 			for _, tag in pairs(m.tags[branch]) do
 				DownLoadUnpack(tag, branch)
 			end

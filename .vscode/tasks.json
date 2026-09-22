@@ -27,7 +27,7 @@
 		{
 			"label": "0. Lua BlizzardInterfaceResources",
 			"type": "shell",
-			"command": "source .lua/bin/activate && lua 'Projects/UpdateResources/init.lua'",
+			"command": "source .lua/bin/activate && lua 'projects/UpdateResources/init.lua'",
 			"presentation": {"showReuseMessage": false, "clear": true},
 			"problemMatcher": []
 		},

@@ -5,42 +5,26 @@ local table_sort = require("wowdoc.util.table_sort")
 local blizres = require("wowdoc.web.blizres.get")
 local bitfield = require("wowdoc.web.blizres.bitfield")
 local cfg = require("wowdoc.config")
-local latest_product = require("wowdoc.products.latest_product")
-local m_version = require("wowdoc.namingway.version")
+-- local latest_product = require("wowdoc.products.latest_product")
+-- local m_version = require("wowdoc.namingway.version")
 local m = {}
-
-local lua_filter = {
-	["fastrandom"] = true,
-	["tostringall"] = true,
-	["string.concat"] = true,
-	["string.join"] = true,
-	["string.split"] = true,
-	["string.trim"] = true,
-	["strcmputf8i"] = true,
-	["strlenutf8"] = true,
-	["strsplittable"] = true,
-	["table.count"] = true,
-	["table.create"] = true,
-	["table.freeze"] = true,
-	["table.isfrozen"] = true,
-	["table.removemulti"] = true,
-	["table.wipe"] = true,
-}
 
 local function GetGameTypes(v)
 	local t = {
 		mainline = v & 0x1 > 0,
-		classic = v & 0x2 > 0,
-		bcc_anniversary = v & 0x4 > 0,
-		classic_era = v & 0x8 > 0,
+		forever = v & 0x2 > 0,
+		mists = v & 0x10 > 0,
+		tbc = v & 0x8 > 0,
+		vanilla = v & 0x4 > 0,
 	}
 	return t
 end
 
 local classic_types = {
-	"classic_era",
-	"bcc_anniversary",
-	"classic",
+	"forever",
+	"mists",
+	"tbc",
+	"vanilla",
 }
 
 -- more vibing
@@ -85,31 +69,27 @@ end
 
 function m:main(resource)
 	local flags = bitfield:main(resource, {combine = true})
-	local lua_api = blizres:GetResource(resource, {branch = "live"})[2]
-	local lua_map = tablelib:ToMap(lua_api)
 	local fs = "|-\n| {{apicompat|0x%x}} || %s\n"
 	local out = pathlib.join(cfg.path.wiki, string.format("compat_%s.txt", resource))
 	local file = io.open(out, "w")
 	print("Writing to "..out)
 	for _, tbl in pairs(table_sort.ByKeyValue(flags, SortGameTypes)) do
-		if not lua_map[tbl.k] or lua_filter[tbl.k] then
-			local apilink = string.format("{{apilink.api|%s}}", tbl.k)
-			file:write(fs:format(flags[tbl.k], apilink))
-		end
+		local apilink = string.format("{{apilink.api|%s}}", tbl.k)
+		file:write(fs:format(flags[tbl.k], apilink))
 	end
 	file:close()
 end
 -- m:main()
 
-local function GetLatestPatches()
-	local latest_products = latest_product:GetLatestProducts()
-	local t = {
-		classic = m_version:GetReleaseVersion(latest_products.wow_classic.version),
-		bcc_anniversary = m_version:GetReleaseVersion(latest_products.wow_anniversary.version),
-		classic_era = m_version:GetReleaseVersion(latest_products.wow_classic_era.version),
-	}
-	return t
-end
+-- local function GetLatestPatches()
+-- 	local latest_products = latest_product:GetLatestProducts()
+-- 	local t = {
+-- 		classic = m_version:GetReleaseVersion(latest_products.wow_classic.version),
+-- 		bcc_anniversary = m_version:GetReleaseVersion(latest_products.wow_anniversary.version),
+-- 		classic_era = m_version:GetReleaseVersion(latest_products.wow_classic_era.version),
+-- 	}
+-- 	return t
+-- end
 
 local function TemplateBuilderGlobalAPI(_, name)
 	local t = {}
@@ -123,14 +103,14 @@ local function TemplateBuilderFrameXML(flags, name)
 	local t = {}
 	table.insert(t, "tlygo")
 	local build
-	if game_types.mainline then
+	if game_types.standard then
 		-- noop
-	elseif game_types.classic then
-		build = "classic"
-	elseif game_types.bcc_anniversary then
-		build = "anniversary"
-	elseif game_types.classic_era then
-		build = "era"
+	elseif game_types.mists then
+		build = "mists"
+	elseif game_types.tbc then
+		build = "tbc"
+	elseif game_types.vanilla then
+		build = "vanilla"
 	end
 	if build then
 		table.insert(t, string.format("build=%s", build))
@@ -154,9 +134,9 @@ local cvar_enum = {
 }
 
 -- need to refactor everything, this is horrible
-function m:WriteTlyResource(resource)
+function m:WriteTlyResource(resource, options)
 	-- local latest_classic_patches = GetLatestPatches()
-	local flags, unified = bitfield:main(resource, {combine = true})
+	local flags, unified = bitfield:main(resource, options)
 	local fs
 	if resource == "Templates" then
 		fs = "|-\n| {{apicompat|0x%x}} || %s || %s\n"
@@ -206,4 +186,7 @@ function m:WriteTlyResource(resource)
 	end
 	file:close()
 end
-m:WriteTlyResource("CVars")
+
+m:WriteTlyResource("GlobalAPI", {combine_globalapi = true})
+-- m:WriteTlyResource("Events")
+-- m:WriteTlyResource("CVars")

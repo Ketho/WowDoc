@@ -117,10 +117,10 @@ local function GetLatestBranches()
 	local products = m_latest_product:GetLatestProducts()
 	local t = {
 		m_branches.product_gethe[products.standard.product],
+		m_branches.product_gethe[products.camelot.product],
 		m_branches.product_gethe[products.mists.product],
 		m_branches.product_gethe[products.tbc.product],
 		m_branches.product_gethe[products.vanilla.product],
-		m_branches.product_gethe[products.camelot.product],
 	}
 	return t
 end

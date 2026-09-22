@@ -5,7 +5,7 @@ import time
 
 site = pywikibot.Site("en", "warcraftwiki")
 url = 'https://warcraft.wiki.gg'
-SUMMARY = "12.1.5 (69594)"
+SUMMARY = "1.60.1 (69913)"
 
 headers = { # https://foundation.wikimedia.org/wiki/Policy:Wikimedia_Foundation_User-Agent_Policy
     'User-Agent': 'KethoBot/1.0 (https://warcraft.wiki.gg/wiki/User:KethoBot)'

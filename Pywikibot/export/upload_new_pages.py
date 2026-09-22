@@ -7,7 +7,7 @@ from pathlib import Path
 
 site = pywikibot.Site("en", "warcraftwiki")
 url = 'https://warcraft.wiki.gg'
-SUMMARY = "12.1.5 (69594)" # to do: get latest build in python
+SUMMARY = "1.60.1 (69913)" # to do: get latest build in python
 
 headers = { # https://foundation.wikimedia.org/wiki/Policy:Wikimedia_Foundation_User-Agent_Policy
     'User-Agent': 'KethoBot/1.0 (https://warcraft.wiki.gg/wiki/User:KethoBot)'
@@ -72,6 +72,7 @@ def main():
 		'ScriptObject methods',
 		'Structures',
 		'Enums',
+		'CallbackTypes',
 	]
 	print("Querying wiki pages...")
 	cats = []
