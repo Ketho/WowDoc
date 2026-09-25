@@ -11,24 +11,31 @@ function WarcraftWiki:GetEventPage(event)
 	return table.concat(t, "\n")
 end
 
+function WarcraftWiki:GetEventParams(event)
+	local multiStride = self:IsMultiStride(event.Payload)
+	local t = {}
+	for _, param in pairs(event.Payload) do
+		local r = {}
+		if event.StrideIndex and not multiStride then
+			table.insert(r, "...")
+		end
+		table.insert(r, param.Name)
+		table.insert(t, table.concat(r))
+	end
+	if multiStride then
+		table.insert(t, "...")
+	end
+	return table.concat(t, ", ")
+end
+
 function WarcraftWiki:GetEventSignature(event)
 	local t = {}
 	table.insert(t, event.LiteralName)
 	if event.Payload then
-		local multiStride = self:IsMultiStride(event.Payload)
-		for _, param in pairs(event.Payload) do
-			local r = {}
-			if event.StrideIndex and not multiStride then
-				table.insert(r, "...")
-			end
-			table.insert(r, param.Name)
-			table.insert(t, table.concat(r))
-		end
-		local payload = table.concat(t, ", ")
-		table.insert(t, string.format(": %s", payload))
-		if multiStride then
-			table.insert(t, ", ...")
-		end
+		table.insert(t, ": ")
+		local params = self:GetEventParams(event)
+		table.insert(t, params)
+
 	end
 	return table.concat(t)
 end

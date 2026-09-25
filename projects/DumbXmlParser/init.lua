@@ -82,6 +82,7 @@ local filterMixinArgs = {
 	["subSystemMixin"] = true,
 	["pinFrameLevel"] = true,
 	["C_TooltipInfo or {}"] = true,
+	["sequence"] = true,
 }
 
 local filterTemplates = {

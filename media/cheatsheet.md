@@ -26,6 +26,10 @@
 <font color="#dda0dd">number</font> <!--- plum -->
 <font color="#4169E1">number</font> <!--- royalblue -->
 
+- vars
+var(--wowapi-text-color)
+var(--wowapi-text-color-alt)
+
 - diff color
 + <font color="#00b400">
 - <font color="#ff6767">
