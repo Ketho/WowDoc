@@ -1,8 +1,6 @@
 -- https://warcraft.wiki.gg/wiki/World_of_Warcraft_API/Classic
 local pathlib = require("path")
-local tablelib = require("wowdoc.util.table")
 local table_sort = require("wowdoc.util.table_sort")
-local blizres = require("wowdoc.web.blizres.get")
 local bitfield = require("wowdoc.web.blizres.bitfield")
 local cfg = require("wowdoc.config")
 -- local latest_product = require("wowdoc.products.latest_product")

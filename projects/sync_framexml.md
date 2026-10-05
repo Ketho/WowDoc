@@ -57,6 +57,10 @@ cd "D:\Repo\wow\wow-framexml\wow-ui-source standard-ptr"
 git pull origin ptr2
 git push ketho ptr2
 
+cd "D:\Repo\wow\wow-framexml\wow-ui-source forever"
+git pull origin forever
+git push ketho forever:forever
+
 cd "D:\Repo\wow\wow-framexml\wow-ui-source mists"
 git pull origin classic
 git push ketho classic
@@ -68,10 +72,6 @@ git push ketho classic_anniversary
 cd "D:\Repo\wow\wow-framexml\wow-ui-source vanilla"
 git pull origin classic_era
 git push ketho classic_era:classic_era
-
-cd "D:\Repo\wow\wow-framexml\wow-ui-source forever"
-git pull origin forever
-git push ketho forever:forever
 ```
 
 - WSL
