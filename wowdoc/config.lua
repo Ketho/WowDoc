@@ -2,8 +2,7 @@ local pathlib = require("path")
 local config = {}
 
 ---@type TactProduct
-config.TACT_PRODUCT = "wow_classic_beta"
-
+config.TACT_PRODUCT = "wowf"
 local root = ".wow"
 config.path = {
 	warcraftwiki        = pathlib.join(".wiki"),

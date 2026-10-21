@@ -17,6 +17,7 @@ p.TactProduct = {
 	wowdev3 = "wowdev3",
 	wowe1 = "wowe1",
 	wowe3 = "wowe3",
+	wowf = "wowf",
 	wowlivetest = "wowlivetest",
 	wowlivetest2 = "wowlivetest2",
 	wowt = "wowt",
@@ -31,7 +32,7 @@ p.TactProduct = {
 -- https://warcraft.wiki.gg/wiki/TOC_format#Client-specific_TOC_files
 ---@enum GameType
 p.GameType = {
-	camelot = "camelot", -- forever
+	forever = "forever",
 	cata = "cata",
 	classic = "classic", -- family: any classic gametype
 	mainline = "mainline", -- family: midnight, forever
@@ -73,6 +74,7 @@ p.product_gethe = {
 	wow_classic_era_ptr = "classic_era_ptr",
 	wow_classic_ptr = "classic_ptr",
 	wow_classic_titan = "classic_titan",
+	wowf = "forever",
 	wowt = "ptr",
 	wowxptr = "ptr2",
 }
@@ -83,18 +85,19 @@ p.tact_gametype = {
 	wow_anniversary = p.GameType.tbc,
 	wow_beta = p.GameType.standard,
 	wow_classic = p.GameType.mists,
-	wow_classic_beta = p.GameType.camelot,
+	wow_classic_beta = p.GameType.forever,
 	wow_classic_era = p.GameType.vanilla,
 	wow_classic_era_ptr = p.GameType.vanilla,
 	wow_classic_ptr = p.GameType.mists,
 	wow_classic_titan = p.GameType.wrath,
+	wowf = p.GameType.forever,
 	wowt = p.GameType.standard,
 	wowxptr = p.GameType.standard,
 }
 
 ---@type table<GameType, GetheBranch|string>
 p.gametype_branch = {
-	camelot = p.GetheBranch.forever,
+	forever = p.GetheBranch.forever,
 	cata = "4.4.2",
 	mainline = p.GetheBranch.live,
 	mists = p.GetheBranch.classic,
@@ -106,7 +109,7 @@ p.gametype_branch = {
 ---@type GameType[]
 p.tracked_gametype = {
 	p.GameType.standard,
-	p.GameType.camelot,
+	p.GameType.forever,
 	p.GameType.mists,
 	p.GameType.tbc,
 	p.GameType.vanilla,
