@@ -19,7 +19,7 @@ local locales = {
 }
 
 local function IsValidTableKey(s)
-	return not s:find("-") and not s:find("^%d")
+	return not s:find("-") and not s:find("^%d") and not s:find("%s")
 end
 
 local validEscapes = {

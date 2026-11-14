@@ -108,7 +108,7 @@ local data = {
 	{ Name = "ClubStreamId", Type = {"number"} }, -- tested from discord message edits to be a number
 	{ Name = "ConnectionIptype", Type = {"number"}, Description = {"1=IPv4", "2=IPv6"} },
 	{ Name = "ConnectionProtocol", Type = {"number"}, Description = {"1=TCP, 2=UDP"} },
-	{ Name = "DiscordID", Type = {"string"} },
+	{ Name = "DiscordMemberOpaqueID", Type = {"string"} },
 	{ Name = "DurationSecondsDouble", Type = {"number"} },
 	{ Name = "EncounterTimelineEventID", Type = {"number"} },
 	{ Name = "FileAsset", Type = {"string"} }, -- texture path
@@ -166,6 +166,7 @@ local data = {
 	{ Name = "UnitTokenPvPRestrictedForAddOns", Type = {"string"}, W_Link = "UnitToken" },
 	{ Name = "UnitTokenRestrictedForAddOns", Type = {"string"}, W_Link = "UnitToken" },
 	{ Name = "UnitTokenVariant", Type = {"string"}, W_Link = "UnitToken" },
+	{ Name = "VoiceChatID", Type = {"number"} },
 	{ Name = "WeeklyRewardItemDBID", Type = {"string"} }, -- in WeeklyRewardActivityRewardInfo -- /dump C_WeeklyRewards.GetActivities()[1].rewards
 	{ Name = "WOWGUID", Type = {"string"}, W_Link = "GUID" },
 	{ Name = "WOWMONEY", Type = {"number"}, Description = {"Amount in copper"} },
